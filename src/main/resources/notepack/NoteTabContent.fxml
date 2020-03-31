@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.input.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -7,11 +8,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="462.0" prefWidth="692.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NoteTabContentController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="462.0" prefWidth="692.0" stylesheets="@default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NoteTabContentController">
    <children>
-      <Pane layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="579.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="579.0" style="-fx-background-color: white; -fx-border-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MenuButton layoutX="14.0" layoutY="8.0" mnemonicParsing="false" text="Edit">
+            <MenuButton layoutX="14.0" layoutY="8.0" mnemonicParsing="false" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: white;" text="Edit">
               <items>
                 <MenuItem fx:id="menuEditUndo" mnemonicParsing="false" onAction="#onMenuUndo" text="Undo">
                      <accelerator>
@@ -50,13 +51,11 @@
             </MenuButton>
          </children>
       </Pane>
-      <TextArea fx:id="textArea" layoutY="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+      <TextArea fx:id="textArea" layoutY="40.0" style="-fx-background-color: white; -fx-padding: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <font>
             <Font size="14.0" />
          </font>
-         <opaqueInsets>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </opaqueInsets>
+
       </TextArea>
    </children>
 </AnchorPane>
