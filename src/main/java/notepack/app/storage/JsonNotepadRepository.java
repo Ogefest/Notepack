@@ -17,38 +17,34 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.Notepad;
-import notepack.app.domain.NotepadStorage;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import notepack.app.domain.SessionStorage;
 
 /**
  *
  * @author lg
  */
-public class JsonNotepadRepository implements NotepadStorage {
+public class JsonNotepadRepository implements SessionStorage {
 
-//    private class NotepadStorageClass implements Serializable {
-//
-//        public String notepadStorageClass;
-//        public String notepadName;
-//        public NoteStorageConfiguration conf;
-//    }
-    private ArrayList<Notepad> list = null;
+    private ArrayList<Notepad> notepadsList = null;
+    private ArrayList<Note> notesList = null;
 
     @Override
-    public ArrayList<Notepad> getAvailable() {
+    public ArrayList<Notepad> getAvailableNotepads() {
 
-        if (list == null) {
-            list = new ArrayList<>();
+        if (notepadsList == null) {
+            notepadsList = new ArrayList<>();
 
             String content = "";
             try {
                 content = new String(Files.readAllBytes(Paths.get("notepads.data")));
             } catch (IOException e) {
-                return list;
+                return notepadsList;
             }
 
             JSONArray input = new JSONArray(content);
@@ -72,7 +68,7 @@ public class JsonNotepadRepository implements NotepadStorage {
                     storage.setConfiguration(nsc);
 
                     Notepad notepad = new Notepad(storage, notepadName);
-                    list.add(notepad);
+                    notepadsList.add(notepad);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InstantiationException ex) {
@@ -83,32 +79,32 @@ public class JsonNotepadRepository implements NotepadStorage {
 
             }
         }
-        
-        return list;
+
+        return notepadsList;
     }
 
     @Override
-    public void add(Notepad notepad) {
-        
-        if (list.indexOf(notepad) == -1) {
-            list.add(notepad);
+    public void addNotepad(Notepad notepad) {
+
+        if (notepadsList.indexOf(notepad) == -1) {
+            notepadsList.add(notepad);
         }
 
-        saveToFile();
+        saveNotepadsToFile();
     }
 
     @Override
-    public void remove(Notepad notepad) {
-        list.remove(notepad);
+    public void removeNotepad(Notepad notepad) {
+        notepadsList.remove(notepad);
 
-        saveToFile();
+        saveNotepadsToFile();
     }
 
-    private void saveToFile() {
+    private void saveNotepadsToFile() {
 
         JSONArray toSave = new JSONArray();
 
-        for (Notepad n : list) {
+        for (Notepad n : notepadsList) {
 
             JSONObject current = new JSONObject();
             current.put("storage_class", n.getStorage().getClass().getCanonicalName());
@@ -132,6 +128,99 @@ public class JsonNotepadRepository implements NotepadStorage {
             Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    @Override
+    public ArrayList<Note> getLastNotes() {
+
+        if (notesList == null) {
+            notesList = new ArrayList<>();
+
+            String content = "";
+            try {
+                content = new String(Files.readAllBytes(Paths.get("notessession.data")));
+            } catch (IOException e) {
+                return notesList;
+            }
+
+            JSONArray input = new JSONArray(content);
+            for (int i = 0; i < input.length(); i++) {
+
+                JSONObject obj = input.getJSONObject(i);
+
+                String notePath = obj.getString("path");
+                String storageClassName = obj.getString("storage_class");
+
+                NoteStorageConfiguration nsc = new NoteStorageConfiguration();
+
+                JSONObject nscJson = obj.getJSONObject("storage_config");
+                for (String k : nscJson.keySet()) {
+                    nsc.set(k, nscJson.getString(k));
+                }
+
+                try {
+                    Class cls = Class.forName(storageClassName);
+                    NoteStorage storage = (NoteStorage) cls.newInstance();
+                    storage.setConfiguration(nsc);
+                    
+                    Note note = new Note(notePath, storage);
+
+                    notesList.add(note);
+                    
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+        return notesList;
+    }
+
+    @Override
+    public void addNote(Note note) {
+        notesList.add(note);
+        saveNotesToFile();
+    }
+
+    @Override
+    public void removeNote(Note note) {
+        notesList.remove(note);
+        saveNotesToFile();
+    }
+
+    private void saveNotesToFile() {
+
+        JSONArray toSave = new JSONArray();
+
+        for (Note n : notesList) {
+            
+            if (n.getPath() == null) {
+                continue;
+            }
+
+            JSONObject current = new JSONObject();
+            current.put("storage_class", n.getStorage().getClass().getCanonicalName());
+            current.put("path", n.getPath());
+
+            JSONObject storageConfig = new JSONObject();
+
+            NoteStorageConfiguration cfg = n.getStorage().getConfiguration();
+            for (String k : cfg.getAll().keySet()) {
+                storageConfig.put(k, cfg.get(k));
+            }
+            current.put("storage_config", storageConfig);
+            toSave.put(current);
+
+        }
+        try {
+            Files.write(Paths.get("notessession.data"), toSave.toString().getBytes());
+        } catch (IOException ex) {
+            Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

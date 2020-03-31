@@ -26,12 +26,12 @@ import notepack.app.task.SaveNote;
 public class App {
     
     private MessageBus messageBus;
-    private JsonNotepadRepository notepadRepository;
+    private JsonNotepadRepository sessionRepository;
     private ArrayList<Note> activeNotes = new ArrayList<>();
     private ArrayList<Notepad> activeNotepad = new ArrayList<>();
     
     public App() {
-        notepadRepository = new JsonNotepadRepository();
+        sessionRepository = new JsonNotepadRepository();
         
         messageBus = new MessageBus();
         messageBus.startDispatcher();
@@ -40,11 +40,13 @@ public class App {
             @Override
             public void onOpen(Note n) {
                 activeNotes.add(n);
+                sessionRepository.addNote(n);
             }
 
             @Override
             public void onClose(Note n) {
                 activeNotes.remove(n);
+                sessionRepository.removeNote(n);
             }
 
             @Override
@@ -60,13 +62,13 @@ public class App {
             @Override
             public void onOpen(Notepad notepad) {
                 activeNotepad.add(notepad);
-                notepadRepository.add(notepad);
+                sessionRepository.addNotepad(notepad);
             }
 
             @Override
             public void onClose(Notepad notepad) {
                 activeNotepad.remove(notepad);
-                notepadRepository.remove(notepad);
+                sessionRepository.removeNotepad(notepad);
             }
 
             @Override
@@ -127,7 +129,7 @@ public class App {
     
     public ArrayList<Notepad> getAvailableNotepads() {
         
-        ArrayList<Notepad> result = notepadRepository.getAvailable();
+        ArrayList<Notepad> result = sessionRepository.getAvailableNotepads();
         
         if (result.size() == 0) {
             
@@ -135,6 +137,15 @@ public class App {
             nsc.set("directory", System.getProperty("user.home"));
             
             result.add(new Notepad(new Filesystem(nsc), "Home files"));
+        }
+        
+        return result;
+    }
+    
+    public ArrayList<Note> getLastNotes() {
+        ArrayList<Note> result = sessionRepository.getLastNotes();
+        if (result.size() == 0) {
+            result.add(new Note(new Filesystem()));
         }
         
         return result;
