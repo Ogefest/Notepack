@@ -6,6 +6,7 @@
 package notepack.app.domain;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  *
@@ -15,10 +16,18 @@ public class Notepad {
     
     private NoteStorage storage;
     private String name;
+    private String ident;
     
     public Notepad(NoteStorage storage, String name) {
         this.storage = storage;
         this.name = name;
+        this.ident = UUID.randomUUID().toString();
+    }
+    
+    public Notepad(NoteStorage storage, String name, String ident) {
+        this.storage = storage;
+        this.name = name;
+        this.ident = ident;
     }
     
     public String getName() {
@@ -29,5 +38,8 @@ public class Notepad {
         return storage;
     }
     
+    public String getIdent() {
+        return ident;
+    }
     
 }

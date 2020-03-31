@@ -265,8 +265,15 @@ public class MainViewController implements Initializable {
         for (Notepad notepad : app.getAvailableNotepads()) {
             app.openNotepad(notepad);
         }
-
-        app.newNote(new Filesystem());
+        
+        if (app.getLastNotes().size() == 0) {
+            app.newNote(new Filesystem());
+        } else {
+            for (Note note : app.getLastNotes()) {
+                app.openNote(note);
+            }
+        }
+        
     }
 
     private TextArea getTextAreaForNote(Note n) {
