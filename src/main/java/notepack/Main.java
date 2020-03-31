@@ -32,6 +32,7 @@ public class Main extends Application {
         Parent root = loader.load();
 
         MainViewController ctrl = loader.getController();
+        ctrl.appStart();
 
         Scene scene = new Scene(root);
 
