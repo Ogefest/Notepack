@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="475.0" prefWidth="384.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotepadCreateController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="387.0" prefWidth="384.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Button defaultButton="true" layoutX="333.0" layoutY="436.0" mnemonicParsing="false" onAction="#onAdd" text="Add" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="12.0" />
+            <Button fx:id="btnCancel" cancelButton="true" layoutX="259.0" layoutY="436.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="62.0" />
+            <Label layoutX="14.0" layoutY="14.0" text="Notepad name:" />
+            <TextField fx:id="notepadName" layoutX="195.0" layoutY="9.0" prefHeight="25.0" prefWidth="181.0" />
+            <TabPane layoutX="92.0" layoutY="55.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0">
+              <tabs>
+                <Tab text="Local directory">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" text="Directory:" />
+                              <TextField fx:id="directoryPath" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="266.0" />
+                              <Button layoutX="292.0" layoutY="38.0" mnemonicParsing="false" onAction="#onChooseDirectory" text="Choose" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>
