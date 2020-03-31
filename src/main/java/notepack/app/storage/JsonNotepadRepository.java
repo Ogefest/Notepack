@@ -162,11 +162,11 @@ public class JsonNotepadRepository implements SessionStorage {
                     Class cls = Class.forName(storageClassName);
                     NoteStorage storage = (NoteStorage) cls.newInstance();
                     storage.setConfiguration(nsc);
-                    
+
                     Note note = new Note(notePath, storage);
 
                     notesList.add(note);
-                    
+
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InstantiationException ex) {
@@ -182,8 +182,10 @@ public class JsonNotepadRepository implements SessionStorage {
 
     @Override
     public void addNote(Note note) {
-        notesList.add(note);
-        saveNotesToFile();
+        if (notesList.indexOf(note) == -1) {
+            notesList.add(note);
+            saveNotesToFile();
+        }
     }
 
     @Override
@@ -197,7 +199,7 @@ public class JsonNotepadRepository implements SessionStorage {
         JSONArray toSave = new JSONArray();
 
         for (Note n : notesList) {
-            
+
             if (n.getPath() == null) {
                 continue;
             }
