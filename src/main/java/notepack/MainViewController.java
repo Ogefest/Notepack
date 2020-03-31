@@ -67,13 +67,11 @@ public class MainViewController implements Initializable {
     private Filesystem recentFiles;
     @FXML
     private TabPane notepadContainer;
-    private MenuItem menuEditUndo;
-    private MenuItem menuEditRedo;
-    private MenuItem menuEditCut;
-    private MenuItem menuEditCopy;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) { }
+
+    public void appStart() {
         app = new App();
         appSettings = new PreferencesSettings();
 
@@ -210,7 +208,6 @@ public class MainViewController implements Initializable {
             public void onNotesListUpdated(Notepad notepad) {
             }
         });
-
     }
 
     public void windowRestore() {

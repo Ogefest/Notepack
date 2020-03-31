@@ -8,6 +8,36 @@ and open the template in the editor.
     Author     : lg
 */
 
+/**.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+
+.menu-button, .tab {
+    -fx-background-color: white;
+}*/
+
+/*.button,.menu-button {
+    -fx-background-radius: 0;
+    -fx-padding: 20 40 40 20;
+}*/
+
+/*.menu-item .label {
+    -fx-text-fill: red;
+}
+
+.menu-item:focused {
+     -fx-background-color: darkgray;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: blue;
+}*/
+
+/*.menu-button {
+    -fx-underline: true;
+}*/
+
 /*.tab-pane
 {
     -fx-tab-min-width:90px;
@@ -39,22 +69,22 @@ and open the template in the editor.
     -fx-text-fill: #96b946;
 }*/
 
-.tab-pane:top *.tab-header-area {
+/*.tab-pane:top *.tab-header-area {
     -fx-background-insets: 0, 0 0 1 0;
- /* -fx-padding: 0.416667em 0.166667em 0.0em 0.833em; /* 5 2 0 10 */
-    -fx-padding: 0.416667em 0.166667em 0.0em 0.0em; /* overridden as 5 2 0 0 */
+  -fx-padding: 0.416667em 0.166667em 0.0em 0.833em; /* 5 2 0 10 
+    -fx-padding: 0.416667em 0.166667em 0.0em 0.0em;  overridden as 5 2 0 0 
 }
 
 .tab:selected .focus-indicator {
     -fx-border-radius: 10 10 0 0, 10 10 0 0;
     -fx-border-insets: -6 -9 -8 -8, -5 -8 -7 -7;
 }
-/*
+
 .tab-pane > .tab-header-area > .headers-region > .tab:selected{
     -fx-border-insets: 0 1 1 0, 1 2 0 1, 2 3 0 2;
 }
 */
-.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+/*.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
     -fx-padding:0 15 0 0;
 }
 
@@ -67,4 +97,38 @@ and open the template in the editor.
     -fx-padding: 0 0.01em 0 0;  
 } 
 
+.root { -fx-focus-color: transparent; }*/
+
+/* remove blue border glow */
 .root { -fx-focus-color: transparent; }
+
+
+.button:focused,
+.toggle-button:focused,
+.radio-button:focused > .radio,
+.check-box:focused > .box,
+.menu-button:focused,
+.choice-box:focused,
+.color-picker.split-button:focused > .color-picker-label,
+.combo-box-base:focused,
+.slider:focused .thumb {
+    -fx-background-color: -fx-focus-color, -fx-inner-border, -fx-body-color, -fx-faint-focus-color, -fx-body-color;
+    -fx-background-insets: -0.2, 1, 2, -1.4, 2.6;
+    -fx-background-radius: 3, 2, 1, 4, 1;
+}
+
+.button:focused {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+}
+
+#noteTabContainer .tab {
+    -fx-background-color: white;
+    
+    -fx-padding:4 10 5 10;
+    -fx-background-radius: 10 10 0 0;    
+}
+
+#noteTabContainer {
+    -fx-border-color: white;
+}

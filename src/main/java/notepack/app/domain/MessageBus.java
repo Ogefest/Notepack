@@ -32,6 +32,7 @@ public class MessageBus {
     private ArrayList<NotepadListener> notepadListeners;
 
     private Thread dispatchThread;
+    private boolean dispatcherStop = false;
 
     public MessageBus() {
         tasks = new ConcurrentLinkedQueue<>();
@@ -43,6 +44,11 @@ public class MessageBus {
     }
 
     public void startDispatcher() {
+        
+        if (dispatchThread != null) {
+            return;
+        }
+        
         dispatchThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -53,7 +59,7 @@ public class MessageBus {
                     } catch (InterruptedException ex) {
                         break;
                     }
-                } while (true);
+                } while (!dispatcherStop);
             }
         });
         dispatchThread.setName("Task dispatcher");
@@ -61,6 +67,7 @@ public class MessageBus {
     }
 
     public void stopDispatcher() {
+        dispatcherStop = true;
         dispatchThread.interrupt();
         dispatchThread = null;
     }
