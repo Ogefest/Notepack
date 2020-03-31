@@ -7,4 +7,5 @@ module notepack {
     requires java.logging;
     requires java.prefs;
     requires org.json;
+    requires java.base;
 }

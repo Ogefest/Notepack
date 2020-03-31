@@ -21,6 +21,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -66,13 +67,9 @@ public class MainViewController implements Initializable {
     private Filesystem recentFiles;
     @FXML
     private TabPane notepadContainer;
-    @FXML
     private MenuItem menuEditUndo;
-    @FXML
     private MenuItem menuEditRedo;
-    @FXML
     private MenuItem menuEditCut;
-    @FXML
     private MenuItem menuEditCopy;
 
     @Override
@@ -83,9 +80,17 @@ public class MainViewController implements Initializable {
         app.getMessageBus().registerNoteListener(new NoteListener() {
             @Override
             public void onOpen(Note note) {
-                final Tab newTab;
+                final Tab newTab = new Tab();
                 try {
-                    newTab = FXMLLoader.load(getClass().getResource("NoteTab.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("NoteTabContent.fxml"));
+                    Node tabContent = loader.load();
+                    NoteTabContentController ctrl = loader.getController();
+                    ctrl.setNote(note);
+                    ctrl.getTextArea().textProperty().addListener((ov, oldValue, newValue) -> {
+                        app.changeNote(note, newValue);
+                    });
+
+                    newTab.setContent(tabContent);
                     newTab.setUserData(note);
                     newTab.setOnCloseRequest(new EventHandler<Event>() {
                         @Override
@@ -100,33 +105,6 @@ public class MainViewController implements Initializable {
                     Platform.runLater(() -> {
                         tabContainer.getTabs().add(newTab);
                         tabContainer.getSelectionModel().select(newTab);
-                        Parent p = (Parent) newTab.getContent();
-                        TextArea ta = (TextArea) p.getChildrenUnmodifiable().get(1);
-                        ta.setText(note.getContent());
-                        ta.textProperty().addListener((ov, oldValue, newValue) -> {
-                            app.changeNote(note, newValue);
-                            
-                            menuEditUndo.setDisable(true);
-                            if (ta.isUndoable()) {
-                                menuEditUndo.setDisable(false);
-                            }
-                            menuEditRedo.setDisable(true);
-                            if (ta.isRedoable()) {
-                                menuEditRedo.setDisable(false);
-                            }
-                            
-
-                        });
-                        ta.selectionProperty().addListener((o) -> {
-                            menuEditCut.setDisable(true);
-                            menuEditCopy.setDisable(true);
-                            if (ta.getSelectedText().length() > 0) {
-                                menuEditCut.setDisable(false);
-                                menuEditCopy.setDisable(false);
-                            }                            
-                        });
-                        
-                        ta.requestFocus();
                     });
 
                 } catch (IOException ex) {
@@ -265,7 +243,7 @@ public class MainViewController implements Initializable {
         for (Notepad notepad : app.getAvailableNotepads()) {
             app.openNotepad(notepad);
         }
-        
+
         if (app.getLastNotes().size() == 0) {
             app.newNote(new Filesystem());
         } else {
@@ -273,7 +251,7 @@ public class MainViewController implements Initializable {
                 app.openNote(note);
             }
         }
-        
+
     }
 
     private TextArea getTextAreaForNote(Note n) {
@@ -335,41 +313,6 @@ public class MainViewController implements Initializable {
     @FXML
     private void onFileNew(ActionEvent event) {
         app.newNote(new Filesystem());
-    }
-
-    @FXML
-    private void onEditUndo(ActionEvent event) {
-        getCurrentTextArea().undo();
-    }
-
-    @FXML
-    private void onEditRedo(ActionEvent event) {
-        getCurrentTextArea().redo();
-    }
-
-    @FXML
-    private void onEditCut(ActionEvent event) {
-        getCurrentTextArea().cut();
-    }
-
-    @FXML
-    private void onEditCopy(ActionEvent event) {
-        getCurrentTextArea().copy();
-    }
-
-    @FXML
-    private void onEditPaste(ActionEvent event) {
-        getCurrentTextArea().paste();
-    }
-
-    @FXML
-    private void onEditDelete(ActionEvent event) {
-        getCurrentTextArea().deleteText(getCurrentTextArea().getSelection());
-    }
-
-    @FXML
-    private void onEditSelectAll(ActionEvent event) {
-        getCurrentTextArea().selectAll();
     }
 
     @FXML
@@ -438,7 +381,7 @@ public class MainViewController implements Initializable {
     private void onFileNotepadClose(ActionEvent event) {
         Tab t = notepadContainer.getSelectionModel().getSelectedItem();
         Notepad n = (Notepad) t.getUserData();
-        
+
         app.closeNotepad(n);
     }
 
