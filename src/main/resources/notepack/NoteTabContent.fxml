@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.input.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="462.0" prefWidth="692.0" stylesheets="@default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NoteTabContentController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="462.0" prefWidth="692.0" stylesheets="@default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NoteTabContentController">
    <children>
-      <Pane layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="579.0" style="-fx-background-color: white; -fx-border-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="579.0" style="-fx-background-color: white; -fx-border-width: 1 0 1 0; -fx-border-color: #dfecf2;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MenuButton layoutX="14.0" layoutY="8.0" mnemonicParsing="false" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: white;" text="Edit">
+            <MenuButton layoutX="14.0" layoutY="8.0" mnemonicParsing="false" text="Edit">
               <items>
                 <MenuItem fx:id="menuEditUndo" mnemonicParsing="false" onAction="#onMenuUndo" text="Undo">
                      <accelerator>
@@ -49,6 +51,11 @@
                   </MenuItem>
               </items>
             </MenuButton>
+            <Label fx:id="testLabel" layoutX="99.0" layoutY="13.0" text="&#xf26e;">
+               <font>
+                  <Font name="Font Awesome 5 Free Regular" size="13.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <TextArea fx:id="textArea" layoutY="40.0" style="-fx-background-color: white; -fx-padding: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">

@@ -10,9 +10,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Font;
 import notepack.app.domain.Note;
 
 /**
@@ -38,6 +40,8 @@ public class NoteTabContentController implements Initializable {
     private MenuItem menuEditPaste;
     @FXML
     private MenuItem menuEditDelete;
+    @FXML
+    private Label testLabel;
 
     /**
      * Initializes the controller class.
@@ -46,7 +50,7 @@ public class NoteTabContentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
+    
     public void setNote(Note note) {
         this.note = note;
 
@@ -73,6 +77,9 @@ public class NoteTabContentController implements Initializable {
         });
 
         textArea.requestFocus();
+
+//        testLabel.setFont(Font.loadFont("file:src/main/resources/notepack/fa-regular-400.ttf", 20));
+//        testLabel.setText("&#xf26e;");
     }
 
     public TextArea getTextArea() {
