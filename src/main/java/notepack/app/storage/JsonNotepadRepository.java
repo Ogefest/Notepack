@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import notepack.app.domain.Note;
@@ -52,7 +53,6 @@ public class JsonNotepadRepository implements SessionStorage {
 
                 JSONObject obj = input.getJSONObject(i);
 
-                String notepadName = obj.getString("name");
                 String storageClassName = obj.getString("storage_class");
 
                 NoteStorageConfiguration nsc = new NoteStorageConfiguration();
@@ -67,7 +67,12 @@ public class JsonNotepadRepository implements SessionStorage {
                     NoteStorage storage = (NoteStorage) cls.newInstance();
                     storage.setConfiguration(nsc);
 
-                    Notepad notepad = new Notepad(storage, notepadName);
+                    Notepad notepad = new Notepad(storage);
+                    JSONObject paramsJson = obj.getJSONObject("params");
+                    for (String k : paramsJson.keySet()) {
+                        notepad.setParam(k, paramsJson.getString(k));
+                    }
+
                     notepadsList.add(notepad);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,7 +113,6 @@ public class JsonNotepadRepository implements SessionStorage {
 
             JSONObject current = new JSONObject();
             current.put("storage_class", n.getStorage().getClass().getCanonicalName());
-            current.put("name", n.getName());
 
             JSONObject storageConfig = new JSONObject();
 
@@ -116,8 +120,14 @@ public class JsonNotepadRepository implements SessionStorage {
             for (String k : cfg.getAll().keySet()) {
                 storageConfig.put(k, cfg.get(k));
             }
-
             current.put("storage_config", storageConfig);
+
+            JSONObject notepadParams = new JSONObject();
+            HashMap<String, String> params = n.getParams();
+            for (String k : params.keySet()) {
+                notepadParams.put(k, params.get(k));
+            }
+            current.put("params", notepadParams);
 
             toSave.put(current);
         }

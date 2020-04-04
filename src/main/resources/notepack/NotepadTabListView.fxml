@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<Tab closable="true" text="Files" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.MainViewController">
-    <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <children>
-                <ListView layoutX="9.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            </children>
-        </AnchorPane>
-    </content>
-    <contextMenu>
-        <ContextMenu />
-    </contextMenu>
-</Tab>
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="271.0" stylesheets="@default.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotebookTabController">
+    <children>
+        <TreeView fx:id="notepadStructure" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    </children>
+</AnchorPane>

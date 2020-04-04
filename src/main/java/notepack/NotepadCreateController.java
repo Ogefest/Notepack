@@ -14,7 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import notepack.app.domain.NoteStorage;
@@ -38,6 +40,8 @@ public class NotepadCreateController implements Initializable {
     private NotepadCreateCallback clbk;
     @FXML
     private Button btnCancel;
+    @FXML
+    private ColorPicker notepadColor;
 
     /**
      * Initializes the controller class.
@@ -76,6 +80,21 @@ public class NotepadCreateController implements Initializable {
         
         NoteStorage storage = new Filesystem(path);
         Notepad notepad = new Notepad(storage, name);
+        
+        Color clr = notepadColor.getValue();
+        
+        int ired = (int) (clr.getRed() * 255);
+        String red = Integer.toHexString(ired);
+        
+        int igreen = (int) (clr.getGreen() * 255);
+        String green = Integer.toHexString(igreen);
+        
+        int iblue = (int) (clr.getBlue() * 255);
+        String blue = Integer.toHexString(iblue);
+        
+        notepad.setParam("color", "#" + red + green + blue);
+        
+        
         clbk.added(notepad);
         
         Stage stage = (Stage) btnCancel.getScene().getWindow();

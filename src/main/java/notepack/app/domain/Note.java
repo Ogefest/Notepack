@@ -57,7 +57,11 @@ public class Note {
     }
     
     public void readFromStorage() {
-        content = storage.loadContent(path);
+        if (path == null) {
+            content = "";
+        } else {
+            content = storage.loadContent(path);
+        }
     }
     
     public void saveToStorage() {
@@ -65,7 +69,7 @@ public class Note {
     }
     
     public String toString() {
-        return path;
+        return getName();
     }
     
 }
