@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
+import notepack.app.domain.NoteTreeItem;
 
 /**
  *
@@ -25,6 +26,10 @@ import notepack.app.domain.NoteStorageConfiguration;
 public class Filesystem implements NoteStorage {
 
     private NoteStorageConfiguration nsc;
+
+    private ArrayList<NoteTreeItem> items = new ArrayList<>();
+
+    private int deep = 0;
 
     public Filesystem() {
         nsc = new NoteStorageConfiguration();
@@ -49,7 +54,7 @@ public class Filesystem implements NoteStorage {
 
         String content = "";
         try {
-            content = new String(Files.readAllBytes(Paths.get(getBasePath() + File.separator + path)));
+            content = new String(Files.readAllBytes(Paths.get(path)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,9 +62,21 @@ public class Filesystem implements NoteStorage {
     }
 
     @Override
-    public ArrayList<String> list() {
+    public NoteTreeItem list() {
 
-        ArrayList<String> result = new ArrayList<>();
+        File f = new File(getBasePath());
+
+        NoteTreeItem it = new NoteTreeItem(getBasePath(), f.getName());
+
+        it = addItems(it, getBasePath(), 0);
+
+        return it;
+    }
+
+    private NoteTreeItem addItems(NoteTreeItem parent, String startPath, int deep) {
+        if (deep > 5) {
+            return parent;
+        }
 
         ArrayList<String> supportedExtensions = new ArrayList<>();
         supportedExtensions.add("txt");
@@ -71,8 +88,13 @@ public class Filesystem implements NoteStorage {
         supportedExtensions.add("yaml");
         supportedExtensions.add("log");
 
-        File f = new File(getBasePath());
+        File f = new File(startPath);
         for (String p : f.list()) {
+            if (p.substring(0, 1).equals(".")) {
+                continue;
+            }
+
+            File ff = new File(startPath + File.separator + p);
 
             String extension = "";
 
@@ -84,11 +106,22 @@ public class Filesystem implements NoteStorage {
             }
 
             if (supportedExtensions.contains(extension)) {
-                result.add(p);
+
+                parent.add(new NoteTreeItem(startPath + File.separator + p, p));
+
+            } else if (ff.isDirectory()) {
+
+                NoteTreeItem newDirectoryParent = new NoteTreeItem(startPath + File.separator + p, p);
+//                parent.add(newDirectoryParent);
+
+                newDirectoryParent = addItems(newDirectoryParent, startPath + File.separator + p, deep + 1);
+                if (newDirectoryParent.get().size() > 0) {
+                    parent.add(newDirectoryParent);
+                }
             }
         }
 
-        return result;
+        return parent;
     }
 
     @Override

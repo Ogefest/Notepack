@@ -19,6 +19,6 @@ public interface NoteStorage {
     
     public void saveContent(String content, String path);
     public String loadContent(String path);
-    public ArrayList<String> list();
+    public NoteTreeItem list();
         
 }

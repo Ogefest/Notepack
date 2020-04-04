@@ -29,11 +29,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
+import notepack.app.domain.NoteTreeItem;
 import notepack.app.domain.Notepad;
 import notepack.app.domain.Settings;
 import notepack.app.event.NoteChanged;
@@ -69,7 +71,8 @@ public class MainViewController implements Initializable {
     private TabPane notepadContainer;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) { }
+    public void initialize(URL url, ResourceBundle rb) {
+    }
 
     public void appStart() {
         app = new App();
@@ -151,11 +154,52 @@ public class MainViewController implements Initializable {
         app.getMessageBus().registerNotepadListener(new NotepadListener() {
             @Override
             public void onOpen(Notepad notepad) {
-                Tab tab;
+                Tab tab = new Tab();
                 try {
-                    tab = FXMLLoader.load(getClass().getResource("NotepadTabListView.fxml"));
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("NotepadTabListView.fxml"));
+                    Node tabContent = loader.load();
+                    NotebookTabController ctrl = loader.getController();
+                    tab.setContent(tabContent);
+                    ctrl.setNotepad(notepad);
+                    ctrl.getTreeView().setOnMouseClicked((t) -> {
+                        if (t.getClickCount() == 2) {
+                            Note note = ctrl.getSelectedNote();
+                            if (note != null) {
+                                app.openNote(note);
+                            }
+                        }                        
+                    });
+                    
                     tab.setUserData(notepad);
                     tab.setText(notepad.getName());
+                    
+                    
+                    
+//                    ctrl.setNote(note);
+//                    ctrl.getTextArea().textProperty().addListener((ov, oldValue, newValue) -> {
+//                        app.changeNote(note, newValue);
+//                    });
+
+//                    newTab.setUserData(note);
+//                    newTab.setOnCloseRequest(new EventHandler<Event>() {
+//                        @Override
+//                        public void handle(Event t) {
+//                            app.closeNote(note);
+//                        }
+//                    });
+//                    if (note.getName().length() > 0) {
+//                        newTab.setText(note.getName());
+//                    }
+
+//                    Platform.runLater(() -> {
+//                        tabContainer.getTabs().add(newTab);
+//                        tabContainer.getSelectionModel().select(newTab);
+//                    });
+//
+//                    tab = FXMLLoader.load(getClass().getResource("NotepadTabListView.fxml"));
+//                    tab.setUserData(notepad);
+//                    tab.setText(notepad.getName());
 
                     Platform.runLater(() -> {
 
@@ -164,27 +208,27 @@ public class MainViewController implements Initializable {
 
                     });
 
-                    MenuItem closeNotepad = new MenuItem("Close");
-                    closeNotepad.setUserData(notepad);
-                    closeNotepad.setOnAction((t) -> {
-                        Notepad contexNotepad = (Notepad) ((MenuItem) t.getSource()).getParentPopup().getUserData();
-                        app.closeNotepad(contexNotepad);
-                    });
-                    tab.getContextMenu().getItems().add(closeNotepad);
-
-                    ArrayList<String> noteNames = notepad.getStorage().list();
-                    Parent p = (Parent) tab.getContent();
-                    ListView<Note> n = (ListView<Note>) p.getChildrenUnmodifiable().get(0);
-
-                    for (String noteName : noteNames) {
-                        n.getItems().add(new Note(noteName, notepad.getStorage()));
-                    }
-
-                    n.setOnMouseClicked((t) -> {
-                        if (t.getClickCount() == 2) {
-                            app.openNote(n.getSelectionModel().getSelectedItem());
-                        }
-                    });
+//                    MenuItem closeNotepad = new MenuItem("Close");
+//                    closeNotepad.setUserData(notepad);
+//                    closeNotepad.setOnAction((t) -> {
+//                        Notepad contexNotepad = (Notepad) ((MenuItem) t.getSource()).getParentPopup().getUserData();
+//                        app.closeNotepad(contexNotepad);
+//                    });
+//                    tab.getContextMenu().getItems().add(closeNotepad);
+//
+//                    NoteTreeItem noteNames = notepad.getStorage().list();
+//                    Parent p = (Parent) tab.getContent();
+//                    TreeView<NoteTreeItem> n = (TreeView<NoteTreeItem>) p.getChildrenUnmodifiable().get(0);
+//
+//                    for (NoteTreeItem noteName : noteNames.get()) {
+//                        n.getItems().add(new Note(noteName.getName(), notepad.getStorage()));
+//                    }
+//
+//                    n.setOnMouseClicked((t) -> {
+//                        if (t.getClickCount() == 2) {
+//                            app.openNote(n.getSelectionModel().getSelectedItem());
+//                        }
+//                    });
 
                 } catch (IOException ex) {
                     Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
