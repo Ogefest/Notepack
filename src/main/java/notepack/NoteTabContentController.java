@@ -40,8 +40,6 @@ public class NoteTabContentController implements Initializable {
     private MenuItem menuEditPaste;
     @FXML
     private MenuItem menuEditDelete;
-    @FXML
-    private Label testLabel;
 
     /**
      * Initializes the controller class.

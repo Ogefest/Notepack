@@ -99,6 +99,9 @@ public class MainViewController implements Initializable {
                             app.closeNote(note);
                         }
                     });
+                    
+                    String notepadColor = note.getNotepad().getBackgroundColor();
+                    newTab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);
                     if (note.getName().length() > 0) {
                         newTab.setText(note.getName());
                     }
@@ -155,6 +158,7 @@ public class MainViewController implements Initializable {
             @Override
             public void onOpen(Notepad notepad) {
                 Tab tab = new Tab();
+                tab.setStyle("-fx-background-color: red;");
                 try {
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("NotepadTabListView.fxml"));
@@ -174,7 +178,8 @@ public class MainViewController implements Initializable {
                     tab.setUserData(notepad);
                     tab.setText(notepad.getName());
                     
-                    
+                    String notepadColor = notepad.getBackgroundColor();
+                    tab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);                    
                     
 //                    ctrl.setNote(note);
 //                    ctrl.getTextArea().textProperty().addListener((ov, oldValue, newValue) -> {
@@ -286,7 +291,7 @@ public class MainViewController implements Initializable {
         }
 
         if (app.getLastNotes().size() == 0) {
-            app.newNote(new Filesystem());
+//            app.newNote(new Filesystem());
         } else {
             for (Note note : app.getLastNotes()) {
                 app.openNote(note);
@@ -322,8 +327,8 @@ public class MainViewController implements Initializable {
         chooser.setTitle("Open File");
         File f = chooser.showOpenDialog(stage);
         if (f != null) {
-            Note note = new Note(f.getAbsolutePath(), new Filesystem());
-            app.getMessageBus().addTask(new OpenNote(note));
+//            Note note = new Note(f.getAbsolutePath(), new Filesystem());
+//            app.getMessageBus().addTask(new OpenNote(note));
         }
     }
 
@@ -353,7 +358,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void onFileNew(ActionEvent event) {
-        app.newNote(new Filesystem());
+//        app.newNote(new Filesystem());
     }
 
     @FXML

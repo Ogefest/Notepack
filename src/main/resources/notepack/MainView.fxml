@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.input.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="843.0" prefWidth="1200.0" stylesheets="@default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.MainViewController">
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="843.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.MainViewController">
+    <stylesheets>
+        <URL value="@color-definition.css" />
+        <URL value="@scrollbar.css" />  
+        <URL value="@icons.css" />  
+        <URL value="@default.css" />  
+    </stylesheets>        
     <children>
-        <SplitPane dividerPositions="0.29797979797979796" layoutY="28.0" prefHeight="568.0" prefWidth="785.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+      <AnchorPane maxHeight="50.0" minHeight="50.0" prefHeight="50.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="14.0" layoutY="6.0" text="NotePack" textFill="WHITE">
+               <font>
+                  <Font name="Lato Light" size="30.0" />
+               </font></Label>
+            <HBox alignment="CENTER" layoutX="146.0" layoutY="-25.0" prefHeight="50.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <TextField focusTraversable="false" prefWidth="400.0" promptText="Search for note" styleClass="search-input" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+        <SplitPane dividerPositions="0.298" layoutY="28.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
             <items>
                 <AnchorPane maxWidth="350.0" minHeight="500.0" minWidth="150.0" prefHeight="160.0" prefWidth="200.0">
                     <children>
@@ -52,7 +77,7 @@
                 </AnchorPane>
             </items>
         </SplitPane>
-        <MenuBar>
+        <MenuBar visible="false">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
