@@ -33,7 +33,6 @@ public class Notepad {
         this.ident = UUID.randomUUID().toString();
         params.put("name", name);
     }
-    
 
     public Notepad(NoteStorage storage, String name, String ident) {
         this.storage = storage;
@@ -66,7 +65,7 @@ public class Notepad {
             String gg = Integer.toHexString(g);
             int b = (int) (rand.nextDouble() * 255);
             String bb = Integer.toHexString(b);
-            
+
             setParam("color", "#" + rr + gg + bb);
 
             return "#" + rr + gg + bb;
@@ -74,16 +73,16 @@ public class Notepad {
 
         return params.get("color");
     }
-    
+
     public String getFontColor() {
         String bgColor = getBackgroundColor();
-        
+
         int r = Integer.parseInt(bgColor.substring(1, 3));
         int g = Integer.parseInt(bgColor.substring(3, 5));
         int b = Integer.parseInt(bgColor.substring(5, 7));
-        
+
         double y = (299 * r + 587 * g + 114 * b) / 1000;
-        
+
         return y >= 108 ? "#000" : "#fff";
     }
 
