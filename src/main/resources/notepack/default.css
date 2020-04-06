@@ -1,7 +1,7 @@
-/*.split-pane *.split-pane-divider {
-    -fx-padding: 0 0 0 1;
-    -fx-background-color: red;
-}*/
+@font-face {
+    font-family: 'Lato Light';
+    src: url('./Lato-Light.ttf');
+}
 
 
 .root { -fx-focus-color: transparent; }
@@ -78,13 +78,6 @@
     -fx-border-width: -1;
 }
 
-/*
-#noteTabContainer {
-    -fx-border-color: white;
-    -fx-background-radius: 0 0 0 0;   
-    -fx-background-color: white;
-}*/
-
 
 .tab-header-background {
     -fx-background-color: white;
@@ -103,106 +96,51 @@
 }
 
 
-
-/* presentation tab */
-
-
-/*#noteTabContainer {
-    -fx-background-color: transparent, #374f75;
-}
-
-#noteTabContainer .tab {
-    -fx-background-color: transparent, tab-border-color , tab-color;
-    tab-color: #374f75;
-    tab-border-color : white ;
-    dark-tab-color: #721b1b ;
-    light-tab-color: red ;
-    -fx-background-insets: 0, 0 5 0 0, 1 6 0 0 ;
-    -fx-padding: 10 10 11 11 ;
-    -fx-background-radius: 10 10 0 0;
-}*/
-
-/*.tab {
-    -fx-background-radius: 10 10 0 0;
-}*/
-
-
-/*#noteTabContainer .tab-label {
-    -fx-text-fill: white;
-}
-
-#noteTabContainer .tab-header-area {
-    -fx-padding: 5 0 0 10;
-}*/
-
-/*
-
-#noteTabContainer .tab:hover {
-    tab-color: light-tab-color ;
-}
-
-#noteTabContainer .tab:pressed {
-    tab-color: dark-tab-color;
-}*/
-
-
-/*.tab:selected .focus-indicator {
-    -fx-border-radius: 10 10 0 0, 10 10 0 0;
-    -fx-border-insets: -6 -9 -8 -8, -5 -8 -7 -7;
-}*/
-/*
-.tab-pane > .tab-header-area > .headers-region > .tab:selected{
-    -fx-border-insets: 0 1 1 0, 1 2 0 1, 2 3 0 2;
-}
-*/
-/*.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
-    -fx-padding:0 10 0 0;
-}*/
-
-/*#noteTabContainer .tab-header-area .tab{
-    -fx-padding:4 10 5 10;
-    -fx-background-radius: 10 10 0 0;
-}*/
-
 .tab {
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
 
 #noteTabContainer .tab {
-    
-    -fx-background-color:#718fab;
+
+/*    -fx-background-color:#718fab;
     -fx-text-base-color: #172c40;
+    -fx-border-color: #718fab;*/
+
     -fx-padding: 5 10 5 10 ;
     -fx-alignment: CENTER;    
     -fx-text-alignment: center; 
-    
+
     -fx-border-width:  0 0 1 0;
-    -fx-border-color: #718fab;  
-    
+
     -fx-opacity: 0.7;
 }
 
 #noteTabContainer *.tab:selected {
-    /*-fx-border-width:  0 0 1 0;*/
-    /*-fx-border-color: red;*/
     -fx-opacity: 1;
 }
 
-.icon-ball  {
-    /*-fx-content-display:*/
-    /*-fx-graphic: url("@open.png");*/
-    /*-fx-shape: "M483.8 179.4C449.8 74.6 352.6 8 248.1 8c-25.4 0-51.2 3.9-76.7 12.2C41.2 62.5-30.1 202.4 12.2 332.6 46.2 437.4 143.4 504 247.9 504c25.4 0 51.2-3.9 76.7-12.2 130.2-42.3 201.5-182.2 159.2-312.4zm-74.5 193.7l-52.2 6.4-43.7-60.9 24.4-75.2 71.1-22.1 38.9 36.4c-.2 30.7-7.4 61.1-21.7 89.2-4.7 9.3-10.7 17.8-16.8 26.2zm0-235.4l-10.4 53.1-70.7 22-64.2-46.5V92.5l47.4-26.2c39.2 13 73.4 38 97.9 71.4zM184.9 66.4L232 92.5v73.8l-64.2 46.5-70.6-22-10.1-52.5c24.3-33.4 57.9-58.6 97.8-71.9zM139 379.5L85.9 373c-14.4-20.1-37.3-59.6-37.8-115.3l39-36.4 71.1 22.2 24.3 74.3-43.5 61.7zm48.2 67l-22.4-48.1 43.6-61.7H287l44.3 61.7-22.4 48.1c-6.2 1.8-57.6 20.4-121.7 0z";*/
-    /*-fx-pref-width: 30;*/
-    /*-fx-pref-height: 30;*/
-    
-    
-    -fx-font-family:'Font Awesome 5 Free Regular';
+.menu-button > .arrow-button > .arrow {
+    -fx-padding: 10 0 0 0 ;
 }
 
-@font-face {
-    font-family: 'Font Awesome 5 Free Regular';
-    src: url('fa-regular-400.ttf');
+.lato-font {
+    -fx-font-family: 'Lato Light';
 }
 
+.top-bar {
+    -fx-background-color: -fx-bar-background;
+}
+
+.search-input {
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+    -fx-background-color: derive(-fx-bar-background,30%);
+}
+
+.split-pane-divider {
+    -fx-padding: 0 1 0 1 ;
+    -fx-background-color: -fx-bar-border-color ;
+    -fx-background-insets: 5 5 5 5; 
+}
 

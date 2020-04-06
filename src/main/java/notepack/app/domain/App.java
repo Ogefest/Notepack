@@ -86,8 +86,8 @@ public class App {
         return messageBus;
     }
     
-    public void openNote(String path, NoteStorage storage) {
-        Note note = new Note(path, storage);
+    public void openNote(String path, Notepad notepad) {
+        Note note = new Note(path, notepad);
         messageBus.addTask(new OpenNote(note));
     }
     
@@ -110,8 +110,8 @@ public class App {
         messageBus.addTask(new ChangedNote(n));
     }
     
-    public void newNote(NoteStorage storage) {
-        Note note = new Note(storage);
+    public void newNote(Notepad notepad) {
+        Note note = new Note(notepad);
         messageBus.addTask(new NewNote(note));
     }
     
@@ -145,7 +145,7 @@ public class App {
     public ArrayList<Note> getLastNotes() {
         ArrayList<Note> result = sessionRepository.getLastNotes();
         if (result.size() == 0) {
-            result.add(new Note(new Filesystem()));
+//            result.add(new Note(new Filesystem()));
         }
         
         return result;
