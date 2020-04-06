@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import java.net.URL?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotebookTabController">
+<AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotebookTabController">
     <stylesheets>
         <URL value="@color-definition.css" />
         <URL value="@scrollbar.css" />  
@@ -12,6 +12,6 @@
         <URL value="@default.css" />  
     </stylesheets>        
     <children>
-        <TreeView fx:id="notepadStructure" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <TreeView fx:id="notepadStructure" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 0 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </AnchorPane>
