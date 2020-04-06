@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.AnchorPane;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteTreeItem;
 import notepack.app.domain.Notepad;
@@ -26,6 +27,8 @@ public class NotebookTabController implements Initializable {
     private TreeView<Note> notepadStructure;
 
     private Notepad notepad;
+    @FXML
+    private AnchorPane tabBackground;
 
     /**
      * Initializes the controller class.
@@ -55,17 +58,8 @@ public class NotebookTabController implements Initializable {
 
     public void setNotepad(Notepad notepad) {
         this.notepad = notepad;
-
-//                    n.setOnMouseClicked((t) -> {
-//                        if (t.getClickCount() == 2) {
-//                            app.openNote(n.getSelectionModel().getSelectedItem());
-//                        }
-//                    });        
-//        notepadStructure.setOnMouseClicked((t) -> {
-//            if (t.getClickCount() == 2) {
-//
-//            }
-//        });
+        
+        tabBackground.setStyle("-fx-background-color: " + notepad.getBackgroundColor());
 
         NoteTreeItem items = notepad.getStorage().list();
         TreeItem root = new TreeItem(notepad.getName());

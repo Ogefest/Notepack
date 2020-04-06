@@ -158,7 +158,6 @@ public class MainViewController implements Initializable {
             @Override
             public void onOpen(Notepad notepad) {
                 Tab tab = new Tab();
-                tab.setStyle("-fx-background-color: red;");
                 try {
 
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("NotepadTabListView.fxml"));
@@ -179,7 +178,7 @@ public class MainViewController implements Initializable {
                     tab.setText(notepad.getName());
                     
                     String notepadColor = notepad.getBackgroundColor();
-                    tab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);                    
+                    tab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);
                     
 //                    ctrl.setNote(note);
 //                    ctrl.getTextArea().textProperty().addListener((ov, oldValue, newValue) -> {

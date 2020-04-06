@@ -144,3 +144,16 @@
     -fx-background-insets: 5 5 5 5; 
 }
 
+
+.tree-view {
+    -fx-background-color: -fx-bar-border-color;
+}
+
+
+/*.tree-cell:hover {
+    -fx-background-color: #0093ff ;
+}
+
+.tree-cell:hover .highlight-on-hover {
+    -fx-text-fill: red ;
+}*/
