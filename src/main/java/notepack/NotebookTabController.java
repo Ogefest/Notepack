@@ -83,7 +83,7 @@ public class NotebookTabController implements Initializable {
 
             if (it.isLeaf()) {
 
-                Note note = new Note(it.getPath(), notepad.getStorage());
+                Note note = new Note(it.getPath(), notepad);
                 TreeItem<Note> n = new TreeItem<>(note);
                 
                 parent.getChildren().add(n);

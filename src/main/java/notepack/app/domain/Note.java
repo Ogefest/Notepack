@@ -15,16 +15,18 @@ public class Note {
     
     private String content;
     private String path = null;
-    private NoteStorage storage;
+//    private NoteStorage storage;
+    private Notepad notepad;
     
-    public Note(NoteStorage storage) {
+    public Note(Notepad notepad) {
         this.path = null;
-        this.storage = storage;
+        this.notepad = notepad;
+//        this.storage = storage;
     }
     
-    public Note(String path, NoteStorage storage) {
+    public Note(String path, Notepad notepad) {
         this.path = path;
-        this.storage = storage;
+        this.notepad = notepad;
     }
     
     public String getName() {
@@ -36,8 +38,12 @@ public class Note {
         return f.getName();
     }
     
+    public Notepad getNotepad() {
+        return notepad;
+    }
+    
     public NoteStorage getStorage() {
-        return storage;
+        return notepad.getStorage();
     }
     
     public String getPath() {
@@ -60,12 +66,12 @@ public class Note {
         if (path == null) {
             content = "";
         } else {
-            content = storage.loadContent(path);
+            content = notepad.getStorage().loadContent(path);
         }
     }
     
     public void saveToStorage() {
-        storage.saveContent(content, path);
+        notepad.getStorage().saveContent(content, path);
     }
     
     public String toString() {

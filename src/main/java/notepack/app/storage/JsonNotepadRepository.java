@@ -54,6 +54,7 @@ public class JsonNotepadRepository implements SessionStorage {
                 JSONObject obj = input.getJSONObject(i);
 
                 String storageClassName = obj.getString("storage_class");
+                String notepadIdent = obj.getString("ident");
 
                 NoteStorageConfiguration nsc = new NoteStorageConfiguration();
 
@@ -67,7 +68,7 @@ public class JsonNotepadRepository implements SessionStorage {
                     NoteStorage storage = (NoteStorage) cls.newInstance();
                     storage.setConfiguration(nsc);
 
-                    Notepad notepad = new Notepad(storage);
+                    Notepad notepad = new Notepad(storage, "", notepadIdent);
                     JSONObject paramsJson = obj.getJSONObject("params");
                     for (String k : paramsJson.keySet()) {
                         notepad.setParam(k, paramsJson.getString(k));
@@ -113,6 +114,7 @@ public class JsonNotepadRepository implements SessionStorage {
 
             JSONObject current = new JSONObject();
             current.put("storage_class", n.getStorage().getClass().getCanonicalName());
+            current.put("ident", n.getIdent());
 
             JSONObject storageConfig = new JSONObject();
 
@@ -159,31 +161,42 @@ public class JsonNotepadRepository implements SessionStorage {
                 JSONObject obj = input.getJSONObject(i);
 
                 String notePath = obj.getString("path");
-                String storageClassName = obj.getString("storage_class");
+                String notepadIdent = obj.getString("notepad_ident");
+                Notepad notepadToUse = null;
 
-                NoteStorageConfiguration nsc = new NoteStorageConfiguration();
-
-                JSONObject nscJson = obj.getJSONObject("storage_config");
-                for (String k : nscJson.keySet()) {
-                    nsc.set(k, nscJson.getString(k));
+                for (Notepad nn : getAvailableNotepads()) {
+                    if (nn.getIdent().equals(notepadIdent)) {
+                        notepadToUse = nn;
+                        break;
+                    }
+                }
+                
+                if (notepadToUse == null) {
+                    continue;
                 }
 
-                try {
-                    Class cls = Class.forName(storageClassName);
-                    NoteStorage storage = (NoteStorage) cls.newInstance();
-                    storage.setConfiguration(nsc);
+//                String storageClassName = obj.getString("storage_class");
+//                NoteStorageConfiguration nsc = new NoteStorageConfiguration();
+//
+//                JSONObject nscJson = obj.getJSONObject("storage_config");
+//                for (String k : nscJson.keySet()) {
+//                    nsc.set(k, nscJson.getString(k));
+//                }
+//                try {
+//                    Class cls = Class.forName(storageClassName);
+//                    NoteStorage storage = (NoteStorage) cls.newInstance();
+//                    storage.setConfiguration(nsc);
+                Note note = new Note(notePath, notepadToUse);
 
-                    Note note = new Note(notePath, storage);
+                notesList.add(note);
 
-                    notesList.add(note);
-
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InstantiationException ex) {
-                    Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                    Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                } catch (ClassNotFoundException ex) {
+//                    Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (InstantiationException ex) {
+//                    Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (IllegalAccessException ex) {
+//                    Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
+//                }
             }
         }
 
@@ -215,16 +228,17 @@ public class JsonNotepadRepository implements SessionStorage {
             }
 
             JSONObject current = new JSONObject();
-            current.put("storage_class", n.getStorage().getClass().getCanonicalName());
+//            current.put("storage_class", n.getStorage().getClass().getCanonicalName());
+            current.put("notepad_ident", n.getNotepad().getIdent());
             current.put("path", n.getPath());
 
-            JSONObject storageConfig = new JSONObject();
-
-            NoteStorageConfiguration cfg = n.getStorage().getConfiguration();
-            for (String k : cfg.getAll().keySet()) {
-                storageConfig.put(k, cfg.get(k));
-            }
-            current.put("storage_config", storageConfig);
+//            JSONObject storageConfig = new JSONObject();
+//
+//            NoteStorageConfiguration cfg = n.getStorage().getConfiguration();
+//            for (String k : cfg.getAll().keySet()) {
+//                storageConfig.put(k, cfg.get(k));
+//            }
+//            current.put("storage_config", storageConfig);
             toSave.put(current);
 
         }
