@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 
@@ -12,6 +14,16 @@
         <URL value="@default.css" />  
     </stylesheets>        
     <children>
-        <TreeView fx:id="notepadStructure" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 0 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <TreeView fx:id="notepadStructure" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 0 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" text="Open" />
+                <MenuItem mnemonicParsing="false" text="Close" />
+                <MenuItem mnemonicParsing="false" text="Refresh" />
+                <MenuItem mnemonicParsing="false" text="Delete" />
+              </items>
+            </ContextMenu>
+         </contextMenu></TreeView>
     </children>
 </AnchorPane>

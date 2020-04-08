@@ -17,6 +17,7 @@ import notepack.app.task.CloseNote;
 import notepack.app.task.CloseNotepad;
 import notepack.app.task.NewNote;
 import notepack.app.task.OpenNotepad;
+import notepack.app.task.RefreshNotepad;
 import notepack.app.task.SaveNote;
 
 /**
@@ -124,7 +125,7 @@ public class App {
     }
     
     public void refreshNotepad(Notepad notepad) {
-        
+        messageBus.addTask(new RefreshNotepad(notepad));
     }
     
     public ArrayList<Notepad> getAvailableNotepads() {

@@ -11,13 +11,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.print.Collation;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
-import notepack.app.domain.NoteTreeItem;
+import notepack.app.domain.NoteStorageItem;
 
 /**
  *
@@ -27,7 +31,9 @@ public class Filesystem implements NoteStorage {
 
     private NoteStorageConfiguration nsc;
 
-    private ArrayList<NoteTreeItem> items = new ArrayList<>();
+    private ArrayList<NoteStorageItem> items = new ArrayList<>();
+    
+    private NoteStorageItem rootItem;
 
     private int deep = 0;
 
@@ -62,18 +68,24 @@ public class Filesystem implements NoteStorage {
     }
 
     @Override
-    public NoteTreeItem list() {
-
-        File f = new File(getBasePath());
-
-        NoteTreeItem it = new NoteTreeItem(getBasePath(), f.getName());
-
-        it = addItems(it, getBasePath(), 0);
-
-        return it;
+    public NoteStorageItem getItemsInStorage() {
+        
+        if (rootItem == null) {
+            File f = new File(getBasePath());
+            rootItem = new NoteStorageItem(getBasePath(), f.getName());
+        }
+        
+        return rootItem;
     }
+    
+    @Override
+    public void refreshItemsInStorage() {
+        File f = new File(getBasePath());
+        rootItem = new NoteStorageItem(getBasePath(), f.getName());
+        rootItem = addItems(rootItem, getBasePath(), 0);
+    }    
 
-    private NoteTreeItem addItems(NoteTreeItem parent, String startPath, int deep) {
+    private NoteStorageItem addItems(NoteStorageItem parent, String startPath, int deep) {
         if (deep > 5) {
             return parent;
         }
@@ -95,6 +107,14 @@ public class Filesystem implements NoteStorage {
             }
 
             File ff = new File(startPath + File.separator + p);
+            long lastModified = 0;
+            try {
+                FileTime ft = Files.getLastModifiedTime(ff.toPath());
+                lastModified = ft.toMillis();
+            } catch (IOException ex) {
+                Logger.getLogger(Filesystem.class.getName()).log(Level.SEVERE, null, ex);
+                continue;
+            }
 
             String extension = "";
 
@@ -107,12 +127,11 @@ public class Filesystem implements NoteStorage {
 
             if (supportedExtensions.contains(extension)) {
 
-                parent.add(new NoteTreeItem(startPath + File.separator + p, p));
+                parent.add(new NoteStorageItem(startPath + File.separator + p, p, ff.length(), lastModified));
 
             } else if (ff.isDirectory()) {
 
-                NoteTreeItem newDirectoryParent = new NoteTreeItem(startPath + File.separator + p, p);
-//                parent.add(newDirectoryParent);
+                NoteStorageItem newDirectoryParent = new NoteStorageItem(startPath + File.separator + p, p, ff.length(), lastModified);
 
                 newDirectoryParent = addItems(newDirectoryParent, startPath + File.separator + p, deep + 1);
                 if (newDirectoryParent.get().size() > 0) {
@@ -120,7 +139,20 @@ public class Filesystem implements NoteStorage {
                 }
             }
         }
-
+        
+//        Collections.sort(parent.get(), (NoteStorageItem o1, NoteStorageItem o2) -> {
+//            if (o1.isLeaf()) {
+//                return 1;
+//            }
+//            if (o1.getSize() > o2.getSize()) {
+//                return 1;
+//            } else if (o1.getSize() == o2.getSize()) {
+//                return 0;
+//            } else {
+//                return -1;
+//            }
+//        });
+        
         return parent;
     }
 
@@ -128,7 +160,7 @@ public class Filesystem implements NoteStorage {
     public void saveContent(String content, String path) {
 
         try {
-            Files.write(Paths.get(getBasePath() + File.separator + path), content.getBytes());
+            Files.write(Paths.get(path), content.getBytes());
         } catch (IOException ex) {
             Logger.getLogger(Filesystem.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -143,5 +175,6 @@ public class Filesystem implements NoteStorage {
     public NoteStorageConfiguration getConfiguration() {
         return nsc;
     }
+
 
 }

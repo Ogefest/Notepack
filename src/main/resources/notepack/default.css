@@ -157,3 +157,51 @@
 .tree-cell:hover .highlight-on-hover {
     -fx-text-fill: red ;
 }*/
+
+
+/*.menu-bar {
+    -fx-background-color: -fx-bar-background;
+    -fx-opacity: 0.5;
+    -fx-border-width: 2.0;
+
+}
+.menu-bar .label {
+    -fx-font-size: 14.0 pt;
+    -fx-font-family: "Bookman Old Style";
+    -fx-text-fill: white;
+    -fx-font-weight: bold; 
+    -fx-padding: 10.0px;
+}
+
+
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-background: white ;
+    -fx-opacity: 0.5;
+    -fx-text-fill: -fx-bar-background;
+}
+
+.menu-item {
+    -fx-padding: 0.0em 0.0em 0.0em 0.0em;
+    -fx-text-fill: black;
+    -fx-background: white ;
+}
+.menu-item .label{
+    -fx-font-size: 14.0 pt;
+    -fx-text-fill: black;
+}
+
+
+.menu-item .label:hover{
+    -fx-font-size: 14.0 pt;
+    -fx-background: black ;
+    -fx-text-fill: white;
+}*/
+
+.tree-cell > .tree-disclosure-node > .arrow  {
+    -fx-shape: null;
+    -fx-background-color: null;
+}
+.tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-shape: null;
+    -fx-background-color: null;
+}
