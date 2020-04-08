@@ -3,7 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
@@ -25,72 +25,63 @@
     <children>
       <AnchorPane maxHeight="50.0" minHeight="50.0" prefHeight="50.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutX="14.0" layoutY="6.0" text="NotePack" textFill="WHITE">
+            <Label layoutX="45.0" layoutY="6.0" text="NotePack" textFill="WHITE">
                <font>
                   <Font name="Lato Light" size="30.0" />
                </font></Label>
-            <HBox alignment="CENTER" layoutX="146.0" layoutY="-25.0" prefHeight="50.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER" layoutX="146.0" layoutY="-25.0" prefHeight="50.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="0.0">
                <children>
                   <TextField focusTraversable="false" prefWidth="400.0" promptText="Search for note" styleClass="search-input" />
                </children>
             </HBox>
+            <MenuButton layoutX="14.0" layoutY="13.0" mnemonicParsing="false" styleClass="icon-menu" textFill="WHITE">
+              <items>
+                        <MenuItem mnemonicParsing="false" onAction="#onFileNew" text="New">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#onFileOpen" text="Open">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#onFileSave" text="Save">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#onFileSaveAs" text="Save As">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#onFileClose" text="Close">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                      <Menu mnemonicParsing="false" text="Notepad">
+                          <items>
+                                <MenuItem mnemonicParsing="false" onAction="#onFileNotepadAdd" text="Add" />
+                                <MenuItem mnemonicParsing="false" onAction="#onFileNotepadClose" text="Close" />
+                          </items>
+                      </Menu>
+                        <MenuItem mnemonicParsing="false" text="Exit application">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+              </items>
+            </MenuButton>
          </children>
       </AnchorPane>
         <SplitPane dividerPositions="0.298" layoutY="28.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
             <items>
             <VBox maxWidth="400.0" prefHeight="200.0" prefWidth="100.0">
                <children>
-                    <MenuBar>
-                        <menus>
-                            <Menu mnemonicParsing="false" text="File">
-                                <items>
-                                    <MenuItem mnemonicParsing="false" onAction="#onFileNew" text="New">
-                                        <accelerator>
-                                            <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                                        </accelerator>
-                                    </MenuItem>
-                                    <MenuItem mnemonicParsing="false" onAction="#onFileOpen" text="Open">
-                                        <accelerator>
-                                            <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                                        </accelerator>
-                                    </MenuItem>
-                                    <Menu mnemonicParsing="false" text="Notepad">
-                                        <items>
-                                            <MenuItem mnemonicParsing="false" onAction="#onFileNotepadAdd" text="Add" />
-                                            <MenuItem mnemonicParsing="false" onAction="#onFileNotepadClose" text="Close" />
-                                        </items>
-                                    </Menu>
-                                    <MenuItem mnemonicParsing="false" onAction="#onFileSave" text="Save">
-                                        <accelerator>
-                                            <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                                        </accelerator>
-                                    </MenuItem>
-                                    <MenuItem mnemonicParsing="false" onAction="#onFileSaveAs" text="Save As">
-                                        <accelerator>
-                                            <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
-                                        </accelerator>
-                                    </MenuItem>
-                                    <SeparatorMenuItem mnemonicParsing="false" />
-                                    <MenuItem mnemonicParsing="false" onAction="#onFileClose" text="Close">
-                                        <accelerator>
-                                            <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                                        </accelerator>
-                                    </MenuItem>
-                                    <SeparatorMenuItem mnemonicParsing="false" />
-                                    <MenuItem mnemonicParsing="false" text="Exit application">
-                                        <accelerator>
-                                            <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                                        </accelerator>
-                                    </MenuItem>
-                                </items>
-                            </Menu>
-                            <Menu mnemonicParsing="false" text="Help">
-                                <items>
-                                    <MenuItem mnemonicParsing="false" text="About" />
-                                </items>
-                            </Menu>
-                        </menus>
-                    </MenuBar>
                   <TabPane fx:id="notepadContainer" prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>

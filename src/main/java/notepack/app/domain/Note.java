@@ -31,7 +31,7 @@ public class Note {
     
     public String getName() {
         if (path == null) {
-            return "";
+            return "New note";
         }
         
         File f = new File(path);

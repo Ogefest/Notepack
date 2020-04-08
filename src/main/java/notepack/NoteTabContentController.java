@@ -79,6 +79,10 @@ public class NoteTabContentController implements Initializable {
 //        testLabel.setFont(Font.loadFont("file:src/main/resources/notepack/fa-regular-400.ttf", 20));
 //        testLabel.setText("&#xf26e;");
     }
+    
+    public Note getNote() {
+        return note;
+    }
 
     public TextArea getTextArea() {
         return textArea;

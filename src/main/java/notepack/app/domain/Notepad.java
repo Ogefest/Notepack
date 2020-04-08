@@ -83,7 +83,7 @@ public class Notepad {
 
         double y = (299 * r + 587 * g + 114 * b) / 1000;
 
-        return y >= 108 ? "#000" : "#fff";
+        return y >= 138 ? "#000" : "#fff";
     }
 
     public HashMap<String, String> getParams() {

@@ -19,6 +19,7 @@ public interface NoteStorage {
     
     public void saveContent(String content, String path);
     public String loadContent(String path);
-    public NoteTreeItem list();
-        
+    public NoteStorageItem getItemsInStorage();
+    public void refreshItemsInStorage();
+    
 }

@@ -35,7 +35,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
-import notepack.app.domain.NoteTreeItem;
+import notepack.app.domain.NoteStorageItem;
 import notepack.app.domain.Notepad;
 import notepack.app.domain.Settings;
 import notepack.app.event.NoteChanged;
@@ -90,16 +90,16 @@ public class MainViewController implements Initializable {
                     ctrl.getTextArea().textProperty().addListener((ov, oldValue, newValue) -> {
                         app.changeNote(note, newValue);
                     });
-
+                    
                     newTab.setContent(tabContent);
-                    newTab.setUserData(note);
+                    newTab.setUserData(ctrl);
                     newTab.setOnCloseRequest(new EventHandler<Event>() {
                         @Override
                         public void handle(Event t) {
                             app.closeNote(note);
                         }
                     });
-                    
+
                     String notepadColor = note.getNotepad().getBackgroundColor();
                     newTab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);
                     if (note.getName().length() > 0) {
@@ -109,6 +109,8 @@ public class MainViewController implements Initializable {
                     Platform.runLater(() -> {
                         tabContainer.getTabs().add(newTab);
                         tabContainer.getSelectionModel().select(newTab);
+                        
+                        ctrl.getTextArea().requestFocus();
                     });
 
                 } catch (IOException ex) {
@@ -134,23 +136,29 @@ public class MainViewController implements Initializable {
             @Override
             public void onChange(Note n) {
 
-                Platform.runLater(() -> {
-                    for (Tab t : tabContainer.getTabs()) {
-                        if (t.getUserData().equals(n)) {
-                            if (n.getContent().equals(getTextAreaForNote(n).getText())) {
-                                t.setStyle("-fx-text-base-color: green;");
-                            } else {
-                                t.setStyle("-fx-text-base-color: red;");
-                            }
-                        }
-                    }
-                });
+//                Platform.runLater(() -> {
+//                    for (Tab t : tabContainer.getTabs()) {
+//                        if (t.getUserData().equals(n)) {
+//                            if (n.getContent().equals(getTextAreaForNote(n).getText())) {
+//                                t.setStyle("-fx-text-base-color: green;");
+//                            } else {
+//                                t.setStyle("-fx-text-base-color: red;");
+//                            }
+//                        }
+//                    }
+//                });
 
             }
 
             @Override
             public void onSave(Note n) {
-//                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                Platform.runLater(() -> {
+                    for (Tab t : tabContainer.getTabs()) {
+                        if (t.getUserData().equals(n)) {
+                            t.setText(n.getName());
+                        }
+                    }
+                });                
             }
         });
 
@@ -171,39 +179,16 @@ public class MainViewController implements Initializable {
                             if (note != null) {
                                 app.openNote(note);
                             }
-                        }                        
+                        }
                     });
-                    
-                    tab.setUserData(notepad);
+
+                    tab.setUserData(ctrl);
                     tab.setText(notepad.getName());
-                    
+
                     String notepadColor = notepad.getBackgroundColor();
                     tab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);
                     
-//                    ctrl.setNote(note);
-//                    ctrl.getTextArea().textProperty().addListener((ov, oldValue, newValue) -> {
-//                        app.changeNote(note, newValue);
-//                    });
-
-//                    newTab.setUserData(note);
-//                    newTab.setOnCloseRequest(new EventHandler<Event>() {
-//                        @Override
-//                        public void handle(Event t) {
-//                            app.closeNote(note);
-//                        }
-//                    });
-//                    if (note.getName().length() > 0) {
-//                        newTab.setText(note.getName());
-//                    }
-
-//                    Platform.runLater(() -> {
-//                        tabContainer.getTabs().add(newTab);
-//                        tabContainer.getSelectionModel().select(newTab);
-//                    });
-//
-//                    tab = FXMLLoader.load(getClass().getResource("NotepadTabListView.fxml"));
-//                    tab.setUserData(notepad);
-//                    tab.setText(notepad.getName());
+                    app.refreshNotepad(notepad);
 
                     Platform.runLater(() -> {
 
@@ -220,11 +205,11 @@ public class MainViewController implements Initializable {
 //                    });
 //                    tab.getContextMenu().getItems().add(closeNotepad);
 //
-//                    NoteTreeItem noteNames = notepad.getStorage().list();
+//                    NoteStorageItem noteNames = notepad.getStorage().getItemsInStorage();
 //                    Parent p = (Parent) tab.getContent();
 //                    TreeView<NoteTreeItem> n = (TreeView<NoteTreeItem>) p.getChildrenUnmodifiable().get(0);
 //
-//                    for (NoteTreeItem noteName : noteNames.get()) {
+//                    for (NoteStorageItem noteName : noteNames.get()) {
 //                        n.getItems().add(new Note(noteName.getName(), notepad.getStorage()));
 //                    }
 //
@@ -233,7 +218,6 @@ public class MainViewController implements Initializable {
 //                            app.openNote(n.getSelectionModel().getSelectedItem());
 //                        }
 //                    });
-
                 } catch (IOException ex) {
                     Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -254,6 +238,19 @@ public class MainViewController implements Initializable {
 
             @Override
             public void onNotesListUpdated(Notepad notepad) {
+                
+                    Platform.runLater(() -> {
+                        
+                        for (Tab t : notepadContainer.getTabs()) {
+                            
+                            NotebookTabController ctrl = (NotebookTabController) t.getUserData();
+                            if (ctrl.getNotepad().equals(notepad)) {
+                                ctrl.refreshTreeView();
+                            }
+                        }
+
+                    });                
+                
             }
         });
     }
@@ -312,12 +309,17 @@ public class MainViewController implements Initializable {
     private TextArea getCurrentTextArea() {
         Tab t = tabContainer.getSelectionModel().getSelectedItem();
         Parent p = (Parent) t.getContent();
-        return (TextArea) p.getChildrenUnmodifiable().get(1);
+        return ((NoteTabContentController) t.getUserData()).getTextArea();
     }
 
     private Note getCurrentNote() {
         Tab t = tabContainer.getSelectionModel().getSelectedItem();
-        return (Note) t.getUserData();
+        return ((NoteTabContentController) t.getUserData()).getNote();
+    }
+
+    private Notepad getCurrentNotepad() {
+        Tab t = notepadContainer.getSelectionModel().getSelectedItem();
+        return ((NotebookTabController) t.getUserData()).getNotepad();
     }
 
     @FXML
@@ -339,6 +341,9 @@ public class MainViewController implements Initializable {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save note");
 
+            String dir = getCurrentNotepad().getStorage().getConfiguration().get("directory");
+            fileChooser.setInitialDirectory(new File(dir));
+
             File file = fileChooser.showSaveDialog(stage);
             if (file != null) {
                 n.setPath(file.getAbsolutePath());
@@ -347,7 +352,7 @@ public class MainViewController implements Initializable {
         } else {
             app.saveNote(n);
         }
-
+        app.refreshNotepad(n.getNotepad());
     }
 
     @FXML
@@ -357,7 +362,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void onFileNew(ActionEvent event) {
-//        app.newNote(new Filesystem());
+        app.newNote(getCurrentNotepad());
     }
 
     @FXML

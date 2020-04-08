@@ -11,15 +11,24 @@ import java.util.ArrayList;
  *
  * @author lg
  */
-public class NoteTreeItem {
+public class NoteStorageItem {
     
-    private ArrayList<NoteTreeItem> items = new ArrayList<NoteTreeItem>();
+    private ArrayList<NoteStorageItem> items = new ArrayList<NoteStorageItem>();
     private String path;
     private String name;
+    private long size;
+    private long modified;
     
-    public NoteTreeItem(String path, String name) {
+    public NoteStorageItem(String path, String name) {
         this.path = path;
         this.name = name;
+    }
+    
+    public NoteStorageItem(String path, String name, long size, long modified) {
+        this.path = path;
+        this.name = name;
+        this.size = size;
+        this.modified = modified;
     }
     
     public String getName() {
@@ -30,15 +39,23 @@ public class NoteTreeItem {
         return path;
     }
     
+    public long getSize() {
+        return size;
+    }
+    
+    public long getModified() {
+        return modified;
+    }
+    
     public boolean isLeaf() {
         return items.size() == 0;
     }
     
-    public void add(NoteTreeItem item) {
+    public void add(NoteStorageItem item) {
         items.add(item);
     }
     
-    public ArrayList<NoteTreeItem> get() {
+    public ArrayList<NoteStorageItem> get() {
         return items;
     }
     
