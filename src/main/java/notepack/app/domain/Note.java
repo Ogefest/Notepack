@@ -29,6 +29,10 @@ public class Note {
         this.notepad = notepad;
     }
     
+    public String getIdent() {
+        return notepad.getIdent() + path;
+    }
+    
     public String getName() {
         if (path == null) {
             return "New note";
@@ -72,6 +76,7 @@ public class Note {
     
     public void saveToStorage() {
         notepad.getStorage().saveContent(content, path);
+        setPath(path);
     }
     
     public String toString() {

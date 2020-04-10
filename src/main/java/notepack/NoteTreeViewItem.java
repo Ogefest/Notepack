@@ -34,4 +34,8 @@ public class NoteTreeViewItem {
         return note;
     }
     
+    public NoteStorageItem getNoteStorageItem() {
+        return noteStorageItem;
+    }
+    
 }

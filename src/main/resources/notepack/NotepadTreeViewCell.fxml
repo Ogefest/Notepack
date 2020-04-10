@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="502.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label text="Label" />
-   </children>
+<HBox fx:id="nodeRow" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"  >
+    <stylesheets>
+        <URL value="@color-definition.css" />
+        <URL value="@scrollbar.css" />  
+        <URL value="@icons.css" />  
+        <URL value="@default.css" />  
+    </stylesheets>        
+    <children>
+        <Label fx:id="nodeIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="%fa.file_text_o" />
+        <VBox fx:id="centerPart" alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
+            <children>
+                <Label fx:id="nodeName" prefHeight="16.0" prefWidth="164.0" text="Label" />
+                <Label fx:id="lastModified" text="Label" textFill="#656565">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+        <Label fx:id="noteSize" text="Label" textFill="#535353" />
+    </children>
 </HBox>
