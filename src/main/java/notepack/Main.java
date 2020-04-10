@@ -5,6 +5,7 @@
  */
 package notepack;
 
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
+        loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
         
 //        App.class.getResource(fxml + ".fxml");
         

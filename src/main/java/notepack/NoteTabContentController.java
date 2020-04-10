@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import notepack.app.domain.Note;
 
@@ -28,18 +29,12 @@ public class NoteTabContentController implements Initializable {
     private TextArea textArea;
 
     private Note note;
-    @FXML
     private MenuItem menuEditUndo;
-    @FXML
     private MenuItem menuEditRedo;
-    @FXML
     private MenuItem menuEditCut;
-    @FXML
     private MenuItem menuEditCopy;
     @FXML
-    private MenuItem menuEditPaste;
-    @FXML
-    private MenuItem menuEditDelete;
+    private AnchorPane tabBackground;
 
     /**
      * Initializes the controller class.
@@ -73,8 +68,15 @@ public class NoteTabContentController implements Initializable {
                 menuEditCopy.setDisable(false);
             }
         });
+        
+        tabBackground.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
 
         textArea.requestFocus();
+        
+//        Font.loadFont(NoteTabContentController.class.getResource("fonts/fontawesome-webfont.ttf").toExternalForm(), 10);
+//        Font.loadFont(NoteTabContentController.class.getResource("fa.otf").toExternalForm(), 10);
+//        icontest.setText(new Character('\uf2cd').toString());
+//        icontest.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 22;");
 
 //        testLabel.setFont(Font.loadFont("file:src/main/resources/notepack/fa-regular-400.ttf", 20));
 //        testLabel.setText("&#xf26e;");
@@ -88,37 +90,30 @@ public class NoteTabContentController implements Initializable {
         return textArea;
     }
 
-    @FXML
     private void onMenuUndo(ActionEvent event) {
         textArea.undo();
     }
 
-    @FXML
     private void onMenuRedo(ActionEvent event) {
         textArea.redo();
     }
 
-    @FXML
     private void onMenuCut(ActionEvent event) {
         textArea.cut();
     }
 
-    @FXML
     private void onMenuCopy(ActionEvent event) {
         textArea.copy();
     }
 
-    @FXML
     private void onMenuPaste(ActionEvent event) {
         textArea.paste();
     }
 
-    @FXML
     private void onMenuDelete(ActionEvent event) {
         textArea.deleteText(textArea.getSelection());
     }
 
-    @FXML
     private void onMenuSelectAll(ActionEvent event) {
         textArea.selectAll();
     }

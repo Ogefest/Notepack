@@ -25,7 +25,7 @@
     <children>
       <AnchorPane maxHeight="50.0" minHeight="50.0" prefHeight="50.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutX="45.0" layoutY="6.0" text="NotePack" textFill="WHITE">
+            <Label layoutX="85.0" layoutY="6.0" text="NotePack" textFill="WHITE">
                <font>
                   <Font name="Lato Light" size="30.0" />
                </font></Label>
@@ -34,7 +34,7 @@
                   <TextField focusTraversable="false" prefWidth="400.0" promptText="Search for note" styleClass="search-input" />
                </children>
             </HBox>
-            <MenuButton layoutX="14.0" layoutY="13.0" mnemonicParsing="false" styleClass="icon-menu" textFill="WHITE">
+            <MenuButton layoutX="14.0" layoutY="4.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="34.0" styleClass="icon-button" text="%fa.navicon" textFill="WHITE">
               <items>
                         <MenuItem mnemonicParsing="false" onAction="#onFileNew" text="New">
                             <accelerator>
