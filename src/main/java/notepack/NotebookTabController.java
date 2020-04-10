@@ -6,7 +6,9 @@
 package notepack;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeCell;
@@ -65,7 +67,7 @@ public class NotebookTabController implements Initializable {
         this.notepad = notepad;
 
         tabBackground.setStyle("-fx-background-color: " + notepad.getBackgroundColor());
-        
+
         notepadStructure.setCellFactory((p) -> {
             return new NoteTreeCell();
         });
@@ -77,7 +79,20 @@ public class NotebookTabController implements Initializable {
 
     public void refreshTreeView() {
         NoteStorageItem items = notepad.getStorage().getItemsInStorage();
-//        TreeItem root = new TreeItem(notepad.getName());
+        
+        Collections.sort(items.get(), (NoteStorageItem o1, NoteStorageItem o2) -> {
+            if (o1.isLeaf()) {
+                return 1;
+            }
+            if (o1.getModified() > o2.getModified()) {
+                return -1;
+            } else if (o1.getModified() == o2.getModified()) {
+                return 0;
+            } else {
+                return 1;
+            }
+        });
+
         TreeItem root = new TreeItem(null);
 
         root = addChildren(root, items);
@@ -87,6 +102,19 @@ public class NotebookTabController implements Initializable {
     }
 
     private TreeItem addChildren(TreeItem parent, NoteStorageItem items) {
+        
+        Collections.sort(items.get(), (NoteStorageItem o1, NoteStorageItem o2) -> {
+            if (o1.isLeaf() && !o2.isLeaf()) {
+                return 1;
+            }
+            if (o1.getModified() > o2.getModified()) {
+                return -1;
+            } else if (o1.getModified() == o2.getModified()) {
+                return 0;
+            } else {
+                return 1;
+            }
+        });        
 
         for (NoteStorageItem it : items.get()) {
 
@@ -109,6 +137,23 @@ public class NotebookTabController implements Initializable {
         }
 
         return parent;
+    }
+
+    @FXML
+    private void treeViewOnOpen(ActionEvent event) {
+//        notepadStructure.getSelectionModel().getSelectedItem().getValue().getNote();
+    }
+
+    @FXML
+    private void treeViewOnClose(ActionEvent event) {
+    }
+
+    @FXML
+    private void treeViewOnRefresh(ActionEvent event) {
+    }
+
+    @FXML
+    private void treeViewOnDelete(ActionEvent event) {
     }
 
 }

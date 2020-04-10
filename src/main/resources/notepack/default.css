@@ -1,8 +1,17 @@
 @font-face {
     font-family: 'Lato Light';
-    src: url('./Lato-Light.ttf');
+    src: url('Lato-Light.ttf');
 }
 
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('fonts/FontAwesome.otf');
+}
+
+@font-face {
+    font-family: 'Zilla Slab Light';
+    src: url('fonts/ZillaSlab-Light.ttf');
+}
 
 .root { -fx-focus-color: transparent; }
 
@@ -204,4 +213,20 @@
 .tree-cell:expanded > .tree-disclosure-node > .arrow {
     -fx-shape: null;
     -fx-background-color: null;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-font-size: 24.0 pt;
+    -fx-font-family: 'FontAwesome'
+}
+
+.icon-button > .menu-item > .label {
+    -fx-font-size: 14.0 pt;
+}
+
+.text-area {
+    -fx-font-size: 22;
+    -fx-padding: 20 20 20 20 ;
+    -fx-font-family: 'Zilla Slab Light';
 }
