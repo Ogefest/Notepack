@@ -10,12 +10,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import notepack.app.domain.Note;
 
 /**
@@ -29,10 +26,10 @@ public class NoteTabContentController implements Initializable {
     private TextArea textArea;
 
     private Note note;
-    private MenuItem menuEditUndo;
-    private MenuItem menuEditRedo;
-    private MenuItem menuEditCut;
-    private MenuItem menuEditCopy;
+//    private MenuItem menuEditUndo;
+//    private MenuItem menuEditRedo;
+//    private MenuItem menuEditCut;
+//    private MenuItem menuEditCopy;
     @FXML
     private AnchorPane tabBackground;
 
@@ -48,26 +45,26 @@ public class NoteTabContentController implements Initializable {
         this.note = note;
 
         textArea.setText(note.getContent());
-        textArea.textProperty().addListener((ov, oldValue, newValue) -> {
-
-            menuEditUndo.setDisable(true);
-            if (textArea.isUndoable()) {
-                menuEditUndo.setDisable(false);
-            }
-            menuEditRedo.setDisable(true);
-            if (textArea.isRedoable()) {
-                menuEditRedo.setDisable(false);
-            }
-
-        });
-        textArea.selectionProperty().addListener((o) -> {
-            menuEditCut.setDisable(true);
-            menuEditCopy.setDisable(true);
-            if (textArea.getSelectedText().length() > 0) {
-                menuEditCut.setDisable(false);
-                menuEditCopy.setDisable(false);
-            }
-        });
+//        textArea.textProperty().addListener((ov, oldValue, newValue) -> {
+//
+//            menuEditUndo.setDisable(true);
+//            if (textArea.isUndoable()) {
+//                menuEditUndo.setDisable(false);
+//            }
+//            menuEditRedo.setDisable(true);
+//            if (textArea.isRedoable()) {
+//                menuEditRedo.setDisable(false);
+//            }
+//
+//        });
+//        textArea.selectionProperty().addListener((o) -> {
+//            menuEditCut.setDisable(true);
+//            menuEditCopy.setDisable(true);
+//            if (textArea.getSelectedText().length() > 0) {
+//                menuEditCut.setDisable(false);
+//                menuEditCopy.setDisable(false);
+//            }
+//        });
         
         tabBackground.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
 
