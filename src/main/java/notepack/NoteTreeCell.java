@@ -15,8 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import notepack.app.domain.Note;
-import notepack.app.domain.NoteStorageItem;
 
 /**
  *

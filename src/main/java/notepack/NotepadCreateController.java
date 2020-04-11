@@ -20,10 +20,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import notepack.app.domain.NoteStorage;
-import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.Notepad;
 import notepack.app.storage.Filesystem;
-import notepack.app.domain.SessionStorage;
 
 /**
  * FXML Controller class
