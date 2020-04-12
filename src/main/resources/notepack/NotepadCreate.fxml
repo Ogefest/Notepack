@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -36,6 +37,12 @@
             <ColorPicker fx:id="notepadColor" layoutX="13.0" layoutY="359.0" promptText="Pick notepad color" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
             <Label layoutX="10.0" layoutY="336.0" text="Notepad color:" AnchorPane.leftAnchor="10.0" />
             <Separator layoutX="43.0" layoutY="324.0" prefWidth="200.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <ToggleButton layoutX="17.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" selected="true" />
+            <ToggleButton layoutX="51.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
+            <ToggleButton layoutX="86.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
+            <ToggleButton layoutX="120.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
+            <ToggleButton layoutX="152.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
+            <ToggleButton layoutX="188.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
          </children>
     </AnchorPane>
   </children>
