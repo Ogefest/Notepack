@@ -56,6 +56,11 @@
                                 <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#searchForNote" text="Search for note">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#onFileClose" text="Close">
                             <accelerator>
