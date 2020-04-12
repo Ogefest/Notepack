@@ -481,6 +481,7 @@ public class MainViewController implements Initializable {
         
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("SearchForNote.fxml"));
+        fxmlLoader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
 
         Scene scene;
         try {
