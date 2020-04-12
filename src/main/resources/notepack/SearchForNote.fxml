@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import java.net.URL?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.SearchForNoteController">
     <stylesheets>
@@ -14,7 +14,8 @@
         <URL value="@default.css" />  
     </stylesheets>      
    <children>
-      <TextField fx:id="queryInput" layoutX="14.0" layoutY="14.0" onKeyReleased="#updateSearchResult" prefHeight="26.0" prefWidth="420.0" promptText="Search for note" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+      <TextField fx:id="queryInput" layoutX="14.0" layoutY="14.0" onKeyReleased="#updateSearchResult" prefHeight="26.0" prefWidth="377.0" promptText="Search for note" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="14.0" />
       <ListView fx:id="noteList" layoutX="14.0" layoutY="49.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="49.0" />
+      <Button layoutX="369.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCloseBtn" prefHeight="14.0" prefWidth="32.0" styleClass="icon-button" text="%fa.close" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
    </children>
 </AnchorPane>

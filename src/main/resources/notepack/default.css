@@ -167,8 +167,9 @@
 
 .icon-button {
     -fx-background-color: transparent;
-    -fx-font-size: 24.0 pt;
-    -fx-font-family: 'FontAwesome'
+    -fx-font-size: 20.0 pt;
+    -fx-font-family: 'FontAwesome';
+    -fx-padding: 5 ;
 }
 
 .icon-button > .menu-item > .label {
@@ -182,20 +183,11 @@
     /*-fx-font-family: 'Zilla Slab Light';*/
 }
 
-/*.pane-basicwindow {
-    -fx-border-color:
-        linear-gradient(to right, rgba(0, 0, 0, 0.2), transparent),
-        linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent),
-        linear-gradient(to left, rgba(0, 0, 0, 0.2), transparent);
-    -fx-border-style: solid;
-    -fx-border-width:
-        0 0 0 0.417em,
-        0 0 0.417em 0,
-        0 0.417em 0 0;
-}*/
-
-/*.tree-view:selected {
-    -fx-selection-bar: cell-selection-color ;
-    -fx-background-color: cell-selection-color;
-    -fx-table-cell-border-color: cell-selection-color;
-}*/
+.text-input {
+    -fx-highlight-fill:  derive(-fx-bar-background,80%);
+    -fx-highlight-text-fill:  derive(-fx-bar-background,5%);
+}
+.text-input:focused {
+    -fx-highlight-fill:  derive(-fx-bar-background,80%);
+    -fx-highlight-text-fill:  derive(-fx-bar-background,5%);
+}
