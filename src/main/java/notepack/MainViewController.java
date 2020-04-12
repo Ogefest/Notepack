@@ -37,6 +37,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.Notepad;
@@ -472,6 +473,40 @@ public class MainViewController implements Initializable {
         Notepad n = ctrl.getNotepad();
 
         app.closeNotepad(n);
+    }
+    
+    private void showSearchForNoteDialog() {
+        
+        
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("SearchForNote.fxml"));
+
+        Scene scene;
+        try {
+            Parent root = fxmlLoader.load();
+
+            SearchForNoteController ctrl = (SearchForNoteController) fxmlLoader.getController();
+            ctrl.setCallback((note) -> {
+                app.openNote(note);
+            });
+            ctrl.setApp(app);
+
+            scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setAlwaysOnTop(true);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException ex) {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        
+    }
+
+    @FXML
+    private void searchForNote(ActionEvent event) {
+        showSearchForNoteDialog();
     }
 
 }
