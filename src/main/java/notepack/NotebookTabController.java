@@ -65,6 +65,7 @@ public class NotebookTabController implements Initializable {
         this.notepad = notepad;
 
         tabBackground.setStyle("-fx-background-color: " + notepad.getBackgroundColor());
+        notepadStructure.setStyle("cell-selection-color: " + notepad.getBackgroundColor());
 
         notepadStructure.setCellFactory((p) -> {
             return new NoteTreeCell();

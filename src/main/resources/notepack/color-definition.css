@@ -2,4 +2,5 @@
     
     -fx-bar-background: #334563;
     -fx-bar-border-color: #dfe1e6;
+    cell-selection-color: transparent;
 }

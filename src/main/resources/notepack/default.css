@@ -54,9 +54,6 @@
     -fx-background-color: transparent, white, transparent, white;
 }
 
-.scroll-pane {
-}
-
 .viewport {
     -fx-background-insets: 0;
     -fx-background-color: transparent, white, transparent, white;
@@ -92,7 +89,6 @@
     -fx-background-color: white;
 }
 
-
 #noteTabContainer {
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
@@ -116,17 +112,18 @@
     -fx-text-base-color: #172c40;
     -fx-border-color: #718fab;*/
 
-    -fx-padding: 5 10 5 10 ;
+    -fx-padding: 2 10 2 10 ;
     -fx-alignment: CENTER;    
     -fx-text-alignment: center; 
 
     -fx-border-width:  0 0 1 0;
 
-    -fx-opacity: 0.7;
+    /*-fx-opacity: 0.7;*/
 }
 
 #noteTabContainer *.tab:selected {
-    -fx-opacity: 1;
+    -fx-padding: 5 10 5 10 ;
+    /*-fx-opacity: 1;*/
 }
 
 .menu-button > .arrow-button > .arrow {
@@ -159,53 +156,6 @@
 }
 
 
-/*.tree-cell:hover {
-    -fx-background-color: #0093ff ;
-}
-
-.tree-cell:hover .highlight-on-hover {
-    -fx-text-fill: red ;
-}*/
-
-
-/*.menu-bar {
-    -fx-background-color: -fx-bar-background;
-    -fx-opacity: 0.5;
-    -fx-border-width: 2.0;
-
-}
-.menu-bar .label {
-    -fx-font-size: 14.0 pt;
-    -fx-font-family: "Bookman Old Style";
-    -fx-text-fill: white;
-    -fx-font-weight: bold; 
-    -fx-padding: 10.0px;
-}
-
-
-.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
-    -fx-background: white ;
-    -fx-opacity: 0.5;
-    -fx-text-fill: -fx-bar-background;
-}
-
-.menu-item {
-    -fx-padding: 0.0em 0.0em 0.0em 0.0em;
-    -fx-text-fill: black;
-    -fx-background: white ;
-}
-.menu-item .label{
-    -fx-font-size: 14.0 pt;
-    -fx-text-fill: black;
-}
-
-
-.menu-item .label:hover{
-    -fx-font-size: 14.0 pt;
-    -fx-background: black ;
-    -fx-text-fill: white;
-}*/
-
 .tree-cell > .tree-disclosure-node > .arrow  {
     -fx-shape: null;
     -fx-background-color: null;
@@ -226,7 +176,26 @@
 }
 
 .text-area {
-    -fx-font-size: 22;
+    -fx-font-size: 18;
+    -fx-text-fill: #333333;
     -fx-padding: 20 20 20 20 ;
-    -fx-font-family: 'Zilla Slab Light';
+    /*-fx-font-family: 'Zilla Slab Light';*/
 }
+
+/*.pane-basicwindow {
+    -fx-border-color:
+        linear-gradient(to right, rgba(0, 0, 0, 0.2), transparent),
+        linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent),
+        linear-gradient(to left, rgba(0, 0, 0, 0.2), transparent);
+    -fx-border-style: solid;
+    -fx-border-width:
+        0 0 0 0.417em,
+        0 0 0.417em 0,
+        0 0.417em 0 0;
+}*/
+
+/*.tree-view:selected {
+    -fx-selection-bar: cell-selection-color ;
+    -fx-background-color: cell-selection-color;
+    -fx-table-cell-border-color: cell-selection-color;
+}*/
