@@ -31,7 +31,7 @@
                </font></Label>
             <HBox alignment="CENTER" layoutX="146.0" layoutY="-25.0" prefHeight="50.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextField focusTraversable="false" prefWidth="400.0" promptText="Search for note" styleClass="search-input" />
+                  <TextField focusTraversable="false" onMouseClicked="#searchForNoteFromBar" prefWidth="400.0" promptText="Search for note" styleClass="search-input" />
                </children>
             </HBox>
             <MenuButton layoutX="14.0" layoutY="4.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="34.0" styleClass="icon-button" text="%fa.navicon" textFill="WHITE">
