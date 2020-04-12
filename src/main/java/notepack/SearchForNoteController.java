@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -108,6 +109,11 @@ public class SearchForNoteController implements Initializable {
             }
 
         }
+    }
+
+    @FXML
+    private void onCloseBtn(ActionEvent event) {
+        windowClose();
     }
 
 }
