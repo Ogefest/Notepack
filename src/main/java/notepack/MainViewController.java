@@ -34,6 +34,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -506,6 +507,11 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void searchForNote(ActionEvent event) {
+        showSearchForNoteDialog();
+    }
+
+    @FXML
+    private void searchForNoteFromBar(MouseEvent event) {
         showSearchForNoteDialog();
     }
 

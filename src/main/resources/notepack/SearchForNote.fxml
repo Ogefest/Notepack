@@ -3,9 +3,16 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import java.net.URL?>
 
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.SearchForNoteController">
+    <stylesheets>
+        <URL value="@color-definition.css" />
+        <URL value="@scrollbar.css" />  
+        <URL value="@icons.css" />  
+        <URL value="@default.css" />  
+    </stylesheets>      
    <children>
       <TextField fx:id="queryInput" layoutX="14.0" layoutY="14.0" onKeyReleased="#updateSearchResult" prefHeight="26.0" prefWidth="420.0" promptText="Search for note" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
       <ListView fx:id="noteList" layoutX="14.0" layoutY="49.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="49.0" />
