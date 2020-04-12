@@ -36,12 +36,17 @@ public class SearchForNoteController implements Initializable {
     private SearchForNoteCallback clbk;
 
     private App app;
-    
+
     private ObservableList<Note> programList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
+        queryInput.focusedProperty().addListener((ov, t, t1) -> {
+            if (!t1) {
+                windowClose();
+            }
+        });
     }
 
     public void setApp(App app) {
@@ -50,7 +55,7 @@ public class SearchForNoteController implements Initializable {
 
     public void setCallback(SearchForNoteCallback clbk) {
         this.clbk = clbk;
-        
+
         noteList.setItems(programList);
     }
 
@@ -59,40 +64,42 @@ public class SearchForNoteController implements Initializable {
         queryInput.requestFocus();
     }
 
+    private void windowClose() {
+        Stage stage = (Stage) queryInput.getScene().getWindow();
+        stage.close();
+    }
+
     @FXML
     private void updateSearchResult(KeyEvent event) {
 
         if (event.getCode().equals(KeyCode.ESCAPE)) {
-            Stage stage = (Stage) queryInput.getScene().getWindow();
-            stage.close();
+            windowClose();
             return;
         }
-        
+
         if (event.getCode().equals(KeyCode.ENTER)) {
             clbk.openNote(noteList.getSelectionModel().getSelectedItem());
-            
-            Stage stage = (Stage) queryInput.getScene().getWindow();
-            stage.close();
-            return;            
+            windowClose();
+            return;
         }
 
         if (event.getCode().isLetterKey()) {
-            
+
             String q = queryInput.getText();
-            
+
             ArrayList<Note> tmp = app.searchForNote(q);
-            
+
             programList.clear();
             programList.addAll(tmp);
-            
+
             if (tmp.size() > 0) {
                 noteList.getSelectionModel().select(0);
             }
         }
-        
+
         if (event.getCode().isArrowKey()) {
             int selectedIndex = noteList.getSelectionModel().getSelectedIndex();
-            
+
             if (event.getCode().equals(KeyCode.UP) && selectedIndex > 0) {
                 noteList.getSelectionModel().select(selectedIndex - 1);
             }
