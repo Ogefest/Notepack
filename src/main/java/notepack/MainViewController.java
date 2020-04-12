@@ -9,10 +9,13 @@ package notepack;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -22,9 +25,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -60,7 +69,7 @@ public class MainViewController implements Initializable {
     private Filesystem recentFiles;
     @FXML
     private TabPane notepadContainer;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
@@ -79,7 +88,7 @@ public class MainViewController implements Initializable {
                         Platform.runLater(() -> {
                             tabContainer.getSelectionModel().select(t);
                         });
-                        
+
                         return;
                     }
                 }
@@ -188,6 +197,49 @@ public class MainViewController implements Initializable {
                         }
                     });
 
+                    ContextMenu contextMenu = new ContextMenu();
+                    MenuItem closeNotepadMenu = new MenuItem("Close");
+                    closeNotepadMenu.setOnAction((t) -> {
+                        app.closeNotepad(notepad);
+                    });
+                    MenuItem refreshNotepadMenu = new MenuItem("Refresh");
+                    refreshNotepadMenu.setOnAction((t) -> {
+                        app.refreshNotepad(notepad);
+                    });
+                    MenuItem configureNotepadMenu = new MenuItem("Settings");
+                    configureNotepadMenu.setOnAction((t) -> {
+
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        fxmlLoader.setLocation(getClass().getResource("NotepadCreate.fxml"));
+
+                        Scene scene;
+                        try {
+                            Parent root = fxmlLoader.load();
+
+                            NotepadCreateController nctrl = (NotepadCreateController) fxmlLoader.getController();
+                            nctrl.setNotepadToEdit(notepad);
+                            nctrl.setNotepadCreateCallback(new NotepadCreateCallback() {
+                                @Override
+                                public void ready(Notepad notepad) {
+                                    app.closeNotepad(notepad);
+                                    app.openNotepad(notepad);
+                                }
+                            });
+
+                            scene = new Scene(root);
+                            Stage stage = new Stage();
+                            stage.setTitle("Edit notepad");
+                            stage.setScene(scene);
+                            stage.show();
+
+                        } catch (IOException ex) {
+                            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    });
+
+                    contextMenu.getItems().addAll(closeNotepadMenu, refreshNotepadMenu, configureNotepadMenu);
+                    tab.setContextMenu(contextMenu);
+
                     tab.setUserData(ctrl);
                     tab.setText(notepad.getName());
 
@@ -213,7 +265,9 @@ public class MainViewController implements Initializable {
 
                 Platform.runLater(() -> {
                     for (Tab t : notepadContainer.getTabs()) {
-                        if (t.getUserData().equals(notepad)) {
+
+                        NotebookTabController ctrl = (NotebookTabController) t.getUserData();
+                        if (ctrl.getNotepad().getIdent().equals(notepad.getIdent())) {
                             notepadContainer.getTabs().remove(t);
                             break;
                         }
@@ -362,7 +416,7 @@ public class MainViewController implements Initializable {
             NotepadCreateController ctrl = (NotepadCreateController) fxmlLoader.getController();
             ctrl.setNotepadCreateCallback(new NotepadCreateCallback() {
                 @Override
-                public void added(Notepad notepad) {
+                public void ready(Notepad notepad) {
                     app.openNotepad(notepad);
                 }
             });
@@ -414,8 +468,8 @@ public class MainViewController implements Initializable {
 //    }
     @FXML
     private void onFileNotepadClose(ActionEvent event) {
-        Tab t = notepadContainer.getSelectionModel().getSelectedItem();
-        Notepad n = (Notepad) t.getUserData();
+        NotebookTabController ctrl = (NotebookTabController) notepadContainer.getSelectionModel().getSelectedItem().getUserData();
+        Notepad n = ctrl.getNotepad();
 
         app.closeNotepad(n);
     }

@@ -41,6 +41,9 @@ public class NotepadCreateController implements Initializable {
     @FXML
     private ColorPicker notepadColor;
 
+    private Notepad notepad;
+    private boolean notepadEdition = false;
+
     /**
      * Initializes the controller class.
      */
@@ -53,48 +56,58 @@ public class NotepadCreateController implements Initializable {
         this.clbk = clbk;
     }
 
+    public void setNotepadToEdit(Notepad notepad) {
+        this.notepad = notepad;
+        notepadEdition = true;
+        
+        notepadName.setText(notepad.getName());
+        
+    }
+
     @FXML
     private void onAdd(ActionEvent event) {
-        
+
         String name = notepadName.getText();
         if (name.trim().length() == 0) {
             Alert a = new Alert(Alert.AlertType.ERROR, "Notepad name is required");
             a.show();
             return;
         }
-        String path = directoryPath.getText();
-        if (path.trim().length() == 0) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "Directory path is required");
-            a.show();
-            return;
+
+        if (notepad == null) {
+            String path = directoryPath.getText();
+            if (path.trim().length() == 0) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Directory path is required");
+                a.show();
+                return;
+            }
+
+            File f = new File(path);
+            if (!f.exists()) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Selected directory not exists");
+                a.show();
+                return;
+            }
+
+            NoteStorage storage = new Filesystem(path);
+            notepad = new Notepad(storage, name);
         }
-        
-        File f = new File(path);
-        if (!f.exists()) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "Selected directory not exists");
-            a.show();
-            return;
-        }
-        
-        NoteStorage storage = new Filesystem(path);
-        Notepad notepad = new Notepad(storage, name);
-        
+
         Color clr = notepadColor.getValue();
-        
+
         int ired = (int) (clr.getRed() * 255);
         String red = Integer.toHexString(ired);
-        
+
         int igreen = (int) (clr.getGreen() * 255);
         String green = Integer.toHexString(igreen);
-        
+
         int iblue = (int) (clr.getBlue() * 255);
         String blue = Integer.toHexString(iblue);
-        
+
         notepad.setParam("color", "#" + red + green + blue);
-        
-        
-        clbk.added(notepad);
-        
+
+        clbk.ready(notepad);
+
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
@@ -113,7 +126,7 @@ public class NotepadCreateController implements Initializable {
 
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Notepad directory");
-        
+
         File selectedDirectory = chooser.showDialog(stage);
         if (selectedDirectory != null) {
             directoryPath.setText(selectedDirectory.getAbsolutePath());

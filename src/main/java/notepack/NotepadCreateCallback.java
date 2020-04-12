@@ -12,5 +12,5 @@ import notepack.app.domain.Notepad;
  * @author lg
  */
 public interface NotepadCreateCallback {
-    public void added(Notepad notepad);
+    public void ready(Notepad notepad);
 }
