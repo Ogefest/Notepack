@@ -99,6 +99,7 @@ public class NotebookTabController implements Initializable {
         root.setExpanded(true);
 
         notepadStructure.setRoot(root);
+        notepadStructure.setShowRoot(false);
     }
 
     private TreeItem addChildren(TreeItem parent, NoteStorageItem items) {
