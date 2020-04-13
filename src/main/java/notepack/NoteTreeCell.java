@@ -35,10 +35,26 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
     private Label lastModified;
     @FXML
     private Label noteSize;
-    
+
     private ResourceBundle bundle;
     @FXML
     private VBox centerPart;
+    @FXML
+    private HBox directoryRow;
+    @FXML
+    private Label directoryIcon;
+    @FXML
+    private VBox centerPart1;
+    @FXML
+    private Label directoryName;
+    @FXML
+    private HBox parentRow;
+    @FXML
+    private Label notepadIcon;
+    @FXML
+    private VBox centerPart11;
+    @FXML
+    private Label notepadName;
 
     public NoteTreeCell() {
 
@@ -63,26 +79,32 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
         if (item == null) {
             setGraphic(null);
         } else {
-            nodeName.setText(item.getLabel());
-
-            Date date = new Date(item.getNoteStorageItem().getModified());
-            DateFormat formatter = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
-            lastModified.setText(formatter.format(date));
             
-            noteSize.setText(formatFileSize(item.getNoteStorageItem().getSize()));
+            if (item.isRoot()) {
+                notepadName.setText(item.getLabel());
+                setGraphic(parentRow);
+                return;
+            }
             
             if (!item.getNoteStorageItem().isLeaf()) {
-                noteSize.setVisible(false);
-                
-                centerPart.getChildren().remove(noteSize);
-                
-                lastModified.setMaxHeight(0);
-                lastModified.setVisible(false);
-                nodeIcon.setText(bundle.getString("fa.folder_o"));
-                
+
+                directoryName.setText(item.getLabel());
+                directoryIcon.setText(bundle.getString("fa.folder_o"));
+
+                setGraphic(directoryRow);
+
+            } else {
+
+                nodeName.setText(item.getLabel());
+
+                Date date = new Date(item.getNoteStorageItem().getModified());
+                DateFormat formatter = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+                lastModified.setText(formatter.format(date));
+                noteSize.setText(formatFileSize(item.getNoteStorageItem().getSize()));
+
+                setGraphic(nodeRow);
             }
 
-            setGraphic(nodeRow);
         }
     }
 
