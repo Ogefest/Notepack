@@ -91,8 +91,9 @@ public class NotebookTabController implements Initializable {
                 return 1;
             }
         });
-
-        TreeItem root = new TreeItem(null);
+        
+        NoteTreeViewItem rootItem = new NoteTreeViewItem(notepad.getName());
+        TreeItem root = new TreeItem(rootItem);
 
         root = addChildren(root, items);
         root.setExpanded(true);
