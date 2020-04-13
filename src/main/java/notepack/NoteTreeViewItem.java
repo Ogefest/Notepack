@@ -16,6 +16,17 @@ public class NoteTreeViewItem {
     
     private Note note;
     private NoteStorageItem noteStorageItem;
+    private String label;
+    private boolean isRoot = false;
+    
+    public NoteTreeViewItem(String label) {
+        this.label = label;
+        this.isRoot = true;
+    }
+    
+    public boolean isRoot() {
+        return isRoot;
+    }
     
     public NoteTreeViewItem(Note n, NoteStorageItem noteStorageItem) {
         this.note = n;
@@ -27,6 +38,10 @@ public class NoteTreeViewItem {
     }
     
     public String getLabel() {
+        if (noteStorageItem == null) {
+            return label;
+        }
+        
         return noteStorageItem.getName();
     }
     
