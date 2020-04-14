@@ -157,4 +157,8 @@ public class NotebookTabController implements Initializable {
     private void treeViewOnDelete(ActionEvent event) {
     }
 
+    @FXML
+    private void treeViewOnRename(ActionEvent event) {
+    }
+
 }

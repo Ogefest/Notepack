@@ -117,13 +117,16 @@
     -fx-text-alignment: center; 
 
     -fx-border-width:  0 0 1 0;
+    
+    /*-fx-effect: innershadow( gaussian, rgba( 128, 128, 128, 0.1 ), 20, 0.15, 0, -3 );*/
 
-    /*-fx-opacity: 0.7;*/
+    -fx-opacity: 0.7;
 }
 
 #noteTabContainer *.tab:selected {
     -fx-padding: 5 10 5 10 ;
-    /*-fx-opacity: 1;*/
+    -fx-effect: null;
+    -fx-opacity: 1;
 }
 
 .menu-button > .arrow-button > .arrow {
@@ -163,6 +166,14 @@
 .tree-cell:expanded > .tree-disclosure-node > .arrow {
     -fx-shape: null;
     -fx-background-color: null;
+}
+
+.tree-view {
+    cell-selection-color: transparent;
+}
+
+.tree-cell:selected  {
+    -fx-background-color: cell-selection-color;
 }
 
 .icon-button {
