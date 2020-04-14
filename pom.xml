@@ -74,8 +74,10 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
+                            <compress>2</compress>
                             <release> ${maven.compiler.release}</release>
                             <jlinkImageName>notepack</jlinkImageName>
+                            <jlinkZipName>notepack-release</jlinkZipName>
                             <launcher>notepack.run.sh</launcher>
                             <mainClass>notepack.Main</mainClass>
                         </configuration>
