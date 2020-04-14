@@ -21,6 +21,7 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#treeViewOnOpen" text="Open" />
                 <MenuItem mnemonicParsing="false" onAction="#treeViewOnClose" text="Close" />
+                <MenuItem mnemonicParsing="false" onAction="#treeViewOnRename" text="Rename" />
                 <MenuItem mnemonicParsing="false" onAction="#treeViewOnRefresh" text="Refresh" />
                 <MenuItem mnemonicParsing="false" onAction="#treeViewOnDelete" text="Delete" />
               </items>
