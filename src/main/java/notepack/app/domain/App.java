@@ -15,9 +15,11 @@ import notepack.app.storage.JsonNotepadRepository;
 import notepack.app.task.ChangedNote;
 import notepack.app.task.CloseNote;
 import notepack.app.task.CloseNotepad;
+import notepack.app.task.DeleteNote;
 import notepack.app.task.NewNote;
 import notepack.app.task.OpenNotepad;
 import notepack.app.task.RefreshNotepad;
+import notepack.app.task.RenameNote;
 import notepack.app.task.SaveNote;
 
 /**
@@ -107,8 +109,21 @@ public class App {
 
     public void changeNote(Note n, String newValue) {
         n.setContents(newValue);
-
         messageBus.addTask(new ChangedNote(n));
+    }
+    
+    public void renameNote(Note n, String newPath) {
+        
+        messageBus.addTask(new RenameNote(n, newPath));
+        messageBus.addTask(new RefreshNotepad(n.getNotepad()));
+        
+    }
+    
+    public void deleteNote(Note n) {
+        
+        messageBus.addTask(new DeleteNote(n));
+        messageBus.addTask(new RefreshNotepad(n.getNotepad()));        
+        
     }
 
     public void newNote(Notepad notepad) {

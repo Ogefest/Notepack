@@ -7,13 +7,19 @@ package notepack;
 
 import java.net.URL;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
+import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorageItem;
 import notepack.app.domain.Notepad;
@@ -31,6 +37,8 @@ public class NotebookTabController implements Initializable {
     private Notepad notepad;
     @FXML
     private AnchorPane tabBackground;
+
+    private App app;
 
     /**
      * Initializes the controller class.
@@ -61,6 +69,10 @@ public class NotebookTabController implements Initializable {
         return null;
     }
 
+    public void setApp(App app) {
+        this.app = app;
+    }
+
     public void setNotepad(Notepad notepad) {
         this.notepad = notepad;
 
@@ -78,7 +90,7 @@ public class NotebookTabController implements Initializable {
 
     public void refreshTreeView() {
         NoteStorageItem items = notepad.getStorage().getItemsInStorage();
-        
+
         Collections.sort(items.get(), (NoteStorageItem o1, NoteStorageItem o2) -> {
             if (o1.isLeaf()) {
                 return 1;
@@ -91,7 +103,7 @@ public class NotebookTabController implements Initializable {
                 return 1;
             }
         });
-        
+
         NoteTreeViewItem rootItem = new NoteTreeViewItem(notepad.getName());
         TreeItem root = new TreeItem(rootItem);
 
@@ -103,7 +115,7 @@ public class NotebookTabController implements Initializable {
     }
 
     private TreeItem addChildren(TreeItem parent, NoteStorageItem items) {
-        
+
         Collections.sort(items.get(), (NoteStorageItem o1, NoteStorageItem o2) -> {
             if (o1.isLeaf() && !o2.isLeaf()) {
                 return 1;
@@ -115,7 +127,7 @@ public class NotebookTabController implements Initializable {
             } else {
                 return 1;
             }
-        });        
+        });
 
         for (NoteStorageItem it : items.get()) {
 
@@ -142,23 +154,53 @@ public class NotebookTabController implements Initializable {
 
     @FXML
     private void treeViewOnOpen(ActionEvent event) {
-//        notepadStructure.getSelectionModel().getSelectedItem().getValue().getNote();
+        Note n = notepadStructure.getSelectionModel().getSelectedItem().getValue().getNote();
+        app.openNote(n);
     }
 
     @FXML
     private void treeViewOnClose(ActionEvent event) {
+        Note n = notepadStructure.getSelectionModel().getSelectedItem().getValue().getNote();
+        app.closeNote(n);
+
     }
 
     @FXML
     private void treeViewOnRefresh(ActionEvent event) {
+        app.refreshNotepad(notepad);
     }
 
     @FXML
     private void treeViewOnDelete(ActionEvent event) {
+
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Delete confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Do you really want to delete selected note?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Note n = notepadStructure.getSelectionModel().getSelectedItem().getValue().getNote();
+            app.deleteNote(n);
+        }
+
     }
 
     @FXML
     private void treeViewOnRename(ActionEvent event) {
+
+        Note n = notepadStructure.getSelectionModel().getSelectedItem().getValue().getNote();
+
+        TextInputDialog dialog = new TextInputDialog(n.getPath());
+        dialog.setTitle("Rename");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Please enter note name:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            app.renameNote(n, result.get());
+        }
+        
     }
 
 }
