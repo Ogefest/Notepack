@@ -58,6 +58,8 @@ public class App {
 
             @Override
             public void onSave(Note n) {
+                sessionRepository.removeNote(n);
+                sessionRepository.addNote(n);
             }
         });
 
