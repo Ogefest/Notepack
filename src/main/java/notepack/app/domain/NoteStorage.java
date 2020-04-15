@@ -21,5 +21,7 @@ public interface NoteStorage {
     public String loadContent(String path);
     public NoteStorageItem getItemsInStorage();
     public void refreshItemsInStorage();
+    public void rename(String oldPath, String newPath);
+    public void delete(String path);
     
 }

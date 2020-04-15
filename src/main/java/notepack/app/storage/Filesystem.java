@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -174,6 +175,26 @@ public class Filesystem implements NoteStorage {
     @Override
     public NoteStorageConfiguration getConfiguration() {
         return nsc;
+    }
+
+    @Override
+    public void rename(String oldPath, String newPath) {
+        
+        try {
+            Files.move(Paths.get(oldPath), Paths.get(newPath), REPLACE_EXISTING);
+        } catch (IOException ex) {
+            Logger.getLogger(Filesystem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @Override
+    public void delete(String path) {
+        try {
+            Files.delete(Paths.get(path));
+        } catch (IOException ex) {
+            Logger.getLogger(Filesystem.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 

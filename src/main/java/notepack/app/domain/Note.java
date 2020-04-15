@@ -6,6 +6,7 @@
 package notepack.app.domain;
 
 import java.io.File;
+import java.util.UUID;
 
 /**
  *
@@ -17,20 +18,23 @@ public class Note {
     private String path = null;
 //    private NoteStorage storage;
     private Notepad notepad;
+    private String ident;
     
     public Note(Notepad notepad) {
+        this.ident = UUID.randomUUID().toString();
         this.path = null;
         this.notepad = notepad;
 //        this.storage = storage;
     }
     
     public Note(String path, Notepad notepad) {
+        this.ident = UUID.randomUUID().toString();
         this.path = path;
         this.notepad = notepad;
     }
     
     public String getIdent() {
-        return notepad.getIdent() + path;
+        return ident;
     }
     
     public String getName() {
