@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -124,7 +128,27 @@ public class MainViewController implements Initializable {
                     newTab.setOnCloseRequest(new EventHandler<Event>() {
                         @Override
                         public void handle(Event t) {
-                            app.closeNote(note);
+                            
+                            String taText = ctrl.getTextArea().getText();
+                            String noteText = note.getContent();
+
+                            if (!taText.equals(noteText)) {
+                                Alert alert = new Alert(AlertType.CONFIRMATION);
+                                alert.setTitle("Confirmation");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Changes not saved, do you want to save document?");
+
+                                ButtonType buttonSave = new ButtonType("Save");
+                                ButtonType buttonClose = new ButtonType("Close without saving");
+
+                                Optional<ButtonType> result = alert.showAndWait();
+                                if (result.get() == buttonSave) {
+                                    app.saveNote(note);
+                                    app.closeNote(note);
+                                } else if (result.get() == buttonClose) {
+                                    app.closeNote(note);
+                                }
+                            }
                         }
                     });
 
@@ -173,15 +197,15 @@ public class MainViewController implements Initializable {
 
                         if (ctrl.getNote().getIdent().equals(n.getIdent())) {
                             t.setText(n.getName());
-                            
+
                             Label l = (Label) t.getGraphic();
 
                             if (ctrl.getTextArea().getText().equals(n.getContent())) {
-                                
+
                                 ResourceBundle bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
                                 l.setText(bundle.getString("fa.pencil_square_o"));
                                 l.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 16;");
-                                
+
                             } else {
                                 l.setText("");
                             }
@@ -197,7 +221,7 @@ public class MainViewController implements Initializable {
                         NoteTabContentController ctrl = (NoteTabContentController) t.getUserData();
                         if (ctrl.getNote().getIdent().equals(n.getIdent())) {
                             t.setText(n.getName());
-                            
+
                             Label l = (Label) t.getGraphic();
                             l.setText("");
                         }
