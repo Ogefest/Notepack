@@ -45,38 +45,10 @@ public class NoteTabContentController implements Initializable {
         this.note = note;
 
         textArea.setText(note.getContent());
-//        textArea.textProperty().addListener((ov, oldValue, newValue) -> {
-//
-//            menuEditUndo.setDisable(true);
-//            if (textArea.isUndoable()) {
-//                menuEditUndo.setDisable(false);
-//            }
-//            menuEditRedo.setDisable(true);
-//            if (textArea.isRedoable()) {
-//                menuEditRedo.setDisable(false);
-//            }
-//
-//        });
-//        textArea.selectionProperty().addListener((o) -> {
-//            menuEditCut.setDisable(true);
-//            menuEditCopy.setDisable(true);
-//            if (textArea.getSelectedText().length() > 0) {
-//                menuEditCut.setDisable(false);
-//                menuEditCopy.setDisable(false);
-//            }
-//        });
         
         tabBackground.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
 
         textArea.requestFocus();
-        
-//        Font.loadFont(NoteTabContentController.class.getResource("fonts/fontawesome-webfont.ttf").toExternalForm(), 10);
-//        Font.loadFont(NoteTabContentController.class.getResource("fa.otf").toExternalForm(), 10);
-//        icontest.setText(new Character('\uf2cd').toString());
-//        icontest.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 22;");
-
-//        testLabel.setFont(Font.loadFont("file:src/main/resources/notepack/fa-regular-400.ttf", 20));
-//        testLabel.setText("&#xf26e;");
     }
     
     public Note getNote() {
