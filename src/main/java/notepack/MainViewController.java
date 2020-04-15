@@ -172,13 +172,14 @@ public class MainViewController implements Initializable {
                         NoteTabContentController ctrl = (NoteTabContentController) t.getUserData();
 
                         if (ctrl.getNote().getIdent().equals(n.getIdent())) {
+                            t.setText(n.getName());
                             
                             Label l = (Label) t.getGraphic();
 
                             if (ctrl.getTextArea().getText().equals(n.getContent())) {
                                 
                                 ResourceBundle bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
-                                l.setText(bundle.getString("fa.floppy_o"));
+                                l.setText(bundle.getString("fa.pencil_square_o"));
                                 l.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 16;");
                                 
                             } else {
@@ -217,6 +218,7 @@ public class MainViewController implements Initializable {
                     NotebookTabController ctrl = loader.getController();
                     tab.setContent(tabContent);
                     ctrl.setNotepad(notepad);
+                    ctrl.setApp(app);
                     ctrl.getTreeView().setOnMouseClicked((t) -> {
                         if (t.getClickCount() == 2) {
                             Note note = ctrl.getSelectedNote();
