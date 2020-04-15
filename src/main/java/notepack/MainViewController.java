@@ -27,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -71,7 +72,7 @@ public class MainViewController implements Initializable {
     private Filesystem recentFiles;
     @FXML
     private TabPane notepadContainer;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
@@ -106,6 +107,18 @@ public class MainViewController implements Initializable {
                         app.changeNote(note, newValue);
                     });
 
+                    ContextMenu contextMenu = new ContextMenu();
+                    MenuItem closeNoteMenu = new MenuItem("Close");
+                    closeNoteMenu.setOnAction((t) -> {
+                        app.closeNote(note);
+                    });
+                    MenuItem saveNoteMenu = new MenuItem("Save");
+                    saveNoteMenu.setOnAction((t) -> {
+                        app.saveNote(note);
+                    });
+                    contextMenu.getItems().addAll(closeNoteMenu, saveNoteMenu);
+                    newTab.setContextMenu(contextMenu);
+
                     newTab.setContent(tabContent);
                     newTab.setUserData(ctrl);
                     newTab.setOnCloseRequest(new EventHandler<Event>() {
@@ -120,6 +133,7 @@ public class MainViewController implements Initializable {
                     if (note.getName().length() > 0) {
                         newTab.setText(note.getName());
                     }
+                    newTab.setGraphic(new Label(""));
 
                     Platform.runLater(() -> {
                         tabContainer.getTabs().add(newTab);
@@ -152,17 +166,27 @@ public class MainViewController implements Initializable {
             @Override
             public void onChange(Note n) {
 
-//                Platform.runLater(() -> {
-//                    for (Tab t : tabContainer.getTabs()) {
-//                        if (t.getUserData().equals(n)) {
-//                            if (n.getContent().equals(getTextAreaForNote(n).getText())) {
-//                                t.setStyle("-fx-text-base-color: green;");
-//                            } else {
-//                                t.setStyle("-fx-text-base-color: red;");
-//                            }
-//                        }
-//                    }
-//                });
+                Platform.runLater(() -> {
+                    for (Tab t : tabContainer.getTabs()) {
+
+                        NoteTabContentController ctrl = (NoteTabContentController) t.getUserData();
+
+                        if (ctrl.getNote().getIdent().equals(n.getIdent())) {
+                            
+                            Label l = (Label) t.getGraphic();
+
+                            if (ctrl.getTextArea().getText().equals(n.getContent())) {
+                                
+                                ResourceBundle bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
+                                l.setText(bundle.getString("fa.floppy_o"));
+                                l.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 16;");
+                                
+                            } else {
+                                l.setText("");
+                            }
+                        }
+                    }
+                });
             }
 
             @Override
@@ -172,6 +196,9 @@ public class MainViewController implements Initializable {
                         NoteTabContentController ctrl = (NoteTabContentController) t.getUserData();
                         if (ctrl.getNote().getIdent().equals(n.getIdent())) {
                             t.setText(n.getName());
+                            
+                            Label l = (Label) t.getGraphic();
+                            l.setText("");
                         }
                     }
                 });
@@ -475,10 +502,9 @@ public class MainViewController implements Initializable {
 
         app.closeNotepad(n);
     }
-    
+
     private void showSearchForNoteDialog() {
-        
-        
+
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("SearchForNote.fxml"));
         fxmlLoader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
@@ -502,8 +528,8 @@ public class MainViewController implements Initializable {
 
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }        
-        
+        }
+
     }
 
     @FXML
