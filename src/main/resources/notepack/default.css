@@ -108,18 +108,11 @@
 
 #noteTabContainer .tab {
 
-/*    -fx-background-color:#718fab;
-    -fx-text-base-color: #172c40;
-    -fx-border-color: #718fab;*/
-
     -fx-padding: 2 10 2 10 ;
     -fx-alignment: CENTER;    
     -fx-text-alignment: center; 
 
     -fx-border-width:  0 0 1 0;
-    
-    /*-fx-effect: innershadow( gaussian, rgba( 128, 128, 128, 0.1 ), 20, 0.15, 0, -3 );*/
-
     -fx-opacity: 0.7;
 }
 
@@ -129,9 +122,6 @@
     -fx-opacity: 1;
 }
 
-.menu-button > .arrow-button > .arrow {
-    -fx-padding: 10 0 0 0 ;
-}
 
 .lato-font {
     -fx-font-family: 'Lato Light';
@@ -183,12 +173,34 @@
     -fx-padding: 5 ;
 }
 
-.icon-button > .menu-item > .label {
-    -fx-font-size: 14.0 pt;
+.icon-button:hover {
+
+    -fx-background-color: rgba(255,255,255,0.75),
+        linear-gradient(to bottom, #ececec 0%, #eeeeee 100%);
+    -fx-background-insets: 0,1;
+    /*-fx-padding: 7px;*/
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-effect: innershadow(three-pass-box, rgba(110,110,110,0.15),1,0,1,1);
+    /*-fx-text-fill: black;*/    
+
 }
 
+.icon-button:disabled > * {
+    -fx-opacity: 0.5 ;
+}
+
+.icon-button:pressed {
+    -fx-background-color: rgba(255,255,255,0.75),
+        linear-gradient(to bottom, #dcdcdc 0%, #dddddd 100%);    
+}
+
+/*.icon-button > .menu-item > .label {
+    -fx-font-size: 14.0 pt;
+}*/
+
 .text-area {
-    -fx-font-size: 18;
+    -fx-font-size: 16;
     -fx-text-fill: #333333;
     -fx-padding: 20 20 20 20 ;
     /*-fx-font-family: 'Zilla Slab Light';*/
@@ -201,4 +213,16 @@
 .text-input:focused {
     -fx-highlight-fill:  derive(-fx-bar-background,80%);
     -fx-highlight-text-fill:  derive(-fx-bar-background,5%);
+}
+
+#noteToolbar {
+    -fx-background-color: white;
+}
+
+#noteToolbar .menu-button {
+    -fx-padding: 8;
+}
+
+#noteToolbar .button  {
+    -fx-padding: 15;
 }
