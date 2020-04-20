@@ -173,6 +173,10 @@
     -fx-padding: 5 ;
 }
 
+.icon-button .menu-item .label {
+    -fx-font-size: 14.0 pt;
+}
+
 .icon-button:hover {
 
     -fx-background-color: rgba(255,255,255,0.75),
