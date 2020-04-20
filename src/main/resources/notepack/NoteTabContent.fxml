@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,30 +27,35 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.folder_open_o">
+                                <Button mnemonicParsing="false" onAction="#onOpenNote" styleClass="icon-button" text="%fa.folder_open_o">
                                     <tooltip>
                                         <Tooltip text="Open note" />
                                     </tooltip>
                                 </Button>                        
-                                <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.floppy_o">
+                                <Button mnemonicParsing="false" onAction="#onSaveNote" styleClass="icon-button" text="%fa.floppy_o">
                                     <tooltip>
                                         <Tooltip text="Save note" />
                                     </tooltip>
                                 </Button>                         
-                                <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.search">
+                                <Button mnemonicParsing="false" onAction="#onSearchInNote" styleClass="icon-button" text="%fa.search">
                                     <tooltip>
                                         <Tooltip text="Search" />
                                     </tooltip>
                                 </Button>
-                                <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.align_justify">
+                                <Button mnemonicParsing="false" onAction="#onWordWrap" styleClass="icon-button" text="%fa.align_justify">
                                     <tooltip>
                                         <Tooltip text="Word wrap" />
                                     </tooltip>
                                 </Button>
                                 <MenuButton mnemonicParsing="false" styleClass="icon-button" text="%fa.pencil">
                                     <items>
-                                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                                        <MenuItem fx:id="menuUndo" mnemonicParsing="false" onAction="#onUndo" text="Undo" />
+                                        <MenuItem fx:id="menuRedo" mnemonicParsing="false" onAction="#onRedo" text="Redo" />
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                              <MenuItem fx:id="menuCut" mnemonicParsing="false" onAction="#onCut" text="Cut" />
+                              <MenuItem fx:id="menuCopy" mnemonicParsing="false" onAction="#onCopy" text="Copy" />
+                              <MenuItem mnemonicParsing="false" onAction="#onPaste" text="Paste" />
+                              <MenuItem mnemonicParsing="false" onAction="#onSelectAll" text="Select all" />
                                     </items>
                                     <tooltip>
                                         <Tooltip text="Edit" />
@@ -60,7 +66,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
                             <children>
-                                <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.times">
+                                <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button" text="%fa.times">
                                     <tooltip>
                                         <Tooltip text="Word wrap" />
                                     </tooltip>

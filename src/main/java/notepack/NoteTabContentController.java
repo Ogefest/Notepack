@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.MenuItem;
 
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
@@ -26,12 +27,18 @@ public class NoteTabContentController implements Initializable {
     private TextArea textArea;
 
     private Note note;
-//    private MenuItem menuEditUndo;
-//    private MenuItem menuEditRedo;
-//    private MenuItem menuEditCut;
-//    private MenuItem menuEditCopy;
     @FXML
     private AnchorPane tabBackground;
+    @FXML
+    private MenuItem menuUndo;
+    @FXML
+    private MenuItem menuRedo;
+    @FXML
+    private MenuItem menuCut;
+    @FXML
+    private MenuItem menuCopy;
+    
+    private NoteTabContentCallback clbk;
 
     /**
      * Initializes the controller class.
@@ -39,6 +46,10 @@ public class NoteTabContentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+    
+    public void setNoteTabContentCallback(NoteTabContentCallback clbk) {
+        this.clbk = clbk;
     }
     
     public void setNote(Note note) {
@@ -59,32 +70,58 @@ public class NoteTabContentController implements Initializable {
         return textArea;
     }
 
-    private void onMenuUndo(ActionEvent event) {
+    @FXML
+    private void onOpenNote(ActionEvent event) {
+        clbk.onOpenNote();
+    }
+
+    @FXML
+    private void onSaveNote(ActionEvent event) {
+        clbk.onSaveNote(note);
+    }
+
+    @FXML
+    private void onSearchInNote(ActionEvent event) {
+    }
+
+    @FXML
+    private void onWordWrap(ActionEvent event) {
+        textArea.setWrapText(true);
+    }
+
+    @FXML
+    private void onUndo(ActionEvent event) {
         textArea.undo();
     }
 
-    private void onMenuRedo(ActionEvent event) {
+    @FXML
+    private void onRedo(ActionEvent event) {
         textArea.redo();
     }
 
-    private void onMenuCut(ActionEvent event) {
+    @FXML
+    private void onCut(ActionEvent event) {
         textArea.cut();
     }
 
-    private void onMenuCopy(ActionEvent event) {
+    @FXML
+    private void onCopy(ActionEvent event) {
         textArea.copy();
     }
 
-    private void onMenuPaste(ActionEvent event) {
+    @FXML
+    private void onPaste(ActionEvent event) {
         textArea.paste();
     }
 
-    private void onMenuDelete(ActionEvent event) {
-        textArea.deleteText(textArea.getSelection());
+    @FXML
+    private void onSelectAll(ActionEvent event) {
+        textArea.selectAll();;
     }
 
-    private void onMenuSelectAll(ActionEvent event) {
-        textArea.selectAll();
+    @FXML
+    private void onCloseNote(ActionEvent event) {
+        clbk.onCloseNote(note);
     }
 
 }
