@@ -13,7 +13,9 @@
     src: url('fonts/ZillaSlab-Light.ttf');
 }
 
-.root { -fx-focus-color: transparent; }
+.root { 
+    -fx-focus-color: transparent; 
+}
 
 .tab:focused,
 .button:focused,
@@ -86,18 +88,22 @@
 
 
 .tab-header-background {
-    -fx-background-color: white;
+    -fx-background-color: transparent;
 }
+
 
 #noteTabContainer {
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 
-    -fx-background-radius: 0;
+    -fx-background-radius: 3;
     -fx-background-insets: 0;
 
-    -fx-border-radius: 0;
+    -fx-border-radius: 3;
     -fx-border-insets: 0;
+    
+    -fx-effect: dropshadow(three-pass-box, #cccccc, 7, 0, 0, 0);
+    /*-fx-background-insets: 10;*/    
 }
 
 
@@ -206,7 +212,7 @@
 .text-area {
     -fx-font-size: 16;
     -fx-text-fill: #333333;
-    -fx-padding: 20 20 20 20 ;
+    -fx-padding: 20 3 20 20 ;
     /*-fx-font-family: 'Zilla Slab Light';*/
 }
 
@@ -229,4 +235,8 @@
 
 #noteToolbar .button  {
     -fx-padding: 15;
+}
+
+#noteToolbar .button,#noteToolbar .menu-button {
+    -fx-text-fill: #555555;
 }
