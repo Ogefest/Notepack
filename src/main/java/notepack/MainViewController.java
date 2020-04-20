@@ -110,6 +110,21 @@ public class MainViewController implements Initializable {
                     ctrl.getTextArea().textProperty().addListener((ov, oldValue, newValue) -> {
                         app.changeNote(note, newValue);
                     });
+                    ctrl.setNoteTabContentCallback(new NoteTabContentCallback() {
+                        @Override
+                        public void onSaveNote(Note n) {
+                            saveNote(n);
+                        }
+
+                        @Override
+                        public void onOpenNote() {
+                        }
+
+                        @Override
+                        public void onCloseNote(Note n) {
+                            app.closeNote(n);
+                        }
+                    } );
 
                     ContextMenu contextMenu = new ContextMenu();
                     MenuItem closeNoteMenu = new MenuItem("Close");
@@ -120,7 +135,7 @@ public class MainViewController implements Initializable {
                     saveNoteMenu.setOnAction((t) -> {
                         app.saveNote(note);
                     });
-                    contextMenu.getItems().addAll(closeNoteMenu, saveNoteMenu);
+                    contextMenu.getItems().addAll(saveNoteMenu, closeNoteMenu);
                     newTab.setContextMenu(contextMenu);
 
                     newTab.setContent(tabContent);
@@ -148,6 +163,8 @@ public class MainViewController implements Initializable {
                                 } else if (result.get() == buttonClose) {
                                     app.closeNote(note);
                                 }
+                            } else {
+                                app.closeNote(note);
                             }
                         }
                     });
@@ -429,8 +446,12 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void onFileSave(ActionEvent event) {
-
         Note n = getCurrentNote();
+        saveNote(n);
+    }
+    
+    private void saveNote(Note n) {
+        
         if (n.getPath() == null) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save note");
@@ -446,7 +467,7 @@ public class MainViewController implements Initializable {
         } else {
             app.saveNote(n);
         }
-        app.refreshNotepad(n.getNotepad());
+        app.refreshNotepad(n.getNotepad());        
     }
 
     @FXML
