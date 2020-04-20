@@ -86,7 +86,7 @@
                         <Insets />
                     </opaqueInsets>
                     <VBox.margin>
-                        <Insets top="1.0" />
+                        <Insets />
                     </VBox.margin>
       
                 </TextArea>
