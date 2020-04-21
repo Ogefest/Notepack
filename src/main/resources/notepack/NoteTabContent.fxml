@@ -26,12 +26,7 @@
                 <AnchorPane id="noteToolbar" prefHeight="40.0" prefWidth="1011.0">
                     <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <Button mnemonicParsing="false" onAction="#onOpenNote" styleClass="icon-button" text="%fa.folder_open_o">
-                                    <tooltip>
-                                        <Tooltip text="Open note" />
-                                    </tooltip>
-                                </Button>                        
+                            <children>                        
                                 <Button mnemonicParsing="false" onAction="#onSaveNote" styleClass="icon-button" text="%fa.floppy_o">
                                     <tooltip>
                                         <Tooltip text="Save note" />
@@ -68,7 +63,7 @@
                             <children>
                                 <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button" text="%fa.times">
                                     <tooltip>
-                                        <Tooltip text="Word wrap" />
+                                        <Tooltip text="Close note" />
                                     </tooltip>
                                 </Button>
                             </children>
