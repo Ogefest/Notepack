@@ -2,12 +2,13 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="209.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="209.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@color-definition.css" />
         <URL value="@scrollbar.css" />  
@@ -15,50 +16,73 @@
         <URL value="@default.css" />  
     </stylesheets>        
     <children>
-      <HBox fx:id="nodeRow" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="388.0">
+      <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-              <Label fx:id="nodeIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="%fa.file_text_o" />
-              <VBox fx:id="centerPart" alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
-                  <children>
-                      <Label fx:id="nodeName" prefHeight="16.0" prefWidth="164.0" text="Label" />
-                      <Label fx:id="lastModified" text="Label" textFill="#656565">
-                          <font>
-                              <Font size="10.0" />
-                          </font>
-                      </Label>
-                  </children>
-              </VBox>
-              <Label fx:id="noteSize" text="Label" textFill="#535353" />
-         </children>
-      </HBox>
-      <HBox fx:id="directoryRow" alignment="CENTER_LEFT" layoutY="65.0" prefHeight="40.0" prefWidth="388.0">
-         <children>
-            <Label fx:id="directoryIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="%fa.file_text_o" />
-            <VBox fx:id="centerPart1" alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
+            <AnchorPane fx:id="nodeRow" prefHeight="40.0">
                <children>
-                  <Label fx:id="directoryName" prefHeight="16.0" prefWidth="164.0" text="Label">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="40.0">
+                     <children>
+                          <Label fx:id="nodeIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="%fa.file_text_o" />
+                          <VBox fx:id="centerPart" alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
+                              <children>
+                                  <Label fx:id="nodeName" prefHeight="16.0" text="Label" />
+                                  <Label fx:id="lastModified" text="Label" textFill="#656565">
+                                      <font>
+                                          <Font size="10.0" />
+                                      </font>
+                                  </Label>
+                              </children>
+                          </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="40.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                          <Label fx:id="noteSize" text="Label" textFill="#535353" />
+                     </children>
+                  </HBox>
                </children>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox fx:id="parentRow" alignment="CENTER_LEFT" layoutY="131.0" prefHeight="40.0" prefWidth="388.0">
-         <children>
-            <Label fx:id="notepadIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="%fa.files_o">
-               <font>
-                  <Font size="20.0" />
-               </font></Label>
-            <VBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
+            </AnchorPane>
+            <AnchorPane fx:id="directoryRow" prefHeight="40.0">
                <children>
-                  <Label fx:id="notepadName" prefHeight="16.0" prefWidth="164.0" text="Label">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font></Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="40.0">
+                     <children>
+                        <Label fx:id="directoryIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="%fa.file_text_o" />
+                        <VBox fx:id="centerPart1" alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
+                           <children>
+                              <Label fx:id="directoryName" prefHeight="16.0" prefWidth="164.0" text="Label">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
-            </VBox>
+            </AnchorPane>
+            <AnchorPane fx:id="parentRow" prefHeight="40.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="40.0">
+                     <children>
+                        <Label fx:id="notepadIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="%fa.files_o">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <VBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
+                           <children>
+                              <Label fx:id="notepadName" prefHeight="16.0" prefWidth="164.0" text="Label">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
          </children>
-      </HBox>
+      </VBox>
     </children>
 </Pane>

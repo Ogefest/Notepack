@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.control.TreeView?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
 <AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotebookTabController">
     <stylesheets>
@@ -15,7 +18,7 @@
         <URL value="@default.css" />  
     </stylesheets>        
     <children>
-        <TreeView fx:id="notepadStructure" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0 0 0 0;" styleClass="pane-basicwindow" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TreeView fx:id="notepadStructure" layoutY="52.0" prefHeight="508.0" prefWidth="269.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
          <contextMenu>
             <ContextMenu>
               <items>
@@ -26,9 +29,41 @@
                 <MenuItem mnemonicParsing="false" onAction="#treeViewOnDelete" text="Delete" />
               </items>
             </ContextMenu>
-         </contextMenu>
-         <effect>
-            <InnerShadow choke="0.01" color="#cfd2d7" height="21.48" offsetX="-3.0" radius="9.64" width="19.08" />
-         </effect></TreeView>
+         </contextMenu></TreeView>
+      <AnchorPane id="notepadToolbar" prefHeight="40.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" maxHeight="40.0" prefHeight="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.files_o">
+                     <tooltip>
+                        <Tooltip text="Add notepad" />
+                     </tooltip>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" maxHeight="40.0" prefHeight="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.edit">
+                     <tooltip>
+                        <Tooltip text="New note" />
+                     </tooltip>
+                  </Button>
+                  <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.cog">
+                     <tooltip>
+                        <Tooltip text="Settings" />
+                     </tooltip>
+                  </Button>
+                  <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.times">
+                     <tooltip>
+                        <Tooltip text="Close" />
+                     </tooltip>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
     </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </AnchorPane>

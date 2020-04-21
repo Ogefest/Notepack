@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -26,7 +27,7 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
     private FXMLLoader loader;
 
     @FXML
-    private HBox nodeRow;
+    private AnchorPane nodeRow;
     @FXML
     private Label nodeIcon;
     @FXML
@@ -40,7 +41,7 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
     @FXML
     private VBox centerPart;
     @FXML
-    private HBox directoryRow;
+    private AnchorPane directoryRow;
     @FXML
     private Label directoryIcon;
     @FXML
@@ -48,7 +49,7 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
     @FXML
     private Label directoryName;
     @FXML
-    private HBox parentRow;
+    private AnchorPane parentRow;
     @FXML
     private Label notepadIcon;
     @FXML
