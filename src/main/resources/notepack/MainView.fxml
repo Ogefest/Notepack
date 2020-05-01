@@ -30,12 +30,12 @@
                </font></Label>
             <HBox alignment="CENTER_RIGHT" layoutX="1047.0" layoutY="-23.0" prefHeight="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.search" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#onNoteSearch" styleClass="icon-button" text="%fa.search" textFill="WHITE">
                      <tooltip>
                         <Tooltip text="Search for note" />
                      </tooltip>
                   </Button>
-                  <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.info_circle" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#onApplicationInfo" styleClass="icon-button" text="%fa.info_circle" textFill="WHITE">
                      <tooltip>
                         <Tooltip text="Info" />
                      </tooltip>
