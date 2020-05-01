@@ -38,6 +38,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -74,8 +76,11 @@ public class MainViewController implements Initializable {
     private AnchorPane mainPane;
 
     private Filesystem recentFiles;
+
     @FXML
     private TabPane notepadContainer;
+
+    private MainViewGuiAction guiAction;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -124,7 +129,7 @@ public class MainViewController implements Initializable {
                         public void onCloseNote(Note n) {
                             app.closeNote(n);
                         }
-                    } );
+                    });
 
                     ContextMenu contextMenu = new ContextMenu();
                     MenuItem closeNoteMenu = new MenuItem("Close");
@@ -143,7 +148,7 @@ public class MainViewController implements Initializable {
                     newTab.setOnCloseRequest(new EventHandler<Event>() {
                         @Override
                         public void handle(Event t) {
-                            
+
                             String taText = ctrl.getTextArea().getText();
                             String noteText = note.getContent();
 
@@ -364,6 +369,9 @@ public class MainViewController implements Initializable {
 
             }
         });
+
+        guiAction = new MainViewGuiAction(stage, app);
+
     }
 
     public void windowRestore() {
@@ -405,6 +413,28 @@ public class MainViewController implements Initializable {
             }
         }
 
+        
+        KeyCombination kcCloseNote = new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN);
+        stage.getScene().getAccelerators().put(kcCloseNote, () -> {
+            app.closeNote(getCurrentNote());
+        });
+        
+        KeyCombination kcSave = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
+        stage.getScene().getAccelerators().put(kcSave, () -> {
+            saveNote(getCurrentNote());
+        });
+
+        KeyCombination kcNewNote = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
+        stage.getScene().getAccelerators().put(kcNewNote, () -> {
+            app.newNote(getCurrentNotepad());
+        });
+
+        KeyCombination kcSearchNote = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
+        stage.getScene().getAccelerators().put(kcSearchNote, () -> {
+            guiAction.showSearchForNoteDialog();
+        });
+        
+        
     }
 
     private TextArea getTextAreaForNote(Note n) {
@@ -433,7 +463,6 @@ public class MainViewController implements Initializable {
         return ((NotebookTabController) t.getUserData()).getNotepad();
     }
 
-    @FXML
     private void onFileOpen(ActionEvent event) {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Open File");
@@ -444,14 +473,13 @@ public class MainViewController implements Initializable {
         }
     }
 
-    @FXML
     private void onFileSave(ActionEvent event) {
         Note n = getCurrentNote();
         saveNote(n);
     }
-    
+
     private void saveNote(Note n) {
-        
+
         if (n.getPath() == null) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save note");
@@ -467,20 +495,17 @@ public class MainViewController implements Initializable {
         } else {
             app.saveNote(n);
         }
-        app.refreshNotepad(n.getNotepad());        
+        app.refreshNotepad(n.getNotepad());
     }
 
-    @FXML
     private void onFileClose(ActionEvent event) {
         app.closeNote(getCurrentNote());
     }
 
-    @FXML
     private void onFileNew(ActionEvent event) {
         app.newNote(getCurrentNotepad());
     }
 
-    @FXML
     private void onFileNotepadAdd(ActionEvent event) {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("NotepadCreate.fxml"));
@@ -509,84 +534,47 @@ public class MainViewController implements Initializable {
 
     }
 
-    private void onFileNotepadRemove(ActionEvent event) {
-        Note n = (Note) tabContainer.getSelectionModel().getSelectedItem().getUserData();
-        app.closeNote(n);
-    }
-
-    @FXML
-    private void onFileSaveAs(ActionEvent event) {
-
-        Note n = getCurrentNote();
-        if (n.getPath() == null) {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save note");
-
-            File file = fileChooser.showSaveDialog(stage);
-            if (file != null) {
-                n.setPath(file.getAbsolutePath());
-                app.saveNote(n);
-            }
-        }
-
-    }
-
-    private void onExitApplication(ActionEvent event) {
-        app.terminate();
-
-        stage.close();
-    }
-
+//    private void onFileNotepadRemove(ActionEvent event) {
+//        Note n = (Note) tabContainer.getSelectionModel().getSelectedItem().getUserData();
+//        app.closeNote(n);
+//    }
+//    private void onFileSaveAs(ActionEvent event) {
+//
+//        Note n = getCurrentNote();
+//        if (n.getPath() == null) {
+//            FileChooser fileChooser = new FileChooser();
+//            fileChooser.setTitle("Save note");
+//
+//            File file = fileChooser.showSaveDialog(stage);
+//            if (file != null) {
+//                n.setPath(file.getAbsolutePath());
+//                app.saveNote(n);
+//            }
+//        }
+//
+//    }
+//    private void onExitApplication(ActionEvent event) {
+//        app.terminate();
+//        stage.close();
+//    }
 //    private void onNotepadMenuClose(ActionEvent event) {
 //        Tab t = (Tab) event.getTarget();
 //        Notepad n = (Notepad) t.getUserData();
 //        app.closeNotepad(n);
 //    }
+//    private void onFileNotepadClose(ActionEvent event) {
+//        NotebookTabController ctrl = (NotebookTabController) notepadContainer.getSelectionModel().getSelectedItem().getUserData();
+//        Notepad n = ctrl.getNotepad();
+//
+//        app.closeNotepad(n);
+//    }
     @FXML
-    private void onFileNotepadClose(ActionEvent event) {
-        NotebookTabController ctrl = (NotebookTabController) notepadContainer.getSelectionModel().getSelectedItem().getUserData();
-        Notepad n = ctrl.getNotepad();
-
-        app.closeNotepad(n);
-    }
-
-    private void showSearchForNoteDialog() {
-
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("SearchForNote.fxml"));
-        fxmlLoader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
-
-        Scene scene;
-        try {
-            Parent root = fxmlLoader.load();
-
-            SearchForNoteController ctrl = (SearchForNoteController) fxmlLoader.getController();
-            ctrl.setCallback((note) -> {
-                app.openNote(note);
-            });
-            ctrl.setApp(app);
-
-            scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setAlwaysOnTop(true);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException ex) {
-            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    private void onNoteSearch(ActionEvent event) {
+        guiAction.showSearchForNoteDialog();
     }
 
     @FXML
-    private void searchForNote(ActionEvent event) {
-        showSearchForNoteDialog();
-    }
-
-    @FXML
-    private void searchForNoteFromBar(MouseEvent event) {
-        showSearchForNoteDialog();
+    private void onApplicationInfo(ActionEvent event) {
     }
 
 }
