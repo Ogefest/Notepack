@@ -34,7 +34,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" maxHeight="40.0" prefHeight="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.files_o">
+                  <Button mnemonicParsing="false" onAction="#onFileNotepadAdd" styleClass="icon-button" text="%fa.files_o">
                      <tooltip>
                         <Tooltip text="Add notepad" />
                      </tooltip>
@@ -43,7 +43,7 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" maxHeight="40.0" prefHeight="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.edit">
+                  <Button mnemonicParsing="false" onAction="#onFileNew" styleClass="icon-button" text="%fa.edit">
                      <tooltip>
                         <Tooltip text="New note" />
                      </tooltip>

@@ -1,49 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="475.0" prefWidth="384.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotepadCreateController">
-  <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="387.0" prefWidth="384.0" VBox.vgrow="ALWAYS">
+<VBox prefHeight="642.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotepadCreateController">
+    <stylesheets>
+        <URL value="@color-definition.css" />
+        <URL value="@scrollbar.css" />  
+        <URL value="@icons.css" />  
+        <URL value="@default.css" />  
+        <URL value="@notepadsettings.css" />  
+    </stylesheets>       
+    <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="card">
          <children>
-            <Button defaultButton="true" layoutX="333.0" layoutY="436.0" mnemonicParsing="false" onAction="#onAdd" text="Add" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="12.0" />
-            <Button fx:id="btnCancel" cancelButton="true" layoutX="259.0" layoutY="436.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="62.0" />
-            <Label layoutX="14.0" layoutY="14.0" text="Notepad name:" />
-            <TextField fx:id="notepadName" layoutX="195.0" layoutY="9.0" prefHeight="25.0" prefWidth="181.0" />
-            <TabPane layoutX="92.0" layoutY="55.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0">
-              <tabs>
-                <Tab text="Local directory">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Label layoutX="14.0" layoutY="14.0" text="Directory:" />
-                              <TextField fx:id="directoryPath" layoutX="14.0" layoutY="38.0" prefHeight="25.0" prefWidth="266.0" />
-                              <Button layoutX="292.0" layoutY="38.0" mnemonicParsing="false" onAction="#onChooseDirectory" text="Choose" />
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
-            <ColorPicker fx:id="notepadColor" layoutX="13.0" layoutY="359.0" promptText="Pick notepad color" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-            <Label layoutX="10.0" layoutY="336.0" text="Notepad color:" AnchorPane.leftAnchor="10.0" />
-            <Separator layoutX="43.0" layoutY="324.0" prefWidth="200.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-            <ToggleButton layoutX="17.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" selected="true" />
-            <ToggleButton layoutX="51.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
-            <ToggleButton layoutX="86.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
-            <ToggleButton layoutX="120.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
-            <ToggleButton layoutX="152.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
-            <ToggleButton layoutX="188.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
+                <Label layoutX="36.0" layoutY="39.0" text="Notepad name:" AnchorPane.leftAnchor="20.0">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+                <TextField fx:id="notepadName" layoutX="280.0" layoutY="31.0" prefHeight="26.0" prefWidth="299.0" />
+                <Label layoutX="56.0" layoutY="84.0" text="Notepad color:" AnchorPane.leftAnchor="20.0">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+                <ToggleButton layoutX="444.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" selected="true" />
+                <ToggleButton layoutX="410.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
+                <ToggleButton layoutX="378.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
+                <ToggleButton layoutX="344.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
+                <ToggleButton layoutX="312.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
+                <ToggleButton layoutX="280.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" />
          </children>
-    </AnchorPane>
-  </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+      </AnchorPane>
+      <AnchorPane prefHeight="394.0" prefWidth="706.0" styleClass="card">
+         <children>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <tabs>
+                        <Tab closable="false" text="Local directory">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <Label layoutX="40.0" layoutY="42.0" text="Directory:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></Label>
+                                        <TextField fx:id="directoryPath" layoutX="272.0" layoutY="34.0" prefHeight="26.0" prefWidth="308.0" />
+                                        <Button layoutX="600.0" layoutY="34.0" mnemonicParsing="false" onAction="#onChooseDirectory" text="Choose" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                  <Tab closable="false" text="WebDAV">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="38.0" layoutY="41.0" text="URL:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField layoutX="279.0" layoutY="38.0" prefHeight="26.0" prefWidth="299.0" />
+                              <Label layoutX="38.0" layoutY="92.0" text="Username:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField layoutX="279.0" layoutY="89.0" prefHeight="26.0" prefWidth="299.0" />
+                              <Label layoutX="38.0" layoutY="149.0" text="Password:">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="456.0" layoutY="195.0" mnemonicParsing="false" text="Test connection" />
+                              <PasswordField layoutX="279.0" layoutY="146.0" prefHeight="26.0" prefWidth="299.0" />
+                           </children></AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab closable="false" disable="true" text="OpenStack">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab closable="false" disable="true" text="AWS S3">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                    </tabs>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+                </TabPane>
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+      </AnchorPane>
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="100.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Button defaultButton="true" layoutX="333.0" layoutY="436.0" mnemonicParsing="false" onAction="#onAdd" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="0.0" />
+                <Button fx:id="btnCancel" cancelButton="true" layoutX="577.0" layoutY="10.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="60.0" />
+            </children>
+        </AnchorPane>
+    </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 </VBox>

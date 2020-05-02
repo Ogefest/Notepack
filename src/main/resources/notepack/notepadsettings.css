@@ -1,0 +1,93 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 2, 2020, 11:06:18 PM
+    Author     : lg
+*/
+
+root > *  {
+    /*-fx-focus-color: transparent;*/ 
+    -fx-background-color: blue;
+ }
+ 
+ .card  {
+     -fx-focus-color: white; 
+     -fx-effect: dropshadow(gaussian, #cccccc, 7, 0, 0, 0);
+     /*-fx-border-color: red;*/
+     -fx-background-color: white;
+ }
+ 
+ .tab {
+     
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+
+    -fx-border-radius: 3;
+    -fx-border-insets: 0;
+    
+    /*-fx-effect: dropshadow(gaussian, #cccccc, 7, 0, 0, 0);*/     
+
+    -fx-padding: 2 10 2 10 ;
+    -fx-alignment: CENTER;    
+    -fx-text-alignment: center; 
+
+    -fx-border-width:  0 0 1 0;
+    -fx-opacity: 0.7;
+    -fx-background-color: #b8c2e3;
+    
+    
+}
+
+.tab:selected {
+    -fx-background-color: #b8c2e3;
+    -fx-opacity: 1;
+    -fx-background-radius: 0;
+}
+
+
+
+.button{
+    -fx-border-color: button-color;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: button-color;
+    -fx-font-size: 1em; /* 12 */
+    -fx-text-fill: white;
+    -fx-padding: 10 12 10 12 ;
+    
+}
+
+.text-field {
+    -fx-background-color: input-background;
+    -fx-padding: 10 12 10 12 ;
+    -fx-border-color: input-border;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    /*-fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;*/
+}
+
+.text-field:focused {
+    -fx-background-color: input-background;
+    -fx-padding: 10 12 10 12 ;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;
+    /*-fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;*/
+}
+
+.button:default {
+    -fx-background-color: button-primary-color;
+}
+
+.button:focused {
+    -fx-border-width: 0;
+}
+
+.button:pressed {
+    -fx-opacity: 0.7;
+}

@@ -5,13 +5,19 @@
  */
 package notepack;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -19,6 +25,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorageItem;
@@ -200,7 +207,39 @@ public class NotebookTabController implements Initializable {
         if (result.isPresent()) {
             app.renameNote(n, result.get());
         }
-        
+
+    }
+
+    @FXML
+    private void onFileNotepadAdd(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("NotepadCreate.fxml"));
+
+        Scene scene;
+        try {
+            Parent root = fxmlLoader.load();
+
+            NotepadCreateController ctrl = (NotepadCreateController) fxmlLoader.getController();
+            ctrl.setNotepadCreateCallback(new NotepadCreateCallback() {
+                @Override
+                public void ready(Notepad notepad) {
+                    app.openNotepad(notepad);
+                }
+            });
+
+            scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Add new notepad");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException ex) {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void onFileNew(ActionEvent event) {
     }
 
 }
