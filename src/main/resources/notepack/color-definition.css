@@ -1,4 +1,11 @@
 * {
     -fx-bar-background: #334563;
     -fx-bar-border-color: #dfe1e6;
+    
+    button-color: #415aab;
+    button-primary-color: #d41919;
+    
+    input-background: white;
+    
+    input-border: #939ec2;
 }
