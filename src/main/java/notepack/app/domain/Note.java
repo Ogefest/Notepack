@@ -19,6 +19,7 @@ public class Note {
 //    private NoteStorage storage;
     private Notepad notepad;
     private String ident;
+    private boolean isSaved = true;
     
     public Note(Notepad notepad) {
         this.ident = UUID.randomUUID().toString();
@@ -64,6 +65,7 @@ public class Note {
     
     public void setContents(String content) {
         this.content = content;
+        isSaved = false;
     }
     
     public String getContent() {
@@ -81,6 +83,11 @@ public class Note {
     public void saveToStorage() {
         notepad.getStorage().saveContent(content, path);
         setPath(path);
+        isSaved = true;
+    }
+    
+    public boolean isSaved() {
+        return isSaved;
     }
     
     public String toString() {
