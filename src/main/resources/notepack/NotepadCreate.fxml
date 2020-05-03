@@ -33,12 +33,12 @@
                <font>
                   <Font size="15.0" />
                </font></Label>
-                <ToggleButton layoutX="444.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" selected="true" style="-fx-background-color: user-color-6;" />
-                <ToggleButton layoutX="410.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-5;" />
-                <ToggleButton layoutX="378.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-4;" />
-                <ToggleButton layoutX="344.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-3;" />
-                <ToggleButton layoutX="312.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-2;" />
-                <ToggleButton layoutX="280.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-1;" />
+                <ToggleButton fx:id="btnUserColor6" layoutX="444.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-6;" />
+                <ToggleButton fx:id="btnUserColor5" layoutX="410.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-5;" />
+                <ToggleButton fx:id="btnUserColor4" layoutX="378.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-4;" />
+                <ToggleButton fx:id="btnUserColor3" layoutX="344.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-3;" />
+                <ToggleButton fx:id="btnUserColor2" layoutX="312.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-2;" />
+                <ToggleButton fx:id="btnUserColor1" layoutX="280.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" selected="true" style="-fx-background-color: user-color-1;" />
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
