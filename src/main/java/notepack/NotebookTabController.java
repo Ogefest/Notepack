@@ -240,6 +240,18 @@ public class NotebookTabController implements Initializable {
 
     @FXML
     private void onFileNew(ActionEvent event) {
+        
+        app.newNote(notepad);
+        
+    }
+
+    @FXML
+    private void onNotepadEdit(ActionEvent event) {
+    }
+
+    @FXML
+    private void onNotepadClose(ActionEvent event) {
+        app.closeNotepad(notepad);
     }
 
 }
