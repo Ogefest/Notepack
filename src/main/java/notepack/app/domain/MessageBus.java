@@ -38,22 +38,26 @@ public class MessageBus {
         tasks = new ConcurrentLinkedQueue<>();
 //        events = new ConcurrentLinkedQueue<>();
 //        listeners = new ArrayList<>();
-        
+
         noteListeners = new ArrayList<>();
         notepadListeners = new ArrayList<>();
     }
 
     public void startDispatcher() {
-        
+
         if (dispatchThread != null) {
             return;
         }
-        
+
         dispatchThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 do {
-                    dispatch();
+                    try {
+                        dispatch();
+                    } catch (Exception e) {
+                        Logger.getLogger(MessageBus.class.getName()).log(Level.SEVERE, null, e);
+                    }
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
@@ -91,11 +95,11 @@ public class MessageBus {
         }
 
     }
-    
+
     public void registerNoteListener(NoteListener l) {
         noteListeners.add(l);
     }
-    
+
     public void registerNotepadListener(NotepadListener l) {
         notepadListeners.add(l);
     }
