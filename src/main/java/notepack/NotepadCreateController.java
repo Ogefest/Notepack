@@ -16,6 +16,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -38,18 +40,45 @@ public class NotepadCreateController implements Initializable {
     private NotepadCreateCallback clbk;
     @FXML
     private Button btnCancel;
-    @FXML
-    private ColorPicker notepadColor;
 
     private Notepad notepad;
     private boolean notepadEdition = false;
+    @FXML
+    private ToggleButton btnUserColor6;
+    @FXML
+    private ToggleButton btnUserColor5;
+    @FXML
+    private ToggleButton btnUserColor4;
+    @FXML
+    private ToggleButton btnUserColor3;
+    @FXML
+    private ToggleButton btnUserColor2;
+    @FXML
+    private ToggleButton btnUserColor1;
+
+    private ToggleGroup tg;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        tg = new ToggleGroup();
+        btnUserColor1.setToggleGroup(tg);
+        btnUserColor2.setToggleGroup(tg);
+        btnUserColor3.setToggleGroup(tg);
+        btnUserColor4.setToggleGroup(tg);
+        btnUserColor5.setToggleGroup(tg);
+        btnUserColor6.setToggleGroup(tg);
+
+        btnUserColor1.setUserData("#bad5ff");
+        btnUserColor2.setUserData("#b5e8c4");
+        btnUserColor3.setUserData("#a5ad87");
+        btnUserColor4.setUserData("#e6be93");
+        btnUserColor5.setUserData("#e3ae9d");
+        btnUserColor6.setUserData("#8172ad");
+
+        tg.selectToggle(btnUserColor1);
     }
 
     public void setNotepadCreateCallback(NotepadCreateCallback clbk) {
@@ -59,9 +88,9 @@ public class NotepadCreateController implements Initializable {
     public void setNotepadToEdit(Notepad notepad) {
         this.notepad = notepad;
         notepadEdition = true;
-        
+
         notepadName.setText(notepad.getName());
-        
+
     }
 
     @FXML
@@ -93,18 +122,14 @@ public class NotepadCreateController implements Initializable {
             notepad = new Notepad(storage, name);
         }
 
-        Color clr = notepadColor.getValue();
+        if (tg.getSelectedToggle() == null) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Notepad color is required");
+            a.show();
+            return;
+        }
 
-        int ired = (int) (clr.getRed() * 255);
-        String red = Integer.toHexString(ired);
-
-        int igreen = (int) (clr.getGreen() * 255);
-        String green = Integer.toHexString(igreen);
-
-        int iblue = (int) (clr.getBlue() * 255);
-        String blue = Integer.toHexString(iblue);
-
-        notepad.setParam("color", "#" + red + green + blue);
+        String color = (String) tg.getSelectedToggle().getUserData();
+        notepad.setParam("color", color);
 
         clbk.ready(notepad);
 
