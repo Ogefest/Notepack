@@ -507,40 +507,6 @@ public class MainViewController implements Initializable {
     }
 
 
-//    private void onFileNotepadRemove(ActionEvent event) {
-//        Note n = (Note) tabContainer.getSelectionModel().getSelectedItem().getUserData();
-//        app.closeNote(n);
-//    }
-//    private void onFileSaveAs(ActionEvent event) {
-//
-//        Note n = getCurrentNote();
-//        if (n.getPath() == null) {
-//            FileChooser fileChooser = new FileChooser();
-//            fileChooser.setTitle("Save note");
-//
-//            File file = fileChooser.showSaveDialog(stage);
-//            if (file != null) {
-//                n.setPath(file.getAbsolutePath());
-//                app.saveNote(n);
-//            }
-//        }
-//
-//    }
-//    private void onExitApplication(ActionEvent event) {
-//        app.terminate();
-//        stage.close();
-//    }
-//    private void onNotepadMenuClose(ActionEvent event) {
-//        Tab t = (Tab) event.getTarget();
-//        Notepad n = (Notepad) t.getUserData();
-//        app.closeNotepad(n);
-//    }
-//    private void onFileNotepadClose(ActionEvent event) {
-//        NotebookTabController ctrl = (NotebookTabController) notepadContainer.getSelectionModel().getSelectedItem().getUserData();
-//        Notepad n = ctrl.getNotepad();
-//
-//        app.closeNotepad(n);
-//    }
     @FXML
     private void onNoteSearch(ActionEvent event) {
         guiAction.showSearchForNoteDialog();
