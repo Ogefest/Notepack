@@ -152,7 +152,7 @@ public class MainViewController implements Initializable {
                             String taText = ctrl.getTextArea().getText();
                             String noteText = note.getContent();
 
-                            if (!taText.equals(noteText)) {
+                            if (!note.isSaved()) {
                                 Alert alert = new Alert(AlertType.CONFIRMATION);
                                 alert.setTitle("Confirmation");
                                 alert.setHeaderText(null);
