@@ -48,12 +48,12 @@
                         <Tooltip text="New note" />
                      </tooltip>
                   </Button>
-                  <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.cog">
+                  <Button mnemonicParsing="false" onAction="#onNotepadEdit" styleClass="icon-button" text="%fa.cog">
                      <tooltip>
                         <Tooltip text="Settings" />
                      </tooltip>
                   </Button>
-                  <Button mnemonicParsing="false" styleClass="icon-button" text="%fa.times">
+                  <Button mnemonicParsing="false" onAction="#onNotepadClose" styleClass="icon-button" text="%fa.times">
                      <tooltip>
                         <Tooltip text="Close" />
                      </tooltip>
