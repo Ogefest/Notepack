@@ -47,7 +47,7 @@ public class NoteTabContentController implements Initializable {
     private MenuItem menuCut;
     @FXML
     private MenuItem menuCopy;
-    
+
     private NoteTabContentCallback clbk;
 
     /**
@@ -57,21 +57,21 @@ public class NoteTabContentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
     public void setNoteTabContentCallback(NoteTabContentCallback clbk) {
         this.clbk = clbk;
     }
-    
+
     public void setNote(Note note) {
         this.note = note;
 
         textArea.setText(note.getContent());
-        
+
         tabBackground.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
 
         textArea.requestFocus();
     }
-    
+
     public Note getNote() {
         return note;
     }
@@ -92,6 +92,10 @@ public class NoteTabContentController implements Initializable {
 
     @FXML
     private void onSearchInNote(ActionEvent event) {
+        showSearchReplaceForm();
+    }
+
+    public void showSearchReplaceForm() {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("SearchForm.fxml"));
 
@@ -105,9 +109,9 @@ public class NoteTabContentController implements Initializable {
                 public void search(String string) {
                     int caretPost = textArea.getCaretPosition();
                     int indexStart = textArea.getText().indexOf(string, caretPost);
-                    
+
                     if (textArea.getText().indexOf(string) == -1) {
-                        Alert a = new Alert(AlertType.INFORMATION, string + " was not found. Start from beginning?", ButtonType.OK); 
+                        Alert a = new Alert(AlertType.INFORMATION, string + " was not found. Start from beginning?", ButtonType.OK);
                         a.showAndWait();
                     } else {
                         if (indexStart > 0) {
@@ -117,14 +121,14 @@ public class NoteTabContentController implements Initializable {
                             textArea.selectRange(indexStart, indexStart + string.length());
                         }
                     }
-                    
+
                 }
 
                 @Override
                 public void replace(String from, String to, boolean replaceAll) {
-                    
+
                     int caretPost = textArea.getCaretPosition();
-                    
+
                     if (replaceAll) {
                         String current = textArea.getText();
                         String afterReplacement = current.replace(from, to);
@@ -133,17 +137,17 @@ public class NoteTabContentController implements Initializable {
                         String taText = textArea.getText();
                         int indexStart = taText.indexOf(from, caretPost);
                         if (indexStart > 0) {
-                            
+
                             String part1 = taText.substring(0, indexStart);
                             String part2 = taText.substring(indexStart + from.length());
-                            
+
                             String result = part1 + to + part2;
                             textArea.setText(result);
                             textArea.positionCaret(indexStart);
-                            
+
                         }
                     }
-                    
+
                 }
             });
 
@@ -155,7 +159,7 @@ public class NoteTabContentController implements Initializable {
 
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }         
+        }
     }
 
     @FXML
