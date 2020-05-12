@@ -11,17 +11,17 @@ and open the template in the editor.
 root > *  {
     /*-fx-focus-color: transparent;*/ 
     -fx-background-color: blue;
- }
- 
- .card  {
-     -fx-focus-color: white; 
-     -fx-effect: dropshadow(gaussian, #cccccc, 7, 0, 0, 0);
-     /*-fx-border-color: red;*/
-     -fx-background-color: white;
- }
- 
- .tab {
-     
+}
+
+.card  {
+    -fx-focus-color: white; 
+    -fx-effect: dropshadow(gaussian, #cccccc, 7, 0, 0, 0);
+    /*-fx-border-color: red;*/
+    -fx-background-color: white;
+}
+
+.tab {
+
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 
@@ -30,7 +30,7 @@ root > *  {
 
     -fx-border-radius: 3;
     -fx-border-insets: 0;
-    
+
     /*-fx-effect: dropshadow(gaussian, #cccccc, 7, 0, 0, 0);*/     
 
     -fx-padding: 2 10 2 10 ;
@@ -40,8 +40,8 @@ root > *  {
     -fx-border-width:  0 0 1 0;
     -fx-opacity: 0.7;
     -fx-background-color: #b8c2e3;
-    
-    
+
+
 }
 
 .tab:selected {
@@ -60,7 +60,7 @@ root > *  {
     -fx-font-size: 1em; /* 12 */
     -fx-text-fill: white;
     -fx-padding: 10 12 10 12 ;
-    
+
 }
 
 .text-field {
@@ -90,4 +90,24 @@ root > *  {
 
 .button:pressed {
     -fx-opacity: 0.7;
+}
+
+
+.check-box .box {
+
+    -fx-background-color: white;
+    -fx-border-color:grey;
+    -fx-border-radius:3px; 
+
+}
+
+.check-box:selected .mark {
+
+    -fx-background-color: white;
+
+}
+
+.check-box:selected .box {
+
+    -fx-background-color: button-color;
 }
