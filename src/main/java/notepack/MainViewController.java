@@ -413,12 +413,11 @@ public class MainViewController implements Initializable {
             }
         }
 
-        
         KeyCombination kcCloseNote = new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN);
         stage.getScene().getAccelerators().put(kcCloseNote, () -> {
             app.closeNote(getCurrentNote());
         });
-        
+
         KeyCombination kcSave = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
         stage.getScene().getAccelerators().put(kcSave, () -> {
             saveNote(getCurrentNote());
@@ -433,8 +432,14 @@ public class MainViewController implements Initializable {
         stage.getScene().getAccelerators().put(kcSearchNote, () -> {
             guiAction.showSearchForNoteDialog();
         });
-        
-        
+
+        KeyCombination kcSearchReplaceString = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN);
+        stage.getScene().getAccelerators().put(kcSearchReplaceString, () -> {
+            Tab t = tabContainer.getSelectionModel().getSelectedItem();
+            Parent p = (Parent) t.getContent();
+            ((NoteTabContentController) t.getUserData()).showSearchReplaceForm();
+        });
+
     }
 
     private TextArea getTextAreaForNote(Note n) {
@@ -505,7 +510,6 @@ public class MainViewController implements Initializable {
     private void onFileNew(ActionEvent event) {
         app.newNote(getCurrentNotepad());
     }
-
 
     @FXML
     private void onNoteSearch(ActionEvent event) {
