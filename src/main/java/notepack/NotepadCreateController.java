@@ -57,6 +57,8 @@ public class NotepadCreateController implements Initializable {
     private ToggleButton btnUserColor1;
 
     private ToggleGroup tg;
+    @FXML
+    private Button btnSave;
 
     /**
      * Initializes the controller class.
@@ -71,12 +73,12 @@ public class NotepadCreateController implements Initializable {
         btnUserColor5.setToggleGroup(tg);
         btnUserColor6.setToggleGroup(tg);
 
-        btnUserColor1.setUserData("#bad5ff");
-        btnUserColor2.setUserData("#b5e8c4");
-        btnUserColor3.setUserData("#a5ad87");
-        btnUserColor4.setUserData("#e6be93");
-        btnUserColor5.setUserData("#e3ae9d");
-        btnUserColor6.setUserData("#8172ad");
+        btnUserColor1.setUserData("#356fcc");
+        btnUserColor2.setUserData("#23a7cc");
+        btnUserColor3.setUserData("#2db56d");
+        btnUserColor4.setUserData("#92c738");
+        btnUserColor5.setUserData("#d9c741");
+        btnUserColor6.setUserData("#d12121");
 
         tg.selectToggle(btnUserColor1);
     }
@@ -90,7 +92,8 @@ public class NotepadCreateController implements Initializable {
         notepadEdition = true;
 
         notepadName.setText(notepad.getName());
-
+        
+        btnSave.setText("Save");
     }
 
     @FXML
