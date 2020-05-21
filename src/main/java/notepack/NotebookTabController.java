@@ -238,15 +238,47 @@ public class NotebookTabController implements Initializable {
         }
     }
 
+    public void openNotepadEdit(Notepad notepad) {
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("NotepadCreate.fxml"));
+
+        Scene scene;
+        try {
+            Parent root = fxmlLoader.load();
+
+            NotepadCreateController nctrl = (NotepadCreateController) fxmlLoader.getController();
+            nctrl.setNotepadToEdit(notepad);
+            nctrl.setNotepadCreateCallback(new NotepadCreateCallback() {
+                @Override
+                public void ready(Notepad notepad) {
+                    app.closeNotepad(notepad);
+                    app.openNotepad(notepad);
+                }
+            });
+
+            scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Edit notepad");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException ex) {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     @FXML
     private void onFileNew(ActionEvent event) {
-        
+
         app.newNote(notepad);
-        
+
     }
 
     @FXML
     private void onNotepadEdit(ActionEvent event) {
+        openNotepadEdit(notepad);
     }
 
     @FXML
