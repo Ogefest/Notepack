@@ -113,7 +113,7 @@
       </AnchorPane>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="100.0" VBox.vgrow="ALWAYS">
             <children>
-                <Button defaultButton="true" layoutX="333.0" layoutY="436.0" mnemonicParsing="false" onAction="#onAdd" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="0.0" />
+                <Button fx:id="btnSave" defaultButton="true" layoutX="333.0" layoutY="436.0" mnemonicParsing="false" onAction="#onAdd" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="0.0" />
                 <Button fx:id="btnCancel" cancelButton="true" layoutX="577.0" layoutY="10.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="60.0" />
             </children>
         </AnchorPane>
