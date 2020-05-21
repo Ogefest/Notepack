@@ -68,31 +68,31 @@ public class MainViewGuiAction {
         
     }
 
-    public void newNotepad() {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("NotepadCreate.fxml"));
-
-        Scene scene;
-        try {
-            Parent root = fxmlLoader.load();
-
-            NotepadCreateController ctrl = (NotepadCreateController) fxmlLoader.getController();
-            ctrl.setNotepadCreateCallback(new NotepadCreateCallback() {
-                @Override
-                public void ready(Notepad notepad) {
-                    app.openNotepad(notepad);
-                }
-            });
-
-            scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setTitle("Add new notepad");
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException ex) {
-            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-   }
+//    public void newNotepad() {
+//        FXMLLoader fxmlLoader = new FXMLLoader();
+//        fxmlLoader.setLocation(getClass().getResource("NotepadCreate.fxml"));
+//
+//        Scene scene;
+//        try {
+//            Parent root = fxmlLoader.load();
+//
+//            NotepadCreateController ctrl = (NotepadCreateController) fxmlLoader.getController();
+//            ctrl.setNotepadCreateCallback(new NotepadCreateCallback() {
+//                @Override
+//                public void ready(Notepad notepad) {
+//                    app.openNotepad(notepad);
+//                }
+//            });
+//
+//            scene = new Scene(root);
+//            Stage stage = new Stage();
+//            stage.setTitle("Add new notepad");
+//            stage.setScene(scene);
+//            stage.show();
+//
+//        } catch (IOException ex) {
+//            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+//        } 
+//   }
 
 }
