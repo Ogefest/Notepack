@@ -285,33 +285,7 @@ public class MainViewController implements Initializable {
                     });
                     MenuItem configureNotepadMenu = new MenuItem("Settings");
                     configureNotepadMenu.setOnAction((t) -> {
-
-                        FXMLLoader fxmlLoader = new FXMLLoader();
-                        fxmlLoader.setLocation(getClass().getResource("NotepadCreate.fxml"));
-
-                        Scene scene;
-                        try {
-                            Parent root = fxmlLoader.load();
-
-                            NotepadCreateController nctrl = (NotepadCreateController) fxmlLoader.getController();
-                            nctrl.setNotepadToEdit(notepad);
-                            nctrl.setNotepadCreateCallback(new NotepadCreateCallback() {
-                                @Override
-                                public void ready(Notepad notepad) {
-                                    app.closeNotepad(notepad);
-                                    app.openNotepad(notepad);
-                                }
-                            });
-
-                            scene = new Scene(root);
-                            Stage stage = new Stage();
-                            stage.setTitle("Edit notepad");
-                            stage.setScene(scene);
-                            stage.show();
-
-                        } catch (IOException ex) {
-                            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        ctrl.openNotepadEdit(notepad);
                     });
 
                     contextMenu.getItems().addAll(closeNotepadMenu, refreshNotepadMenu, configureNotepadMenu);
@@ -468,15 +442,15 @@ public class MainViewController implements Initializable {
         return ((NotebookTabController) t.getUserData()).getNotepad();
     }
 
-    private void onFileOpen(ActionEvent event) {
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Open File");
-        File f = chooser.showOpenDialog(stage);
-        if (f != null) {
-//            Note note = new Note(f.getAbsolutePath(), new Filesystem());
-//            app.getMessageBus().addTask(new OpenNote(note));
-        }
-    }
+//    private void onFileOpen(ActionEvent event) {
+//        FileChooser chooser = new FileChooser();
+//        chooser.setTitle("Open File");
+//        File f = chooser.showOpenDialog(stage);
+//        if (f != null) {
+////            Note note = new Note(f.getAbsolutePath(), new Filesystem());
+////            app.getMessageBus().addTask(new OpenNote(note));
+//        }
+//    }
 
     private void onFileSave(ActionEvent event) {
         Note n = getCurrentNote();
