@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.MenuItem;
 
 import javafx.scene.control.TextArea;
@@ -49,6 +50,8 @@ public class NoteTabContentController implements Initializable {
     private MenuItem menuCopy;
 
     private NoteTabContentCallback clbk;
+    @FXML
+    private CheckMenuItem wordWrapMenu;
 
     /**
      * Initializes the controller class.
@@ -80,7 +83,6 @@ public class NoteTabContentController implements Initializable {
         return textArea;
     }
 
-    @FXML
     private void onOpenNote(ActionEvent event) {
         clbk.onOpenNote();
     }
@@ -164,7 +166,13 @@ public class NoteTabContentController implements Initializable {
 
     @FXML
     private void onWordWrap(ActionEvent event) {
-        textArea.setWrapText(true);
+        if (textArea.isWrapText()) {
+            textArea.setWrapText(false);
+            wordWrapMenu.setSelected(false);
+        } else {
+            textArea.setWrapText(true);
+            wordWrapMenu.setSelected(true);
+        }
     }
 
     @FXML
