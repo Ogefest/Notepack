@@ -27,12 +27,13 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
         loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
-        
+
 //        App.class.getResource(fxml + ".fxml");
-        
         Parent root = loader.load();
 
         MainViewController ctrl = loader.getController();
+
+        ctrl.hostServices = getHostServices();
         ctrl.appStart();
 
         Scene scene = new Scene(root);
@@ -41,7 +42,7 @@ public class Main extends Application {
         stage.setOnShowing((t) -> {
             ctrl.windowRestore();
         });
-        
+
         stage.setTitle("NotePack");
 
         stage.show();

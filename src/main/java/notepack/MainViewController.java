@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,6 +83,8 @@ public class MainViewController implements Initializable {
     private TabPane notepadContainer;
 
     private MainViewGuiAction guiAction;
+
+    public HostServices hostServices;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -479,6 +482,27 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void onApplicationInfo(ActionEvent event) {
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("AboutDialog.fxml"));
+
+        Scene scene;
+        try {
+            Parent root = fxmlLoader.load();
+
+            AboutDialogController ctrl = (AboutDialogController) fxmlLoader.getController();
+            ctrl.hostServices = hostServices;
+
+            scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("About");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException ex) {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }
