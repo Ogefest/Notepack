@@ -61,7 +61,7 @@
             </VBox>
                 <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <TabPane id="noteTabContainer" fx:id="tabContainer" prefHeight="596.0" prefWidth="579.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+                        <TabPane id="noteTabContainer" fx:id="tabContainer" prefHeight="596.0" prefWidth="579.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
                             <tabs>
                                 
 <!--                                <Tab text="Untitled Tab 1">
