@@ -22,14 +22,14 @@ public class Note {
     private boolean isSaved = true;
     
     public Note(Notepad notepad) {
-        this.ident = UUID.randomUUID().toString();
+        this.ident = notepad.getIdent() + path;
         this.path = null;
         this.notepad = notepad;
 //        this.storage = storage;
     }
     
     public Note(String path, Notepad notepad) {
-        this.ident = UUID.randomUUID().toString();
+        this.ident = notepad.getIdent() + path;
         this.path = path;
         this.notepad = notepad;
     }
