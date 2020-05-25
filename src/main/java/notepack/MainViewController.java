@@ -439,15 +439,6 @@ public class MainViewController implements Initializable {
         return ((NotebookTabController) t.getUserData()).getNotepad();
     }
 
-//    private void onFileOpen(ActionEvent event) {
-//        FileChooser chooser = new FileChooser();
-//        chooser.setTitle("Open File");
-//        File f = chooser.showOpenDialog(stage);
-//        if (f != null) {
-////            Note note = new Note(f.getAbsolutePath(), new Filesystem());
-////            app.getMessageBus().addTask(new OpenNote(note));
-//        }
-//    }
     private void onFileSave(ActionEvent event) {
         Note n = getCurrentNote();
         saveNote(n);
