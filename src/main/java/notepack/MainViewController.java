@@ -28,6 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
@@ -145,34 +146,6 @@ public class MainViewController implements Initializable {
 
                     newTab.setContent(tabContent);
                     newTab.setUserData(ctrl);
-                    newTab.setOnCloseRequest(new EventHandler<Event>() {
-                        @Override
-                        public void handle(Event t) {
-
-                            String taText = ctrl.getTextArea().getText();
-                            String noteText = note.getContent();
-
-                            if (!note.isSaved()) {
-                                Alert alert = new Alert(AlertType.CONFIRMATION);
-                                alert.setTitle("Confirmation");
-                                alert.setHeaderText(null);
-                                alert.setContentText("Changes not saved, do you want to save document?");
-
-                                ButtonType buttonSave = new ButtonType("Save");
-                                ButtonType buttonClose = new ButtonType("Close without saving");
-
-                                Optional<ButtonType> result = alert.showAndWait();
-                                if (result.get() == buttonSave) {
-                                    app.saveNote(note);
-                                    app.closeNote(note);
-                                } else if (result.get() == buttonClose) {
-                                    app.closeNote(note);
-                                }
-                            } else {
-                                app.closeNote(note);
-                            }
-                        }
-                    });
 
                     String notepadColor = note.getNotepad().getBackgroundColor();
                     newTab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);
@@ -199,8 +172,32 @@ public class MainViewController implements Initializable {
                 Platform.runLater(() -> {
                     for (Tab t : tabContainer.getTabs()) {
                         NoteTabContentController ctrl = (NoteTabContentController) t.getUserData();
-                        if (ctrl.getNote().getIdent().equals(n.getIdent())) {
-                            tabContainer.getTabs().remove(t);
+                        Note note = ctrl.getNote();
+                        if (note.getIdent().equals(n.getIdent())) {
+
+                            if (!note.isSaved()) {
+                                Alert alert = new Alert(AlertType.CONFIRMATION);
+                                alert.setTitle("Confirmation");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Changes not saved, do you want to save document?");
+
+                                ButtonType buttonSave = new ButtonType("Save");
+                                ButtonType buttonClose = new ButtonType("Close without saving");
+                                ButtonType buttonDontClose = new ButtonType("Don't close");
+
+                                alert.getButtonTypes().setAll(buttonDontClose, buttonClose, buttonSave);
+
+                                Optional<ButtonType> result = alert.showAndWait();
+                                if (result.get() == buttonSave) {
+                                    app.saveNote(note);
+
+                                    tabContainer.getTabs().remove(t);
+                                } else if (result.get() == buttonClose) {
+                                    tabContainer.getTabs().remove(t);
+                                }
+                            } else {
+                                tabContainer.getTabs().remove(t);
+                            }
 
                             break;
                         }
@@ -451,7 +448,6 @@ public class MainViewController implements Initializable {
 ////            app.getMessageBus().addTask(new OpenNote(note));
 //        }
 //    }
-
     private void onFileSave(ActionEvent event) {
         Note n = getCurrentNote();
         saveNote(n);
