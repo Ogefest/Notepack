@@ -5,8 +5,6 @@
  */
 package notepack.app.task;
 
-import notepack.app.domain.Notepad;
-import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
 
 /**
