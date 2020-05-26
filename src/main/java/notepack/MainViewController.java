@@ -439,17 +439,34 @@ public class MainViewController implements Initializable {
     private void saveNote(Note n) {
 
         if (n.getPath() == null) {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save note");
 
-            String dir = getCurrentNotepad().getStorage().getConfiguration().get("directory");
-            fileChooser.setInitialDirectory(new File(dir));
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("SaveAs.fxml"));
 
-            File file = fileChooser.showSaveDialog(stage);
-            if (file != null) {
-                n.setPath(file.getAbsolutePath());
-                app.saveNote(n);
+            Scene scene;
+            try {
+                Parent root = fxmlLoader.load();
+
+                SaveAsController ctrl = (SaveAsController) fxmlLoader.getController();
+                
+                ctrl.setSaveAsCallback((name) -> {
+                    n.setPath(name);
+                    app.saveNote(n);
+                    app.refreshNotepad(n.getNotepad());
+                });
+                
+                ctrl.setNote(n);
+
+                scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setTitle("Set name");
+                stage.setScene(scene);
+                stage.show();
+
+            } catch (IOException ex) {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         } else {
             app.saveNote(n);
         }
