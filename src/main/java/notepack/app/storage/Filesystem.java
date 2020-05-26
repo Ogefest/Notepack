@@ -114,7 +114,7 @@ public class Filesystem implements NoteStorage {
             String extension = "";
 
             int i = p.lastIndexOf('.');
-            int pos = Math.max(p.lastIndexOf('/'), p.lastIndexOf('\\'));
+            int pos = Math.max(p.lastIndexOf(File.separator), p.lastIndexOf('\\'));
 
             if (i > pos) {
                 extension = p.substring(i + 1);
