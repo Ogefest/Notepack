@@ -5,12 +5,8 @@
  */
 package notepack.app.task;
 
-import notepack.app.domain.MessageBus;
 import notepack.app.domain.Note;
-import notepack.app.domain.NoteStorage;
 import notepack.app.domain.Task;
-import notepack.app.event.NoteChanged;
-import notepack.app.event.NoteSaved;
 import notepack.app.listener.NoteListener;
 
 /**
