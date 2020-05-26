@@ -6,7 +6,6 @@
 package notepack.app.domain;
 
 import java.io.File;
-import java.util.UUID;
 
 /**
  *

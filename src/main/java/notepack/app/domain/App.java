@@ -6,7 +6,6 @@
 package notepack.app.domain;
 
 import java.util.ArrayList;
-import notepack.app.event.NoteOpened;
 import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
 import notepack.app.task.OpenNote;

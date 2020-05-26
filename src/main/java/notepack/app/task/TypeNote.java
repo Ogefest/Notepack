@@ -5,7 +5,6 @@
  */
 package notepack.app.task;
 
-import notepack.app.domain.Note;
 import notepack.app.listener.NoteListener;
 
 /**

@@ -6,14 +6,10 @@
 package notepack.app.domain;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import notepack.app.event.NoteChanged;
-import notepack.app.event.NoteOpened;
 import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
 import notepack.app.task.TypeNote;

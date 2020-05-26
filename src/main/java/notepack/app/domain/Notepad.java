@@ -5,11 +5,9 @@
  */
 package notepack.app.domain;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
-import javafx.scene.paint.Color;
 
 /**
  *
