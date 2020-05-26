@@ -4,6 +4,7 @@
     <groupId>notepack</groupId>
     <artifactId>Notepack</artifactId>
     <version>0.5</version>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
@@ -59,7 +60,7 @@
                     <release>11</release>
                     <showDeprecation>true</showDeprecation>
                     <fork>true</fork>
-                    <!--<executable>./jdk/bin/javac</executable>-->                    
+                    <executable>./jdk/bin/javac</executable>                    
                 </configuration>
             </plugin>
             
@@ -75,11 +76,13 @@
                         <id>default-cli</id>
                         <configuration>
                             <compress>2</compress>
+                            <stripDebug>true</stripDebug>
+                            <noHeaderFiles>true</noHeaderFiles>
                             <release> ${maven.compiler.release}</release>
                             <jlinkImageName>notepack</jlinkImageName>
-                            <jlinkZipName>notepack-release</jlinkZipName>
-                            <launcher>notepack.run.sh</launcher>
-                            <mainClass>notepack.Main</mainClass>
+                            <!--<jlinkZipName>notepack-release</jlinkZipName>-->
+                            <launcher>notepack</launcher>
+                            <mainClass>notepack/notepack.Main</mainClass>
                         </configuration>
                     </execution>
                     <execution>
@@ -110,7 +113,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${basedir}/sh/create-release.sh</executable>
+                            <executable>${basedir}/sh/create-deb-runtime-release.sh</executable>
                         </configuration>
                     </execution>
                 </executions>
