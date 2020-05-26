@@ -162,19 +162,13 @@
 }
 
 .tree-view {
-    cell-selection-color: transparent;
+    cell-selection-color: derive(-fx-bar-background, 75%);
     
     -fx-background-insets: 0;
     -fx-background-color: transparent, white, transparent, white;
     -fx-background-radius: 0, 0, 0, 0;
 
     -fx-box-border: none;
-    /*-fx-focus-color: -fx-control-inner-background;*/
-    /*-fx-faint-focus-color: -fx-control-inner-background;*/
-    /*-fx-text-box-border: -fx-control-inner-background;*/
-    
-    
-    
     -fx-border-width: -1;
 }
 
