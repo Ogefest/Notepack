@@ -3,10 +3,8 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -48,68 +46,13 @@
          </VBox.margin>
       </AnchorPane>
       <AnchorPane prefHeight="394.0" prefWidth="706.0" styleClass="card">
-         <children>
-                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <tabs>
-                        <Tab closable="false" text="Local directory">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                                        <Label layoutX="40.0" layoutY="42.0" text="Directory:">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font></Label>
-                                        <TextField fx:id="directoryPath" layoutX="272.0" layoutY="34.0" prefHeight="26.0" prefWidth="308.0" />
-                                        <Button layoutX="600.0" layoutY="34.0" mnemonicParsing="false" onAction="#onChooseDirectory" text="Choose" />
-                                    </children>
-                                </AnchorPane>
-                            </content>
-                        </Tab>
-                  <Tab closable="false" text="WebDAV">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Label layoutX="38.0" layoutY="41.0" text="URL:">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <TextField layoutX="279.0" layoutY="38.0" prefHeight="26.0" prefWidth="299.0" />
-                              <Label layoutX="38.0" layoutY="92.0" text="Username:">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <TextField layoutX="279.0" layoutY="89.0" prefHeight="26.0" prefWidth="299.0" />
-                              <Label layoutX="38.0" layoutY="149.0" text="Password:">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Button layoutX="456.0" layoutY="195.0" mnemonicParsing="false" text="Test connection" />
-                              <PasswordField layoutX="279.0" layoutY="146.0" prefHeight="26.0" prefWidth="299.0" />
-                           </children></AnchorPane>
-                    </content>
-                  </Tab>
-                  <Tab closable="false" disable="true" text="OpenStack">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                  </Tab>
-                  <Tab closable="false" disable="true" text="AWS S3">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                  </Tab>
-                    </tabs>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-                </TabPane>
-         </children>
          <VBox.margin>
             <Insets bottom="20.0" />
          </VBox.margin>
+         <children>
+            <ComboBox fx:id="engineSelection" layoutX="23.0" layoutY="22.0" prefHeight="26.0" prefWidth="665.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+            <AnchorPane fx:id="engineForm" layoutX="15.0" layoutY="52.0" prefHeight="292.0" prefWidth="706.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+         </children>
       </AnchorPane>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="100.0" VBox.vgrow="ALWAYS">
             <children>

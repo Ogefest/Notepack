@@ -7,21 +7,35 @@ package notepack;
 
 import notepack.NotepadCreateCallback;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import notepack.app.domain.NoteStorage;
+import notepack.app.domain.NoteStorageConfiguration;
+import notepack.app.domain.NoteStorageItem;
 import notepack.app.domain.Notepad;
 import notepack.app.storage.Filesystem;
+import notepack.app.storage.Webdav;
+import notepack.engine.EngineController;
+import notepack.engine.EngineType;
 
 /**
  * FXML Controller class
@@ -32,7 +46,6 @@ public class NotepadCreateController implements Initializable {
 
     @FXML
     private TextField notepadName;
-    @FXML
     private TextField directoryPath;
 
     private NotepadCreateCallback clbk;
@@ -57,6 +70,15 @@ public class NotepadCreateController implements Initializable {
     private ToggleGroup tg;
     @FXML
     private Button btnSave;
+    private TextField webDavUrl;
+    private TextField webDavUsername;
+    private PasswordField webDavPassword;
+    @FXML
+    private ComboBox<EngineType> engineSelection;
+    @FXML
+    private AnchorPane engineForm;
+    
+    private EngineController currentFormController;
 
     /**
      * Initializes the controller class.
@@ -79,6 +101,31 @@ public class NotepadCreateController implements Initializable {
         btnUserColor6.setUserData("#d12121");
 
         tg.selectToggle(btnUserColor1);
+
+        engineSelection.getItems().add(new EngineType("Filesystem", "engine/Filesystem.fxml"));
+        engineSelection.getItems().add(new EngineType("WebDav", "engine/Webdav.fxml"));
+
+        engineSelection.getSelectionModel().selectedIndexProperty().addListener((ov, t, t1) -> {
+            
+            EngineType et = engineSelection.getSelectionModel().getSelectedItem();
+
+            engineForm.getChildren().clear();
+
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource(et.getFxml()));
+
+            try {
+                Parent root = fxmlLoader.load();
+                currentFormController = (EngineController) fxmlLoader.getController();
+                
+                engineForm.getChildren().add(root);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(NotepadCreateController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        });
+
     }
 
     public void setNotepadCreateCallback(NotepadCreateCallback clbk) {
@@ -91,6 +138,18 @@ public class NotepadCreateController implements Initializable {
 
         notepadName.setText(notepad.getName());
         
+        engineSelection.getItems().clear();
+        if (Filesystem.class.isInstance(notepad.getStorage())) {
+            engineSelection.getItems().add(new EngineType("Filesystem", "engine/Filesystem.fxml"));
+        }
+        if (Webdav.class.isInstance(notepad.getStorage())) {
+            engineSelection.getItems().add(new EngineType("WebDav", "engine/Webdav.fxml"));
+        }
+        engineSelection.getSelectionModel().select(0);
+        engineSelection.setDisable(true);
+        
+        currentFormController.setStorage(notepad.getStorage());
+
         btnSave.setText("Save");
     }
 
@@ -105,22 +164,9 @@ public class NotepadCreateController implements Initializable {
         }
 
         if (notepad == null) {
-            String path = directoryPath.getText();
-            if (path.trim().length() == 0) {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Directory path is required");
-                a.show();
-                return;
-            }
-
-            File f = new File(path);
-            if (!f.exists()) {
-                Alert a = new Alert(Alert.AlertType.ERROR, "Selected directory not exists");
-                a.show();
-                return;
-            }
-
-            NoteStorage storage = new Filesystem(path);
-            notepad = new Notepad(storage, name);
+            notepad = new Notepad(currentFormController.getStorage(), name);
+        } else {
+            notepad.getStorage().setConfiguration(currentFormController.getStorage().getConfiguration());
         }
 
         if (tg.getSelectedToggle() == null) {
@@ -140,24 +186,27 @@ public class NotepadCreateController implements Initializable {
 
     @FXML
     private void onCancel(ActionEvent event) {
-
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
-
     }
 
-    @FXML
-    private void onChooseDirectory(ActionEvent event) {
-        Stage stage = (Stage) btnCancel.getScene().getWindow();
+    private void webDavTestConnection(ActionEvent event) {
 
-        DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setTitle("Notepad directory");
+        String url = webDavUrl.getText();
+        String username = webDavUsername.getText();
+        String password = webDavPassword.getText();
 
-        File selectedDirectory = chooser.showDialog(stage);
-        if (selectedDirectory != null) {
-            directoryPath.setText(selectedDirectory.getAbsolutePath());
-        }
+        NoteStorageConfiguration nsc = new NoteStorageConfiguration();
+        nsc.set("url", url);
+        nsc.set("username", username);
+        nsc.set("password", password);
 
+        Webdav wd = new Webdav(nsc);
+
+        NoteStorageItem noteItem = wd.getItemsInStorage();
+        wd.refreshItemsInStorage();
+
+        noteItem.getName();
     }
 
 }
