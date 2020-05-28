@@ -15,6 +15,7 @@ public class Note {
     
     private String content;
     private String path = null;
+    private String name = null;
 //    private NoteStorage storage;
     private Notepad notepad;
     private String ident;
@@ -27,10 +28,11 @@ public class Note {
 //        this.storage = storage;
     }
     
-    public Note(String path, Notepad notepad) {
+    public Note(String path, Notepad notepad, String name) {
         this.ident = notepad.getIdent() + path;
         this.path = path;
         this.notepad = notepad;
+        this.name = name;
     }
     
     public String getIdent() {
@@ -38,8 +40,11 @@ public class Note {
     }
     
     public String getName() {
-        if (path == null) {
+        if (path == null && name == null) {
             return "New note";
+        }
+        if (name != null) {
+            return name;
         }
         
         File f = new File(path);
