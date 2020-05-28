@@ -14,10 +14,10 @@ root > *  {
 }
 
 .card  {
-    -fx-focus-color: white; 
+    -fx-focus-color: toolbar-background; 
     -fx-effect: dropshadow(gaussian, #cccccc, 7, 0, 0, 0);
     /*-fx-border-color: red;*/
-    -fx-background-color: white;
+    -fx-background-color: toolbar-background;
 }
 
 .button{
