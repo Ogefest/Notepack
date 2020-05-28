@@ -39,15 +39,11 @@ public class Webdav implements NoteStorage {
 
     private Sardine sardine;
 
-//    public Webdav() {
-//        nsc = new NoteStorageConfiguration();
-//        nsc.set("directory", System.getProperty("java.io.tmpdir"));
-//    }
-//
-//    public Webdav(String path) {
-//        nsc = new NoteStorageConfiguration();
-//        nsc.set("directory", path);
-//    }
+    private ArrayList<String> added = new ArrayList<String>();
+
+    public Webdav() {
+    }
+
     public Webdav(NoteStorageConfiguration nsc) {
         this.nsc = nsc;
         sardine = SardineFactory.begin(nsc.get("username"), nsc.get("password"));
@@ -57,9 +53,6 @@ public class Webdav implements NoteStorage {
         return nsc.get("url") + path;
     }
 
-//    private String getBasePath() {
-//        return nsc.get("directory");
-//    }
     @Override
     public String loadContent(String path) {
 
@@ -80,8 +73,7 @@ public class Webdav implements NoteStorage {
     public NoteStorageItem getItemsInStorage() {
 
         if (rootItem == null) {
-//            File f = new File(getBasePath());
-            rootItem = new NoteStorageItem(".", "WebDav");
+            rootItem = new NoteStorageItem(nsc.get("url"), "WebDav");
         }
 
         return rootItem;
@@ -90,18 +82,10 @@ public class Webdav implements NoteStorage {
     @Override
     public void refreshItemsInStorage() {
 
-        List<DavResource> resources;
-        try {
-            resources = sardine.list(nsc.get("url"));
+        added.clear();
 
-            for (DavResource res : resources) {
-                NoteStorageItem leaf = new NoteStorageItem(getUrlWithPath(res.getPath()), res.getName(), res.getContentLength(), res.getModified().getTime());
-                rootItem.add(leaf);
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        rootItem = new NoteStorageItem(".", "WebDav");
+        rootItem = addItems(rootItem, nsc.get("url"), 0);
 
     }
 
@@ -120,58 +104,58 @@ public class Webdav implements NoteStorage {
         supportedExtensions.add("yaml");
         supportedExtensions.add("log");
 
-        File f = new File(startPath);
-        for (String p : f.list()) {
-            if (p.substring(0, 1).equals(".")) {
-                continue;
+        List<DavResource> resources;
+
+        try {
+            resources = sardine.list(startPath);
+            if (resources.size() == 0) {
+                return parent;
             }
 
-            File ff = new File(startPath + File.separator + p);
-            long lastModified = 0;
-            try {
-                FileTime ft = Files.getLastModifiedTime(ff.toPath());
-                lastModified = ft.toMillis();
-            } catch (IOException ex) {
-                Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-                continue;
-            }
+            String hostnameWithSchema = startPath.replace(resources.get(0).getPath(), "");
+            resources.remove(0);
 
-            String extension = "";
+            for (DavResource res : resources) {
 
-            int i = p.lastIndexOf('.');
-            int pos = Math.max(p.lastIndexOf(File.separator), p.lastIndexOf('\\'));
-
-            if (i > pos) {
-                extension = p.substring(i + 1);
-            }
-
-            if (supportedExtensions.contains(extension)) {
-
-                parent.add(new NoteStorageItem(startPath + File.separator + p, p, ff.length(), lastModified));
-
-            } else if (ff.isDirectory()) {
-
-                NoteStorageItem newDirectoryParent = new NoteStorageItem(startPath + File.separator + p, p, ff.length(), lastModified);
-
-                newDirectoryParent = addItems(newDirectoryParent, startPath + File.separator + p, deep + 1);
-                if (newDirectoryParent.get().size() > 0) {
-                    parent.add(newDirectoryParent);
+                if ((hostnameWithSchema + res.getHref().toASCIIString()).equals(startPath)) {
+                    continue;
                 }
+
+                if (added.contains(hostnameWithSchema + res.getHref().toASCIIString())) {
+                    continue;
+                }
+
+                added.add(hostnameWithSchema + res.getHref().toASCIIString());
+
+                String name = res.getName();
+                String extension = "";
+
+                int i = name.lastIndexOf('.');
+                int pos = Math.max(name.lastIndexOf(File.separator), name.lastIndexOf('\\'));
+
+                if (i > pos) {
+                    extension = name.substring(i + 1);
+                }
+                if (supportedExtensions.contains(extension)) {
+                    parent.add(new NoteStorageItem(hostnameWithSchema + res.getHref().toASCIIString(), res.getName(), res.getContentLength(), res.getModified().getTime()));
+                } else if (res.isDirectory()) {
+
+//                    continue;
+                    NoteStorageItem newDirectoryParent = new NoteStorageItem(hostnameWithSchema + res.getHref().toASCIIString(), res.getName(), res.getContentLength(), res.getModified().getTime());
+
+                    newDirectoryParent = addItems(newDirectoryParent, hostnameWithSchema + res.getHref().toASCIIString(), deep + 1);
+                    if (newDirectoryParent.get().size() > 0) {
+                        parent.add(newDirectoryParent);
+                    }
+
+                }
+
             }
+
+        } catch (IOException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-//        Collections.sort(parent.get(), (NoteStorageItem o1, NoteStorageItem o2) -> {
-//            if (o1.isLeaf()) {
-//                return 1;
-//            }
-//            if (o1.getSize() > o2.getSize()) {
-//                return 1;
-//            } else if (o1.getSize() == o2.getSize()) {
-//                return 0;
-//            } else {
-//                return -1;
-//            }
-//        });
         return parent;
     }
 
@@ -188,6 +172,7 @@ public class Webdav implements NoteStorage {
     @Override
     public void setConfiguration(NoteStorageConfiguration nsc) {
         this.nsc = nsc;
+        sardine = SardineFactory.begin(nsc.get("username"), nsc.get("password"));
     }
 
     @Override
