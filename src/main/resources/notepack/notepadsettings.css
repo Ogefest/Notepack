@@ -111,3 +111,32 @@ root > *  {
 
     -fx-background-color: button-color;
 }
+
+
+.combo-box{
+    -fx-border-color:#E6E6E6;
+    -fx-border-style:solid;
+    -fx-border-width:1;
+}
+.combo-box .arrow{
+    -fx-background-color: button-color;
+}
+.combo-box .arrow-button{
+    -fx-background-color: white;
+    -fx-border-style:none;
+}
+.combo-box .arrow-button{
+    -fx-background-color: white;
+}
+.combo-box .list-cell{
+    -fx-background-color:white;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-text-fill: white;
+    -fx-background-color: button-color;
+}
+
+.combo-box .cell:selected {
+    -fx-text-fill: button-color;
+}
