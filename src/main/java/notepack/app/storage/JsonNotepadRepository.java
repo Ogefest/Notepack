@@ -155,6 +155,7 @@ public class JsonNotepadRepository implements SessionStorage {
                 JSONObject obj = input.getJSONObject(i);
 
                 String notePath = obj.getString("path");
+                String noteName = obj.getString("name");
                 String notepadIdent = obj.getString("notepad_ident");
                 Notepad notepadToUse = null;
 
@@ -180,7 +181,7 @@ public class JsonNotepadRepository implements SessionStorage {
 //                    Class cls = Class.forName(storageClassName);
 //                    NoteStorage storage = (NoteStorage) cls.newInstance();
 //                    storage.setConfiguration(nsc);
-                Note note = new Note(notePath, notepadToUse);
+                Note note = new Note(notePath, notepadToUse, noteName);
 
                 notesList.add(note);
 
@@ -225,6 +226,7 @@ public class JsonNotepadRepository implements SessionStorage {
 //            current.put("storage_class", n.getStorage().getClass().getCanonicalName());
             current.put("notepad_ident", n.getNotepad().getIdent());
             current.put("path", n.getPath());
+            current.put("name", n.getName());
 
 //            JSONObject storageConfig = new JSONObject();
 //

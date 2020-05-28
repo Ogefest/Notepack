@@ -161,7 +161,7 @@ public class SaveAsController implements Initializable {
 
             if (it.isLeaf()) {
 
-                Note cnote = new Note(it.getPath(), note.getNotepad());
+                Note cnote = new Note(it.getPath(), note.getNotepad(), it.getName());
                 NoteTreeViewItem noteTreeViewItem = new NoteTreeViewItem(cnote, it);
                 TreeItem<NoteTreeViewItem> n = new TreeItem<>(noteTreeViewItem);
 
