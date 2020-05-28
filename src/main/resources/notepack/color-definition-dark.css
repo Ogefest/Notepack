@@ -1,6 +1,8 @@
 * {
-    -fx-bar-background: #334563;
-    -fx-bar-border-color: #dfe1e6;
+    
+    /*-fx-bar-background: #11202e;*/
+    -fx-bar-background: #363645;
+    -fx-bar-border-color: #363645;
     
     button-color: #415aab;
     button-primary-color: #d41919;
@@ -8,24 +10,32 @@
     text-selection-background: #b3c5e3;
     text-selection-text: #263a59;
     
-    main-background-color: #f5f5f7;
-    
-    toolbar-background: white;  
+    main-background-color: #363645;
     
     tab-text: white;
-    tab-shadow: #cccccc;
+    tab-shadow: #2d2d30;
     
-    text-color: #333333;
+    text-color: #e6e6e8;
     
-    input-background: white;
-    text-area-background: white;
-    tree-view-background: white;
+    input-background: #404052;
+    text-area-background: #24242e;
+    tree-view-background: #24242e;
+    
+    input-border: #6f6f7d;
     
     icon-hover1:#ececec;
     icon-hover2:#eeeeee;
-    icon-color: #333333;
+    icon-color: #c7c7c7;
     
-    input-border: #939ec2;
+    toolbar-background: #24242e;    
+    
+    
+    
+    
+    
+    
+    
+    
     
     user-color-1: #356fcc;
     
@@ -41,5 +51,3 @@
     
     user-color-7: #cfa3ce;
 }
-
-/*@import "color-definition-dark.css";*/

@@ -70,7 +70,7 @@
                         <Insets top="2.0" />
                     </VBox.margin>
                 </AnchorPane>
-                <TextArea fx:id="textArea" style="-fx-background-color: white;" text="Supernote" wrapText="true" VBox.vgrow="ALWAYS">
+                <TextArea fx:id="textArea" text="Supernote" wrapText="true" VBox.vgrow="ALWAYS">
                     <font>
                         <Font size="14.0" />
                     </font>
