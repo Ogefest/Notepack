@@ -50,19 +50,32 @@
     -fx-background-radius: 0, 0, 0, 0;
 
     -fx-box-border: none;
-    -fx-focus-color: -fx-control-inner-background;
-    -fx-faint-focus-color: -fx-control-inner-background;
-    -fx-text-box-border: -fx-control-inner-background;
-    -fx-border-width: -1;
+    /*    -fx-focus-color: -fx-control-inner-background;
+        -fx-faint-focus-color: -fx-control-inner-background;
+        -fx-text-box-border: -fx-control-inner-background;*/
+
+
+    -fx-focus-color: red;
+    -fx-faint-focus-color: red;
+    -fx-text-box-border: red;
+
+    -fx-border-width: 15;
+    -fx-border-color: text-area-background;
+
+    -fx-font-size: 16;
+
+    /*-fx-padding: 20 3 20 20 ;*/
+    -fx-background-color: text-area-background;
 }
 
 .text-area .content {
-    -fx-background-color: transparent, text-area-background, transparent, text-area-background;
+    -fx-background-color: text-area-background;
 }
 
 .text-area:focused .content {
-    -fx-background-color: transparent, text-area-background, transparent, text-area-background;
+    -fx-background-color: text-area-background;
 }
+
 
 .viewport {
     -fx-background-insets: 0;
@@ -167,6 +180,7 @@
     -fx-font-size: 20.0 pt;
     -fx-font-family: 'FontAwesome';
     -fx-padding: 5 ;
+    -fx-text-fill:icon-color;
 }
 
 .icon-button .menu-item .label {
@@ -197,13 +211,6 @@
 /*.icon-button > .menu-item > .label {
     -fx-font-size: 14.0 pt;
 }*/
-
-.text-area {
-    -fx-font-size: 16;
-
-    -fx-padding: 20 3 20 20 ;
-    /*-fx-font-family: 'Zilla Slab Light';*/
-}
 
 .text-input {
     /*-fx-highlight-fill:  derive(-fx-bar-background,10%);*/
