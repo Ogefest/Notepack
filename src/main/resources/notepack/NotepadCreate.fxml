@@ -50,7 +50,7 @@
             <Insets bottom="20.0" />
          </VBox.margin>
          <children>
-            <ComboBox fx:id="engineSelection" layoutX="23.0" layoutY="22.0" prefHeight="26.0" prefWidth="665.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+            <ComboBox fx:id="engineSelection" layoutX="23.0" layoutY="22.0" prefHeight="26.0" prefWidth="665.0" promptText="Select storage engine" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
             <AnchorPane fx:id="engineForm" layoutX="15.0" layoutY="52.0" prefHeight="292.0" prefWidth="706.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
