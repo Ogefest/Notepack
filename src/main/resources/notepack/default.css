@@ -13,6 +13,14 @@
     src: url('fonts/ZillaSlab-Light.ttf');
 }
 
+* {
+    -fx-background-color: transparent;
+}
+
+#mainBackground {
+    -fx-background-color: main-background-color;
+}
+
 .root { 
     -fx-focus-color: transparent; 
 }
@@ -32,13 +40,13 @@
         -fx-background-radius: 3, 2, 1, 4, 1;*/
 
     -fx-focus-color: transparent; 
-    -fx-background-insets: -1.4, 0, 1, 2;    
+    -fx-background-insets: -1.4, 0, 1, 2;   
 }
 
 
 .text-area {
     -fx-background-insets: 0;
-    -fx-background-color: transparent, white, transparent, white;
+    -fx-background-color: transparent, text-area-background, transparent, text-area-background;
     -fx-background-radius: 0, 0, 0, 0;
 
     -fx-box-border: none;
@@ -49,16 +57,15 @@
 }
 
 .text-area .content {
-    -fx-background-color: transparent, white, transparent, white;
+    -fx-background-color: transparent, text-area-background, transparent, text-area-background;
 }
 
 .text-area:focused .content {
-    -fx-background-color: transparent, white, transparent, white;
+    -fx-background-color: transparent, text-area-background, transparent, text-area-background;
 }
 
 .viewport {
     -fx-background-insets: 0;
-    -fx-background-color: transparent, white, transparent, white;
     -fx-background-radius: 0, 0, 0, 0;
 
     -fx-focus-color: -fx-control-inner-background;
@@ -66,31 +73,10 @@
     -fx-text-box-border: -fx-control-inner-background;
     -fx-border-width: -1;
 }
-
-.content {
-}
-
-.text {
-}
-
-.text-area:focused {
-    -fx-highlight-fill: #7ecfff;
-
-    -fx-background-insets: 0;
-    -fx-background-color: transparent, white, transparent, white;
-    -fx-background-radius: 0, 0, 0, 0;
-
-    -fx-focus-color: -fx-control-inner-background;
-    -fx-faint-focus-color: -fx-control-inner-background;
-    -fx-text-box-border: -fx-control-inner-background;
-    -fx-border-width: -1;
-}
-
 
 .tab-header-background {
     -fx-background-color: transparent;
 }
-
 
 #noteTabContainer, #notepadTabContainer {
     -fx-focus-color: transparent;
@@ -101,10 +87,9 @@
 
     -fx-border-radius: 3;
     -fx-border-insets: 0;
-    
-    -fx-effect: dropshadow(gaussian, #cccccc, 7, 0, 0, 0);
-}
 
+    -fx-effect: dropshadow(gaussian, tab-shadow, 7, 0, 0, 0);
+}
 
 .tab {
     -fx-focus-color: transparent;
@@ -137,20 +122,17 @@
     -fx-background-color: -fx-bar-background;
 }
 
-.search-input {
+/*.search-input {
     -fx-border-radius: 10 10 10 10;
     -fx-background-radius: 10 10 10 10;
     -fx-background-color: derive(-fx-bar-background,30%);
-}
+}*/
 
 .split-pane-divider {
     -fx-padding: 0 1 0 1 ;
     -fx-background-color: -fx-bar-border-color ;
     -fx-background-insets: 5 5 5 5; 
 }
-
-
-
 
 .tree-cell > .tree-disclosure-node > .arrow  {
     -fx-shape: null;
@@ -163,9 +145,9 @@
 
 .tree-view {
     cell-selection-color: derive(-fx-bar-background, 75%);
-    
+
     -fx-background-insets: 0;
-    -fx-background-color: transparent, white, transparent, white;
+    -fx-background-color: transparent, tree-view-background, transparent, tree-view-background;
     -fx-background-radius: 0, 0, 0, 0;
 
     -fx-box-border: none;
@@ -194,7 +176,7 @@
 .icon-button:hover {
 
     -fx-background-color: rgba(255,255,255,0.75),
-        linear-gradient(to bottom, #ececec 0%, #eeeeee 100%);
+        linear-gradient(to bottom, icon-hover1 0%, icon-hover2 100%);
     -fx-background-insets: 0,1;
     /*-fx-padding: 7px;*/
     -fx-background-radius: 3px;
@@ -209,7 +191,7 @@
 
 .icon-button:pressed {
     -fx-background-color: rgba(255,255,255,0.75),
-        linear-gradient(to bottom, #dcdcdc 0%, #dddddd 100%);    
+        linear-gradient(to bottom, icon-hover1 0%, icon-hover2 100%);    
 }
 
 /*.icon-button > .menu-item > .label {
@@ -218,22 +200,30 @@
 
 .text-area {
     -fx-font-size: 16;
-    -fx-text-fill: #333333;
+
     -fx-padding: 20 3 20 20 ;
     /*-fx-font-family: 'Zilla Slab Light';*/
 }
 
 .text-input {
-    -fx-highlight-fill:  derive(-fx-bar-background,80%);
-    -fx-highlight-text-fill:  derive(-fx-bar-background,5%);
+    /*-fx-highlight-fill:  derive(-fx-bar-background,10%);*/
+    /*-fx-highlight-text-fill:  derive(-fx-bar-background,5%);*/
+
+    -fx-highlight-fill:  text-selection-background;
+    -fx-highlight-text-fill:  text-selection-text;
+
+    -fx-text-fill: text-color;
+
 }
 .text-input:focused {
-    -fx-highlight-fill:  derive(-fx-bar-background,80%);
-    -fx-highlight-text-fill:  derive(-fx-bar-background,5%);
+    -fx-highlight-fill:  text-selection-background;
+    -fx-highlight-text-fill:  text-selection-text;
+
+    -fx-text-fill: text-color;
 }
 
 #noteToolbar, #notepadToolbar {
-    -fx-background-color: white;
+    -fx-background-color: toolbar-background;
 }
 
 #noteToolbar .menu-button, #notepadToolbar .menu-button {
@@ -244,13 +234,13 @@
     -fx-padding: 15;
 }
 
-#noteToolbar .button,#noteToolbar .menu-button, #noteToolbar .button, #notepadToolbar .menu-button {
+/*#noteToolbar .button,#noteToolbar .menu-button, #noteToolbar .button, #notepadToolbar .menu-button {
     -fx-text-fill: #555555;
-}
+}*/
 
 #top-bar .icon-button .menu-item .label {
     -fx-font-size: 22.0 pt;
-    
+
 }
 #top-bar .icon-button {
     -fx-padding: 13 20 13 20;
