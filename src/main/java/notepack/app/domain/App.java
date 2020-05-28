@@ -90,8 +90,8 @@ public class App {
         return messageBus;
     }
 
-    public void openNote(String path, Notepad notepad) {
-        Note note = new Note(path, notepad);
+    public void openNote(String path, Notepad notepad, String name) {
+        Note note = new Note(path, notepad, name);
         messageBus.addTask(new OpenNote(note));
     }
 
@@ -196,7 +196,7 @@ public class App {
             for (NoteStorageItem it : item.get()) {
 
                 if (it.isLeaf()) {
-                    Note n = new Note(it.getPath(), notepad);
+                    Note n = new Note(it.getPath(), notepad, it.getName());
                     res.add(n);
                 } else {
                     res.addAll(getNoteFromItem(it, notepad));
@@ -205,7 +205,7 @@ public class App {
             
 
         } else {
-            Note n = new Note(item.getPath(), notepad);
+            Note n = new Note(item.getPath(), notepad, item.getName());
             res.add(n);
         }
 
