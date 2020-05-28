@@ -5,11 +5,28 @@
     button-color: #415aab;
     button-primary-color: #d41919;
     
+    text-selection-background: #b3c5e3;
+    text-selection-text: #263a59;
+    
+    main-background-color: #f5f5f7;
+    
     tab-text: white;
+    tab-shadow: #cccccc;
+    
+    text-color: #333333;
     
     input-background: white;
+    text-area-background: white;
+    tree-view-background: white;
     
     input-border: #939ec2;
+    
+    icon-hover1:#ececec;
+    icon-hover2:#eeeeee;
+    
+    toolbar-background: white;
+    
+    /*checkbox-background: white;*/
     
     
     user-color-1: #356fcc;
