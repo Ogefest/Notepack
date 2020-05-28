@@ -20,38 +20,6 @@ root > *  {
     -fx-background-color: white;
 }
 
-.tab {
-
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
-
-    -fx-background-radius: 0;
-    -fx-background-insets: 0;
-
-    -fx-border-radius: 3;
-    -fx-border-insets: 0;
-
-    /*-fx-effect: dropshadow(gaussian, #cccccc, 7, 0, 0, 0);*/     
-
-    -fx-padding: 2 10 2 10 ;
-    -fx-alignment: CENTER;    
-    -fx-text-alignment: center; 
-
-    -fx-border-width:  0 0 1 0;
-    -fx-opacity: 0.7;
-    -fx-background-color: #b8c2e3;
-
-
-}
-
-.tab:selected {
-    -fx-background-color: #b8c2e3;
-    -fx-opacity: 1;
-    -fx-background-radius: 0;
-}
-
-
-
 .button{
     -fx-border-color: button-color;
     -fx-border-width: 0;
@@ -60,7 +28,6 @@ root > *  {
     -fx-font-size: 1em; /* 12 */
     -fx-text-fill: white;
     -fx-padding: 10 12 10 12 ;
-
 }
 
 .text-field {
@@ -95,26 +62,21 @@ root > *  {
 
 .check-box .box {
 
-    -fx-background-color: white;
-    -fx-border-color:grey;
+    -fx-background-color: checkbox-background;
+    -fx-border-color: input-border;
     -fx-border-radius:3px; 
-
 }
 
 .check-box:selected .mark {
-
-    -fx-background-color: white;
-
+    -fx-background-color: input-background;
 }
 
 .check-box:selected .box {
-
     -fx-background-color: button-color;
 }
 
-
 .combo-box{
-    -fx-border-color:#E6E6E6;
+    -fx-border-color:input-border;
     -fx-border-style:solid;
     -fx-border-width:1;
 }
@@ -122,14 +84,14 @@ root > *  {
     -fx-background-color: button-color;
 }
 .combo-box .arrow-button{
-    -fx-background-color: white;
+    -fx-background-color: input-background;
     -fx-border-style:none;
 }
 .combo-box .arrow-button{
-    -fx-background-color: white;
+    -fx-background-color: input-background;
 }
 .combo-box .list-cell{
-    -fx-background-color:white;
+    -fx-background-color:input-background;
 }
 
 .combo-box-popup .list-view .list-cell:hover {

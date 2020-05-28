@@ -49,7 +49,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-        <SplitPane dividerPositions="0.498" layoutY="28.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+        <SplitPane id="mainBackground" dividerPositions="0.498" layoutY="28.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
             <items>
             <VBox maxWidth="450.0" minWidth="100.0" prefWidth="300.0">
                <children>
