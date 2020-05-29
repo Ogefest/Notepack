@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package notepack.app.storage;
 
 import java.io.File;
@@ -24,10 +19,6 @@ import notepack.app.domain.SessionStorage;
 import notepack.app.domain.Settings;
 import notepack.app.domain.StringEncryption;
 
-/**
- *
- * @author lg
- */
 public class JsonNotepadRepository implements SessionStorage {
 
     private ArrayList<Notepad> notepadsList = null;
