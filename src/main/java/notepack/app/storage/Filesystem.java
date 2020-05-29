@@ -27,7 +27,7 @@ public class Filesystem implements NoteStorage {
     private NoteStorageConfiguration nsc;
 
     private ArrayList<NoteStorageItem> items = new ArrayList<>();
-    
+
     private NoteStorageItem rootItem;
 
     private int deep = 0;
@@ -46,7 +46,8 @@ public class Filesystem implements NoteStorage {
         this.nsc = nsc;
     }
 
-    private String getBasePath() {
+    @Override
+    public String getBasePath() {
         return nsc.get("directory");
     }
 
@@ -64,21 +65,21 @@ public class Filesystem implements NoteStorage {
 
     @Override
     public NoteStorageItem getItemsInStorage() {
-        
+
         if (rootItem == null) {
             File f = new File(getBasePath());
             rootItem = new NoteStorageItem(getBasePath(), f.getName());
         }
-        
+
         return rootItem;
     }
-    
+
     @Override
     public void refreshItemsInStorage() {
         File f = new File(getBasePath());
         rootItem = new NoteStorageItem(getBasePath(), f.getName());
         rootItem = addItems(rootItem, getBasePath(), 0);
-    }    
+    }
 
     private NoteStorageItem addItems(NoteStorageItem parent, String startPath, int deep) {
         if (deep > 5) {
@@ -134,7 +135,7 @@ public class Filesystem implements NoteStorage {
                 }
             }
         }
-        
+
         return parent;
     }
 
@@ -160,13 +161,13 @@ public class Filesystem implements NoteStorage {
 
     @Override
     public void rename(String oldPath, String newPath) {
-        
+
         try {
             Files.move(Paths.get(oldPath), Paths.get(newPath), REPLACE_EXISTING);
         } catch (IOException ex) {
             Logger.getLogger(Filesystem.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     @Override
@@ -177,6 +178,5 @@ public class Filesystem implements NoteStorage {
             Logger.getLogger(Filesystem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 
 }

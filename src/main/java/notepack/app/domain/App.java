@@ -5,6 +5,7 @@
  */
 package notepack.app.domain;
 
+import java.io.File;
 import java.util.ArrayList;
 import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
@@ -152,9 +153,19 @@ public class App {
         if (result.size() == 0) {
 
             NoteStorageConfiguration nsc = new NoteStorageConfiguration();
-            nsc.set("directory", System.getProperty("user.home"));
+            
+            String dir = System.getProperty("user.home") + File.separator + "NotePack";
+            File f = new File(dir);
+            if (!f.exists()) {
+                f.mkdirs();
+            }
+            
+            nsc.set("directory", dir);
+            
+            Notepad notepad = new Notepad(new Filesystem(nsc), "First notepad");
+            notepad.setParam("color", "#356fcc");
 
-            result.add(new Notepad(new Filesystem(nsc), "Home files"));
+            result.add(notepad);
         }
 
         return result;
