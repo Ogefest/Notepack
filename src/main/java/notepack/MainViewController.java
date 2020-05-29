@@ -40,11 +40,15 @@ import javafx.stage.Stage;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.Notepad;
+import notepack.app.domain.SessionStorage;
 import notepack.app.domain.Settings;
 import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
 import notepack.app.storage.Filesystem;
+import notepack.app.storage.JsonNotepadRepository;
 import notepack.app.storage.PreferencesSettings;
+import notepack.encrypt.Fake;
+import notepack.encrypt.SimpleAES;
 
 /**
  * FXML Controller class
@@ -66,8 +70,6 @@ public class MainViewController implements Initializable {
     @FXML
     private AnchorPane mainPane;
 
-    private Filesystem recentFiles;
-
     @FXML
     private TabPane notepadContainer;
 
@@ -80,8 +82,10 @@ public class MainViewController implements Initializable {
     }
 
     public void appStart() {
-        app = new App();
         appSettings = new PreferencesSettings();
+        SessionStorage sessionStorage = new JsonNotepadRepository(new SimpleAES(), appSettings);
+
+        app = new App(sessionStorage);
 
         app.getMessageBus().registerNoteListener(new NoteListener() {
             @Override
@@ -448,13 +452,13 @@ public class MainViewController implements Initializable {
                 Parent root = fxmlLoader.load();
 
                 SaveAsController ctrl = (SaveAsController) fxmlLoader.getController();
-                
+
                 ctrl.setSaveAsCallback((name) -> {
                     n.setPath(name);
                     app.saveNote(n);
                     app.refreshNotepad(n.getNotepad());
                 });
-                
+
                 ctrl.setNote(n);
 
                 scene = new Scene(root);

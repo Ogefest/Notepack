@@ -20,6 +20,7 @@ import notepack.app.task.OpenNotepad;
 import notepack.app.task.RefreshNotepad;
 import notepack.app.task.RenameNote;
 import notepack.app.task.SaveNote;
+import notepack.encrypt.Fake;
 
 /**
  *
@@ -28,12 +29,12 @@ import notepack.app.task.SaveNote;
 public class App {
 
     private MessageBus messageBus;
-    private JsonNotepadRepository sessionRepository;
+    private SessionStorage sessionStorage;
     private ArrayList<Note> activeNotes = new ArrayList<>();
     private ArrayList<Notepad> activeNotepad = new ArrayList<>();
 
-    public App() {
-        sessionRepository = new JsonNotepadRepository();
+    public App(SessionStorage sessionStorage) {
+        this.sessionStorage = sessionStorage;
 
         messageBus = new MessageBus();
         messageBus.startDispatcher();
@@ -42,13 +43,13 @@ public class App {
             @Override
             public void onOpen(Note n) {
                 activeNotes.add(n);
-                sessionRepository.addNote(n);
+                sessionStorage.addNote(n);
             }
 
             @Override
             public void onClose(Note n) {
                 activeNotes.remove(n);
-                sessionRepository.removeNote(n);
+                sessionStorage.removeNote(n);
             }
 
             @Override
@@ -57,8 +58,8 @@ public class App {
 
             @Override
             public void onSave(Note n) {
-                sessionRepository.removeNote(n);
-                sessionRepository.addNote(n);
+                sessionStorage.removeNote(n);
+                sessionStorage.addNote(n);
             }
         });
 
@@ -66,13 +67,13 @@ public class App {
             @Override
             public void onOpen(Notepad notepad) {
                 activeNotepad.add(notepad);
-                sessionRepository.addNotepad(notepad);
+                sessionStorage.addNotepad(notepad);
             }
 
             @Override
             public void onClose(Notepad notepad) {
                 activeNotepad.remove(notepad);
-                sessionRepository.removeNotepad(notepad);
+                sessionStorage.removeNotepad(notepad);
             }
 
             @Override
@@ -146,7 +147,7 @@ public class App {
 
     public ArrayList<Notepad> getAvailableNotepads() {
 
-        ArrayList<Notepad> result = sessionRepository.getAvailableNotepads();
+        ArrayList<Notepad> result = sessionStorage.getAvailableNotepads();
 
         if (result.size() == 0) {
 
@@ -160,7 +161,7 @@ public class App {
     }
 
     public ArrayList<Note> getLastNotes() {
-        ArrayList<Note> result = sessionRepository.getLastNotes();
+        ArrayList<Note> result = sessionStorage.getLastNotes();
         if (result.size() == 0) {
 //            result.add(new Note(new Filesystem()));
         }
