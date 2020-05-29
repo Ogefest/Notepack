@@ -201,4 +201,9 @@ public class Webdav implements NoteStorage {
         }
     }
 
+    @Override
+    public String getBasePath() {
+        return nsc.get("url");
+    }
+
 }

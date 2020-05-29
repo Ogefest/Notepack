@@ -61,7 +61,10 @@ public class SaveAsController implements Initializable {
     public void setNote(Note note) {
         this.note = note;
         
-        directoryName = note.getStorage().getItemsInStorage().get().get(0).getDirectory();
+        directoryName = note.getStorage().getBasePath();
+        if (!directoryName.endsWith("/")) {
+            directoryName += "/";
+        }
         parentDirectory.setText(directoryName);
         
         refreshTreeView();
