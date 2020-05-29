@@ -59,6 +59,7 @@
             <version>2.3.2</version>
         </dependency>        
         
+        <!-- WEBDAV library -->
         <dependency>
             <groupId>com.github.lookfirst</groupId>
             <artifactId>sardine</artifactId>
