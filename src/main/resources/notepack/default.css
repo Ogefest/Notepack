@@ -251,6 +251,7 @@
 }
 #top-bar .icon-button {
     -fx-padding: 13 20 13 20;
+    -fx-text-fill: icon-color2;
 }
 #top-bar .icon-button:hover {
 
