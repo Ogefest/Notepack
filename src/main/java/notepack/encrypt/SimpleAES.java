@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package notepack.encrypt;
 
 import java.util.Base64;
@@ -12,10 +7,6 @@ import javax.crypto.spec.SecretKeySpec;
 import notepack.app.domain.Settings;
 import notepack.app.domain.StringEncryption;
 
-/**
- *
- * @author lg
- */
 public class SimpleAES implements StringEncryption {
 
     private String randomVector = "5b8sa7d5758dlbp4";

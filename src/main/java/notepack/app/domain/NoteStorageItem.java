@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package notepack.app.domain;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author lg
- */
 public class NoteStorageItem {
 
     private ArrayList<NoteStorageItem> items = new ArrayList<NoteStorageItem>();

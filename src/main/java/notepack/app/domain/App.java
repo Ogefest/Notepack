@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package notepack.app.domain;
 
 import java.io.File;
@@ -23,10 +18,6 @@ import notepack.app.task.RenameNote;
 import notepack.app.task.SaveNote;
 import notepack.encrypt.Fake;
 
-/**
- *
- * @author lg
- */
 public class App {
 
     private MessageBus messageBus;

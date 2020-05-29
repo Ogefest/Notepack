@@ -1,22 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package notepack.app.domain;
 
 import java.io.File;
 
-/**
- *
- * @author lg
- */
 public class Note {
     
     private String content;
     private String path = null;
     private String name = null;
-//    private NoteStorage storage;
     private Notepad notepad;
     private String ident;
     private boolean isSaved = true;
@@ -25,7 +15,6 @@ public class Note {
         this.ident = notepad.getIdent() + path;
         this.path = null;
         this.notepad = notepad;
-//        this.storage = storage;
     }
     
     public Note(String path, Notepad notepad, String name) {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package notepack;
 
 import java.text.DateFormat;
@@ -16,13 +11,8 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-/**
- *
- * @author lg
- */
 public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
 
-//    private HBox hbox;
     private FXMLLoader loader;
 
     @FXML
