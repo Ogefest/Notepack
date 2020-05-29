@@ -20,5 +20,6 @@ public interface NoteStorage {
     public void refreshItemsInStorage();
     public void rename(String oldPath, String newPath);
     public void delete(String path);
+    public String getBasePath();
     
 }
