@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package notepack.app.domain;
 
 import java.util.ArrayList;
@@ -15,15 +10,9 @@ import notepack.app.listener.NotepadListener;
 import notepack.app.task.TypeNote;
 import notepack.app.task.TypeNotepad;
 
-/**
- *
- * @author lg
- */
 public class MessageBus {
 
     private Queue<Task> tasks;
-//    private Queue<Event> events;
-//    private ArrayList<EventListener> listeners;
     private ArrayList<NoteListener> noteListeners;
     private ArrayList<NotepadListener> notepadListeners;
 
@@ -32,8 +21,6 @@ public class MessageBus {
 
     public MessageBus() {
         tasks = new ConcurrentLinkedQueue<>();
-//        events = new ConcurrentLinkedQueue<>();
-//        listeners = new ArrayList<>();
 
         noteListeners = new ArrayList<>();
         notepadListeners = new ArrayList<>();

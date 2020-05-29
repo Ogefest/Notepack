@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and loadContent the template in the editor.
- */
 package notepack.app.storage;
 
 import com.github.sardine.DavResource;
@@ -23,10 +18,6 @@ import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.NoteStorageItem;
 
-/**
- *
- * @author lg
- */
 public class Webdav implements NoteStorage {
 
     private NoteStorageConfiguration nsc;
