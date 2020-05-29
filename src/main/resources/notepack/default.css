@@ -13,9 +13,9 @@
     src: url('fonts/ZillaSlab-Light.ttf');
 }
 
-* {
+/** {
     -fx-background-color: transparent;
-}
+}*/
 
 #mainBackground {
     -fx-background-color: main-background-color;
