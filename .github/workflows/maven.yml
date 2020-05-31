@@ -21,4 +21,4 @@ jobs:
       with:
         java-version: 14
     - name: Build with Maven
-      run: mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
+      run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
