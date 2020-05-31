@@ -22,3 +22,8 @@ jobs:
         java-version: 14
     - name: Build with Maven
       run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: release
+        path: target/notepack-release.zip   
