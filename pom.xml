@@ -73,7 +73,7 @@
                             <noHeaderFiles>true</noHeaderFiles>
                             <release> ${maven.compiler.release}</release>
                             <jlinkImageName>notepack</jlinkImageName>
-                            <!--<jlinkZipName>notepack-release</jlinkZipName>-->
+                            <jlinkZipName>notepack-release</jlinkZipName>
                             <launcher>notepack</launcher>
                             <mainClass>notepack/notepack.Main</mainClass>
                         </configuration>
