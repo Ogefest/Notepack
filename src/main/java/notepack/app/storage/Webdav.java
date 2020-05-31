@@ -1,8 +1,8 @@
 package notepack.app.storage;
 
-import com.github.sardine.DavResource;
-import com.github.sardine.Sardine;
-import com.github.sardine.SardineFactory;
+//import com.github.sardine.DavResource;
+//import com.github.sardine.Sardine;
+//import com.github.sardine.SardineFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +28,7 @@ public class Webdav implements NoteStorage {
 
     private int deep = 0;
 
-    private Sardine sardine;
+//    private Sardine sardine;
 
     private ArrayList<String> added = new ArrayList<String>();
 
@@ -37,7 +37,7 @@ public class Webdav implements NoteStorage {
 
     public Webdav(NoteStorageConfiguration nsc) {
         this.nsc = nsc;
-        sardine = SardineFactory.begin(nsc.get("username"), nsc.get("password"));
+//        sardine = SardineFactory.begin(nsc.get("username"), nsc.get("password"));
     }
 
     private String getUrlWithPath(String path) {
@@ -49,13 +49,13 @@ public class Webdav implements NoteStorage {
 
         String result = "";
 
-        try {
-            InputStream is = sardine.get(path);
-            result = new String(is.readAllBytes());
-
-        } catch (IOException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            InputStream is = sardine.get(path);
+//            result = new String(is.readAllBytes());
+//
+//        } catch (IOException ex) {
+//            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
         return result;
     }
@@ -76,94 +76,94 @@ public class Webdav implements NoteStorage {
         added.clear();
 
         rootItem = new NoteStorageItem(".", "WebDav");
-        rootItem = addItems(rootItem, nsc.get("url"), 0);
+//        rootItem = addItems(rootItem, nsc.get("url"), 0);
 
     }
 
-    private NoteStorageItem addItems(NoteStorageItem parent, String startPath, int deep) {
-        if (deep > 5) {
-            return parent;
-        }
-
-        ArrayList<String> supportedExtensions = new ArrayList<>();
-        supportedExtensions.add("txt");
-        supportedExtensions.add("ini");
-        supportedExtensions.add("json");
-        supportedExtensions.add("xml");
-        supportedExtensions.add("md");
-        supportedExtensions.add("csv");
-        supportedExtensions.add("yaml");
-        supportedExtensions.add("log");
-
-        List<DavResource> resources;
-
-        try {
-            resources = sardine.list(startPath);
-            if (resources.size() == 0) {
-                return parent;
-            }
-
-            String hostnameWithSchema = startPath.replace(resources.get(0).getPath(), "");
-            resources.remove(0);
-
-            for (DavResource res : resources) {
-
-                if ((hostnameWithSchema + res.getHref().toASCIIString()).equals(startPath)) {
-                    continue;
-                }
-
-                if (added.contains(hostnameWithSchema + res.getHref().toASCIIString())) {
-                    continue;
-                }
-
-                added.add(hostnameWithSchema + res.getHref().toASCIIString());
-
-                String name = res.getName();
-                String extension = "";
-
-                int i = name.lastIndexOf('.');
-                int pos = Math.max(name.lastIndexOf(File.separator), name.lastIndexOf('\\'));
-
-                if (i > pos) {
-                    extension = name.substring(i + 1);
-                }
-                if (supportedExtensions.contains(extension)) {
-                    parent.add(new NoteStorageItem(hostnameWithSchema + res.getHref().toASCIIString(), res.getName(), res.getContentLength(), res.getModified().getTime()));
-                } else if (res.isDirectory()) {
-
+//    private NoteStorageItem addItems(NoteStorageItem parent, String startPath, int deep) {
+//        if (deep > 5) {
+//            return parent;
+//        }
+//
+//        ArrayList<String> supportedExtensions = new ArrayList<>();
+//        supportedExtensions.add("txt");
+//        supportedExtensions.add("ini");
+//        supportedExtensions.add("json");
+//        supportedExtensions.add("xml");
+//        supportedExtensions.add("md");
+//        supportedExtensions.add("csv");
+//        supportedExtensions.add("yaml");
+//        supportedExtensions.add("log");
+//
+//        List<DavResource> resources;
+//
+//        try {
+//            resources = sardine.list(startPath);
+//            if (resources.size() == 0) {
+//                return parent;
+//            }
+//
+//            String hostnameWithSchema = startPath.replace(resources.get(0).getPath(), "");
+//            resources.remove(0);
+//
+//            for (DavResource res : resources) {
+//
+//                if ((hostnameWithSchema + res.getHref().toASCIIString()).equals(startPath)) {
 //                    continue;
-                    NoteStorageItem newDirectoryParent = new NoteStorageItem(hostnameWithSchema + res.getHref().toASCIIString(), res.getName(), res.getContentLength(), res.getModified().getTime());
-
-                    newDirectoryParent = addItems(newDirectoryParent, hostnameWithSchema + res.getHref().toASCIIString(), deep + 1);
-                    if (newDirectoryParent.get().size() > 0) {
-                        parent.add(newDirectoryParent);
-                    }
-
-                }
-
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return parent;
-    }
+//                }
+//
+//                if (added.contains(hostnameWithSchema + res.getHref().toASCIIString())) {
+//                    continue;
+//                }
+//
+//                added.add(hostnameWithSchema + res.getHref().toASCIIString());
+//
+//                String name = res.getName();
+//                String extension = "";
+//
+//                int i = name.lastIndexOf('.');
+//                int pos = Math.max(name.lastIndexOf(File.separator), name.lastIndexOf('\\'));
+//
+//                if (i > pos) {
+//                    extension = name.substring(i + 1);
+//                }
+//                if (supportedExtensions.contains(extension)) {
+//                    parent.add(new NoteStorageItem(hostnameWithSchema + res.getHref().toASCIIString(), res.getName(), res.getContentLength(), res.getModified().getTime()));
+//                } else if (res.isDirectory()) {
+//
+////                    continue;
+//                    NoteStorageItem newDirectoryParent = new NoteStorageItem(hostnameWithSchema + res.getHref().toASCIIString(), res.getName(), res.getContentLength(), res.getModified().getTime());
+//
+//                    newDirectoryParent = addItems(newDirectoryParent, hostnameWithSchema + res.getHref().toASCIIString(), deep + 1);
+//                    if (newDirectoryParent.get().size() > 0) {
+//                        parent.add(newDirectoryParent);
+//                    }
+//
+//                }
+//
+//            }
+//
+//        } catch (IOException ex) {
+//            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        return parent;
+//    }
 
     @Override
     public void saveContent(String content, String path) {
 
-        try {
-            sardine.put(path, content.getBytes());
-        } catch (IOException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            sardine.put(path, content.getBytes());
+//        } catch (IOException ex) {
+//            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     @Override
     public void setConfiguration(NoteStorageConfiguration nsc) {
-        this.nsc = nsc;
-        sardine = SardineFactory.begin(nsc.get("username"), nsc.get("password"));
+//        this.nsc = nsc;
+//        sardine = SardineFactory.begin(nsc.get("username"), nsc.get("password"));
     }
 
     @Override
@@ -174,22 +174,22 @@ public class Webdav implements NoteStorage {
     @Override
     public void rename(String oldPath, String newPath) {
 
-        try {
-            sardine.move(oldPath, newPath);
-        } catch (IOException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            sardine.move(oldPath, newPath);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
     }
 
     @Override
     public void delete(String path) {
 
-        try {
-            sardine.delete(path);
-        } catch (IOException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            sardine.delete(path);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     @Override
