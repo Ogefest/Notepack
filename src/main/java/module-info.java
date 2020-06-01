@@ -1,6 +1,7 @@
 module notepack {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.net.http;
 
     opens notepack to javafx.fxml;
     opens notepack.engine to javafx.fxml;
