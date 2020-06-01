@@ -6,6 +6,13 @@ package notepack.app.storage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -29,15 +36,30 @@ public class Webdav implements NoteStorage {
     private int deep = 0;
 
 //    private Sardine sardine;
-
     private ArrayList<String> added = new ArrayList<String>();
 
+    HttpClient client;
+
     public Webdav() {
+        createHttpClient();
     }
 
     public Webdav(NoteStorageConfiguration nsc) {
         this.nsc = nsc;
-//        sardine = SardineFactory.begin(nsc.get("username"), nsc.get("password"));
+        createHttpClient();
+    }
+
+    private void createHttpClient() {
+
+        client = HttpClient.newBuilder().authenticator(new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(
+                        nsc.get("username"),
+                        nsc.get("password").toCharArray());
+            }
+        }).build();
+
     }
 
     private String getUrlWithPath(String path) {
@@ -48,14 +70,21 @@ public class Webdav implements NoteStorage {
     public String loadContent(String path) {
 
         String result = "";
+        try {
 
-//        try {
-//            InputStream is = sardine.get(path);
-//            result = new String(is.readAllBytes());
-//
-//        } catch (IOException ex) {
-//            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(path)).build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            return response.body();
+
+        } catch (IOException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return result;
     }
@@ -76,36 +105,46 @@ public class Webdav implements NoteStorage {
         added.clear();
 
         rootItem = new NoteStorageItem(".", "WebDav");
-//        rootItem = addItems(rootItem, nsc.get("url"), 0);
+        rootItem = addItems(rootItem, nsc.get("url"), 0);
 
     }
 
-//    private NoteStorageItem addItems(NoteStorageItem parent, String startPath, int deep) {
-//        if (deep > 5) {
-//            return parent;
-//        }
-//
-//        ArrayList<String> supportedExtensions = new ArrayList<>();
-//        supportedExtensions.add("txt");
-//        supportedExtensions.add("ini");
-//        supportedExtensions.add("json");
-//        supportedExtensions.add("xml");
-//        supportedExtensions.add("md");
-//        supportedExtensions.add("csv");
-//        supportedExtensions.add("yaml");
-//        supportedExtensions.add("log");
-//
+    private NoteStorageItem addItems(NoteStorageItem parent, String startPath, int deep) {
+        if (deep > 5) {
+            return parent;
+        }
+
+        ArrayList<String> supportedExtensions = new ArrayList<>();
+        supportedExtensions.add("txt");
+        supportedExtensions.add("ini");
+        supportedExtensions.add("json");
+        supportedExtensions.add("xml");
+        supportedExtensions.add("md");
+        supportedExtensions.add("csv");
+        supportedExtensions.add("yaml");
+        supportedExtensions.add("log");
+
 //        List<DavResource> resources;
-//
-//        try {
+        try {
 //            resources = sardine.list(startPath);
+
+            String propfind = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n"
+                    + "<D:propfind xmlns:D=\"DAV:\">\n"
+                    + "  <D:allprop/>\n"
+                    + "</D:propfind>";
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(startPath)).header("Depth", "1").method("PROPFIND", BodyPublishers.ofString(propfind)).build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            
+            String xmlResult = response.body();
+
 //            if (resources.size() == 0) {
 //                return parent;
 //            }
-//
 //            String hostnameWithSchema = startPath.replace(resources.get(0).getPath(), "");
 //            resources.remove(0);
-//
 //            for (DavResource res : resources) {
 //
 //                if ((hostnameWithSchema + res.getHref().toASCIIString()).equals(startPath)) {
@@ -142,13 +181,14 @@ public class Webdav implements NoteStorage {
 //                }
 //
 //            }
-//
-//        } catch (IOException ex) {
-//            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//        return parent;
-//    }
+        } catch (IOException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return parent;
+    }
 
     @Override
     public void saveContent(String content, String path) {
@@ -162,8 +202,7 @@ public class Webdav implements NoteStorage {
 
     @Override
     public void setConfiguration(NoteStorageConfiguration nsc) {
-//        this.nsc = nsc;
-//        sardine = SardineFactory.begin(nsc.get("username"), nsc.get("password"));
+        this.nsc = nsc;
     }
 
     @Override
@@ -179,7 +218,6 @@ public class Webdav implements NoteStorage {
 //        } catch (IOException ex) {
 //            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-
     }
 
     @Override
