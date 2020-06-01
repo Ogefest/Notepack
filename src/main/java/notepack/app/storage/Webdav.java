@@ -6,6 +6,7 @@ package notepack.app.storage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.net.URI;
@@ -24,6 +25,16 @@ import java.util.logging.Logger;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.NoteStorageItem;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.w3c.dom.Node;
 
 public class Webdav implements NoteStorage {
 
@@ -137,9 +148,52 @@ public class Webdav implements NoteStorage {
                     .uri(URI.create(startPath)).header("Depth", "1").method("PROPFIND", BodyPublishers.ofString(propfind)).build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            
+
             String xmlResult = response.body();
 
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            dbFactory.setNamespaceAware(true);
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            
+            Document doc = dBuilder.parse(new InputSource(new StringReader(xmlResult)));
+            String ns = doc.getNamespaceURI();
+            
+            doc.getDocumentElement().normalize();
+            
+            NodeList nList = doc.getElementsByTagNameNS("DAV:", "response");
+            if (nList.getLength() == 0) {
+                return parent;
+            }
+            
+            for (int i = 0; i < nList.getLength(); i++) {
+                
+                
+                Node nNode = nList.item(i);
+                
+                Element eElement = (Element) nNode;
+                String path = eElement.getElementsByTagNameNS("DAV:", "href").item(0).getTextContent();
+
+                String lastModified = "";
+                if (eElement.getElementsByTagNameNS("DAV:", "getlastmodified").getLength() > 0) {
+                    lastModified = eElement.getElementsByTagNameNS("DAV:", "getlastmodified").item(0).getTextContent();
+                }
+                String contentType = "";
+                if (eElement.getElementsByTagNameNS("DAV:", "getcontenttype").getLength() > 0) {
+                    contentType = eElement.getElementsByTagNameNS("DAV:", "getcontenttype").item(0).getTextContent();
+                }
+                String getcontentlength = "";
+                if (eElement.getElementsByTagNameNS("DAV:", "getcontentlength").getLength() > 0) {
+                    getcontentlength = eElement.getElementsByTagNameNS("DAV:", "getcontentlength").item(0).getTextContent();
+                }
+                
+                
+                System.out.println("\nCurrent Element :" + eElement.getElementsByTagName("D:href").item(0).getTextContent());
+                
+                
+            }
+            
+
+//            DOMParser parser = new DOMParser();
 //            if (resources.size() == 0) {
 //                return parent;
 //            }
@@ -184,6 +238,10 @@ public class Webdav implements NoteStorage {
         } catch (IOException ex) {
             Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
             Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
         }
 
