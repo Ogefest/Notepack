@@ -1,11 +1,7 @@
 package notepack.app.storage;
 
-//import com.github.sardine.DavResource;
-//import com.github.sardine.Sardine;
-//import com.github.sardine.SardineFactory;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
@@ -17,13 +13,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import java.nio.file.attribute.FileTime;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Timestamp;
