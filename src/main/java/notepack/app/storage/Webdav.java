@@ -10,6 +10,8 @@ import java.io.StringReader;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
@@ -18,10 +20,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.nio.file.attribute.FileTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.NoteStorageItem;
@@ -125,6 +130,14 @@ public class Webdav implements NoteStorage {
             return parent;
         }
 
+        String urlHostnameWithSchema = "";
+        try {
+            URI uri = new URI(startPath);
+            urlHostnameWithSchema = uri.getScheme() + "://" + uri.getHost() + ":" + uri.getPort();
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         ArrayList<String> supportedExtensions = new ArrayList<>();
         supportedExtensions.add("txt");
         supportedExtensions.add("ini");
@@ -135,9 +148,7 @@ public class Webdav implements NoteStorage {
         supportedExtensions.add("yaml");
         supportedExtensions.add("log");
 
-//        List<DavResource> resources;
         try {
-//            resources = sardine.list(startPath);
 
             String propfind = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n"
                     + "<D:propfind xmlns:D=\"DAV:\">\n"
@@ -154,87 +165,78 @@ public class Webdav implements NoteStorage {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             dbFactory.setNamespaceAware(true);
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            
+
             Document doc = dBuilder.parse(new InputSource(new StringReader(xmlResult)));
             String ns = doc.getNamespaceURI();
-            
+
             doc.getDocumentElement().normalize();
-            
+
             NodeList nList = doc.getElementsByTagNameNS("DAV:", "response");
             if (nList.getLength() == 0) {
                 return parent;
             }
-            
-            for (int i = 0; i < nList.getLength(); i++) {
-                
-                
-                Node nNode = nList.item(i);
-                
-                Element eElement = (Element) nNode;
-                String path = eElement.getElementsByTagNameNS("DAV:", "href").item(0).getTextContent();
 
-                String lastModified = "";
+            for (int i = 0; i < nList.getLength(); i++) {
+
+                Node nNode = nList.item(i);
+
+                Element eElement = (Element) nNode;
+
+                boolean isDir = false;
+                if (eElement.getElementsByTagNameNS("DAV:", "resourcetype").item(0).getChildNodes().getLength() > 0) {
+                    isDir = eElement.getElementsByTagNameNS("DAV:", "resourcetype").item(0).getChildNodes().item(0).getNodeName().contains("collection");
+                }
+
+                String path = eElement.getElementsByTagNameNS("DAV:", "href").item(0).getTextContent();
+                if (startPath.equals(urlHostnameWithSchema + path)) {
+                    continue;
+                }
+
+                LocalDateTime lastModified = null;
+                Timestamp timestamp = null;
                 if (eElement.getElementsByTagNameNS("DAV:", "getlastmodified").getLength() > 0) {
-                    lastModified = eElement.getElementsByTagNameNS("DAV:", "getlastmodified").item(0).getTextContent();
+                    DateTimeFormatter df = DateTimeFormatter.RFC_1123_DATE_TIME;
+
+                    lastModified = LocalDateTime.parse(eElement.getElementsByTagNameNS("DAV:", "getlastmodified").item(0).getTextContent(), df);
+                    timestamp = Timestamp.valueOf(lastModified);
                 }
                 String contentType = "";
                 if (eElement.getElementsByTagNameNS("DAV:", "getcontenttype").getLength() > 0) {
                     contentType = eElement.getElementsByTagNameNS("DAV:", "getcontenttype").item(0).getTextContent();
                 }
-                String getcontentlength = "";
+                long getcontentlength = 0;
                 if (eElement.getElementsByTagNameNS("DAV:", "getcontentlength").getLength() > 0) {
-                    getcontentlength = eElement.getElementsByTagNameNS("DAV:", "getcontentlength").item(0).getTextContent();
+                    getcontentlength = Long.parseLong(eElement.getElementsByTagNameNS("DAV:", "getcontentlength").item(0).getTextContent());
                 }
-                
-                
-                System.out.println("\nCurrent Element :" + eElement.getElementsByTagName("D:href").item(0).getTextContent());
-                
-                
-            }
-            
 
-//            DOMParser parser = new DOMParser();
-//            if (resources.size() == 0) {
-//                return parent;
-//            }
-//            String hostnameWithSchema = startPath.replace(resources.get(0).getPath(), "");
-//            resources.remove(0);
-//            for (DavResource res : resources) {
-//
-//                if ((hostnameWithSchema + res.getHref().toASCIIString()).equals(startPath)) {
-//                    continue;
-//                }
-//
-//                if (added.contains(hostnameWithSchema + res.getHref().toASCIIString())) {
-//                    continue;
-//                }
-//
-//                added.add(hostnameWithSchema + res.getHref().toASCIIString());
-//
-//                String name = res.getName();
-//                String extension = "";
-//
-//                int i = name.lastIndexOf('.');
-//                int pos = Math.max(name.lastIndexOf(File.separator), name.lastIndexOf('\\'));
-//
-//                if (i > pos) {
-//                    extension = name.substring(i + 1);
-//                }
-//                if (supportedExtensions.contains(extension)) {
-//                    parent.add(new NoteStorageItem(hostnameWithSchema + res.getHref().toASCIIString(), res.getName(), res.getContentLength(), res.getModified().getTime()));
-//                } else if (res.isDirectory()) {
-//
-////                    continue;
-//                    NoteStorageItem newDirectoryParent = new NoteStorageItem(hostnameWithSchema + res.getHref().toASCIIString(), res.getName(), res.getContentLength(), res.getModified().getTime());
-//
-//                    newDirectoryParent = addItems(newDirectoryParent, hostnameWithSchema + res.getHref().toASCIIString(), deep + 1);
-//                    if (newDirectoryParent.get().size() > 0) {
-//                        parent.add(newDirectoryParent);
-//                    }
-//
-//                }
-//
-//            }
+                String tmp = URLDecoder.decode(path, "UTF-8");
+                String[] segments = tmp.split("/");
+                String name = segments[segments.length - 1];
+
+                String extension = "";
+
+                int indexPos = name.lastIndexOf('.');
+                int pos = Math.max(name.lastIndexOf(File.separator), name.lastIndexOf('\\'));
+
+                if (indexPos > pos) {
+                    extension = name.substring(indexPos + 1);
+                }
+
+                if (supportedExtensions.contains(extension)) {
+                    parent.add(new NoteStorageItem(urlHostnameWithSchema + path, name, getcontentlength, timestamp.getTime()));
+                } else if (isDir) {
+
+                    NoteStorageItem newDirectoryParent = new NoteStorageItem(urlHostnameWithSchema + path, name, getcontentlength, timestamp.getTime());
+
+                    newDirectoryParent = addItems(newDirectoryParent, urlHostnameWithSchema + path, deep + 1);
+                    if (newDirectoryParent.get().size() > 0) {
+                        parent.add(newDirectoryParent);
+                    }
+
+                }
+
+            }
+
         } catch (IOException ex) {
             Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
