@@ -3,6 +3,7 @@ module notepack {
     requires javafx.fxml;
     requires java.net.http;
     requires java.xml;
+    requires java.sql;
 
     opens notepack to javafx.fxml;
     opens notepack.engine to javafx.fxml;
