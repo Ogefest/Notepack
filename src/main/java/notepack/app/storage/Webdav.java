@@ -87,13 +87,12 @@ public class Webdav implements NoteStorage {
 
         String result = "";
         try {
-
-            HttpClient client = HttpClient.newHttpClient();
+            
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(path)).build();
+                    .uri(URI.create(path)).GET().build();
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());            
+            
             return response.body();
 
         } catch (IOException ex) {
