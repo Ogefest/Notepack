@@ -16,6 +16,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -51,7 +52,6 @@ public class Webdav implements NoteStorage {
 
     private int deep = 0;
 
-//    private Sardine sardine;
     private ArrayList<String> added = new ArrayList<String>();
 
     HttpClient client;
@@ -87,12 +87,12 @@ public class Webdav implements NoteStorage {
 
         String result = "";
         try {
-            
+
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(path)).GET().build();
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());            
-            
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
             return response.body();
 
         } catch (IOException ex) {
@@ -252,11 +252,17 @@ public class Webdav implements NoteStorage {
     @Override
     public void saveContent(String content, String path) {
 
-//        try {
-//            sardine.put(path, content.getBytes());
-//        } catch (IOException ex) {
-//            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(path)).PUT(BodyPublishers.ofString(content)).build();
+
+            HttpResponse<?> response = client.send(request, BodyHandlers.discarding());
+        } catch (IOException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override
@@ -272,21 +278,31 @@ public class Webdav implements NoteStorage {
     @Override
     public void rename(String oldPath, String newPath) {
 
-//        try {
-//            sardine.move(oldPath, newPath);
-//        } catch (IOException ex) {
-//            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(oldPath)).header("Destination", newPath).method("MOVE", BodyPublishers.noBody()).build();
+            
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void delete(String path) {
 
-//        try {
-//            sardine.delete(path);
-//        } catch (IOException ex) {
-//            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(path)).DELETE().build();
+
+            HttpResponse<?> response = client.send(request, BodyHandlers.discarding());
+        } catch (IOException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
