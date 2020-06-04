@@ -1,17 +1,30 @@
-# This workflow will build a Java project with Maven
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
-name: Java CI with Maven
+name: Create release
 
 on:
-    release:
-        types: [published]
-#  push:
-#    branches: [ master ]
+#    milestone:
+#        types: [closed]
+  push:
+    branches: [ master ]
 #  pull_request:
 #    branches: [ master ]
 
 jobs:
+  prepare-version:  
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.PAT }}
+    - name: Create version file
+      run: cat pom.xml |grep version| head -1|sed -e 's/<[^>]*>//g'|xargs > sh/current.version
+    - name: Commit report
+      run: |
+        git config --global user.name 'Notepack Bot'
+        git config --global user.email 'bot@notepackapp.com'
+        git commit -am "Automated report"
+        git push        
+  
   build-linux:
 
     runs-on: ubuntu-latest
@@ -22,8 +35,12 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 14
+    - name: Version
+      run: APP_VERSION=`cat sh/current.version`
     - name: Build with Maven
       run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
+    - name: Create jpackage
+      run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main --app-version $APP_VERSION --icon gfx/logo_64.png
     - name: Archive production artifacts
       uses: actions/upload-artifact@v1
       with:
@@ -41,8 +58,13 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 14
+    - shell: bash
+      run: |
+         APP_VERSION=`cat sh/current.version`          
     - name: Build with Maven
       run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
+    - name: Create jpackage
+      run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main --app-version $APP_VERSION --icon gfx/logo_64.ico   
     - name: Archive production artifacts
       uses: actions/upload-artifact@v1
       with:
