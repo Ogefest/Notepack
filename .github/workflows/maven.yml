@@ -1,10 +1,10 @@
 name: Create release
 
 on:
-#    milestone:
-#        types: [closed]
-  push:
-    branches: [ master ]
+    milestone:
+        types: [closed]
+#  push:
+#    branches: [ master ]
 #  pull_request:
 #    branches: [ master ]
 
