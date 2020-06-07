@@ -1,6 +1,6 @@
 name: Create release
 
-#on:
+on:
 #    milestone:
 #        types: [closed]
   push:
