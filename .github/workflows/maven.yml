@@ -1,10 +1,10 @@
 name: Create release
 
-on:
-    milestone:
-        types: [closed]
-#  push:
-#    branches: [ master ]
+#on:
+#    milestone:
+#        types: [closed]
+  push:
+    branches: [ master ]
 #  pull_request:
 #    branches: [ master ]
 
@@ -46,11 +46,20 @@ jobs:
       run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
     - name: Create jpackage
       run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main -d notepack.deb
+    - name: Download appimage
+      run: wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
+    - name: Build appimage
+      run: cp -r target/notepack/ appimage-base-dir/ ; ./appimagetool appimage-base-dir/ notepack.AppImage
     - name: Archive production artifacts
       uses: actions/upload-artifact@v1
       with:
         name: release-linux.zip
         path: target/notepack
+    - name: Upload appimage
+      uses: actions/upload-artifact@v1
+      with:
+        name: notepack-appimage.zip
+        path: notepack.AppImage
     - name: Archive production artifacts
       uses: actions/upload-artifact@v1
       with:
