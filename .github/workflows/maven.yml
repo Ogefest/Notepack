@@ -45,7 +45,7 @@ jobs:
     - name: Build with Maven
       run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
     - name: Create jpackage
-      run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main -d notepack.deb
+      run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main -d notepack.deb --java-options '-Xms256m -Xmx2g'
     - name: Download appimage
       run: wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
     - name: Build appimage
@@ -88,7 +88,7 @@ jobs:
     - name: Build with Maven
       run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
     - name: Create jpackage
-      run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main --icon gfx/logo_64.ico --win-dir-chooser -d notepack.msi
+      run: jpackage -n notepack --runtime-image target/notepack/ --java-options '-Xms256m -Xmx2g' -m notepack/notepack.Main --icon gfx/logo_64.ico --win-dir-chooser --win-shortcut --win-menu --win-menu-group NotePack -d notepack.msi
     - name: Archive production artifacts zip
       uses: actions/upload-artifact@v1
       with:
