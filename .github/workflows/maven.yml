@@ -49,7 +49,7 @@ jobs:
     - name: Download appimage
       run: wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
     - name: Build appimage
-      run: cp -r target/notepack/ appimage-base-dir/ ; ./appimagetool appimage-base-dir/ notepack.AppImage
+      run: cp -r target/notepack/ appimage-base-dir/ ; chmod +x appimagetool ; ./appimagetool appimage-base-dir/ notepack.AppImage
     - name: Archive production artifacts
       uses: actions/upload-artifact@v1
       with:
