@@ -9,10 +9,6 @@
 
 <AnchorPane id="AnchorPane" prefHeight="37.0" prefWidth="686.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.engine.FilesystemController">
     <stylesheets>
-        <URL value="@/notepack/scrollbar.css" />  
-        <URL value="@/notepack/icons.css" />  
-        <URL value="@/notepack/default.css" />  
-        <URL value="@/notepack/notepadsettings.css" />  
     </stylesheets>
    <children>
       <Label layoutX="50.0" layoutY="9.0" text="Directory:" AnchorPane.topAnchor="9.0">
