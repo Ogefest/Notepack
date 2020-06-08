@@ -30,12 +30,12 @@
                             <children>                        
                                 <Button mnemonicParsing="false" onAction="#onSaveNote" styleClass="icon-button" text="%fa.floppy_o">
                                     <tooltip>
-                                        <Tooltip text="Save note" />
+                                        <Tooltip text="Save note (Ctrl + s)" />
                                     </tooltip>
                                 </Button>                         
                                 <Button mnemonicParsing="false" onAction="#onSearchInNote" styleClass="icon-button" text="%fa.search">
                                     <tooltip>
-                                        <Tooltip text="Search" />
+                                        <Tooltip text="Search (Ctrl + f)" />
                                     </tooltip>
                                 </Button>
                                 <MenuButton mnemonicParsing="false" styleClass="icon-button" text="%fa.pencil">
@@ -60,7 +60,7 @@
                             <children>
                                 <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button" text="%fa.times">
                                     <tooltip>
-                                        <Tooltip text="Close note" />
+                                        <Tooltip text="Close note (Ctrl + w)" />
                                     </tooltip>
                                 </Button>
                             </children>
