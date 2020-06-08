@@ -45,7 +45,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#onFileNew" styleClass="icon-button" text="%fa.edit">
                      <tooltip>
-                        <Tooltip text="New note" />
+                        <Tooltip text="New note (Ctrl + n)" />
                      </tooltip>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#onNotepadEdit" styleClass="icon-button" text="%fa.cog">

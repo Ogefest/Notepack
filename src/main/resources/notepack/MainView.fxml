@@ -32,7 +32,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#onNoteSearch" styleClass="icon-button" text="%fa.search" textFill="WHITE">
                      <tooltip>
-                        <Tooltip text="Search for note" />
+                        <Tooltip text="Search for note (Ctrl + Shift + F)" />
                      </tooltip>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#onApplicationInfo" styleClass="icon-button" text="%fa.info_circle" textFill="WHITE">
