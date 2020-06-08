@@ -31,6 +31,3 @@ Privacy oriented, without vendor lock in note taking desktop application.
 - full text search in documents
 - note statistics
 - android app?
-
-
-## Screenshot
