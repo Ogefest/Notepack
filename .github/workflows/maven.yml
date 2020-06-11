@@ -44,26 +44,34 @@ jobs:
         java-version: 14
     - name: Build with Maven
       run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
-    - name: Create jpackage
-      run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main -d notepack.deb --java-options '-Xms256m -Xmx2g'
+    - name: Create DEB
+      run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main -d notepack.deb --type deb --java-options '-Xms256m -Xmx2g'
+
+    - name: Create RPM
+      run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main -d notepack.rpm --type rpm --java-options '-Xms256m -Xmx2g'
+      
+      
     - name: Download appimage
       run: wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
     - name: Build appimage
       run: cp -r target/notepack/ appimage-base-dir/ ; chmod +x appimagetool ; ./appimagetool appimage-base-dir/ notepack.AppImage
-    - name: Archive production artifacts
+      
+    - name: Upload runtime image
       uses: actions/upload-artifact@v1
       with:
         name: release-linux.zip
         path: target/notepack
+        
     - name: Upload appimage
       uses: actions/upload-artifact@v1
       with:
-        name: notepack-appimage.zip
+        name: notepack-appimage
         path: notepack.AppImage
-    - name: Archive production artifacts
+        
+    - name: Upload DEB
       uses: actions/upload-artifact@v1
       with:
-        name: notepack.deb
+        name: notepack-debian
         path: notepack.deb
 
 
@@ -97,6 +105,6 @@ jobs:
     - name: Archive production artifacts msi
       uses: actions/upload-artifact@v1
       with:
-        name: notepack.msi 
+        name: notepack-windows
         path: notepack.msi 
 
