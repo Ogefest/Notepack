@@ -3,6 +3,7 @@ package notepack.app.domain;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
+import notepack.app.storage.GpgEncrypted;
 
 public class Notepad {
 
@@ -31,11 +32,24 @@ public class Notepad {
         params.put("name", name);
     }
 
+    private void initGpgEncryption() {
+
+        GpgEncrypted s = new GpgEncrypted(this.storage);
+        s.setKeysPath(getParam("gpg-public-key"), getParam("gpg-private-key"));
+
+        this.storage = s;
+    }
+
     public String getName() {
         return params.get("name");
     }
 
     public NoteStorage getStorage() {
+
+        if (getParam("gpg-enabled").equals("1")) {
+            initGpgEncryption();
+        }
+
         return storage;
     }
 
@@ -85,7 +99,7 @@ public class Notepad {
             name = value;
         }
     }
-    
+
     public String getParam(String key) {
         return params.getOrDefault(key, "");
     }
