@@ -115,7 +115,7 @@ jobs:
     - name: Create jpackage
       run: jpackage -n notepack --runtime-image target/notepack/  --app-version ${{ github.event.release.tag_name }} --java-options '-Xms256m -Xmx2g' -m notepack/notepack.Main --icon gfx/logo_64.ico --win-dir-chooser --win-shortcut --win-menu --win-menu-group NotePack -d notepack.msi --vendor Ogefest --license-file LICENSE
     - name: Rename MSI
-      run: mv notepack.msi/*.msi notepack.msi/file.msi
+      run: ls notepack.msi; mv notepack.msi/*.msi notepack.msi/file.msi
     
     - name: Upload Windows Runtime
       uses: actions/upload-release-asset@v1
