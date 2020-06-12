@@ -85,5 +85,9 @@ public class Notepad {
             name = value;
         }
     }
+    
+    public String getParam(String key) {
+        return params.getOrDefault(key, "");
+    }
 
 }
