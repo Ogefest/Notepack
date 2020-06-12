@@ -33,7 +33,7 @@ jobs:
     - name: Build with Maven
       run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
     - name: Create zip runtime
-      run: cd target ; zip -r zip -r notepack.zip notepack/
+      run: cd target ; zip -r notepack.zip notepack/
       
     - name: Create DEB
       run: jpackage -n notepack --runtime-image target/notepack/ --app-version ${{ github.event.release.tag_name }} -m notepack/notepack.Main -d notepack.deb --type deb --java-options '-Xms256m -Xmx2g' --linux-deb-maintainer hello@ogefest.com --linux-shortcut --description 'Notepack - Privacy oriented, without vendor lock in note taking desktop application' --linux-menu-group Office --vendor Ogefest --icon gfx/logo_128.png --license-file LICENSE
