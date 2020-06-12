@@ -6,7 +6,9 @@ Privacy oriented, without vendor lock in note taking desktop application.
 
 ## Current release
 
-Download [https://github.com/Ogefest/Notepack/releases](GitHub release)
+App is available for: Linux (deb,rpm,AppImage) and Windows
+
+Download from [GitHub release](https://github.com/Ogefest/Notepack/releases)
 
 
 ## Core features
