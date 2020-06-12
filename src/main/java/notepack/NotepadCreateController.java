@@ -14,7 +14,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -71,8 +73,22 @@ public class NotepadCreateController implements Initializable {
     private ComboBox<EngineType> engineSelection;
     @FXML
     private AnchorPane engineForm;
-    
+
     private EngineController currentFormController;
+    @FXML
+    private CheckBox gpgCheckbox;
+    @FXML
+    private TextField gpgPublicKeyPath;
+    @FXML
+    private Button gpgSelectPublicKey;
+    @FXML
+    private TextField gpgPrivateKeyPath;
+    @FXML
+    private Button gpgSelectPrivateKey;
+    @FXML
+    private Label gpgPublicLabel;
+    @FXML
+    private Label gpgPrivateLabel;
 
     /**
      * Initializes the controller class.
@@ -96,11 +112,29 @@ public class NotepadCreateController implements Initializable {
 
         tg.selectToggle(btnUserColor1);
 
+        gpgCheckbox.selectedProperty().addListener((o) -> {
+            if (gpgCheckbox.isSelected()) {
+                gpgPrivateLabel.setDisable(false);
+                gpgPublicLabel.setDisable(false);
+                gpgPrivateKeyPath.setDisable(false);
+                gpgPublicKeyPath.setDisable(false);
+                gpgSelectPrivateKey.setDisable(false);
+                gpgSelectPublicKey.setDisable(false);
+            } else {
+                gpgPrivateLabel.setDisable(true);
+                gpgPublicLabel.setDisable(true);
+                gpgPrivateKeyPath.setDisable(true);
+                gpgPublicKeyPath.setDisable(true);
+                gpgSelectPrivateKey.setDisable(true);
+                gpgSelectPublicKey.setDisable(true);
+            }
+        });
+
         engineSelection.getItems().add(new EngineType("Filesystem", "engine/Filesystem.fxml"));
         engineSelection.getItems().add(new EngineType("WebDav", "engine/Webdav.fxml"));
 
         engineSelection.getSelectionModel().selectedIndexProperty().addListener((ov, t, t1) -> {
-            
+
             EngineType et = engineSelection.getSelectionModel().getSelectedItem();
 
             engineForm.getChildren().clear();
@@ -111,13 +145,13 @@ public class NotepadCreateController implements Initializable {
             try {
                 Parent root = fxmlLoader.load();
                 currentFormController = (EngineController) fxmlLoader.getController();
-                
+
                 engineForm.getChildren().add(root);
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(NotepadCreateController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         });
 
     }
@@ -131,7 +165,7 @@ public class NotepadCreateController implements Initializable {
         notepadEdition = true;
 
         notepadName.setText(notepad.getName());
-        
+
         engineSelection.getItems().clear();
         if (Filesystem.class.isInstance(notepad.getStorage())) {
             engineSelection.getItems().add(new EngineType("Filesystem", "engine/Filesystem.fxml"));
@@ -141,7 +175,13 @@ public class NotepadCreateController implements Initializable {
         }
         engineSelection.getSelectionModel().select(0);
         engineSelection.setDisable(true);
-        
+
+        gpgCheckbox.setDisable(true);
+        gpgPrivateKeyPath.setDisable(true);
+        gpgPublicKeyPath.setDisable(true);
+        gpgSelectPrivateKey.setDisable(true);
+        gpgSelectPublicKey.setDisable(true);
+
         currentFormController.setStorage(notepad.getStorage());
 
         btnSave.setText("Save");
@@ -201,6 +241,14 @@ public class NotepadCreateController implements Initializable {
         wd.refreshItemsInStorage();
 
         noteItem.getName();
+    }
+
+    @FXML
+    private void onSelectPublicKey(ActionEvent event) {
+    }
+
+    @FXML
+    private void onSelectPrivateKey(ActionEvent event) {
     }
 
 }
