@@ -176,6 +176,11 @@ public class NotepadCreateController implements Initializable {
         engineSelection.getSelectionModel().select(0);
         engineSelection.setDisable(true);
 
+        if (notepad.getParam("gpg-enabled").equals("1")) {
+            gpgPrivateKeyPath.setText(notepad.getParam("gpg-private-key"));
+            gpgPublicKeyPath.setText(notepad.getParam("gpg-public-key"));
+        }
+
         gpgCheckbox.setDisable(true);
         gpgPrivateKeyPath.setDisable(true);
         gpgPublicKeyPath.setDisable(true);
@@ -207,6 +212,30 @@ public class NotepadCreateController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "Notepad color is required");
             a.show();
             return;
+        }
+
+        if (gpgCheckbox.isSelected()) {
+            notepad.setParam("gpg-enabled", "1");
+
+            File privateFile = new File(gpgPrivateKeyPath.getText());
+            File publicFile = new File(gpgPublicKeyPath.getText());
+
+            if (!privateFile.exists()) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "GPG private key not exists");
+                a.show();
+                return;
+            }
+            if (!publicFile.exists()) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "GPG public key not exists");
+                a.show();
+                return;
+            }
+
+            notepad.setParam("gpg-private-key", privateFile.getAbsolutePath());
+            notepad.setParam("gpg-public-key", publicFile.getAbsolutePath());
+
+        } else {
+            notepad.setParam("gpg-enabled", "0");
         }
 
         String color = (String) tg.getSelectedToggle().getUserData();
