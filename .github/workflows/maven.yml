@@ -110,7 +110,7 @@ jobs:
       run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
       
     - name: Create zip runtime
-      run: cd target ; zip -r notepack.zip notepack/      
+      run: cd target ; 7z a notepack.zip notepack/      
       
     - name: Create jpackage
       run: jpackage -n notepack --runtime-image target/notepack/  --app-version ${{ github.event.release.tag_name }} --java-options '-Xms256m -Xmx2g' -m notepack/notepack.Main --icon gfx/logo_64.ico --win-dir-chooser --win-shortcut --win-menu --win-menu-group NotePack -d notepack.msi --vendor Ogefest --license-file LICENSE
