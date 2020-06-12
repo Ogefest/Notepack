@@ -21,7 +21,7 @@ Privacy oriented, without vendor lock in note taking desktop application.
 - dark theme
 - notes as todo tasks
 - alerts/notification for some notes
-- s3 backend
+- s3 storage backend
 - GPG encryption
 - web clipper
 - clipboard manager
