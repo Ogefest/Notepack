@@ -1,18 +1,5 @@
 name: Create release
 
-#on:
-#    milestone:
-#        types: [closed]
-#  push:
-#    branches: [ master ]
-#  pull_request:
-#    branches: [ master ]
-
-#on:
-#  push:
-#    tags:
-#      - 'v*'
-
 on:
   release:
     types: [created]
@@ -31,7 +18,7 @@ jobs:
       with:
         java-version: 14
     - name: Build with Maven
-      run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
+      run: mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
     - name: Create zip runtime
       run: cd target ; zip -r notepack.zip notepack/
       
@@ -51,34 +38,31 @@ jobs:
       run: cp -r target/notepack/ appimage-base-dir/ ; chmod +x appimagetool ; ./appimagetool appimage-base-dir/ notepack.AppImage
       
     - name: Upload AppImage
-#      id: upload-release-asset 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ github.event.release.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        upload_url: ${{ github.event.release.upload_url }} 
         asset_path: ./notepack.AppImage
         asset_name: notepack-${{ github.event.release.tag_name }}.AppImage
         asset_content_type: application/octet-stream
         
     - name: Upload DEB
-#      id: upload-release-asset 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ github.event.release.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        upload_url: ${{ github.event.release.upload_url }} 
         asset_path: ./notepack.deb/file.deb
         asset_name: notepack-${{ github.event.release.tag_name }}-1_amd64.deb
         asset_content_type: application/octet-stream        
         
     - name: Upload RPM
-#      id: upload-release-asset 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ github.event.release.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        upload_url: ${{ github.event.release.upload_url }} 
         asset_path: ./notepack.rpm/file.rpm
         asset_name: notepack-${{ github.event.release.tag_name }}_amd64.rpm
         asset_content_type: application/octet-stream     
@@ -88,7 +72,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ github.event.release.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        upload_url: ${{ github.event.release.upload_url }} 
         asset_path: ./target/notepack.zip
         asset_name: notepack-${{ github.event.release.tag_name }}-linux-runtime.zip
         asset_content_type: application/octet-stream          
@@ -115,14 +99,14 @@ jobs:
     - name: Create jpackage
       run: jpackage -n notepack --runtime-image target/notepack/  --app-version ${{ github.event.release.tag_name }} --java-options '-Xms256m -Xmx2g' -m notepack/notepack.Main --icon gfx/logo_64.ico --win-dir-chooser --win-shortcut --win-menu --win-menu-group NotePack -d notepack.msi --vendor Ogefest --license-file LICENSE
     - name: Rename MSI
-      run: ls notepack.msi; mv notepack.msi/*.exe notepack.msi/file.exe
+      run: mv notepack.msi/*.exe notepack.msi/file.exe
     
     - name: Upload Windows Runtime
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ github.event.release.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        upload_url: ${{ github.event.release.upload_url }} 
         asset_path: ./target/notepack.zip
         asset_name: notepack-${{ github.event.release.tag_name }}-windows-runtime.zip
         asset_content_type: application/octet-stream      
@@ -132,19 +116,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ github.event.release.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        upload_url: ${{ github.event.release.upload_url }} 
         asset_path: ./notepack.msi/file.exe
         asset_name: notepack-${{ github.event.release.tag_name }}-windows-installer.exe
         asset_content_type: application/octet-stream   
         
-#    - name: Archive production artifacts zip
-#      uses: actions/upload-artifact@v1
-#      with:
-#        name: release-windows.zip
-#        path: target/notepack
-#    - name: Archive production artifacts msi
-#      uses: actions/upload-artifact@v1
-#      with:
-#        name: notepack-windows
-#        path: notepack.msi 
-
