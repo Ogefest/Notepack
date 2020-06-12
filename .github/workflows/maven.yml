@@ -115,7 +115,7 @@ jobs:
     - name: Create jpackage
       run: jpackage -n notepack --runtime-image target/notepack/  --app-version ${{ github.event.release.tag_name }} --java-options '-Xms256m -Xmx2g' -m notepack/notepack.Main --icon gfx/logo_64.ico --win-dir-chooser --win-shortcut --win-menu --win-menu-group NotePack -d notepack.msi --vendor Ogefest --license-file LICENSE
     - name: Rename MSI
-      run: ls notepack.msi; mv notepack.msi/*.msi notepack.msi/file.msi
+      run: ls notepack.msi; mv notepack.msi/*.exe notepack.msi/file.exe
     
     - name: Upload Windows Runtime
       uses: actions/upload-release-asset@v1
@@ -133,8 +133,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./notepack.msi/file.msi
-        asset_name: notepack-${{ github.event.release.tag_name }}-windows-installer.msi
+        asset_path: ./notepack.msi/file.exe
+        asset_name: notepack-${{ github.event.release.tag_name }}-windows-installer.exe
         asset_content_type: application/octet-stream   
         
 #    - name: Archive production artifacts zip
