@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="642.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotepadCreateController">
+<VBox prefHeight="731.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotepadCreateController">
     <stylesheets>
         <URL value="@color-definition.css" />
         <URL value="@scrollbar.css" />  
@@ -20,13 +21,13 @@
         <URL value="@notepadsettings.css" />  
     </stylesheets>       
     <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="card">
+      <AnchorPane prefHeight="357.0" prefWidth="706.0" styleClass="card">
          <children>
                 <Label layoutX="36.0" layoutY="39.0" text="Notepad name:" AnchorPane.leftAnchor="20.0">
                <font>
                   <Font size="15.0" />
                </font></Label>
-                <TextField fx:id="notepadName" layoutX="280.0" layoutY="31.0" prefHeight="26.0" prefWidth="299.0" />
+                <TextField fx:id="notepadName" layoutX="280.0" layoutY="31.0" prefHeight="38.0" prefWidth="315.0" />
                 <Label layoutX="56.0" layoutY="84.0" text="Notepad color:" AnchorPane.leftAnchor="20.0">
                <font>
                   <Font size="15.0" />
@@ -37,6 +38,26 @@
                 <ToggleButton fx:id="btnUserColor3" layoutX="344.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-3;" />
                 <ToggleButton fx:id="btnUserColor2" layoutX="312.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-2;" />
                 <ToggleButton fx:id="btnUserColor1" layoutX="280.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" selected="true" style="-fx-background-color: user-color-1;" />
+            <Label layoutX="40.0" layoutY="126.0" text="Enable GPG encryption:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="gpgCheckbox" layoutX="280.0" layoutY="127.0" mnemonicParsing="false" />
+            <Label disable="true" layoutX="40.0" layoutY="175.0" text="Public key:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="gpgPublicKeyPath" disable="true" layoutX="277.0" layoutY="166.0" prefHeight="38.0" prefWidth="253.0" />
+            <Button fx:id="gpgSelectPublicKey" cancelButton="true" disable="true" layoutX="530.0" layoutY="166.0" mnemonicParsing="false" onAction="#onSelectPublicKey" text="Select" />
+            <Label disable="true" layoutX="40.0" layoutY="228.0" text="Private key:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="gpgPrivateKeyPath" disable="true" layoutX="277.0" layoutY="218.0" prefHeight="38.0" prefWidth="253.0" />
+            <Button fx:id="gpgSelectPrivateKey" cancelButton="true" disable="true" layoutX="530.0" layoutY="218.0" mnemonicParsing="false" onAction="#onSelectPrivateKey" text="Select" />
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -45,7 +66,7 @@
             <Insets bottom="20.0" />
          </VBox.margin>
       </AnchorPane>
-      <AnchorPane prefHeight="394.0" prefWidth="706.0" styleClass="card">
+      <AnchorPane prefHeight="289.0" prefWidth="706.0" styleClass="card">
          <VBox.margin>
             <Insets bottom="20.0" />
          </VBox.margin>
