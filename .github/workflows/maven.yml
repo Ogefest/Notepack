@@ -3,10 +3,19 @@ name: Create release
 on:
 #    milestone:
 #        types: [closed]
-  push:
-    branches: [ master ]
+#  push:
+#    branches: [ master ]
 #  pull_request:
 #    branches: [ master ]
+
+#on:
+#  push:
+#    tags:
+#      - 'v*'
+
+on:
+  release:
+    types: [created]
 
 jobs:
   
@@ -34,55 +43,67 @@ jobs:
     - name: Build appimage
       run: cp -r target/notepack/ appimage-base-dir/ ; chmod +x appimagetool ; ./appimagetool appimage-base-dir/ notepack.AppImage
       
-    - name: Upload runtime image
-      uses: actions/upload-artifact@v1
+    - name: Upload AppImage
+#      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: release-linux.zip
-        path: target/notepack
-        
-    - name: Upload appimage
-      uses: actions/upload-artifact@v1
-      with:
-        name: notepack-appimage
-        path: notepack.AppImage
-        
-    - name: Upload DEB
-      uses: actions/upload-artifact@v1
-      with:
-        name: notepack-deb
-        path: notepack.deb
-        
-    - name: Upload RPM
-      uses: actions/upload-artifact@v1
-      with:
-        name: notepack-rpm
-        path: notepack.rpm
-
-
-  build-windows:
-
-    runs-on: windows-latest
-
-    steps:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./notepack.AppImage
+        asset_name: notepack-${{ github.ref }}.AppImage
+        asset_content_type: application/octet-stream      
       
-    - uses: actions/checkout@v2
-    - name: Set up JDK 14
-      uses: actions/setup-java@v1
-      with:
-        java-version: 14
+      
+#    - name: Upload runtime image
+#      uses: actions/upload-artifact@v1
+#      with:
+#        name: release-linux.zip
+#        path: target/notepack
+#        
+#    - name: Upload appimage
+#      uses: actions/upload-artifact@v1
+#      with:
+#        name: notepack-appimage
+#        path: notepack.AppImage
+#        
+#    - name: Upload DEB
+#      uses: actions/upload-artifact@v1
+#      with:
+#        name: notepack-deb
+#        path: notepack.deb
+#        
+#    - name: Upload RPM
+#      uses: actions/upload-artifact@v1
+#      with:
+#        name: notepack-rpm
+#        path: notepack.rpm
 
-    - name: Build with Maven
-      run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
-    - name: Create jpackage
-      run: jpackage -n notepack --runtime-image target/notepack/ --java-options '-Xms256m -Xmx2g' -m notepack/notepack.Main --icon gfx/logo_64.ico --win-dir-chooser --win-shortcut --win-menu --win-menu-group NotePack -d notepack.msi --vendor Ogefest --license-file LICENSE
-    - name: Archive production artifacts zip
-      uses: actions/upload-artifact@v1
-      with:
-        name: release-windows.zip
-        path: target/notepack
-    - name: Archive production artifacts msi
-      uses: actions/upload-artifact@v1
-      with:
-        name: notepack-windows
-        path: notepack.msi 
+
+#  build-windows:
+#
+#    runs-on: windows-latest
+#
+#    steps:
+#      
+#    - uses: actions/checkout@v2
+#    - name: Set up JDK 14
+#      uses: actions/setup-java@v1
+#      with:
+#        java-version: 14
+#
+#    - name: Build with Maven
+#      run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
+#    - name: Create jpackage
+#      run: jpackage -n notepack --runtime-image target/notepack/ --java-options '-Xms256m -Xmx2g' -m notepack/notepack.Main --icon gfx/logo_64.ico --win-dir-chooser --win-shortcut --win-menu --win-menu-group NotePack -d notepack.msi --vendor Ogefest --license-file LICENSE
+#    - name: Archive production artifacts zip
+#      uses: actions/upload-artifact@v1
+#      with:
+#        name: release-windows.zip
+#        path: target/notepack
+#    - name: Archive production artifacts msi
+#      uses: actions/upload-artifact@v1
+#      with:
+#        name: notepack-windows
+#        path: notepack.msi 
 
