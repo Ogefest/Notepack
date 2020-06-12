@@ -24,10 +24,10 @@ jobs:
     - name: Build with Maven
       run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
     - name: Create DEB
-      run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main -d notepack.deb --type deb --java-options '-Xms256m -Xmx2g' --linux-deb-maintainer hello@ogefest.com --linux-shortcut --description 'Notepack - Privacy oriented, without vendor lock in note taking desktop application' --linux-menu-group Office --vendor Ogefest
+      run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main -d notepack.deb --type deb --java-options '-Xms256m -Xmx2g' --linux-deb-maintainer hello@ogefest.com --linux-shortcut --description 'Notepack - Privacy oriented, without vendor lock in note taking desktop application' --linux-menu-group Office --vendor Ogefest --icon gfx/logo_128.png --license-file LICENSE
 
     - name: Create RPM
-      run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main -d notepack.rpm --type rpm --java-options '-Xms256m -Xmx2g' --linux-shortcut --linux-rpm-license-type MLP-2.0 --description 'Notepack - Privacy oriented, without vendor lock in note taking desktop application' --linux-menu-group Office --vendor Ogefest
+      run: jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main -d notepack.rpm --type rpm --java-options '-Xms256m -Xmx2g' --linux-shortcut --linux-rpm-license-type MPLv2.0 --description 'Notepack - Privacy oriented, without vendor lock in note taking desktop application' --linux-menu-group Office --vendor Ogefest --icon gfx/logo_128.png --license-file LICENSE --linux-app-category Office
       
     - name: Download appimage
       run: wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
@@ -74,7 +74,7 @@ jobs:
     - name: Build with Maven
       run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
     - name: Create jpackage
-      run: jpackage -n notepack --runtime-image target/notepack/ --java-options '-Xms256m -Xmx2g' -m notepack/notepack.Main --icon gfx/logo_64.ico --win-dir-chooser --win-shortcut --win-menu --win-menu-group NotePack -d notepack.msi --vendor Ogefest
+      run: jpackage -n notepack --runtime-image target/notepack/ --java-options '-Xms256m -Xmx2g' -m notepack/notepack.Main --icon gfx/logo_64.ico --win-dir-chooser --win-shortcut --win-menu --win-menu-group NotePack -d notepack.msi --vendor Ogefest --license-file LICENSE
     - name: Archive production artifacts zip
       uses: actions/upload-artifact@v1
       with:
