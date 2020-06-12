@@ -44,14 +44,14 @@
                </font>
             </Label>
             <CheckBox fx:id="gpgCheckbox" layoutX="280.0" layoutY="127.0" mnemonicParsing="false" />
-            <Label disable="true" layoutX="40.0" layoutY="175.0" text="Public key:">
+            <Label fx:id="gpgPublicLabel" disable="true" layoutX="40.0" layoutY="175.0" text="Public key:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
             <TextField fx:id="gpgPublicKeyPath" disable="true" layoutX="277.0" layoutY="166.0" prefHeight="38.0" prefWidth="253.0" />
             <Button fx:id="gpgSelectPublicKey" cancelButton="true" disable="true" layoutX="530.0" layoutY="166.0" mnemonicParsing="false" onAction="#onSelectPublicKey" text="Select" />
-            <Label disable="true" layoutX="40.0" layoutY="228.0" text="Private key:">
+            <Label fx:id="gpgPrivateLabel" disable="true" layoutX="40.0" layoutY="228.0" text="Private key:">
                <font>
                   <Font size="15.0" />
                </font>
