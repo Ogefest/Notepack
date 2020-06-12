@@ -4,6 +4,10 @@ Privacy oriented, without vendor lock in note taking desktop application.
 
 ![Main notepack window](/gfx/screen1.png)
 
+## Current release
+
+Download [https://github.com/Ogefest/Notepack/releases](GitHub release)
+
 
 ## Core features
 
