@@ -33,10 +33,10 @@ jobs:
     - name: Build with Maven
       run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
     - name: Create DEB
-      run: jpackage -n notepack --runtime-image target/notepack/ --app-version ${{ github.ref }} -m notepack/notepack.Main -d notepack.deb --type deb --java-options '-Xms256m -Xmx2g' --linux-deb-maintainer hello@ogefest.com --linux-shortcut --description 'Notepack - Privacy oriented, without vendor lock in note taking desktop application' --linux-menu-group Office --vendor Ogefest --icon gfx/logo_128.png --license-file LICENSE
+      run: jpackage -n notepack --runtime-image target/notepack/ --app-version ${{ github.event.release.tag_name }} -m notepack/notepack.Main -d notepack.deb --type deb --java-options '-Xms256m -Xmx2g' --linux-deb-maintainer hello@ogefest.com --linux-shortcut --description 'Notepack - Privacy oriented, without vendor lock in note taking desktop application' --linux-menu-group Office --vendor Ogefest --icon gfx/logo_128.png --license-file LICENSE
 
     - name: Create RPM
-      run: jpackage -n notepack --runtime-image target/notepack/ --app-version ${{ github.ref }} -m notepack/notepack.Main -d notepack.rpm --type rpm --java-options '-Xms256m -Xmx2g' --linux-shortcut --linux-rpm-license-type MPLv2.0 --description 'Notepack - Privacy oriented, without vendor lock in note taking desktop application' --linux-menu-group Office --vendor Ogefest --icon gfx/logo_128.png --license-file LICENSE --linux-app-category Office
+      run: jpackage -n notepack --runtime-image target/notepack/ --app-version ${{ github.event.release.tag_name }} -m notepack/notepack.Main -d notepack.rpm --type rpm --java-options '-Xms256m -Xmx2g' --linux-shortcut --linux-rpm-license-type MPLv2.0 --description 'Notepack - Privacy oriented, without vendor lock in note taking desktop application' --linux-menu-group Office --vendor Ogefest --icon gfx/logo_128.png --license-file LICENSE --linux-app-category Office
       
     - name: Download appimage
       run: wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
@@ -51,7 +51,7 @@ jobs:
       with:
         upload_url: ${{ github.event.release.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
         asset_path: ./notepack.AppImage
-        asset_name: notepack-${{ github.ref }}.AppImage
+        asset_name: notepack-${{ github.event.release.tag_name }}.AppImage
         asset_content_type: application/octet-stream
         
     - name: Upload DEB
@@ -61,8 +61,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./notepack.deb/notepack_${{ github.ref }}-1_amd64.deb
-        asset_name: notepack-${{ github.ref }}-1_amd64.deb
+        asset_path: ./notepack.deb/notepack_${{ github.event.release.tag_name }}-1_amd64.deb
+        asset_name: notepack-${{ github.event.release.tag_name }}-1_amd64.deb
         asset_content_type: application/octet-stream        
         
     - name: Upload RPM
@@ -73,7 +73,7 @@ jobs:
       with:
         upload_url: ${{ github.event.release.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
         asset_path: ./notepack.rpm/*.rpm
-        asset_name: notepack-${{ github.ref }}-1_amd64.deb
+        asset_name: notepack-${{ github.event.release.tag_name }}-1_amd64.deb
         asset_content_type: application/octet-stream     
         
     - name: Upload Linux Runtime
@@ -84,7 +84,7 @@ jobs:
       with:
         upload_url: ${{ github.event.release.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
         asset_path: ./target/notepack
-        asset_name: notepack-${{ github.ref }}-runtime.zip
+        asset_name: notepack-${{ github.event.release.tag_name }}-runtime.zip
         asset_content_type: application/octet-stream          
       
 #    - name: Upload runtime image
@@ -112,30 +112,30 @@ jobs:
 #        path: notepack.rpm
 
 
-  build-windows:
-
-    runs-on: windows-latest
-
-    steps:
-      
-    - uses: actions/checkout@v2
-    - name: Set up JDK 14
-      uses: actions/setup-java@v1
-      with:
-        java-version: 14
-
-    - name: Build with Maven
-      run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
-    - name: Create jpackage
-      run: jpackage -n notepack --runtime-image target/notepack/  --app-version ${{ github.ref }} --java-options '-Xms256m -Xmx2g' -m notepack/notepack.Main --icon gfx/logo_64.ico --win-dir-chooser --win-shortcut --win-menu --win-menu-group NotePack -d notepack.msi --vendor Ogefest --license-file LICENSE
-    - name: Archive production artifacts zip
-      uses: actions/upload-artifact@v1
-      with:
-        name: release-windows.zip
-        path: target/notepack
-    - name: Archive production artifacts msi
-      uses: actions/upload-artifact@v1
-      with:
-        name: notepack-windows
-        path: notepack.msi 
+#  build-windows:
+#
+#    runs-on: windows-latest
+#
+#    steps:
+#      
+#    - uses: actions/checkout@v2
+#    - name: Set up JDK 14
+#      uses: actions/setup-java@v1
+#      with:
+#        java-version: 14
+#
+#    - name: Build with Maven
+#      run: java -version ; mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
+#    - name: Create jpackage
+#      run: jpackage -n notepack --runtime-image target/notepack/  --app-version ${{ github.event.release.tag_name }} --java-options '-Xms256m -Xmx2g' -m notepack/notepack.Main --icon gfx/logo_64.ico --win-dir-chooser --win-shortcut --win-menu --win-menu-group NotePack -d notepack.msi --vendor Ogefest --license-file LICENSE
+#    - name: Archive production artifacts zip
+#      uses: actions/upload-artifact@v1
+#      with:
+#        name: release-windows.zip
+#        path: target/notepack
+#    - name: Archive production artifacts msi
+#      uses: actions/upload-artifact@v1
+#      with:
+#        name: notepack-windows
+#        path: notepack.msi 
 
