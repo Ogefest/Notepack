@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -18,7 +19,10 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
         loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
 
-//        App.class.getResource(fxml + ".fxml");
+        Image icon = new Image(getClass().getResourceAsStream("logo.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("Notepack");
+
         Parent root = loader.load();
 
         MainViewController ctrl = loader.getController();
