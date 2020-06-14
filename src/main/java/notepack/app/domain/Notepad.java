@@ -33,6 +33,10 @@ public class Notepad {
     }
 
     private void initGpgEncryption() {
+        
+        if (this.storage instanceof GpgEncrypted) {
+            return;
+        }
 
         GpgEncrypted s = new GpgEncrypted(this.storage);
         s.setKeysPath(getParam("gpg-public-key"), getParam("gpg-private-key"));
