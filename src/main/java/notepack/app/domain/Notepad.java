@@ -3,56 +3,49 @@ package notepack.app.domain;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
-import notepack.app.storage.GpgEncrypted;
+import notepack.encrypt.GPG;
+import notepack.processor.GPGDecrypt;
+import notepack.processor.GPGEncrypt;
 
 public class Notepad {
 
-    private NoteStorage storage;
+    private NoteStorageMiddleware storage;
     private String name;
     private String ident;
+    private GPG gpg;
+    
     private HashMap<String, String> params = new HashMap<>();
 
-    public Notepad(NoteStorage storage) {
-        this.storage = storage;
-        this.ident = UUID.randomUUID().toString();
-        params.put("name", ident);
-    }
-
     public Notepad(NoteStorage storage, String name) {
-        this.storage = storage;
+        this.storage = new NoteStorageMiddleware(storage);
         this.ident = UUID.randomUUID().toString();
+        
         params.put("name", name);
     }
 
     public Notepad(NoteStorage storage, String name, String ident) {
-        this.storage = storage;
+        this.storage = new NoteStorageMiddleware(storage);
         this.name = name;
         this.ident = ident;
 
         params.put("name", name);
     }
-
-    private void initGpgEncryption() {
+    
+    public void registerProcessors() {
         
-        if (this.storage instanceof GpgEncrypted) {
-            return;
+        if (getParam("gpg-enabled").equals("1")) {
+            gpg = new GPG(getParam("gpg-public-key"), getParam("gpg-private-key"), "");
+            storage.registerAfterLoad(new GPGDecrypt(gpg));
+            storage.registerBeforeSave(new GPGEncrypt(gpg));
         }
-
-        GpgEncrypted s = new GpgEncrypted(this.storage);
-        s.setKeysPath(getParam("gpg-public-key"), getParam("gpg-private-key"));
-
-        this.storage = s;
+        
     }
-
+    
     public String getName() {
         return params.get("name");
     }
 
     public NoteStorage getStorage() {
-
-        if (getParam("gpg-enabled").equals("1")) {
-            initGpgEncryption();
-        }
 
         return storage;
     }

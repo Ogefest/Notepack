@@ -41,6 +41,7 @@ import notepack.app.listener.NotepadListener;
 import notepack.app.storage.Filesystem;
 import notepack.app.storage.JsonNotepadRepository;
 import notepack.app.storage.PreferencesSettings;
+import notepack.app.task.ShowUserMessage;
 import notepack.encrypt.Fake;
 import notepack.encrypt.SimpleAES;
 
@@ -79,6 +80,12 @@ public class MainViewController implements Initializable {
         SessionStorage sessionStorage = new JsonNotepadRepository(new SimpleAES(), appSettings);
 
         app = new App(sessionStorage);
+
+        app.getMessageBus().registerGuiListener((task) -> {
+            Platform.runLater(() -> {
+                task.proceed(stage, app);
+            });
+        });
 
         app.getMessageBus().registerNoteListener(new NoteListener() {
             @Override
