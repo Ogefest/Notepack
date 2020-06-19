@@ -5,8 +5,10 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import notepack.app.listener.GuiListener;
 import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
+import notepack.app.task.TypeGui;
 import notepack.app.task.TypeNote;
 import notepack.app.task.TypeNotepad;
 
@@ -15,6 +17,7 @@ public class MessageBus {
     private Queue<Task> tasks;
     private ArrayList<NoteListener> noteListeners;
     private ArrayList<NotepadListener> notepadListeners;
+    private ArrayList<GuiListener> guiListeners;
 
     private Thread dispatchThread;
     private boolean dispatcherStop = false;
@@ -24,6 +27,7 @@ public class MessageBus {
 
         noteListeners = new ArrayList<>();
         notepadListeners = new ArrayList<>();
+        guiListeners = new ArrayList<>();
     }
 
     public void startDispatcher() {
@@ -71,6 +75,11 @@ public class MessageBus {
             if (t instanceof TypeNotepad) {
                 for (NotepadListener l : notepadListeners) {
                     ((TypeNotepad) t).notify(l);
+                }
+            }
+            if (t instanceof TypeGui) {
+                for (GuiListener l : guiListeners) {
+                    ((TypeGui) t).notify(l);
                 }
             }
 
