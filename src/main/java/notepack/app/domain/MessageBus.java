@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import notepack.app.listener.GuiListener;
 import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
+import notepack.app.task.ShowUserMessage;
 import notepack.app.task.TypeGui;
 import notepack.app.task.TypeNote;
 import notepack.app.task.TypeNotepad;
@@ -44,6 +45,8 @@ public class MessageBus {
                         dispatch();
                     } catch (Exception e) {
                         Logger.getLogger(MessageBus.class.getName()).log(Level.SEVERE, null, e);
+                        
+                        tasks.add(new ShowUserMessage(e.getMessage(), ShowUserMessage.TYPE.ERROR));
                     }
                     try {
                         Thread.sleep(10);
@@ -66,20 +69,24 @@ public class MessageBus {
     private void dispatch() {
 
         for (Task t : tasks) {
-            t.dispatch();
+            
             if (t instanceof TypeNote) {
+                t.dispatch();
+                
                 for (NoteListener l : noteListeners) {
                     ((TypeNote) t).notify(l);
                 }
             }
             if (t instanceof TypeNotepad) {
+                t.dispatch();
+                
                 for (NotepadListener l : notepadListeners) {
                     ((TypeNotepad) t).notify(l);
                 }
             }
             if (t instanceof TypeGui) {
                 for (GuiListener l : guiListeners) {
-                    ((TypeGui) t).notify(l);
+                    l.proceed((TypeGui) t);
                 }
             }
 
@@ -94,6 +101,10 @@ public class MessageBus {
 
     public void registerNotepadListener(NotepadListener l) {
         notepadListeners.add(l);
+    }
+    
+    public void registerGuiListener(GuiListener l) {
+        guiListeners.add(l);
     }
 
     public void addTask(Task t) {

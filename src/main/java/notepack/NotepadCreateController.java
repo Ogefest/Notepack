@@ -240,6 +240,8 @@ public class NotepadCreateController implements Initializable {
 
         String color = (String) tg.getSelectedToggle().getUserData();
         notepad.setParam("color", color);
+        
+        notepad.registerProcessors();
 
         clbk.ready(notepad);
 
