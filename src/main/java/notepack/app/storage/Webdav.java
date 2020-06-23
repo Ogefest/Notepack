@@ -26,6 +26,7 @@ import notepack.app.domain.NoteStorageItem;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
+import notepack.app.domain.exception.MessageError;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -74,9 +75,8 @@ public class Webdav implements NoteStorage {
     }
 
     @Override
-    public String loadContent(String path) {
+    public String loadContent(String path) throws MessageError {
 
-        String result = "";
         try {
 
             HttpRequest request = HttpRequest.newBuilder()
@@ -86,13 +86,9 @@ public class Webdav implements NoteStorage {
 
             return response.body();
 
-        } catch (IOException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | InterruptedException ex) {
+            throw new MessageError(ex.getMessage(), ex);
         }
-
-        return result;
     }
 
     @Override
@@ -227,13 +223,7 @@ public class Webdav implements NoteStorage {
 
             }
 
-        } catch (IOException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
+        } catch (IOException | InterruptedException | ParserConfigurationException | SAXException ex) {
             Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -241,17 +231,15 @@ public class Webdav implements NoteStorage {
     }
 
     @Override
-    public void saveContent(String content, String path) {
+    public void saveContent(String content, String path) throws MessageError {
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(path)).PUT(BodyPublishers.ofString(content)).build();
 
             HttpResponse<?> response = client.send(request, BodyHandlers.discarding());
-        } catch (IOException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | InterruptedException ex) {
+            throw new MessageError(ex.getMessage(), ex);
         }
 
     }
@@ -272,11 +260,9 @@ public class Webdav implements NoteStorage {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(oldPath)).header("Destination", newPath).method("MOVE", BodyPublishers.noBody()).build();
-            
+
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
+        } catch (IOException | InterruptedException ex) {
             Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -289,9 +275,7 @@ public class Webdav implements NoteStorage {
                     .uri(URI.create(path)).DELETE().build();
 
             HttpResponse<?> response = client.send(request, BodyHandlers.discarding());
-        } catch (IOException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
+        } catch (IOException | InterruptedException ex) {
             Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

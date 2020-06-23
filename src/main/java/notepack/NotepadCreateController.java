@@ -14,7 +14,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -22,10 +24,12 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.NoteStorageItem;
+import notepack.app.domain.NoteStorageMiddleware;
 import notepack.app.domain.Notepad;
 import notepack.app.storage.Filesystem;
 import notepack.app.storage.Webdav;
@@ -71,8 +75,22 @@ public class NotepadCreateController implements Initializable {
     private ComboBox<EngineType> engineSelection;
     @FXML
     private AnchorPane engineForm;
-    
+
     private EngineController currentFormController;
+    @FXML
+    private CheckBox gpgCheckbox;
+    @FXML
+    private TextField gpgPublicKeyPath;
+    @FXML
+    private Button gpgSelectPublicKey;
+    @FXML
+    private TextField gpgPrivateKeyPath;
+    @FXML
+    private Button gpgSelectPrivateKey;
+    @FXML
+    private Label gpgPublicLabel;
+    @FXML
+    private Label gpgPrivateLabel;
 
     /**
      * Initializes the controller class.
@@ -96,11 +114,29 @@ public class NotepadCreateController implements Initializable {
 
         tg.selectToggle(btnUserColor1);
 
+        gpgCheckbox.selectedProperty().addListener((o) -> {
+            if (gpgCheckbox.isSelected()) {
+                gpgPrivateLabel.setDisable(false);
+                gpgPublicLabel.setDisable(false);
+                gpgPrivateKeyPath.setDisable(false);
+                gpgPublicKeyPath.setDisable(false);
+                gpgSelectPrivateKey.setDisable(false);
+                gpgSelectPublicKey.setDisable(false);
+            } else {
+                gpgPrivateLabel.setDisable(true);
+                gpgPublicLabel.setDisable(true);
+                gpgPrivateKeyPath.setDisable(true);
+                gpgPublicKeyPath.setDisable(true);
+                gpgSelectPrivateKey.setDisable(true);
+                gpgSelectPublicKey.setDisable(true);
+            }
+        });
+
         engineSelection.getItems().add(new EngineType("Filesystem", "engine/Filesystem.fxml"));
         engineSelection.getItems().add(new EngineType("WebDav", "engine/Webdav.fxml"));
 
         engineSelection.getSelectionModel().selectedIndexProperty().addListener((ov, t, t1) -> {
-            
+
             EngineType et = engineSelection.getSelectionModel().getSelectedItem();
 
             engineForm.getChildren().clear();
@@ -111,13 +147,13 @@ public class NotepadCreateController implements Initializable {
             try {
                 Parent root = fxmlLoader.load();
                 currentFormController = (EngineController) fxmlLoader.getController();
-                
+
                 engineForm.getChildren().add(root);
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(NotepadCreateController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         });
 
     }
@@ -131,17 +167,32 @@ public class NotepadCreateController implements Initializable {
         notepadEdition = true;
 
         notepadName.setText(notepad.getName());
-        
+
         engineSelection.getItems().clear();
-        if (Filesystem.class.isInstance(notepad.getStorage())) {
+
+        NoteStorage parentStorage = ((NoteStorageMiddleware) notepad.getStorage()).getParentStorage();
+
+        if (Filesystem.class.isInstance(parentStorage)) {
             engineSelection.getItems().add(new EngineType("Filesystem", "engine/Filesystem.fxml"));
         }
-        if (Webdav.class.isInstance(notepad.getStorage())) {
+        if (Webdav.class.isInstance(parentStorage)) {
             engineSelection.getItems().add(new EngineType("WebDav", "engine/Webdav.fxml"));
         }
         engineSelection.getSelectionModel().select(0);
         engineSelection.setDisable(true);
-        
+
+        if (notepad.getParam("gpg-enabled").equals("1")) {
+            gpgPrivateKeyPath.setText(notepad.getParam("gpg-private-key"));
+            gpgPublicKeyPath.setText(notepad.getParam("gpg-public-key"));
+            gpgCheckbox.setSelected(true);
+        }
+
+        gpgCheckbox.setDisable(true);
+        gpgPrivateKeyPath.setDisable(true);
+        gpgPublicKeyPath.setDisable(true);
+        gpgSelectPrivateKey.setDisable(true);
+        gpgSelectPublicKey.setDisable(true);
+
         currentFormController.setStorage(notepad.getStorage());
 
         btnSave.setText("Save");
@@ -169,8 +220,34 @@ public class NotepadCreateController implements Initializable {
             return;
         }
 
+        if (gpgCheckbox.isSelected()) {
+            notepad.setParam("gpg-enabled", "1");
+
+            File privateFile = new File(gpgPrivateKeyPath.getText());
+            File publicFile = new File(gpgPublicKeyPath.getText());
+
+            if (!privateFile.exists()) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "GPG private key not exists");
+                a.show();
+                return;
+            }
+            if (!publicFile.exists()) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "GPG public key not exists");
+                a.show();
+                return;
+            }
+
+            notepad.setParam("gpg-private-key", privateFile.getAbsolutePath());
+            notepad.setParam("gpg-public-key", publicFile.getAbsolutePath());
+
+        } else {
+            notepad.setParam("gpg-enabled", "0");
+        }
+
         String color = (String) tg.getSelectedToggle().getUserData();
         notepad.setParam("color", color);
+
+        notepad.registerProcessors();
 
         clbk.ready(notepad);
 
@@ -201,6 +278,32 @@ public class NotepadCreateController implements Initializable {
         wd.refreshItemsInStorage();
 
         noteItem.getName();
+    }
+
+    @FXML
+    private void onSelectPublicKey(ActionEvent event) {
+        Stage stage = (Stage) gpgPublicKeyPath.getScene().getWindow();
+
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select GPG public key");
+
+        File selectedFile = chooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            gpgPublicKeyPath.setText(selectedFile.getAbsolutePath());
+        }
+    }
+
+    @FXML
+    private void onSelectPrivateKey(ActionEvent event) {
+        Stage stage = (Stage) gpgPrivateKeyPath.getScene().getWindow();
+
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select GPG private key");
+
+        File selectedFile = chooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            gpgPrivateKeyPath.setText(selectedFile.getAbsolutePath());
+        }        
     }
 
 }
