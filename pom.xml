@@ -39,8 +39,16 @@
             <artifactId>json</artifactId>
             <version>1.0.7.9</version>
         </dependency>
-        
-        
+        <dependency>
+            <groupId>p2.osgi.bundle</groupId>
+            <artifactId>org.bouncycastle.bcpg</artifactId>
+            <version>1.64.0.v20191109-0815</version>
+        </dependency>
+        <dependency>
+            <groupId>p2.osgi.bundle</groupId>
+            <artifactId>org.bouncycastle.bcprov</artifactId>
+            <version>1.64.0.v20191109-0815</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
