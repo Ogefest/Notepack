@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.NoteStorageItem;
+import notepack.app.domain.NoteStorageMiddleware;
 import notepack.app.domain.Notepad;
 import notepack.app.storage.Filesystem;
 import notepack.app.storage.Webdav;
@@ -167,10 +168,13 @@ public class NotepadCreateController implements Initializable {
         notepadName.setText(notepad.getName());
 
         engineSelection.getItems().clear();
-        if (Filesystem.class.isInstance(notepad.getStorage())) {
+        
+        NoteStorage parentStorage = ((NoteStorageMiddleware) notepad.getStorage()).getParentStorage();
+        
+        if (Filesystem.class.isInstance(parentStorage)) {
             engineSelection.getItems().add(new EngineType("Filesystem", "engine/Filesystem.fxml"));
         }
-        if (Webdav.class.isInstance(notepad.getStorage())) {
+        if (Webdav.class.isInstance(parentStorage)) {
             engineSelection.getItems().add(new EngineType("WebDav", "engine/Webdav.fxml"));
         }
         engineSelection.getSelectionModel().select(0);
@@ -179,6 +183,7 @@ public class NotepadCreateController implements Initializable {
         if (notepad.getParam("gpg-enabled").equals("1")) {
             gpgPrivateKeyPath.setText(notepad.getParam("gpg-private-key"));
             gpgPublicKeyPath.setText(notepad.getParam("gpg-public-key"));
+            gpgCheckbox.setSelected(true);
         }
 
         gpgCheckbox.setDisable(true);

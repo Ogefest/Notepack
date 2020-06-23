@@ -32,7 +32,7 @@ public class NoteStorageMiddleware implements NoteStorage {
         afterLoad.add(p);
     }
 
-    public NoteStorage getNoteStorage() {
+    public NoteStorage getParentStorage() {
         return noteStorage;
     }
 
