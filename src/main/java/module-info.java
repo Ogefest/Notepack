@@ -14,5 +14,6 @@ module notepack {
     requires java.prefs;
     requires org.json;
     requires java.base;
-
+    requires bcprov.jdk15on;
+    requires bcpg.jdk15on;
 }
