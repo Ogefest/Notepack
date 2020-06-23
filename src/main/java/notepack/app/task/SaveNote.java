@@ -2,9 +2,10 @@ package notepack.app.task;
 
 import notepack.app.domain.Note;
 import notepack.app.domain.Task;
+import notepack.app.domain.exception.MessageError;
 import notepack.app.listener.NoteListener;
 
-public class SaveNote implements Task,TypeNote {
+public class SaveNote implements Task, TypeNote {
 
     private Note note;
 
@@ -13,7 +14,7 @@ public class SaveNote implements Task,TypeNote {
     }
 
     @Override
-    public void dispatch() {
+    public void dispatch() throws MessageError {
         note.saveToStorage();
     }
 
