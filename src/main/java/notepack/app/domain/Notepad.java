@@ -13,13 +13,13 @@ public class Notepad {
     private String name;
     private String ident;
     private GPG gpg;
-    
+
     private HashMap<String, String> params = new HashMap<>();
 
     public Notepad(NoteStorage storage, String name) {
         this.storage = new NoteStorageMiddleware(storage);
         this.ident = UUID.randomUUID().toString();
-        
+
         params.put("name", name);
     }
 
@@ -30,17 +30,23 @@ public class Notepad {
 
         params.put("name", name);
     }
-    
+
     public void registerProcessors() {
-        
         if (getParam("gpg-enabled").equals("1")) {
             gpg = new GPG(getParam("gpg-public-key"), getParam("gpg-private-key"), "");
             storage.registerAfterLoad(new GPGDecrypt(gpg));
             storage.registerBeforeSave(new GPGEncrypt(gpg));
         }
-        
     }
-    
+
+    public boolean isGpgEnabled() {
+        return getParam("gpg-enabled").equals("1");
+    }
+
+    public GPG getGpg() {
+        return gpg;
+    }
+
     public String getName() {
         return params.get("name");
     }
