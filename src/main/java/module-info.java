@@ -14,5 +14,6 @@ module notepack {
     requires java.prefs;
     requires org.json;
     requires java.base;
-
+    requires org.bouncycastle.pg;
+    requires org.bouncycastle.provider;
 }
