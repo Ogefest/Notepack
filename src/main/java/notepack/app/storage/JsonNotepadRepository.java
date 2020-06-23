@@ -162,7 +162,7 @@ public class JsonNotepadRepository implements SessionStorage {
             JSONObject current = new JSONObject();
             
             NoteStorageMiddleware nsm = (NoteStorageMiddleware) n.getStorage();
-            NoteStorage storage = nsm.getNoteStorage();
+            NoteStorage storage = nsm.getParentStorage();
             
             current.put("storage_class", storage.getClass().getCanonicalName());
             current.put("ident", n.getIdent());
