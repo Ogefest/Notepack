@@ -1,6 +1,5 @@
 package notepack;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -29,7 +28,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
@@ -38,11 +36,8 @@ import notepack.app.domain.SessionStorage;
 import notepack.app.domain.Settings;
 import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
-import notepack.app.storage.Filesystem;
 import notepack.app.storage.JsonNotepadRepository;
 import notepack.app.storage.PreferencesSettings;
-import notepack.app.task.ShowUserMessage;
-import notepack.encrypt.Fake;
 import notepack.encrypt.SimpleAES;
 
 /**
