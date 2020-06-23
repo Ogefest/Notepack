@@ -13,6 +13,7 @@ import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.Notepad;
+import notepack.app.domain.NoteStorageMiddleware;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import notepack.app.domain.SessionStorage;
@@ -118,6 +119,7 @@ public class JsonNotepadRepository implements SessionStorage {
                     for (String k : paramsJson.keySet()) {
                         notepad.setParam(k, paramsJson.getString(k));
                     }
+                    notepad.registerProcessors();
 
                     notepadsList.add(notepad);
                 } catch (ClassNotFoundException ex) {
@@ -158,7 +160,11 @@ public class JsonNotepadRepository implements SessionStorage {
         for (Notepad n : notepadsList) {
 
             JSONObject current = new JSONObject();
-            current.put("storage_class", n.getStorage().getClass().getCanonicalName());
+            
+            NoteStorageMiddleware nsm = (NoteStorageMiddleware) n.getStorage();
+            NoteStorage storage = nsm.getParentStorage();
+            
+            current.put("storage_class", storage.getClass().getCanonicalName());
             current.put("ident", n.getIdent());
 
             JSONObject storageConfig = new JSONObject();

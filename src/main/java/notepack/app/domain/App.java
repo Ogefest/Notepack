@@ -16,6 +16,8 @@ import notepack.app.task.OpenNotepad;
 import notepack.app.task.RefreshNotepad;
 import notepack.app.task.RenameNote;
 import notepack.app.task.SaveNote;
+import notepack.app.task.ShowGPGPasswordDialog;
+import notepack.app.task.ShowUserMessage;
 import notepack.encrypt.Fake;
 
 public class App {
@@ -89,7 +91,13 @@ public class App {
     }
 
     public void openNote(Note n) {
-        messageBus.addTask(new OpenNote(n));
+
+        if (n.getNotepad().isGpgEnabled() && !n.getNotepad().getGpg().isPrivateKeyLoaded()) {
+            messageBus.addTask(new ShowGPGPasswordDialog(n.getNotepad()));
+        } else {
+            messageBus.addTask(new OpenNote(n));
+        }
+
     }
 
     public void saveNote(Note note) {
@@ -105,19 +113,19 @@ public class App {
         n.setContents(newValue);
         messageBus.addTask(new ChangedNote(n));
     }
-    
+
     public void renameNote(Note n, String newPath) {
-        
+
         messageBus.addTask(new RenameNote(n, newPath));
         messageBus.addTask(new RefreshNotepad(n.getNotepad()));
-        
+
     }
-    
+
     public void deleteNote(Note n) {
-        
+
         messageBus.addTask(new DeleteNote(n));
-        messageBus.addTask(new RefreshNotepad(n.getNotepad()));        
-        
+        messageBus.addTask(new RefreshNotepad(n.getNotepad()));
+
     }
 
     public void newNote(Notepad notepad) {
@@ -141,18 +149,18 @@ public class App {
 
         ArrayList<Notepad> result = sessionStorage.getAvailableNotepads();
 
-        if (result.size() == 0) {
+        if (result.isEmpty()) {
 
             NoteStorageConfiguration nsc = new NoteStorageConfiguration();
-            
+
             String dir = System.getProperty("user.home") + File.separator + "NotePack";
             File f = new File(dir);
             if (!f.exists()) {
                 f.mkdirs();
             }
-            
+
             nsc.set("directory", dir);
-            
+
             Notepad notepad = new Notepad(new Filesystem(nsc), "First notepad");
             notepad.setParam("color", "#356fcc");
 
@@ -164,9 +172,6 @@ public class App {
 
     public ArrayList<Note> getLastNotes() {
         ArrayList<Note> result = sessionStorage.getLastNotes();
-        if (result.size() == 0) {
-//            result.add(new Note(new Filesystem()));
-        }
 
         return result;
     }
@@ -179,7 +184,7 @@ public class App {
 
             tmp.addAll(getNoteFromItem(it, notepad));
         }
-        
+
         ArrayList<Note> result = new ArrayList<>();
         for (Note n : tmp) {
             if (n.getPath().toLowerCase().contains(q.toLowerCase())) {
@@ -205,7 +210,6 @@ public class App {
                     res.addAll(getNoteFromItem(it, notepad));
                 }
             }
-            
 
         } else {
             Note n = new Note(item.getPath(), notepad, item.getName());

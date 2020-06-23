@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.NoteStorageItem;
+import notepack.app.domain.exception.MessageError;
 
 public class Filesystem implements NoteStorage {
 
@@ -43,15 +44,13 @@ public class Filesystem implements NoteStorage {
     }
 
     @Override
-    public String loadContent(String path) {
+    public String loadContent(String path) throws MessageError {
 
-        String content = "";
         try {
-            content = new String(Files.readAllBytes(Paths.get(path)));
+            return new String(Files.readAllBytes(Paths.get(path)));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new MessageError(e.getMessage(), e);
         }
-        return content;
     }
 
     @Override
@@ -131,12 +130,12 @@ public class Filesystem implements NoteStorage {
     }
 
     @Override
-    public void saveContent(String content, String path) {
+    public void saveContent(String content, String path) throws MessageError {
 
         try {
             Files.write(Paths.get(path), content.getBytes());
         } catch (IOException ex) {
-            Logger.getLogger(Filesystem.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MessageError(ex.getMessage(), ex);
         }
     }
 

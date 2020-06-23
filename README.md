@@ -20,6 +20,7 @@ Download from [GitHub release](https://github.com/Ogefest/Notepack/releases)
 - multiple note storage backend, filesystem and WebDav supported right now
 - easy note switch using only shortcuts
 - minimalist clean layout
+- encryption using OpenPGP standard
 
 
 ## Roadmap
@@ -28,7 +29,7 @@ Download from [GitHub release](https://github.com/Ogefest/Notepack/releases)
 - notes as todo tasks
 - alerts/notification for some notes
 - s3 storage backend
-- GPG encryption
+- ~~GPG encryption~~ done
 - web clipper
 - clipboard manager
 - support to view pdf/images/md/doc/xls
