@@ -46,7 +46,11 @@ public class ShowGPGPasswordDialog implements Task, TypeGui {
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == ButtonType.OK) {
 
-//                return pwd.getText();
+                notepad.getGpg().setPassword(pwd.getText());
+                dialog.close();
+//                if (notepad.getGpg().isPrivateKeyLoaded()) {
+//                }
+
             }
             return null;
         });
