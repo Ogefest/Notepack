@@ -24,6 +24,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
@@ -168,9 +169,9 @@ public class NotepadCreateController implements Initializable {
         notepadName.setText(notepad.getName());
 
         engineSelection.getItems().clear();
-        
+
         NoteStorage parentStorage = ((NoteStorageMiddleware) notepad.getStorage()).getParentStorage();
-        
+
         if (Filesystem.class.isInstance(parentStorage)) {
             engineSelection.getItems().add(new EngineType("Filesystem", "engine/Filesystem.fxml"));
         }
@@ -245,7 +246,7 @@ public class NotepadCreateController implements Initializable {
 
         String color = (String) tg.getSelectedToggle().getUserData();
         notepad.setParam("color", color);
-        
+
         notepad.registerProcessors();
 
         clbk.ready(notepad);
@@ -281,10 +282,28 @@ public class NotepadCreateController implements Initializable {
 
     @FXML
     private void onSelectPublicKey(ActionEvent event) {
+        Stage stage = (Stage) gpgPublicKeyPath.getScene().getWindow();
+
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select GPG public key");
+
+        File selectedFile = chooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            gpgPublicKeyPath.setText(selectedFile.getAbsolutePath());
+        }
     }
 
     @FXML
     private void onSelectPrivateKey(ActionEvent event) {
+        Stage stage = (Stage) gpgPrivateKeyPath.getScene().getWindow();
+
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select GPG private key");
+
+        File selectedFile = chooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            gpgPrivateKeyPath.setText(selectedFile.getAbsolutePath());
+        }        
     }
 
 }
