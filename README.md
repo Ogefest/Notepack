@@ -1,6 +1,6 @@
 # Notepack
 
-Privacy oriented, without vendor lock in note taking desktop application.
+Privacy oriented, without vendor lock in note organizer desktop application.
 
 ![Main notepack window](/gfx/screen1.png)
 
