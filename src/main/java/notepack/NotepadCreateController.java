@@ -111,6 +111,11 @@ public class NotepadCreateController implements Initializable {
         btnUserColor6.setUserData("#d12121");
 
         tg.selectToggle(btnUserColor1);
+        tg.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
+            if (newVal == null) {
+                oldVal.setSelected(true);
+            }
+        });
 
         gpgCheckbox.selectedProperty().addListener((o) -> {
             if (gpgCheckbox.isSelected()) {
@@ -192,6 +197,14 @@ public class NotepadCreateController implements Initializable {
         gpgSelectPublicKey.setDisable(true);
 
         currentFormController.setStorage(notepad.getStorage());
+        
+        String currentNotepadColor = notepad.getParam("color");
+        if (btnUserColor1.getUserData().equals(currentNotepadColor)) tg.selectToggle(btnUserColor1);
+        if (btnUserColor2.getUserData().equals(currentNotepadColor)) tg.selectToggle(btnUserColor2);
+        if (btnUserColor3.getUserData().equals(currentNotepadColor)) tg.selectToggle(btnUserColor3);
+        if (btnUserColor4.getUserData().equals(currentNotepadColor)) tg.selectToggle(btnUserColor4);
+        if (btnUserColor5.getUserData().equals(currentNotepadColor)) tg.selectToggle(btnUserColor5);
+        if (btnUserColor6.getUserData().equals(currentNotepadColor)) tg.selectToggle(btnUserColor6);
 
         btnSave.setText("Save");
     }
@@ -301,7 +314,7 @@ public class NotepadCreateController implements Initializable {
         File selectedFile = chooser.showOpenDialog(stage);
         if (selectedFile != null) {
             gpgPrivateKeyPath.setText(selectedFile.getAbsolutePath());
-        }        
+        }
     }
 
 }
