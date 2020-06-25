@@ -14,6 +14,8 @@ module notepack {
     requires java.prefs;
     requires org.json;
     requires java.base;
-    requires bcprov.jdk15on;
-    requires bcpg.jdk15on;
+//    requires bcprov.jdk15on;
+//    requires bcpg.jdk15on;
+    requires org.bouncycastle.pg;
+    requires org.bouncycastle.provider;
 }
