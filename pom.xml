@@ -42,12 +42,12 @@
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.56</version>
+            <version>1.64</version>
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpg-jdk15on</artifactId>
-            <version>1.56</version>
+            <version>1.64</version>
         </dependency>        
     </dependencies>
     <build>
@@ -81,6 +81,7 @@
                             <noHeaderFiles>true</noHeaderFiles>
                             <release> ${maven.compiler.release}</release>
                             <jlinkImageName>notepack</jlinkImageName>
+                            <ignoreSigningInformation>true</ignoreSigningInformation>
                             <!--<jlinkZipName>notepack-release</jlinkZipName>-->
                             <launcher>notepack</launcher>
                             <mainClass>notepack/notepack.Main</mainClass>
