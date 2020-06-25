@@ -102,3 +102,7 @@ root > *  {
 .combo-box .cell:selected {
     -fx-text-fill: button-color;
 }
+
+.toggle-button:selected {
+    -fx-pref-height: 34px;
+}
