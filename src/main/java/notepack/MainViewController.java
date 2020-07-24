@@ -460,7 +460,7 @@ public class MainViewController implements Initializable {
                 Stage stage = new Stage();
                 stage.setTitle("Set name");
                 stage.setScene(scene);
-                stage.show();
+                stage.showAndWait();
 
             } catch (IOException ex) {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
