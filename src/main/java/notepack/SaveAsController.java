@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.Collections;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,18 +50,25 @@ public class SaveAsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                noteName.requestFocus();
+            }
+        });
+
     }
 
     public void setNote(Note note) {
         this.note = note;
-        
+
         directoryName = note.getStorage().getBasePath();
         if (!directoryName.endsWith("/")) {
             directoryName += "/";
         }
         parentDirectory.setText(directoryName);
-        
+
         refreshTreeView();
 
         notepadStructure.setCellFactory((p) -> {
@@ -138,6 +146,8 @@ public class SaveAsController implements Initializable {
 
         notepadStructure.setRoot(root);
         notepadStructure.setShowRoot(false);
+
+        noteName.requestFocus();
     }
 
     private TreeItem addChildren(TreeItem parent, NoteStorageItem items) {
