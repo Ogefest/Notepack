@@ -38,6 +38,8 @@ import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
 import notepack.app.storage.JsonNotepadRepository;
 import notepack.app.storage.PreferencesSettings;
+import notepack.app.task.ShowApplicationInfo;
+import notepack.app.task.ShowSearchForNoteDialog;
 import notepack.encrypt.SimpleAES;
 
 /**
@@ -50,7 +52,7 @@ public class MainViewController implements Initializable {
      * Initializes the controller class.
      */
     private App app;
-    private Stage stage;
+    private Stage parentStage;
 
     private Settings appSettings;
 
@@ -62,8 +64,7 @@ public class MainViewController implements Initializable {
     @FXML
     private TabPane notepadContainer;
 
-    private MainViewGuiAction guiAction;
-
+//    private MainViewGuiAction guiAction;
     public HostServices hostServices;
 
     @Override
@@ -78,7 +79,7 @@ public class MainViewController implements Initializable {
 
         app.getMessageBus().registerGuiListener((task) -> {
             Platform.runLater(() -> {
-                task.proceed(stage, app);
+                task.proceed(parentStage, app);
             });
         });
 
@@ -332,21 +333,19 @@ public class MainViewController implements Initializable {
             }
         });
 
-        guiAction = new MainViewGuiAction(stage, app);
-
     }
 
     public void windowRestore() {
-        stage = (Stage) mainPane.getScene().getWindow();
+        parentStage = (Stage) mainPane.getScene().getWindow();
 
-        stage.setOnCloseRequest((t) -> {
+        parentStage.setOnCloseRequest((t) -> {
             app.terminate();
 
-            appSettings.set("window.x", Double.toString(stage.getX()));
-            appSettings.set("window.y", Double.toString(stage.getY()));
-            appSettings.set("window.width", Double.toString(stage.getWidth()));
-            appSettings.set("window.height", Double.toString(stage.getHeight()));
-            appSettings.set("window.is_maximized", stage.isMaximized() ? "1" : "0");
+            appSettings.set("window.x", Double.toString(parentStage.getX()));
+            appSettings.set("window.y", Double.toString(parentStage.getY()));
+            appSettings.set("window.width", Double.toString(parentStage.getWidth()));
+            appSettings.set("window.height", Double.toString(parentStage.getHeight()));
+            appSettings.set("window.is_maximized", parentStage.isMaximized() ? "1" : "0");
         });
 
         double x = Double.parseDouble(appSettings.get("window.x", "90"));
@@ -354,13 +353,13 @@ public class MainViewController implements Initializable {
         double width = Double.parseDouble(appSettings.get("window.width", "900"));
         double height = Double.parseDouble(appSettings.get("window.height", "700"));
 
-        stage.setX(x);
-        stage.setY(y);
-        stage.setWidth(width);
-        stage.setHeight(height);
+        parentStage.setX(x);
+        parentStage.setY(y);
+        parentStage.setWidth(width);
+        parentStage.setHeight(height);
 
         if (appSettings.get("window.is_maximized", "0").equals("1")) {
-            stage.setMaximized(true);
+            parentStage.setMaximized(true);
         }
 
         for (Notepad notepad : app.getAvailableNotepads()) {
@@ -376,27 +375,27 @@ public class MainViewController implements Initializable {
         }
 
         KeyCombination kcCloseNote = new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN);
-        stage.getScene().getAccelerators().put(kcCloseNote, () -> {
+        parentStage.getScene().getAccelerators().put(kcCloseNote, () -> {
             app.closeNote(getCurrentNote());
         });
 
         KeyCombination kcSave = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
-        stage.getScene().getAccelerators().put(kcSave, () -> {
+        parentStage.getScene().getAccelerators().put(kcSave, () -> {
             saveNote(getCurrentNote());
         });
 
         KeyCombination kcNewNote = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
-        stage.getScene().getAccelerators().put(kcNewNote, () -> {
+        parentStage.getScene().getAccelerators().put(kcNewNote, () -> {
             app.newNote(getCurrentNotepad());
         });
 
         KeyCombination kcSearchNote = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
-        stage.getScene().getAccelerators().put(kcSearchNote, () -> {
-            guiAction.showSearchForNoteDialog();
+        parentStage.getScene().getAccelerators().put(kcSearchNote, () -> {
+            app.getMessageBus().addTask(new ShowSearchForNoteDialog());
         });
 
         KeyCombination kcSearchReplaceString = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN);
-        stage.getScene().getAccelerators().put(kcSearchReplaceString, () -> {
+        parentStage.getScene().getAccelerators().put(kcSearchReplaceString, () -> {
             Tab t = tabContainer.getSelectionModel().getSelectedItem();
             Parent p = (Parent) t.getContent();
             ((NoteTabContentController) t.getUserData()).showSearchReplaceForm();
@@ -430,11 +429,10 @@ public class MainViewController implements Initializable {
         return ((NotebookTabController) t.getUserData()).getNotepad();
     }
 
-    private void onFileSave(ActionEvent event) {
-        Note n = getCurrentNote();
-        saveNote(n);
-    }
-
+//    private void onFileSave(ActionEvent event) {
+//        Note n = getCurrentNote();
+//        saveNote(n);
+//    }
     private void saveNote(Note n) {
 
         if (n.getPath() == null) {
@@ -457,6 +455,8 @@ public class MainViewController implements Initializable {
                 ctrl.setNote(n);
 
                 scene = new Scene(root);
+                scene.getStylesheets().addAll(parentStage.getScene().getStylesheets());
+
                 Stage stage = new Stage();
                 stage.setTitle("Set name");
                 stage.setScene(scene);
@@ -482,32 +482,12 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void onNoteSearch(ActionEvent event) {
-        guiAction.showSearchForNoteDialog();
+        app.getMessageBus().addTask(new ShowSearchForNoteDialog());
     }
 
     @FXML
     private void onApplicationInfo(ActionEvent event) {
-
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("AboutDialog.fxml"));
-
-        Scene scene;
-        try {
-            Parent root = fxmlLoader.load();
-
-            AboutDialogController ctrl = (AboutDialogController) fxmlLoader.getController();
-            ctrl.hostServices = hostServices;
-
-            scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setTitle("About");
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException ex) {
-            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        app.getMessageBus().addTask(new ShowApplicationInfo(hostServices));
     }
 
 }
