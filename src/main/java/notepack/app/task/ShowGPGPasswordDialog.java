@@ -15,7 +15,7 @@ import notepack.app.domain.Notepad;
 import notepack.app.domain.Task;
 import notepack.app.listener.GuiListener;
 
-public class ShowGPGPasswordDialog implements Task, TypeGui {
+public class ShowGPGPasswordDialog extends BaseTask implements Task, TypeGui {
 
     @Override
     public void dispatch() {
@@ -33,7 +33,7 @@ public class ShowGPGPasswordDialog implements Task, TypeGui {
 
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Dialog");
-        dialog.setHeaderText("Your GPG key need password to open");
+        dialog.setHeaderText("Your GPG key need password to open " + notepad.getName());
 //        dialog.setGraphic(new Circle(15, Color.RED)); // Custom graphic
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
@@ -43,15 +43,40 @@ public class ShowGPGPasswordDialog implements Task, TypeGui {
         content.setSpacing(10);
         content.getChildren().addAll(new Label("Password"), pwd);
         dialog.getDialogPane().setContent(content);
+        dialog.setOnCloseRequest((t) -> {
+            if (!notepad.getGpg().isPrivateKeyLoaded()) {
+
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText(null);
+                alert.setContentText("GPG encrypted notepad is not opened. Do you want to close it?");
+
+                ButtonType yesButton = new ButtonType("Yes");
+                ButtonType noButton = new ButtonType("No");
+
+                alert.getButtonTypes().setAll(yesButton, noButton);
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == yesButton) {
+                    app.closeNotepad(notepad);
+                }
+
+            }
+        });
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == ButtonType.OK) {
 
                 notepad.getGpg().setPassword(pwd.getText());
-                dialog.close();
-//                if (notepad.getGpg().isPrivateKeyLoaded()) {
-//                }
-
+                if (notepad.getGpg().isPrivateKeyLoaded()) {
+                    dialog.close();
+                } else {
+                    Alert errorAlert = new Alert(AlertType.ERROR);
+                    errorAlert.setHeaderText("Invalid password");
+                    errorAlert.setContentText("Could not open private key using this password");
+                    errorAlert.showAndWait();
+                }
             }
+
             return null;
         });
         dialog.showAndWait();
