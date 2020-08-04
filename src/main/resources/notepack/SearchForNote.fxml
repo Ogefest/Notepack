@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="567.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.SearchForNoteController">
     <stylesheets>
-        <URL value="@color-definition.css" />
+        <!--<URL value="@color-definition.css" />-->
         <URL value="@scrollbar.css" />  
         <URL value="@icons.css" />  
         <URL value="@default.css" />  

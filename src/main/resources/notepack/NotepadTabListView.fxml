@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotebookTabController">
     <stylesheets>
-        <URL value="@color-definition.css" />
+        <!--<URL value="@color-definition.css" />-->
         <URL value="@scrollbar.css" />  
         <URL value="@icons.css" />  
         <URL value="@default.css" />  

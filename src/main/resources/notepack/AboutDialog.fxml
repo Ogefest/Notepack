@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -9,9 +15,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="316.0" prefWidth="623.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.AboutDialogController">
+<VBox prefHeight="316.0" prefWidth="623.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.AboutDialogController">
     <stylesheets>
-        <URL value="@color-definition.css" />
+        <!--<URL value="@color-definition.css" />-->
         <URL value="@scrollbar.css" />  
         <URL value="@icons.css" />  
         <URL value="@default.css" />  
@@ -32,7 +38,6 @@
                      </font>
                   </Label>
                   <Hyperlink layoutX="175.0" layoutY="140.0" onAction="#openBrowser" text="github.com/Ogefest/Notepack" />
-                  <Label layoutX="260.0" layoutY="110.0" text="v0.5" />
                </children>
             </AnchorPane>
             </children>
