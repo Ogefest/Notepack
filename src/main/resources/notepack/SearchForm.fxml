@@ -12,7 +12,7 @@
 
 <VBox prefHeight="295.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.SearchFormController">
     <stylesheets>
-        <URL value="@color-definition.css" />
+        <!--<URL value="@color-definition.css" />-->
         <URL value="@scrollbar.css" />  
         <URL value="@icons.css" />  
         <URL value="@default.css" />  

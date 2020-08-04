@@ -10,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="209.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
-        <URL value="@color-definition.css" />
+        <!--<URL value="@color-definition.css" />-->
         <URL value="@scrollbar.css" />  
         <URL value="@icons.css" />  
         <URL value="@default.css" />  
