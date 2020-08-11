@@ -93,9 +93,13 @@ public class NotebookTabController implements Initializable {
         NoteStorageItem items = notepad.getStorage().getItemsInStorage();
 
         Collections.sort(items.get(), (NoteStorageItem o1, NoteStorageItem o2) -> {
-            if (o1.isLeaf()) {
+            if (o1.isLeaf() && !o2.isLeaf()) {
                 return 1;
             }
+            if (!o1.isLeaf() && o2.isLeaf()) {
+                return -1;
+            }
+
             if (o1.getModified() > o2.getModified()) {
                 return -1;
             } else if (o1.getModified() == o2.getModified()) {
