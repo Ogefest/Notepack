@@ -14,7 +14,7 @@ public interface NoteStorage {
 
     public NoteStorageItem getItemsInStorage();
 
-    public void refreshItemsInStorage();
+    public void refreshItemsInStorage() throws MessageError;
 
     public void rename(String oldPath, String newPath);
 

@@ -2,6 +2,7 @@ package notepack.app.task;
 
 import notepack.app.domain.Notepad;
 import notepack.app.domain.Task;
+import notepack.app.domain.exception.MessageError;
 import notepack.app.listener.NotepadListener;
 
 public class RefreshNotepad implements Task,TypeNotepad {
@@ -13,7 +14,7 @@ public class RefreshNotepad implements Task,TypeNotepad {
     }
     
     @Override
-    public void dispatch() {
+    public void dispatch() throws MessageError {
         notepad.getStorage().refreshItemsInStorage();
     }
 
