@@ -102,7 +102,7 @@ public class Webdav implements NoteStorage {
     }
 
     @Override
-    public void refreshItemsInStorage() {
+    public void refreshItemsInStorage() throws MessageError {
 
         added.clear();
 
@@ -111,7 +111,7 @@ public class Webdav implements NoteStorage {
 
     }
 
-    private NoteStorageItem addItems(NoteStorageItem parent, String startPath, int deep) {
+    private NoteStorageItem addItems(NoteStorageItem parent, String startPath, int deep) throws MessageError {
         if (deep > 5) {
             return parent;
         }
@@ -224,7 +224,7 @@ public class Webdav implements NoteStorage {
             }
 
         } catch (IOException | InterruptedException | ParserConfigurationException | SAXException ex) {
-            Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MessageError(ex.getMessage(), ex);
         }
 
         return parent;

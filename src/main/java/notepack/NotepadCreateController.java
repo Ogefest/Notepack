@@ -29,6 +29,7 @@ import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.NoteStorageItem;
 import notepack.app.domain.NoteStorageMiddleware;
 import notepack.app.domain.Notepad;
+import notepack.app.domain.exception.MessageError;
 import notepack.app.storage.Filesystem;
 import notepack.app.storage.Webdav;
 import notepack.engine.EngineController;
@@ -286,7 +287,11 @@ public class NotepadCreateController implements Initializable {
         Webdav wd = new Webdav(nsc);
 
         NoteStorageItem noteItem = wd.getItemsInStorage();
-        wd.refreshItemsInStorage();
+        try {
+            wd.refreshItemsInStorage();
+        } catch (MessageError ex) {
+            Logger.getLogger(NotepadCreateController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         noteItem.getName();
     }
