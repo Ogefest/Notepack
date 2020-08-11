@@ -77,7 +77,7 @@ public class NoteStorageMiddleware implements NoteStorage {
     }
 
     @Override
-    public void refreshItemsInStorage() {
+    public void refreshItemsInStorage() throws MessageError {
         noteStorage.refreshItemsInStorage();
     }
 

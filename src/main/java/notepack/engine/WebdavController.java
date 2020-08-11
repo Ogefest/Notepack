@@ -2,6 +2,8 @@ package notepack.engine;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +14,7 @@ import javafx.scene.control.TextField;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.NoteStorageItem;
+import notepack.app.domain.exception.MessageError;
 import notepack.app.storage.Webdav;
 
 /**
@@ -55,7 +58,11 @@ public class WebdavController implements Initializable, EngineController {
         Webdav wd = new Webdav(nsc);
 
         NoteStorageItem noteItem = wd.getItemsInStorage();
-        wd.refreshItemsInStorage();
+        try {
+            wd.refreshItemsInStorage();
+        } catch (MessageError ex) {
+            Logger.getLogger(WebdavController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         noteItem.getName();
 
