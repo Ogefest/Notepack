@@ -39,7 +39,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#onSwitchTheme" styleClass="icon-button" text="%fa.adjust" textFill="WHITE">
                      <tooltip>
-                        <Tooltip text="Search for note (Ctrl + Shift + F)" />
+                        <Tooltip text="Toggle theme" />
                      </tooltip>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#onNoteSearch" styleClass="icon-button" text="%fa.search" textFill="WHITE">
