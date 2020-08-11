@@ -468,7 +468,7 @@ public class MainViewController implements Initializable {
                 ctrl.setNote(n);
 
                 scene = new Scene(root);
-                scene.getStylesheets().addAll(parentStage.getScene().getStylesheets());
+                theme.setCurrent(scene);
 
                 Stage stage = new Stage();
                 stage.setTitle("Set name");
@@ -505,9 +505,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void onSwitchTheme(ActionEvent event) {
-
         theme.toggle(mainScene);
-
     }
 
 }
