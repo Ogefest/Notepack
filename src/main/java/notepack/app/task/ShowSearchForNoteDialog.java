@@ -46,7 +46,7 @@ public class ShowSearchForNoteDialog extends BaseTask implements Task, TypeGui {
             stage.initStyle(StageStyle.UNDECORATED);
             stage.initOwner(parentStage.getScene().getWindow());
             stage.setScene(scene);
-            stage.show();
+            stage.showAndWait();
 
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
