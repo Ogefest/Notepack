@@ -16,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
+import notepack.app.storage.PreferencesSettings;
 
 /**
  * FXML Controller class

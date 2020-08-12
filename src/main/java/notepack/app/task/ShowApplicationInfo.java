@@ -10,8 +10,10 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import notepack.AboutDialogController;
+import notepack.Theme;
 import notepack.app.domain.App;
 import notepack.app.domain.Task;
+import notepack.app.storage.PreferencesSettings;
 
 public class ShowApplicationInfo extends BaseTask implements Task, TypeGui {
 
@@ -39,6 +41,7 @@ public class ShowApplicationInfo extends BaseTask implements Task, TypeGui {
             ctrl.hostServices = hostServices;
 
             scene = new Scene(root);
+            new Theme(new PreferencesSettings()).setCurrent(scene);
 
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);

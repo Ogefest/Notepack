@@ -19,8 +19,10 @@ import javafx.scene.control.MenuItem;
 
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import notepack.app.domain.Note;
+import notepack.app.storage.PreferencesSettings;
 
 /**
  * FXML Controller class
@@ -143,14 +145,16 @@ public class NoteTabContentController implements Initializable {
 
                         }
                     }
-
                 }
             });
 
             scene = new Scene(root);
+            new Theme(new PreferencesSettings()).setCurrent(scene);
+
             Stage stage = new Stage();
             stage.setTitle("Search/Replace");
             stage.setScene(scene);
+            stage.initModality(Modality.WINDOW_MODAL);
             stage.show();
 
         } catch (IOException ex) {
