@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
@@ -66,7 +67,7 @@ public class Webdav implements NoteStorage {
                         nsc.get("username"),
                         nsc.get("password").toCharArray());
             }
-        }).build();
+        }).connectTimeout(Duration.ofSeconds(5)).build();
 
     }
 
