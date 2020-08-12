@@ -23,6 +23,7 @@
 
 .root { 
     -fx-focus-color: transparent; 
+    -fx-background-color: main-background-color;
 }
 
 .tab:focused,
