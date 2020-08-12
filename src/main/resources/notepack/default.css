@@ -135,6 +135,10 @@
     -fx-background-color: -fx-bar-background;
 }
 
+.top-bar .label {
+    -fx-text-fill: tab-text;
+}
+
 /*.search-input {
     -fx-border-radius: 10 10 10 10;
     -fx-background-radius: 10 10 10 10;
@@ -175,6 +179,10 @@
     -fx-text-fill: derive(cell-selection-color, -70%);
 }
 
+.tree-cell {
+    -fx-background-color: tree-view-background;
+}
+
 .icon-button {
     -fx-background-color: transparent;
     -fx-font-size: 20.0 pt;
@@ -189,13 +197,11 @@
 
 .icon-button:hover {
 
-    -fx-background-color: rgba(255,255,255,0.75),
-        linear-gradient(to bottom, icon-hover1 0%, icon-hover2 100%);
+    -fx-background-color: linear-gradient(to bottom, icon-hover1 0%, icon-hover2 100%);
     -fx-background-insets: 0,1;
     /*-fx-padding: 7px;*/
     -fx-background-radius: 3px;
     -fx-border-radius: 3px;
-    -fx-effect: innershadow(three-pass-box, rgba(110,110,110,0.15),1,0,1,1);
 
 }
 
@@ -211,6 +217,14 @@
 /*.icon-button > .menu-item > .label {
     -fx-font-size: 14.0 pt;
 }*/
+
+.label {
+    -fx-text-fill: text-color;
+}
+.sub-text {
+    -fx-text-fill: sub-text-color;
+}
+
 
 .text-input {
     /*-fx-highlight-fill:  derive(-fx-bar-background,10%);*/
