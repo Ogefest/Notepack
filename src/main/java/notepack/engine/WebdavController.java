@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -57,14 +58,17 @@ public class WebdavController implements Initializable, EngineController {
 
         Webdav wd = new Webdav(nsc);
 
-        NoteStorageItem noteItem = wd.getItemsInStorage();
         try {
+            NoteStorageItem noteItem = wd.getItemsInStorage();
             wd.refreshItemsInStorage();
         } catch (MessageError ex) {
-            Logger.getLogger(WebdavController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR, "WebDAV problem: " + ex.getMessage());
+            a.showAndWait();
+            return;
         }
 
-        noteItem.getName();
+        Alert a = new Alert(Alert.AlertType.INFORMATION, "WebDAV configuration looks good ");
+        a.showAndWait();
 
     }
 
