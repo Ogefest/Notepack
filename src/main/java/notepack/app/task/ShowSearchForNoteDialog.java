@@ -11,8 +11,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import notepack.MainViewController;
 import notepack.SearchForNoteController;
+import notepack.Theme;
 import notepack.app.domain.App;
 import notepack.app.domain.Task;
+import notepack.app.storage.PreferencesSettings;
 
 public class ShowSearchForNoteDialog extends BaseTask implements Task, TypeGui {
 
@@ -41,6 +43,8 @@ public class ShowSearchForNoteDialog extends BaseTask implements Task, TypeGui {
             ctrl.setApp(app);
 
             scene = new Scene(root);
+            new Theme(new PreferencesSettings()).setCurrent(scene);
+
             Stage stage = new Stage();
             stage.setAlwaysOnTop(true);
             stage.initStyle(StageStyle.UNDECORATED);

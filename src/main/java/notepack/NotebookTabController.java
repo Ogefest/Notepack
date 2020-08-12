@@ -20,11 +20,13 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorageItem;
 import notepack.app.domain.Notepad;
+import notepack.app.storage.PreferencesSettings;
 
 /**
  * FXML Controller class
@@ -229,7 +231,10 @@ public class NotebookTabController implements Initializable {
             });
 
             scene = new Scene(root);
+            new Theme(new PreferencesSettings()).setCurrent(scene);
+
             Stage stage = new Stage();
+            stage.initModality(Modality.WINDOW_MODAL);
             stage.setTitle("Add new notepad");
             stage.setScene(scene);
             stage.show();
@@ -259,7 +264,9 @@ public class NotebookTabController implements Initializable {
             });
 
             scene = new Scene(root);
+            new Theme(new PreferencesSettings()).setCurrent(scene);
             Stage stage = new Stage();
+            stage.initModality(Modality.WINDOW_MODAL);
             stage.setTitle("Edit notepad");
             stage.setScene(scene);
             stage.show();
