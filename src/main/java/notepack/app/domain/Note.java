@@ -1,6 +1,7 @@
 package notepack.app.domain;
 
 import java.io.File;
+import java.util.Date;
 import notepack.app.domain.exception.MessageError;
 
 public class Note {
@@ -13,7 +14,7 @@ public class Note {
     private boolean isSaved = true;
 
     public Note(Notepad notepad) {
-        this.ident = notepad.getIdent() + path;
+        this.ident = notepad.getIdent() + Long.toString(new Date().getTime());
         this.path = null;
         this.notepad = notepad;
     }
