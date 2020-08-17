@@ -281,14 +281,42 @@
 }
 
 .context-menu {
-  -fx-background-color: main-background-color;
-  -fx-text-fill: text-color;
+    -fx-background-color: main-background-color;
+    -fx-text-fill: text-color;
 }
 
 .menu-item .label {
-  -fx-text-fill: text-color;
+    -fx-text-fill: text-color;
 }
 
 .menu-item:focused .label {
-  -fx-text-fill: sub-text-color;
+    -fx-text-fill: sub-text-color;
+}
+
+.list-view {
+    -fx-background-color: main-background-color;
+    -fx-text-fill: text-color;
+    -fx-border-color: input-border;
+    -fx-background-radius: 2;
+    -fx-border-radius: 2;    
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    /*-fx-background-color: linear-gradient(text-selection-background 0%, input-background 100%);*/
+    -fx-background-color: text-selection-background;
+    -fx-text-fill: text-selection-text;    
+}
+
+.list-cell { 
+    -fx-background-color: derive(main-background-color,10%);
+    -fx-text-fill: text-color;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: main-background-color;
+    -fx-text-fill: sub-text-color;    
+}
+
+.check-box .label {
+    -fx-text-fill: text-color;
 }
