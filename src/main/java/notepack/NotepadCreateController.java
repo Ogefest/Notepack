@@ -239,6 +239,7 @@ public class NotepadCreateController implements Initializable {
             notepad = new Notepad(currentFormController.getStorage(), name);
         } else {
             notepad.getStorage().setConfiguration(currentFormController.getStorage().getConfiguration());
+            notepad.setParam("name", name);
         }
 
         if (tg.getSelectedToggle() == null) {
