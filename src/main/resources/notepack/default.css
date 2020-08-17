@@ -279,3 +279,16 @@
     /*-fx-effect: innershadow(three-pass-box, rgba(110,110,110,0.15),1,0,1,1);*/
 
 }
+
+.context-menu {
+  -fx-background-color: main-background-color;
+  -fx-text-fill: text-color;
+}
+
+.menu-item .label {
+  -fx-text-fill: text-color;
+}
+
+.menu-item:focused .label {
+  -fx-text-fill: sub-text-color;
+}
