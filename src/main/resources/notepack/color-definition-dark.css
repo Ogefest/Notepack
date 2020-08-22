@@ -16,15 +16,18 @@
     tab-shadow: #2d2d30;
     
     text-color: #e6e6e8;
+    sub-text-color: #656565;
     
     input-background: #404052;
     text-area-background: #24242e;
     tree-view-background: #24242e;
+    list-view-background: #24242e;
     
     input-border: #6f6f7d;
     
-    icon-hover1:#ececec;
-    icon-hover2:#eeeeee;
+    icon-hover1:#404052;
+    icon-hover2:#383842;
+    
     icon-color: #c7c7c7;
     
     toolbar-background: #24242e;    
