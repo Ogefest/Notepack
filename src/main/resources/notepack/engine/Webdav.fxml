@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -8,10 +13,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="267.0" prefWidth="686.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.engine.WebdavController">
+<AnchorPane id="AnchorPane" prefHeight="267.0" prefWidth="686.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.engine.WebdavController">
     <stylesheets>
-        <URL value="@/notepack/color-definition.css" />
-        <URL value="@/notepack/scrollbar.css" />  
+        <URL value="@/notepack/scrollbar.css" />
         <URL value="@/notepack/icons.css" />  
         <URL value="@/notepack/default.css" />  
         <URL value="@/notepack/notepadsettings.css" />  

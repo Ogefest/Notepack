@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -14,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="843.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.MainViewController">
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="843.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.MainViewController">
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
         <URL value="@scrollbar.css" />  
@@ -30,6 +37,11 @@
                </font></Label>
             <HBox alignment="CENTER_RIGHT" layoutX="1047.0" layoutY="-23.0" prefHeight="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
+                  <Button mnemonicParsing="false" onAction="#onSwitchTheme" styleClass="icon-button" text="%fa.adjust" textFill="WHITE">
+                     <tooltip>
+                        <Tooltip text="Toggle theme" />
+                     </tooltip>
+                  </Button>
                   <Button mnemonicParsing="false" onAction="#onNoteSearch" styleClass="icon-button" text="%fa.search" textFill="WHITE">
                      <tooltip>
                         <Tooltip text="Search for note (Ctrl + Shift + F)" />

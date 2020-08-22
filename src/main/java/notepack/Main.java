@@ -37,10 +37,10 @@ public class Main extends Application {
 
         Scene scene = new Scene(root);
 
+        ctrl.setScene(scene);
+
         String regularMode = getClass().getResource("color-definition.css").toExternalForm();
         String darkMode = getClass().getResource("color-definition-dark.css").toExternalForm();
-
-        scene.getStylesheets().add(regularMode);
 
         stage.setScene(scene);
         stage.setOnShowing((t) -> {
