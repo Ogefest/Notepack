@@ -31,6 +31,7 @@ import notepack.app.domain.NoteStorageMiddleware;
 import notepack.app.domain.Notepad;
 import notepack.app.domain.exception.MessageError;
 import notepack.app.storage.Filesystem;
+import notepack.app.storage.PreferencesSettings;
 import notepack.app.storage.Webdav;
 import notepack.engine.EngineController;
 import notepack.engine.EngineType;
@@ -150,6 +151,8 @@ public class NotepadCreateController implements Initializable {
 
             try {
                 Parent root = fxmlLoader.load();
+//                new Theme(new PreferencesSettings()).setCurrent(root.getScene());
+                
                 currentFormController = (EngineController) fxmlLoader.getController();
 
                 engineForm.getChildren().add(root);
@@ -198,14 +201,26 @@ public class NotepadCreateController implements Initializable {
         gpgSelectPublicKey.setDisable(true);
 
         currentFormController.setStorage(notepad.getStorage());
-        
+
         String currentNotepadColor = notepad.getParam("color");
-        if (btnUserColor1.getUserData().equals(currentNotepadColor)) tg.selectToggle(btnUserColor1);
-        if (btnUserColor2.getUserData().equals(currentNotepadColor)) tg.selectToggle(btnUserColor2);
-        if (btnUserColor3.getUserData().equals(currentNotepadColor)) tg.selectToggle(btnUserColor3);
-        if (btnUserColor4.getUserData().equals(currentNotepadColor)) tg.selectToggle(btnUserColor4);
-        if (btnUserColor5.getUserData().equals(currentNotepadColor)) tg.selectToggle(btnUserColor5);
-        if (btnUserColor6.getUserData().equals(currentNotepadColor)) tg.selectToggle(btnUserColor6);
+        if (btnUserColor1.getUserData().equals(currentNotepadColor)) {
+            tg.selectToggle(btnUserColor1);
+        }
+        if (btnUserColor2.getUserData().equals(currentNotepadColor)) {
+            tg.selectToggle(btnUserColor2);
+        }
+        if (btnUserColor3.getUserData().equals(currentNotepadColor)) {
+            tg.selectToggle(btnUserColor3);
+        }
+        if (btnUserColor4.getUserData().equals(currentNotepadColor)) {
+            tg.selectToggle(btnUserColor4);
+        }
+        if (btnUserColor5.getUserData().equals(currentNotepadColor)) {
+            tg.selectToggle(btnUserColor5);
+        }
+        if (btnUserColor6.getUserData().equals(currentNotepadColor)) {
+            tg.selectToggle(btnUserColor6);
+        }
 
         btnSave.setText("Save");
     }
@@ -224,6 +239,7 @@ public class NotepadCreateController implements Initializable {
             notepad = new Notepad(currentFormController.getStorage(), name);
         } else {
             notepad.getStorage().setConfiguration(currentFormController.getStorage().getConfiguration());
+            notepad.setParam("name", name);
         }
 
         if (tg.getSelectedToggle() == null) {
@@ -285,15 +301,19 @@ public class NotepadCreateController implements Initializable {
         nsc.set("password", password);
 
         Webdav wd = new Webdav(nsc);
-
-        NoteStorageItem noteItem = wd.getItemsInStorage();
+        
         try {
+            NoteStorageItem noteItem = wd.getItemsInStorage();
             wd.refreshItemsInStorage();
         } catch (MessageError ex) {
-            Logger.getLogger(NotepadCreateController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert a = new Alert(Alert.AlertType.ERROR, "WebDAV problem: " + ex.getMessage());
+            a.showAndWait();
+            return;
         }
 
-        noteItem.getName();
+        Alert a = new Alert(Alert.AlertType.INFORMATION, "WebDAV configuration looks good ");
+        a.showAndWait();
+
     }
 
     @FXML

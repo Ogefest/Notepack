@@ -67,12 +67,22 @@ public class MainViewController implements Initializable {
 //    private MainViewGuiAction guiAction;
     public HostServices hostServices;
 
+    private Scene mainScene;
+
+    private Theme theme;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
 
+    public void setScene(Scene scene) {
+        this.mainScene = scene;
+    }
+
     public void appStart() {
         appSettings = new PreferencesSettings();
+        theme = new Theme(appSettings);
+
         SessionStorage sessionStorage = new JsonNotepadRepository(new SimpleAES(), appSettings);
 
         app = new App(sessionStorage);
@@ -374,6 +384,9 @@ public class MainViewController implements Initializable {
             }
         }
 
+        String cssFile = appSettings.get("color-definition", "color-definition.css");
+        theme.set(cssFile, mainScene);
+
         KeyCombination kcCloseNote = new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN);
         parentStage.getScene().getAccelerators().put(kcCloseNote, () -> {
             app.closeNote(getCurrentNote());
@@ -455,7 +468,7 @@ public class MainViewController implements Initializable {
                 ctrl.setNote(n);
 
                 scene = new Scene(root);
-                scene.getStylesheets().addAll(parentStage.getScene().getStylesheets());
+                theme.setCurrent(scene);
 
                 Stage stage = new Stage();
                 stage.setTitle("Set name");
@@ -488,6 +501,11 @@ public class MainViewController implements Initializable {
     @FXML
     private void onApplicationInfo(ActionEvent event) {
         app.getMessageBus().addTask(new ShowApplicationInfo(hostServices));
+    }
+
+    @FXML
+    private void onSwitchTheme(ActionEvent event) {
+        theme.toggle(mainScene);
     }
 
 }
