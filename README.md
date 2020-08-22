@@ -22,10 +22,33 @@ Download from [GitHub release](https://github.com/Ogefest/Notepack/releases)
 - minimalist clean layout
 - encryption using OpenPGP standard
 
+## Screenshots
+
+### Main window
+![Main notepack window](/gfx/screen1.png)
+
+### New notepad
+![New notepad](/gfx/new-notepad.png)
+
+
+### Dark theme
+![Dark theme](/gfx/dark-mode.gif)
+
+### Search for notes
+![Search for notes](/gfx/search.gif)
+
+### Notepad colors
+![Colors](/gfx/colors.gif)
+
+### GPG
+![GPG](/gfx/gpg.gif)
+
+### Storage
+![Storage](/gfx/storage.gif)
 
 ## Roadmap
 
-- dark theme
+- ~~dark theme~~ done
 - notes as todo tasks
 - alerts/notification for some notes
 - s3 storage backend
