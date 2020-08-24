@@ -76,7 +76,7 @@ public class Webdav implements NoteStorage {
     }
 
     @Override
-    public String loadContent(String path) throws MessageError {
+    public byte[] loadContent(String path) throws MessageError {
 
         try {
 
@@ -85,7 +85,7 @@ public class Webdav implements NoteStorage {
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            return response.body();
+            return response.body().getBytes();
 
         } catch (IOException | InterruptedException ex) {
             throw new MessageError(ex.getMessage(), ex);
@@ -232,11 +232,11 @@ public class Webdav implements NoteStorage {
     }
 
     @Override
-    public void saveContent(String content, String path) throws MessageError {
+    public void saveContent(byte[] content, String path) throws MessageError {
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(path)).PUT(BodyPublishers.ofString(content)).build();
+                    .uri(URI.create(path)).PUT(BodyPublishers.ofByteArray(content)).build();
 
             HttpResponse<?> response = client.send(request, BodyHandlers.discarding());
         } catch (IOException | InterruptedException ex) {

@@ -6,7 +6,7 @@ import notepack.app.domain.exception.MessageError;
 
 public class Note {
 
-    private String content;
+    private byte[] content;
     private String path = null;
     private String name = null;
     private Notepad notepad;
@@ -58,18 +58,18 @@ public class Note {
         this.path = path;
     }
 
-    public void setContents(String content) {
+    public void setContents(byte[] content) {
         this.content = content;
         isSaved = false;
     }
 
-    public String getContent() {
+    public byte[] getContent() {
         return content;
     }
 
     public void readFromStorage() throws MessageError {
         if (path == null) {
-            content = "";
+            content = new byte[0];
         } else {
             content = notepad.getStorage().loadContent(path);
         }
