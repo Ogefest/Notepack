@@ -44,10 +44,10 @@ public class Filesystem implements NoteStorage {
     }
 
     @Override
-    public String loadContent(String path) throws MessageError {
+    public byte[] loadContent(String path) throws MessageError {
 
         try {
-            return new String(Files.readAllBytes(Paths.get(path)));
+            return Files.readAllBytes(Paths.get(path));
         } catch (IOException e) {
             throw new MessageError(e.getMessage(), e);
         }
@@ -85,6 +85,7 @@ public class Filesystem implements NoteStorage {
         supportedExtensions.add("csv");
         supportedExtensions.add("yaml");
         supportedExtensions.add("log");
+        supportedExtensions.add("pdf");
 
         File f = new File(startPath);
         for (String p : f.list()) {
@@ -130,10 +131,10 @@ public class Filesystem implements NoteStorage {
     }
 
     @Override
-    public void saveContent(String content, String path) throws MessageError {
+    public void saveContent(byte[] content, String path) throws MessageError {
 
         try {
-            Files.write(Paths.get(path), content.getBytes());
+            Files.write(Paths.get(path), content);
         } catch (IOException ex) {
             throw new MessageError(ex.getMessage(), ex);
         }

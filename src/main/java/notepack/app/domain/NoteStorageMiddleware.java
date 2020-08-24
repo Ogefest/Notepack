@@ -47,7 +47,7 @@ public class NoteStorageMiddleware implements NoteStorage {
     }
 
     @Override
-    public void saveContent(String content, String path) throws MessageError {
+    public void saveContent(byte[] content, String path) throws MessageError {
 
         for (NoteProcessor p : beforeSave) {
             content = p.run(content);
@@ -61,8 +61,8 @@ public class NoteStorageMiddleware implements NoteStorage {
     }
 
     @Override
-    public String loadContent(String path) throws MessageError {
-        String content = noteStorage.loadContent(path);
+    public byte[] loadContent(String path) throws MessageError {
+        byte[] content = noteStorage.loadContent(path);
 
         for (NoteProcessor p : afterLoad) {
             content = p.run(content);

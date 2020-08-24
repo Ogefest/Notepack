@@ -109,7 +109,7 @@ public class App {
         messageBus.addTask(new CloseNote(n));
     }
 
-    public void changeNote(Note n, String newValue) {
+    public void changeNote(Note n, byte[] newValue) {
         n.setContents(newValue);
         messageBus.addTask(new ChangedNote(n));
     }

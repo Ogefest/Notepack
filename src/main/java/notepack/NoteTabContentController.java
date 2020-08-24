@@ -64,7 +64,7 @@ public class NoteTabContentController implements Initializable {
     public void setNote(Note note) {
         this.note = note;
 
-        textArea.setText(note.getContent());
+        textArea.setText(new String(note.getContent()));
 
         tabBackground.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
 
