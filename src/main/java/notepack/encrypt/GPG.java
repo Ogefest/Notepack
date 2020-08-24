@@ -62,16 +62,16 @@ public class GPG {
         this.password = password;
     }
 
-    public String encrypt(String content) {
+    public byte[] encrypt(byte[] content) {
 
-        String result = content;
+        byte[] result = content;
 
         try {
             PGPPublicKey key = getPublicKeyFromFile(new FileInputStream(publicKeyPath));
 
-            byte[] res = encrypt(content.getBytes("UTF-8"), key);
+            result = encrypt(content, key);
 
-            result = new String(res);
+//            result = new String(res);
 
         } catch (IOException | PGPException ex) {
             Logger.getLogger(GPG.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,20 +80,20 @@ public class GPG {
         return result;
     }
 
-    public String decrypt(String content) throws MessageError {
+    public byte[] decrypt(byte[] content) throws MessageError {
 
         PGPPrivateKey privateKey = getPrivateKey();
 
         byte[] result;
         try {
-            result = decrypt(content.getBytes("UTF-8"), privateKey);
+            result = decrypt(content, privateKey);
         } catch (UnsupportedEncodingException ex) {
             throw new MessageError(ex.getMessage(), ex);
         } catch (PGPException | IOException ex) {
             throw new MessageError(ex.getMessage(), ex);
         }
 
-        return new String(result);
+        return result;
     }
 
     public boolean isPrivateKeyExists() {

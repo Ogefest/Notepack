@@ -4,5 +4,5 @@ import notepack.app.domain.exception.MessageError;
 
 public interface NoteProcessor {
 
-    public String run(String input) throws MessageError;
+    public byte[] run(byte[] input) throws MessageError;
 }

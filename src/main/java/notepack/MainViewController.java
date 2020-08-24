@@ -116,7 +116,7 @@ public class MainViewController implements Initializable {
                     NoteTabContentController ctrl = loader.getController();
                     ctrl.setNote(note);
                     ctrl.getTextArea().textProperty().addListener((ov, oldValue, newValue) -> {
-                        app.changeNote(note, newValue);
+                        app.changeNote(note, newValue.getBytes());
                     });
                     ctrl.setNoteTabContentCallback(new NoteTabContentCallback() {
                         @Override
@@ -221,7 +221,7 @@ public class MainViewController implements Initializable {
 
                             Label l = (Label) t.getGraphic();
 
-                            if (ctrl.getTextArea().getText().equals(n.getContent())) {
+                            if (ctrl.getTextArea().getText().equals(new String(n.getContent()))) {
 
                                 ResourceBundle bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
                                 l.setText(bundle.getString("fa.pencil_square_o"));

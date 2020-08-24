@@ -14,7 +14,7 @@ public class NewNote implements Task,TypeNote {
 
     @Override
     public void dispatch() {
-        note.setContents("");
+        note.setContents(new byte[0]);
     }
 
     @Override

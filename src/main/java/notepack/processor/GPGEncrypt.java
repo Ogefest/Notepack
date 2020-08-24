@@ -12,7 +12,7 @@ public class GPGEncrypt implements NoteProcessor {
     }
 
     @Override
-    public String run(String input) throws MessageError {
+    public byte[] run(byte[] input) throws MessageError {
         return gpg.encrypt(input);
     }
 

@@ -8,9 +8,9 @@ public interface NoteStorage {
 
     public NoteStorageConfiguration getConfiguration();
 
-    public void saveContent(String content, String path) throws MessageError;
+    public void saveContent(byte[] content, String path) throws MessageError;
 
-    public String loadContent(String path) throws MessageError;
+    public byte[] loadContent(String path) throws MessageError;
 
     public NoteStorageItem getItemsInStorage();
 
