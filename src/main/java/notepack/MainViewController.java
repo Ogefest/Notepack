@@ -41,6 +41,8 @@ import notepack.app.storage.PreferencesSettings;
 import notepack.app.task.ShowApplicationInfo;
 import notepack.app.task.ShowSearchForNoteDialog;
 import notepack.encrypt.SimpleAES;
+import notepack.noterender.NoteRenderController;
+import notepack.noterender.Render;
 
 /**
  * FXML Controller class
@@ -98,7 +100,7 @@ public class MainViewController implements Initializable {
             public void onOpen(Note note) {
 
                 for (Tab t : tabContainer.getTabs()) {
-                    NoteTabContentController ctrl = (NoteTabContentController) t.getUserData();
+                    NoteRenderController ctrl = (NoteRenderController) t.getUserData();
                     if (ctrl.getNote().getIdent().equals(note.getIdent())) {
                         Platform.runLater(() -> {
                             tabContainer.getSelectionModel().select(t);
@@ -110,14 +112,15 @@ public class MainViewController implements Initializable {
 
                 final Tab newTab = new Tab();
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("NoteTabContent.fxml"));
+//                    FXMLLoader loader = new FXMLLoader(getClass().getResource("NoteTabContent.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(Render.getFxml(note)));
                     loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
                     Node tabContent = loader.load();
-                    NoteTabContentController ctrl = loader.getController();
+                    NoteRenderController ctrl = loader.getController();
                     ctrl.setNote(note);
-                    ctrl.getTextArea().textProperty().addListener((ov, oldValue, newValue) -> {
-                        app.changeNote(note, newValue.getBytes());
-                    });
+//                    ctrl.getTextArea().textProperty().addListener((ov, oldValue, newValue) -> {
+//                        app.changeNote(note, newValue.getBytes());
+//                    });
                     ctrl.setNoteTabContentCallback(new NoteTabContentCallback() {
                         @Override
                         public void onSaveNote(Note n) {
@@ -160,7 +163,7 @@ public class MainViewController implements Initializable {
                         tabContainer.getTabs().add(newTab);
                         tabContainer.getSelectionModel().select(newTab);
 
-                        ctrl.getTextArea().requestFocus();
+//                        ctrl.getTextArea().requestFocus();
                     });
 
                 } catch (IOException ex) {
@@ -173,7 +176,7 @@ public class MainViewController implements Initializable {
 
                 Platform.runLater(() -> {
                     for (Tab t : tabContainer.getTabs()) {
-                        NoteTabContentController ctrl = (NoteTabContentController) t.getUserData();
+                        NoteRenderController ctrl = (NoteRenderController) t.getUserData();
                         Note note = ctrl.getNote();
                         if (note.getIdent().equals(n.getIdent())) {
 
@@ -214,22 +217,22 @@ public class MainViewController implements Initializable {
                 Platform.runLater(() -> {
                     for (Tab t : tabContainer.getTabs()) {
 
-                        NoteTabContentController ctrl = (NoteTabContentController) t.getUserData();
+                        NoteRenderController ctrl = (NoteRenderController) t.getUserData();
 
                         if (ctrl.getNote().getIdent().equals(n.getIdent())) {
                             t.setText(n.getName());
 
                             Label l = (Label) t.getGraphic();
 
-                            if (ctrl.getTextArea().getText().equals(new String(n.getContent()))) {
-
-                                ResourceBundle bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
-                                l.setText(bundle.getString("fa.pencil_square_o"));
-                                l.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 16;");
-
-                            } else {
-                                l.setText("");
-                            }
+//                            if (ctrl.getTextArea().getText().equals(new String(n.getContent()))) {
+//
+//                                ResourceBundle bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
+//                                l.setText(bundle.getString("fa.pencil_square_o"));
+//                                l.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 16;");
+//
+//                            } else {
+//                                l.setText("");
+//                            }
                         }
                     }
                 });
@@ -239,7 +242,7 @@ public class MainViewController implements Initializable {
             public void onSave(Note n) {
                 Platform.runLater(() -> {
                     for (Tab t : tabContainer.getTabs()) {
-                        NoteTabContentController ctrl = (NoteTabContentController) t.getUserData();
+                        NoteRenderController ctrl = (NoteRenderController) t.getUserData();
                         if (ctrl.getNote().getIdent().equals(n.getIdent())) {
                             t.setText(n.getName());
 
@@ -426,15 +429,15 @@ public class MainViewController implements Initializable {
         return null;
     }
 
-    private TextArea getCurrentTextArea() {
-        Tab t = tabContainer.getSelectionModel().getSelectedItem();
-        Parent p = (Parent) t.getContent();
-        return ((NoteTabContentController) t.getUserData()).getTextArea();
-    }
+//    private TextArea getCurrentTextArea() {
+//        Tab t = tabContainer.getSelectionModel().getSelectedItem();
+//        Parent p = (Parent) t.getContent();
+//        return ((NoteTabContentController) t.getUserData()).getTextArea();
+//    }
 
     private Note getCurrentNote() {
         Tab t = tabContainer.getSelectionModel().getSelectedItem();
-        return ((NoteTabContentController) t.getUserData()).getNote();
+        return ((NoteRenderController) t.getUserData()).getNote();
     }
 
     private Notepad getCurrentNotepad() {

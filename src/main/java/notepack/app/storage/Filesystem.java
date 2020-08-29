@@ -13,6 +13,7 @@ import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.NoteStorageItem;
 import notepack.app.domain.exception.MessageError;
+import notepack.noterender.Render;
 
 public class Filesystem implements NoteStorage {
 
@@ -75,17 +76,8 @@ public class Filesystem implements NoteStorage {
         if (deep > 5) {
             return parent;
         }
-
-        ArrayList<String> supportedExtensions = new ArrayList<>();
-        supportedExtensions.add("txt");
-        supportedExtensions.add("ini");
-        supportedExtensions.add("json");
-        supportedExtensions.add("xml");
-        supportedExtensions.add("md");
-        supportedExtensions.add("csv");
-        supportedExtensions.add("yaml");
-        supportedExtensions.add("log");
-        supportedExtensions.add("pdf");
+        
+        ArrayList<String> supportedExtensions = Render.getSupportedExtensions();
 
         File f = new File(startPath);
         for (String p : f.list()) {
