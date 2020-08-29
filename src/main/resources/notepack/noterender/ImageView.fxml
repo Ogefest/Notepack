@@ -48,15 +48,15 @@
                         <Insets top="2.0" />
                     </VBox.margin>
                 </AnchorPane>
-            <AnchorPane prefHeight="629.0" prefWidth="1011.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <ImageView fx:id="imageRender" fitHeight="536.0" fitWidth="953.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imageRender" fitHeight="210.0" fitWidth="786.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
-            </AnchorPane>
+            </HBox>
             </children>
         </VBox>
     </children>
