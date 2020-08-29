@@ -28,6 +28,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import notepack.app.domain.exception.MessageError;
+import notepack.noterender.Render;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -124,16 +125,8 @@ public class Webdav implements NoteStorage {
         } catch (URISyntaxException ex) {
             Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        ArrayList<String> supportedExtensions = new ArrayList<>();
-        supportedExtensions.add("txt");
-        supportedExtensions.add("ini");
-        supportedExtensions.add("json");
-        supportedExtensions.add("xml");
-        supportedExtensions.add("md");
-        supportedExtensions.add("csv");
-        supportedExtensions.add("yaml");
-        supportedExtensions.add("log");
+        
+        ArrayList<String> supportedExtensions = Render.getSupportedExtensions();
 
         try {
 
