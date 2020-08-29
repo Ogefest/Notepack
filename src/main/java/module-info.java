@@ -7,8 +7,10 @@ module notepack {
 
     opens notepack to javafx.fxml;
     opens notepack.engine to javafx.fxml;
+    opens notepack.noterender to javafx.fxml;
     exports notepack;
     exports notepack.engine;
+    exports notepack.noterender;
 
     requires java.logging;
     requires java.prefs;
