@@ -111,64 +111,70 @@ public class MainViewController implements Initializable {
                 }
 
                 final Tab newTab = new Tab();
-                try {
+//                try {
+                Platform.runLater(() -> {
 //                    FXMLLoader loader = new FXMLLoader(getClass().getResource("NoteTabContent.fxml"));
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(Render.getFxml(note)));
                     loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
-                    Node tabContent = loader.load();
-                    NoteRenderController ctrl = loader.getController();
-                    ctrl.setNote(note);
+                    Node tabContent;
+                    try {
+                        tabContent = loader.load();
+
+                        NoteRenderController ctrl = loader.getController();
+                        ctrl.setNote(note);
 //                    ctrl.getTextArea().textProperty().addListener((ov, oldValue, newValue) -> {
 //                        app.changeNote(note, newValue.getBytes());
 //                    });
-                    ctrl.setNoteTabContentCallback(new NoteTabContentCallback() {
-                        @Override
-                        public void onSaveNote(Note n) {
-                            saveNote(n);
+                        ctrl.setNoteTabContentCallback(new NoteTabContentCallback() {
+                            @Override
+                            public void onSaveNote(Note n) {
+                                saveNote(n);
+                            }
+
+                            @Override
+                            public void onOpenNote() {
+                            }
+
+                            @Override
+                            public void onCloseNote(Note n) {
+                                app.closeNote(n);
+                            }
+                        });
+
+                        ContextMenu contextMenu = new ContextMenu();
+                        MenuItem closeNoteMenu = new MenuItem("Close");
+                        closeNoteMenu.setOnAction((t) -> {
+                            app.closeNote(note);
+                        });
+                        MenuItem saveNoteMenu = new MenuItem("Save");
+                        saveNoteMenu.setOnAction((t) -> {
+                            app.saveNote(note);
+                        });
+                        contextMenu.getItems().addAll(saveNoteMenu, closeNoteMenu);
+                        newTab.setContextMenu(contextMenu);
+
+                        newTab.setContent(tabContent);
+                        newTab.setUserData(ctrl);
+
+                        String notepadColor = note.getNotepad().getBackgroundColor();
+                        newTab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);
+                        if (note.getName().length() > 0) {
+                            newTab.setText(note.getName());
                         }
+                        newTab.setGraphic(new Label(""));
 
-                        @Override
-                        public void onOpenNote() {
-                        }
-
-                        @Override
-                        public void onCloseNote(Note n) {
-                            app.closeNote(n);
-                        }
-                    });
-
-                    ContextMenu contextMenu = new ContextMenu();
-                    MenuItem closeNoteMenu = new MenuItem("Close");
-                    closeNoteMenu.setOnAction((t) -> {
-                        app.closeNote(note);
-                    });
-                    MenuItem saveNoteMenu = new MenuItem("Save");
-                    saveNoteMenu.setOnAction((t) -> {
-                        app.saveNote(note);
-                    });
-                    contextMenu.getItems().addAll(saveNoteMenu, closeNoteMenu);
-                    newTab.setContextMenu(contextMenu);
-
-                    newTab.setContent(tabContent);
-                    newTab.setUserData(ctrl);
-
-                    String notepadColor = note.getNotepad().getBackgroundColor();
-                    newTab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);
-                    if (note.getName().length() > 0) {
-                        newTab.setText(note.getName());
-                    }
-                    newTab.setGraphic(new Label(""));
-
-                    Platform.runLater(() -> {
                         tabContainer.getTabs().add(newTab);
                         tabContainer.getSelectionModel().select(newTab);
-
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 //                        ctrl.getTextArea().requestFocus();
-                    });
+                });
+//                }
 
-                } catch (IOException ex) {
-                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                } catch (IOException ex) {
+//                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
             }
 
             @Override
@@ -434,7 +440,6 @@ public class MainViewController implements Initializable {
 //        Parent p = (Parent) t.getContent();
 //        return ((NoteTabContentController) t.getUserData()).getTextArea();
 //    }
-
     private Note getCurrentNote() {
         Tab t = tabContainer.getSelectionModel().getSelectedItem();
         return ((NoteRenderController) t.getUserData()).getNote();
