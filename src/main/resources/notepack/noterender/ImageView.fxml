@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
@@ -43,20 +44,29 @@
                                 </Button>
                             </children>
                         </HBox>
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onImageResize" styleClass="icon-button" text="%fa.arrows_alt">
+                     <tooltip>
+                        <Tooltip text="Close note (Ctrl + w)" />
+                     </tooltip>
+                  </Button>
                     </children>
                     <VBox.margin>
                         <Insets top="2.0" />
                     </VBox.margin>
                 </AnchorPane>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <AnchorPane VBox.vgrow="ALWAYS">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fx:id="imageRender" fitHeight="210.0" fitWidth="786.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </VBox>
+                  <ScrollPane fx:id="imageBackground" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <content>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fx:id="imageRender" fitHeight="477.0" fitWidth="920.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                     </content>
+                  </ScrollPane>
                </children>
-            </HBox>
+            </AnchorPane>
             </children>
         </VBox>
     </children>
