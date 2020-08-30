@@ -9,6 +9,7 @@ public class Render {
 
     private static final ArrayList<String> txtExtensions = new ArrayList<>(Arrays.asList("txt", "json", "xml", "log", "ini", "md", "csv", "yaml"));
     private static final ArrayList<String> imageExtension = new ArrayList<>(Arrays.asList("jpg", "jpeg", "png", "bmp"));
+    private static final ArrayList<String> pdfExtension = new ArrayList<>(Arrays.asList("pdf"));
 
     public static String getFxml(Note note) {
         String name = note.getName();
@@ -34,6 +35,10 @@ public class Render {
         if (imageExtension.contains(ext)) {
             return "noterender/ImageView.fxml";
         }
+        
+        if (pdfExtension.contains(ext)) {
+            return "noterender/PdfView.fxml";
+        }
 
         return "noterender/Textarea.fxml";
     }
@@ -43,9 +48,9 @@ public class Render {
         ArrayList<String> result = new ArrayList<>();
         result.addAll(txtExtensions);
         result.addAll(imageExtension);
+        result.addAll(pdfExtension);
 
         return result;
-
     }
 
 }
