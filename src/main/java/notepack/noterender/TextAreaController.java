@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.storage.PreferencesSettings;
 
@@ -35,6 +37,8 @@ public class TextAreaController implements Initializable, NoteRenderController {
     private TextArea textArea;
 
     private Note note;
+    private App app;
+
     @FXML
     private AnchorPane tabBackground;
     @FXML
@@ -55,13 +59,18 @@ public class TextAreaController implements Initializable, NoteRenderController {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
 
-    public void setNoteTabContentCallback(NoteTabContentCallback clbk) {
-        this.clbk = clbk;
+//    public void setNoteTabContentCallback(NoteTabContentCallback clbk) {
+//        this.clbk = clbk;
+//    }
+    @Override
+    public void setApp(App app) {
+        this.app = app;
     }
 
+    @Override
     public void setNote(Note note) {
         this.note = note;
 
@@ -69,24 +78,24 @@ public class TextAreaController implements Initializable, NoteRenderController {
 
         tabBackground.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
 
+        textArea.textProperty().addListener((ov, oldValue, newValue) -> {
+            app.changeNote(note, newValue.getBytes());
+        });
+
         textArea.requestFocus();
+        Platform.runLater(() -> {
+            textArea.requestFocus();
+        });
     }
 
+    @Override
     public Note getNote() {
         return note;
     }
 
-    public TextArea getTextArea() {
-        return textArea;
-    }
-
-    private void onOpenNote(ActionEvent event) {
-        clbk.onOpenNote();
-    }
-
     @FXML
     private void onSaveNote(ActionEvent event) {
-        clbk.onSaveNote(note);
+        app.saveNote(note);
     }
 
     @FXML
@@ -96,7 +105,7 @@ public class TextAreaController implements Initializable, NoteRenderController {
 
     public void showSearchReplaceForm() {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("SearchForm.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/notepack/SearchForm.fxml"));
 
         Scene scene;
         try {
@@ -206,7 +215,7 @@ public class TextAreaController implements Initializable, NoteRenderController {
 
     @FXML
     private void onCloseNote(ActionEvent event) {
-        clbk.onCloseNote(note);
+        app.closeNote(note);
     }
 
 }
