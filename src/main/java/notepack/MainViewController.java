@@ -111,9 +111,8 @@ public class MainViewController implements Initializable {
                 }
 
                 final Tab newTab = new Tab();
-//                try {
+
                 Platform.runLater(() -> {
-//                    FXMLLoader loader = new FXMLLoader(getClass().getResource("NoteTabContent.fxml"));
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(Render.getFxml(note)));
                     loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
                     Node tabContent;
@@ -122,24 +121,7 @@ public class MainViewController implements Initializable {
 
                         NoteRenderController ctrl = loader.getController();
                         ctrl.setNote(note);
-//                    ctrl.getTextArea().textProperty().addListener((ov, oldValue, newValue) -> {
-//                        app.changeNote(note, newValue.getBytes());
-//                    });
-                        ctrl.setNoteTabContentCallback(new NoteTabContentCallback() {
-                            @Override
-                            public void onSaveNote(Note n) {
-                                saveNote(n);
-                            }
-
-                            @Override
-                            public void onOpenNote() {
-                            }
-
-                            @Override
-                            public void onCloseNote(Note n) {
-                                app.closeNote(n);
-                            }
-                        });
+                        ctrl.setApp(app);
 
                         ContextMenu contextMenu = new ContextMenu();
                         MenuItem closeNoteMenu = new MenuItem("Close");
@@ -168,13 +150,7 @@ public class MainViewController implements Initializable {
                     } catch (IOException ex) {
                         Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-//                        ctrl.getTextArea().requestFocus();
                 });
-//                }
-
-//                } catch (IOException ex) {
-//                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
             }
 
             @Override
@@ -229,16 +205,9 @@ public class MainViewController implements Initializable {
                             t.setText(n.getName());
 
                             Label l = (Label) t.getGraphic();
-
-//                            if (ctrl.getTextArea().getText().equals(new String(n.getContent()))) {
-//
-//                                ResourceBundle bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
-//                                l.setText(bundle.getString("fa.pencil_square_o"));
-//                                l.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 16;");
-//
-//                            } else {
-//                                l.setText("");
-//                            }
+                            ResourceBundle bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
+                            l.setText(bundle.getString("fa.pencil_square_o"));
+                            l.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 16;");
                         }
                     }
                 });
