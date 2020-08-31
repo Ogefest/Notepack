@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import notepack.NoteTabContentCallback;
+import notepack.app.domain.App;
 import notepack.app.domain.Note;
 
 /**
@@ -32,22 +33,21 @@ public class ImageViewController implements Initializable, NoteRenderController 
     private ImageView imageRender;
 
     private Note note;
+    private App app;
+
     @FXML
     private ScrollPane imageBackground;
 
     private boolean isResized = false;
     private Image currentImage;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
     @FXML
     private void onCloseNote(ActionEvent event) {
+        app.closeNote(note);
     }
 
     @Override
@@ -74,11 +74,6 @@ public class ImageViewController implements Initializable, NoteRenderController 
 
     }
 
-    @Override
-    public void setNoteTabContentCallback(NoteTabContentCallback clbk) {
-
-    }
-
     @FXML
     private void onImageResize(ActionEvent event) {
         if (!isResized) {
@@ -93,6 +88,11 @@ public class ImageViewController implements Initializable, NoteRenderController 
 
             isResized = false;
         }
+    }
+
+    @Override
+    public void setApp(App app) {
+        this.app = app;
     }
 
 }
