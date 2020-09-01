@@ -56,43 +56,67 @@ public class ImageViewController implements Initializable, NoteRenderController 
     }
 
     @Override
-    public void setNote(Note note) {
+    public void setState(App app, Note note) {
         this.note = note;
+        this.app = app;
 
         currentImage = new Image(new ByteArrayInputStream(note.getContent()));
 
-        imageRender.setFitHeight(imageBackground.heightProperty().doubleValue());
-        imageRender.setFitWidth(imageBackground.widthProperty().doubleValue());
-
-//        imageRender.fitWidthProperty().bind(imageBackground.widthProperty());
-//        imageRender.fitHeightProperty().bind(imageBackground.heightProperty());
-//        imageRender.setFitHeight(currentImage.getHeight());
-//        imageRender.setFitHeight(800);
-//        imageRender.setFitWidth(currentImage.getWidth());
-//        imageRender.setFitWidth(tabBackground.widthProperty().get());
         imageRender.setImage(currentImage);
-
+        
+        refreshImageScale();
     }
 
     @FXML
     private void onImageResize(ActionEvent event) {
-        if (!isResized) {
+        app.getSettings().set("image-view-scale", "full");
+        refreshImageScale();
+    }
+    
+    @FXML
+    private void onImageFitVertical(ActionEvent event) {
+        app.getSettings().set("image-view-scale", "vertical");
+        refreshImageScale();
+    }
 
+    @FXML
+    private void onImageFitHorizontal(ActionEvent event) {
+        app.getSettings().set("image-view-scale", "horizontal");
+        refreshImageScale();
+    }
+
+    private void refreshImageScale() {
+        String val = app.getSettings().get("image-view-scale", "vertical");
+        
+        if (val.equals("full")) {
             imageRender.setFitHeight(currentImage.getHeight());
             imageRender.setFitWidth(currentImage.getWidth());
-
-            isResized = true;
-        } else {
-            imageRender.setFitHeight(imageBackground.heightProperty().doubleValue());
-            imageRender.setFitWidth(imageBackground.widthProperty().doubleValue());
-
-            isResized = false;
+            return;
+        }
+        
+        if (val.equals("vertical")) {
+            imageRender.setFitHeight(imageBackground.heightProperty().doubleValue() * 0.99);
+//            imageRender.setFitWidth(currentImage.getWidth());
+            imageRender.setFitWidth(5000);
+            return;
+        }
+        
+        if (val.equals("horizontal")) {
+            imageRender.setFitWidth(imageBackground.widthProperty().doubleValue() * 0.99);
+//            imageRender.setFitHeight(currentImage.getHeight());
+            imageRender.setFitHeight(5000);
+            return;
         }
     }
 
     @Override
-    public void setApp(App app) {
-        this.app = app;
+    public void noteActivated() {
     }
+
+    @Override
+    public void noteDeactivated() {
+    }
+
+
 
 }
