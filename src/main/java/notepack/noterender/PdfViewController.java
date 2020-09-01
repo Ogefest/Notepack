@@ -59,8 +59,9 @@ public class PdfViewController implements Initializable, NoteRenderController {
     }
     
     @Override
-    public void setNote(Note note) {
+    public void setState(App app,Note note) {
         this.note = note;
+        this.app = app;
         
         webEngine.getLoadWorker()
                 .stateProperty()
@@ -81,8 +82,11 @@ public class PdfViewController implements Initializable, NoteRenderController {
     }
     
     @Override
-    public void setApp(App app) {
-        this.app = app;
+    public void noteActivated() {
+    }
+
+    @Override
+    public void noteDeactivated() {
     }
     
 }

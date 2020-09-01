@@ -11,6 +11,7 @@
     main-background-color: #f5f5f7;
     
     toolbar-background: white;  
+    card-background: white;  
     
     tab-text: white;
     tab-shadow: #cccccc;
@@ -22,6 +23,7 @@
     text-area-background: white;
     tree-view-background: white;
     list-view-background: white;
+    image-view-background: white;
     
     icon-hover1:#ececec;
     icon-hover2:#eeeeee;

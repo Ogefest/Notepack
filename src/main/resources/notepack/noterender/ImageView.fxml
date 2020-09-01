@@ -34,7 +34,24 @@
             <children>
                 <AnchorPane id="noteToolbar" prefHeight="40.0" prefWidth="1011.0">
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onImageResize" styleClass="icon-button" text="%fa.arrows_alt">
+                           <tooltip>
+                              <Tooltip text="Original size" />
+                           </tooltip>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#onImageFitVertical" styleClass="icon-button" text="%fa.arrows_v">
+                           <tooltip>
+                              <Tooltip text="Vertical scale" />
+                           </tooltip>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#onImageFitHorizontal" styleClass="icon-button" text="%fa.arrows_h">
+                           <tooltip>
+                              <Tooltip text="Horizontal scale" />
+                           </tooltip>
+                        </Button>
+                     </children></HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
                             <children>
                                 <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button" text="%fa.times">
@@ -44,11 +61,6 @@
                                 </Button>
                             </children>
                         </HBox>
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onImageResize" styleClass="icon-button" text="%fa.arrows_alt">
-                     <tooltip>
-                        <Tooltip text="Close note (Ctrl + w)" />
-                     </tooltip>
-                  </Button>
                     </children>
                     <VBox.margin>
                         <Insets top="2.0" />
@@ -56,11 +68,11 @@
                 </AnchorPane>
             <AnchorPane VBox.vgrow="ALWAYS">
                <children>
-                  <ScrollPane fx:id="imageBackground" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ScrollPane fx:id="imageBackground" fitToHeight="true" fitToWidth="true" prefHeight="610.0" prefWidth="624.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <content>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox id="imageViewBackground" alignment="CENTER" prefHeight="431.0" prefWidth="593.0" style="-fx-border-width: 0;">
                            <children>
-                              <ImageView fx:id="imageRender" fitHeight="477.0" fitWidth="920.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="imageRender" fitHeight="477.0" fitWidth="531.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </HBox>
                      </content>

@@ -3,12 +3,14 @@ package notepack.noterender;
 import notepack.NoteTabContentCallback;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
+import notepack.app.domain.Settings;
 
 public interface NoteRenderController {
 
     public Note getNote();
 
-    public void setNote(Note note);
+    public void setState(App app,Note note);
 
-    public void setApp(App app);
+    public void noteActivated();
+    public void noteDeactivated();
 }

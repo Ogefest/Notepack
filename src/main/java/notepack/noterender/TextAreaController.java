@@ -66,13 +66,9 @@ public class TextAreaController implements Initializable, NoteRenderController {
 //        this.clbk = clbk;
 //    }
     @Override
-    public void setApp(App app) {
-        this.app = app;
-    }
-
-    @Override
-    public void setNote(Note note) {
+    public void setState(App app, Note note) {
         this.note = note;
+        this.app = app;
 
         textArea.setText(new String(note.getContent()));
 
@@ -216,6 +212,14 @@ public class TextAreaController implements Initializable, NoteRenderController {
     @FXML
     private void onCloseNote(ActionEvent event) {
         app.closeNote(note);
+    }
+
+    @Override
+    public void noteActivated() {
+    }
+
+    @Override
+    public void noteDeactivated() {
     }
 
 }
