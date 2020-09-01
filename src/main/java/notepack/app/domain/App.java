@@ -24,11 +24,13 @@ public class App {
 
     private MessageBus messageBus;
     private SessionStorage sessionStorage;
+    private Settings settings;
     private ArrayList<Note> activeNotes = new ArrayList<>();
     private ArrayList<Notepad> activeNotepad = new ArrayList<>();
 
-    public App(SessionStorage sessionStorage) {
+    public App(SessionStorage sessionStorage, Settings settings) {
         this.sessionStorage = sessionStorage;
+        this.settings = settings;
 
         messageBus = new MessageBus();
         messageBus.startDispatcher();
@@ -83,6 +85,10 @@ public class App {
 
     public MessageBus getMessageBus() {
         return messageBus;
+    }
+    
+    public Settings getSettings() {
+        return settings;
     }
 
     public void openNote(String path, Notepad notepad, String name) {

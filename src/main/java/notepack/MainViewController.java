@@ -8,6 +8,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.HostServices;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -87,7 +90,7 @@ public class MainViewController implements Initializable {
 
         SessionStorage sessionStorage = new JsonNotepadRepository(new SimpleAES(), appSettings);
 
-        app = new App(sessionStorage);
+        app = new App(sessionStorage, appSettings);
 
         app.getMessageBus().registerGuiListener((task) -> {
             Platform.runLater(() -> {
@@ -110,6 +113,25 @@ public class MainViewController implements Initializable {
                     }
                 }
 
+//                tabContainer.selectionModelProperty().addListener((arg0, arg1, arg2) -> {
+//                    NoteRenderController activatedTab = (NoteRenderController) arg2.getUserData();
+//                    activatedTab.noteActivated();
+//
+//                    NoteRenderController deactivatedTab = (NoteRenderController) arg1.getUserData();
+//                    deactivatedTab.noteDeactivated();
+//                });
+                tabContainer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+                        NoteRenderController activatedTab = (NoteRenderController) t1.getUserData();
+                        activatedTab.noteActivated();
+
+                        NoteRenderController deactivatedTab = (NoteRenderController) t.getUserData();
+                        deactivatedTab.noteDeactivated();
+                    }
+                }
+                );
+
                 final Tab newTab = new Tab();
 
                 Platform.runLater(() -> {
@@ -120,8 +142,7 @@ public class MainViewController implements Initializable {
                         tabContent = loader.load();
 
                         NoteRenderController ctrl = loader.getController();
-                        ctrl.setNote(note);
-                        ctrl.setApp(app);
+                        ctrl.setState(app, note);
 
                         ContextMenu contextMenu = new ContextMenu();
                         MenuItem closeNoteMenu = new MenuItem("Close");
