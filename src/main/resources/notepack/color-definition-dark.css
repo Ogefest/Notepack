@@ -11,6 +11,7 @@
     text-selection-text: #263a59;
     
     main-background-color: #363645;
+    card-background: #24242e;
     
     tab-text: white;
     tab-shadow: #2d2d30;
@@ -22,6 +23,7 @@
     text-area-background: #24242e;
     tree-view-background: #24242e;
     list-view-background: #24242e;
+    image-view-background: #24242e;
     
     input-border: #6f6f7d;
     
