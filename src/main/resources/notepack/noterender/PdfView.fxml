@@ -35,7 +35,23 @@
             <children>
                 <AnchorPane id="noteToolbar" prefHeight="40.0" prefWidth="1011.0">
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label text="Page" />
+                        <TextField fx:id="pageNumber" alignment="CENTER_RIGHT" focusTraversable="false" prefHeight="25.0" prefWidth="36.0" text="1" />
+                        <Label fx:id="labelMaxPage" text="of %" />
+                        <Button mnemonicParsing="false" onAction="#onPrevPage" styleClass="icon-button" text="%fa.long_arrow_left">
+                           <tooltip>
+                              <Tooltip text="Close note (Ctrl + w)" />
+                           </tooltip>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#onNextPage" styleClass="icon-button" text="%fa.long_arrow_right">
+                           <tooltip>
+                              <Tooltip text="Close note (Ctrl + w)" />
+                           </tooltip>
+                        </Button>
+                        <ComboBox fx:id="zoomSelect" onAction="#onZoomChanged" prefWidth="150.0" />
+                     </children></HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
                             <children>
                                 <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button" text="%fa.times">
