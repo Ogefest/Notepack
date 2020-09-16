@@ -10,7 +10,7 @@ and open the template in the editor.
 
 root > *  {
     /*-fx-focus-color: transparent;*/ 
-    -fx-background-color: blue;
+    /*-fx-background-color: blue;*/
 }
 
 .card  {
@@ -105,4 +105,17 @@ root > *  {
 
 .toggle-button:selected {
     -fx-pref-height: 34px;
+}
+
+.icon-button {
+    -fx-background-color: toolbar-background;
+    -fx-pref-height: 34px;
+    -fx-text-fill: text-color;
+    
+    
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-font-size: 1.5em; 
+    /*-fx-padding: 10 12 10 12 ;*/    
+    
 }
