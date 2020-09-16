@@ -427,8 +427,8 @@ html {
 body {
   height: 100%;
   width: 100%;
-  background-color: rgba(64, 64, 64, 1);
-  background-image: url(images/texture.png);
+  /*background-color: rgba(64, 64, 64, 1);*/
+  /*background-image: url(images/texture.png);*/
 }
 
 body,

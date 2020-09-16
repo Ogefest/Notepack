@@ -1,11 +1,7 @@
 package notepack.noterender;
 
-import java.io.File;
 import java.net.URL;
-import java.util.Base64;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
@@ -18,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import notepack.NoteTabContentCallback;
 import notepack.app.domain.Note;
 
 import netscape.javascript.JSObject;
@@ -43,6 +38,8 @@ public class PdfViewController implements Initializable, NoteRenderController {
     private Label labelMaxPage;
     @FXML
     private ComboBox<String> zoomSelect;
+    
+    private String lastPageValue = "1";
 
     /**
      * Initializes the controller class.
@@ -64,6 +61,22 @@ public class PdfViewController implements Initializable, NoteRenderController {
         list.add("50%");
         list.add("100%");
         list.add("200%");
+        
+        pageNumber.textProperty().addListener((observable, oldValue, newValue) -> {
+            
+            if (newValue.equals(lastPageValue)) {
+                return;
+            }
+            
+            try {
+                int number = Integer.parseInt(newValue);
+                webEngine.executeScript("PDFViewerApplication.pdfViewer.currentPageNumber = " + number);
+                lastPageValue = newValue;
+            } catch (Exception e) {
+                pageNumber.setText(oldValue);
+            }
+            
+        });
     }
     
     @FXML
@@ -87,15 +100,18 @@ public class PdfViewController implements Initializable, NoteRenderController {
                     
                     if (newValue == Worker.State.SUCCEEDED) {
                         
-                        PdfViewJsCallback clbk = new PdfViewJsCallback(note.getContent());
+                        PdfViewJsCallback clbk = new PdfViewJsCallback(note.getContent(), (page, maxPage) -> {
+                            pageNumber.setText(Integer.toString(page));
+                            labelMaxPage.setText("of " + Integer.toString(maxPage));
+                            labelMaxPage.setVisible(true);
+                        });
                         JSObject win = (JSObject) webEngine.executeScript("window");
                         win.setMember("app", clbk);
                         
                         webEngine.executeScript("console.log = function(message){ app.log(message); };");
                         webEngine.executeScript("window.loadPdf()");
                         
-//                        JSObject jsobj = (JSObject) webEngine.executeScript("PDFViewerApplication.pdfViewer");
-//                        labelMaxPage.setText("of " + jsobj.toString());
+                        noteActivated();
                     }
                     
                 });
@@ -104,6 +120,15 @@ public class PdfViewController implements Initializable, NoteRenderController {
     
     @Override
     public void noteActivated() {
+        
+        String cssDef = app.getSettings().get("color-definition", "color-definition.css");
+        
+        if (cssDef.equals("color-definition.css")) {
+            webEngine.executeScript("document.body.style.background = \"white\";");
+        } else {
+            webEngine.executeScript("document.body.style.background = \"#24242e\";");
+        }
+        
     }
 
     @Override
