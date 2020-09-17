@@ -304,7 +304,7 @@
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
     /*-fx-background-color: linear-gradient(text-selection-background 0%, input-background 100%);*/
     -fx-background-color: text-selection-background;
-    -fx-text-fill: text-selection-text;    
+    -fx-text-fill: text-selection-text;
 }
 
 .list-cell { 
