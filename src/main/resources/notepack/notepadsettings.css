@@ -81,7 +81,7 @@ root > *  {
     -fx-border-width:1;
 }
 .combo-box .arrow{
-    -fx-background-color: button-color;
+    -fx-background-color: text-color;
 }
 .combo-box .arrow-button{
     -fx-background-color: input-background;
@@ -100,7 +100,7 @@ root > *  {
 }
 
 .combo-box .cell:selected {
-    -fx-text-fill: button-color;
+    -fx-text-fill: text-color;
 }
 
 .toggle-button:selected {
