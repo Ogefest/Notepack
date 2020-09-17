@@ -290,12 +290,16 @@
   margin: 1px auto -8px auto;
   position: relative;
   overflow: visible;
-  border: 9px solid transparent;
+  /*border: 9px solid transparent;*/
   background-clip: content-box;
   -webkit-border-image: url(images/shadow.png) 9 9 repeat;
        -o-border-image: url(images/shadow.png) 9 9 repeat;
           border-image: url(images/shadow.png) 9 9 repeat;
   background-color: rgba(255, 255, 255, 1);
+  
+  box-shadow: 0px 0px 8px #e2e2e2;
+  border: 1px solid transparent;
+  margin-bottom: 10px;
 }
 
 .pdfViewer.removePageBorders .page {
@@ -2323,6 +2327,8 @@ html[dir='rtl'] #documentPropertiesOverlay .row > * {
     box-shadow: none;
     background-clip: content-box;
     background-color: rgba(255, 255, 255, 1);
+    
+    box-shadow: 10px 0px 8px red;
   }
 
   .page[data-loaded] {

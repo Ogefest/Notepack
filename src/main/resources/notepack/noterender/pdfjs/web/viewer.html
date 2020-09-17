@@ -57,16 +57,20 @@ See https://github.com/adobe-type-tools/cmap-resources
             }
             
             setInterval(function(){
-                
-                if (typeof app === 'undefined') {
-                    return;
+                try {
+                    if (typeof app === 'undefined') {
+                        return;
+                    }
+
+                    if (typeof PDFViewerApplication.pdfViewer.currentPageNumber === 'undefined') {
+                        return;
+                    }
+
+                    app.setCurrentPageInfo(PDFViewerApplication.pdfViewer.currentPageNumber, PDFViewerApplication.pdfViewer.pagesCount);
+                    
+                } catch (err) {
+                    console.error(err);
                 }
-                
-                if (typeof PDFViewerApplication.pdfViewer.currentPageNumber === 'undefined') {
-                    return;
-                }
-                
-                app.setCurrentPageInfo(PDFViewerApplication.pdfViewer.currentPageNumber, PDFViewerApplication.pdfViewer.pagesCount);
                 
             }, 1000);
 
