@@ -122,6 +122,11 @@ public class MainViewController implements Initializable {
                 tabContainer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+
+                        if (t == null || t1 == null) {
+                            return;
+                        }
+
                         NoteRenderController activatedTab = (NoteRenderController) t1.getUserData();
                         activatedTab.noteActivated();
 
