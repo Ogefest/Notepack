@@ -38,15 +38,6 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label text="Page">
-                           <HBox.margin>
-                              <Insets left="10.0" right="3.0" />
-                           </HBox.margin></Label>
-                        <TextField fx:id="pageNumber" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="36.0" text="1" />
-                        <Label fx:id="labelMaxPage" text="of %">
-                           <HBox.margin>
-                              <Insets left="3.0" right="5.0" />
-                           </HBox.margin></Label>
                         <Button mnemonicParsing="false" onAction="#onPrevPage" styleClass="icon-button" text="%fa.long_arrow_left">
                            <tooltip>
                               <Tooltip text="Prev page" />
@@ -60,7 +51,10 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Button>
-                        <ComboBox fx:id="zoomSelect" onAction="#onZoomChanged" prefWidth="150.0" />
+                        <ComboBox fx:id="zoomSelect" onAction="#onZoomChanged" prefWidth="150.0" promptText="zoom" />
+                        <Label text="Page" visible="false" />
+                        <TextField fx:id="pageNumber" alignment="CENTER" focusTraversable="false" prefHeight="25.0" prefWidth="36.0" text="1" visible="false" />
+                        <Label fx:id="labelMaxPage" text="of %" visible="false" />
                      </children>
                      <opaqueInsets>
                         <Insets left="20.0" />
