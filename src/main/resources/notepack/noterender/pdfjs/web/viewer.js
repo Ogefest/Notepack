@@ -395,7 +395,8 @@ var DefaultExternalServices = /*#__PURE__*/function () {
   }, {
     key: "supportsIntegratedFind",
     get: function get() {
-      return (0, _pdfjsLib.shadow)(this, "supportsIntegratedFind", false);
+        return false;
+//      return (0, _pdfjsLib.shadow)(this, "supportsIntegratedFind", false);
     }
   }, {
     key: "supportsDocumentFonts",
@@ -883,7 +884,8 @@ var PDFViewerApplication = {
   },
 
   get supportsIntegratedFind() {
-    return this.externalServices.supportsIntegratedFind;
+      return true;
+//    return this.externalServices.supportsIntegratedFind;
   },
 
   get supportsDocumentFonts() {
