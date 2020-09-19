@@ -101,11 +101,10 @@ public class PdfViewController implements Initializable, NoteRenderController {
                 .addListener((observable, oldValue, newValue) -> {
                     
                     if (newValue == Worker.State.SUCCEEDED) {
-                        
                         PdfViewJsCallback clbk = new PdfViewJsCallback(note.getContent(), (page, maxPage) -> {
-                            pageNumber.setText(Integer.toString(page));
-                            labelMaxPage.setText("of " + Integer.toString(maxPage));
-                            labelMaxPage.setVisible(true);
+//                            pageNumber.setText(Integer.toString(page));
+//                            labelMaxPage.setText("of " + Integer.toString(maxPage));
+//                            labelMaxPage.setVisible(true);
                         });
                         JSObject win = (JSObject) webEngine.executeScript("window");
                         win.setMember("app", clbk);
