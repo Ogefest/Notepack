@@ -21,7 +21,7 @@ zip -r $currentDir/release/$VERSION/notepack-linux-runtime-$VERSION.zip notepack
 
 cd $currentDir
 
-./jdk/bin/jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main --app-version $VERSION -d $currentDir/release/$VERSION/
+../jdk/bin/jpackage -n notepack --runtime-image target/notepack/ -m notepack/notepack.Main --app-version $VERSION -d $currentDir/release/$VERSION/
 
 
 
