@@ -64,6 +64,8 @@ public class ImageViewController implements Initializable, NoteRenderController 
 
         imageRender.setImage(currentImage);
         
+        tabBackground.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
+        
         refreshImageScale();
     }
 
