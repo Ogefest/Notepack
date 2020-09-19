@@ -94,6 +94,8 @@ public class PdfViewController implements Initializable, NoteRenderController {
         this.note = note;
         this.app = app;
         
+        tabBackground.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
+        
         webEngine.getLoadWorker()
                 .stateProperty()
                 .addListener((observable, oldValue, newValue) -> {
