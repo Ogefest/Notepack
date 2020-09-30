@@ -7,7 +7,8 @@ import notepack.app.domain.Note;
 
 public class Render {
 
-    private static final ArrayList<String> txtExtensions = new ArrayList<>(Arrays.asList("txt", "json", "xml", "log", "ini", "md", "csv", "yaml"));
+    private static final ArrayList<String> txtExtensions = new ArrayList<>(Arrays.asList("txt", "json", "xml", "log", "ini", "csv", "yaml"));
+    private static final ArrayList<String> mdExtension = new ArrayList<>(Arrays.asList("md"));
     private static final ArrayList<String> imageExtension = new ArrayList<>(Arrays.asList("jpg", "jpeg", "png", "bmp"));
     private static final ArrayList<String> pdfExtension = new ArrayList<>(Arrays.asList("pdf"));
 
@@ -39,6 +40,10 @@ public class Render {
         if (pdfExtension.contains(ext)) {
             return "noterender/PdfView.fxml";
         }
+        
+        if (mdExtension.contains(ext)) {
+            return "noterender/Markdown.fxml";
+        }        
 
         return "noterender/Textarea.fxml";
     }
@@ -49,6 +54,7 @@ public class Render {
         result.addAll(txtExtensions);
         result.addAll(imageExtension);
         result.addAll(pdfExtension);
+        result.addAll(mdExtension);
 
         return result;
     }
