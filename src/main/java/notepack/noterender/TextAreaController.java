@@ -36,8 +36,8 @@ public class TextAreaController implements Initializable, NoteRenderController {
     @FXML
     private TextArea textArea;
 
-    private Note note;
-    private App app;
+    protected Note note;
+    protected App app;
 
     @FXML
     private AnchorPane tabBackground;
