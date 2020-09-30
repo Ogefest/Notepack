@@ -82,11 +82,11 @@ public class Webdav implements NoteStorage {
         try {
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(path)).GET().build();
+                    .uri(URI.create(path)).setHeader("User-Agent", "Notepack WebDAV").GET().build();
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
 
-            return response.body().getBytes();
+            return response.body();
 
         } catch (IOException | InterruptedException ex) {
             throw new MessageError(ex.getMessage(), ex);
@@ -125,7 +125,7 @@ public class Webdav implements NoteStorage {
         } catch (URISyntaxException ex) {
             Logger.getLogger(Webdav.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         ArrayList<String> supportedExtensions = Render.getSupportedExtensions();
 
         try {
@@ -136,7 +136,7 @@ public class Webdav implements NoteStorage {
                     + "</D:propfind>";
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(startPath)).header("Depth", "1").method("PROPFIND", BodyPublishers.ofString(propfind)).build();
+                    .uri(URI.create(startPath)).setHeader("User-Agent", "Notepack WebDAV").header("Depth", "1").method("PROPFIND", BodyPublishers.ofString(propfind)).build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
@@ -186,7 +186,10 @@ public class Webdav implements NoteStorage {
                 }
                 long getcontentlength = 0;
                 if (eElement.getElementsByTagNameNS("DAV:", "getcontentlength").getLength() > 0) {
-                    getcontentlength = Long.parseLong(eElement.getElementsByTagNameNS("DAV:", "getcontentlength").item(0).getTextContent());
+                    String contentLength = eElement.getElementsByTagNameNS("DAV:", "getcontentlength").item(0).getTextContent();
+                    if (contentLength.length() > 0) {
+                        getcontentlength = Long.parseLong(contentLength);
+                    }
                 }
 
                 String tmp = URLDecoder.decode(path, "UTF-8");
