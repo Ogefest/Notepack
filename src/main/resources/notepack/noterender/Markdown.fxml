@@ -30,7 +30,7 @@
         <URL value="@notepack/notepadsettings.css" />
     </stylesheets>        
     <children>
-        <VBox prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <AnchorPane id="noteToolbar" prefHeight="40.0" prefWidth="1011.0">
                     <children>
@@ -60,7 +60,12 @@
                                     <tooltip>
                                         <Tooltip text="Edit" />
                                     </tooltip>
-                                </MenuButton>                        
+                                </MenuButton>
+                        <Button mnemonicParsing="false" onAction="#onChangeViewMode" styleClass="icon-button" text="%fa.pencil_square_o">
+                           <tooltip>
+                              <Tooltip text="Toggle editor view" />
+                           </tooltip>
+                        </Button>                        
 
                             </children>
                         </HBox>
@@ -78,9 +83,9 @@
                         <Insets top="2.0" />
                     </VBox.margin>
                 </AnchorPane>
-            <SplitPane dividerPositions="0.5" prefHeight="488.0" prefWidth="1011.0">
+            <SplitPane fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="500.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
                             <TextArea fx:id="textArea" layoutX="-287.0" layoutY="-61.0" text="Supernote" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <font>
@@ -93,7 +98,7 @@
                             </TextArea>
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="500.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
                         <WebView fx:id="markdownWebRender" layoutX="87.0" layoutY="40.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>

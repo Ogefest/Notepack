@@ -5,6 +5,11 @@
  */
 package notepack.noterender;
 
+import com.vladsch.flexmark.ext.abbreviation.AbbreviationExtension;
+import com.vladsch.flexmark.ext.definition.DefinitionExtension;
+//import com.vladsch.flexmark.ext.footnotes.FootnoteExtension;
+import com.vladsch.flexmark.ext.tables.TablesExtension;
+import com.vladsch.flexmark.ext.typographic.TypographicExtension;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -22,106 +27,109 @@ import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.parser.ParserEmulationProfile;
 import com.vladsch.flexmark.util.data.MutableDataSet;
+import java.util.Arrays;
+import javafx.application.Platform;
+import javafx.scene.control.SplitPane;
+import notepack.app.domain.App;
+import notepack.app.domain.Note;
 
-/**
- * FXML Controller class
- *
- * @author lg
- */
 public class MarkdownController extends TextAreaController {
 
-    @FXML
-    private AnchorPane tabBackground;
-    @FXML
-    private MenuItem menuUndo;
-    @FXML
-    private MenuItem menuRedo;
-    @FXML
-    private MenuItem menuCut;
-    @FXML
-    private MenuItem menuCopy;
-    @FXML
-    private CheckMenuItem wordWrapMenu;
-    @FXML
-    private TextArea textArea;
     @FXML
     private WebView markdownWebRender;
 
     private Parser parser;
     private HtmlRenderer renderer;
 
-//    @FXML
-//    private AnchorPane tabBackground;
-//    @FXML
-//    private MenuItem menuUndo;
-//    @FXML
-//    private MenuItem menuRedo;
-//    @FXML
-//    private MenuItem menuCut;
-//    @FXML
-//    private MenuItem menuCopy;
-//    @FXML
-//    private CheckMenuItem wordWrapMenu;
-//    @FXML
-//    private TextArea textArea;
-//    /**
-//     * Initializes the controller class.
-//     */
+    @FXML
+    private AnchorPane leftPane;
+    @FXML
+    private AnchorPane rightPane;
+    @FXML
+    private SplitPane splitPane;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         MutableDataSet options = new MutableDataSet();
-        options.setFrom(ParserEmulationProfile.MULTI_MARKDOWN);
+        options.set(Parser.EXTENSIONS, Arrays.asList(
+                AbbreviationExtension.create(),
+                DefinitionExtension.create(),
+//                FootnoteExtension.create(),
+                TablesExtension.create(),
+                TypographicExtension.create()
+        ));        
         
         parser = Parser.builder(options).build();
         renderer = HtmlRenderer.builder(options).build();
-
+        
+        markdownWebRender.setContextMenuEnabled(false);
+        markdownWebRender.getEngine().setJavaScriptEnabled(false);
+        
         textArea.textProperty().addListener((obs,old,niu) -> {
             Node document = parser.parse(niu);
             String html = renderer.render(document);
             markdownWebRender.getEngine().loadContent(html);
-
         });
+    
+        
     }
+    
+    @Override
+    public void setState(App app, Note note) {
+        super.setState(app, note);
+        
+        Platform.runLater(() -> {
+            refreshPaneView(app.getSettings().get("markdown.view", "both"));
+        });        
+    }
+    
+    @Override
+    public void noteActivated() {
+        super.noteActivated();
+        
+        refreshPaneView(app.getSettings().get("markdown.view", "both"));
+        
+        markdownWebRender.getEngine().setUserStyleSheetLocation(getClass().getResource("/notepack/noterender/markdown.css").toString());
+    }    
+    
 
     @FXML
-    private void onSaveNote(ActionEvent event) {
+    private void onChangeViewMode(ActionEvent event) {
+        
+        String currentView = app.getSettings().get("markdown.view", "both");
+        String newValue = "";
+        if (currentView.equals("both")) {
+            newValue = "editor";
+        } else if (currentView.equals("editor")) {
+            newValue = "renderer";
+        } else {
+            newValue = "both";
+        }
+        app.getSettings().set("markdown.view", newValue);
+        refreshPaneView(newValue);
     }
+    
+    private void refreshPaneView(String value) {
+        
+        if (value.equals("both")) {
+            splitPane.getItems().clear();
+            splitPane.getItems().addAll(leftPane, rightPane);
+        }
+        if (value.equals("editor")) {
+            splitPane.getItems().clear();
+            splitPane.getItems().add(leftPane);
+        }
+        if (value.equals("renderer")) {
+            splitPane.getItems().clear();
+            splitPane.getItems().add(rightPane);
+        }
+        
+    }
+                
+                
 
-    @FXML
-    private void onSearchInNote(ActionEvent event) {
-    }
 
-    @FXML
-    private void onUndo(ActionEvent event) {
-    }
 
-    @FXML
-    private void onRedo(ActionEvent event) {
-    }
-
-    @FXML
-    private void onCut(ActionEvent event) {
-    }
-
-    @FXML
-    private void onCopy(ActionEvent event) {
-    }
-
-    @FXML
-    private void onPaste(ActionEvent event) {
-    }
-
-    @FXML
-    private void onSelectAll(ActionEvent event) {
-    }
-
-    @FXML
-    private void onWordWrap(ActionEvent event) {
-    }
-
-    @FXML
-    private void onCloseNote(ActionEvent event) {
-    }
 
 }
