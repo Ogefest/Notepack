@@ -1,0 +1,30 @@
+body {
+    background-color: #fff; 
+    font-family:Helvetica, Arial, sans-serif;
+}
+
+table, th, td {
+    border: 1px solid black;
+    margin: 0px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+    background-color: #fdfdfd;
+}
+
+td,th {
+    padding: 5px;
+}
+
+table {
+    width: 100%;
+}
+
+::selection {
+  color: red;
+  background: yellow;
+}
