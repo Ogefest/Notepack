@@ -34,25 +34,25 @@ import notepack.app.storage.PreferencesSettings;
 public class TextAreaController implements Initializable, NoteRenderController {
 
     @FXML
-    private TextArea textArea;
+    protected TextArea textArea;
 
     protected Note note;
     protected App app;
 
     @FXML
-    private AnchorPane tabBackground;
+    protected AnchorPane tabBackground;
     @FXML
-    private MenuItem menuUndo;
+    protected MenuItem menuUndo;
     @FXML
-    private MenuItem menuRedo;
+    protected MenuItem menuRedo;
     @FXML
-    private MenuItem menuCut;
+    protected MenuItem menuCut;
     @FXML
-    private MenuItem menuCopy;
+    protected MenuItem menuCopy;
 
-    private NoteTabContentCallback clbk;
+    protected NoteTabContentCallback clbk;
     @FXML
-    private CheckMenuItem wordWrapMenu;
+    protected CheckMenuItem wordWrapMenu;
 
     /**
      * Initializes the controller class.
@@ -90,12 +90,12 @@ public class TextAreaController implements Initializable, NoteRenderController {
     }
 
     @FXML
-    private void onSaveNote(ActionEvent event) {
+    protected void onSaveNote(ActionEvent event) {
         app.saveNote(note);
     }
 
     @FXML
-    private void onSearchInNote(ActionEvent event) {
+    protected void onSearchInNote(ActionEvent event) {
         showSearchReplaceForm();
     }
 
@@ -169,7 +169,7 @@ public class TextAreaController implements Initializable, NoteRenderController {
     }
 
     @FXML
-    private void onWordWrap(ActionEvent event) {
+    protected void onWordWrap(ActionEvent event) {
         if (textArea.isWrapText()) {
             textArea.setWrapText(false);
             wordWrapMenu.setSelected(false);
@@ -180,37 +180,37 @@ public class TextAreaController implements Initializable, NoteRenderController {
     }
 
     @FXML
-    private void onUndo(ActionEvent event) {
+    protected void onUndo(ActionEvent event) {
         textArea.undo();
     }
 
     @FXML
-    private void onRedo(ActionEvent event) {
+    protected void onRedo(ActionEvent event) {
         textArea.redo();
     }
 
     @FXML
-    private void onCut(ActionEvent event) {
+    protected void onCut(ActionEvent event) {
         textArea.cut();
     }
 
     @FXML
-    private void onCopy(ActionEvent event) {
+    protected void onCopy(ActionEvent event) {
         textArea.copy();
     }
 
     @FXML
-    private void onPaste(ActionEvent event) {
+    protected void onPaste(ActionEvent event) {
         textArea.paste();
     }
 
     @FXML
-    private void onSelectAll(ActionEvent event) {
+    protected void onSelectAll(ActionEvent event) {
         textArea.selectAll();;
     }
 
     @FXML
-    private void onCloseNote(ActionEvent event) {
+    protected void onCloseNote(ActionEvent event) {
         app.closeNote(note);
     }
 
