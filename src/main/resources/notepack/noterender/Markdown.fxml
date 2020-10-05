@@ -36,17 +36,17 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>                        
-                                <Button mnemonicParsing="false" onAction="#onSaveNote" styleClass="icon-button" text="%fa.floppy_o">
+                                <Button fx:id="btnSave" mnemonicParsing="false" onAction="#onSaveNote" styleClass="icon-button" text="%fa.floppy_o">
                                     <tooltip>
                                         <Tooltip text="Save note (Ctrl + s)" />
                                     </tooltip>
                                 </Button>                         
-                                <Button mnemonicParsing="false" onAction="#onSearchInNote" styleClass="icon-button" text="%fa.search">
+                                <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#onSearchInNote" styleClass="icon-button" text="%fa.search">
                                     <tooltip>
                                         <Tooltip text="Search (Ctrl + f)" />
                                     </tooltip>
                                 </Button>
-                                <MenuButton mnemonicParsing="false" styleClass="icon-button" text="%fa.pencil">
+                                <MenuButton fx:id="btnActions" mnemonicParsing="false" styleClass="icon-button" text="%fa.pencil">
                                     <items>
                                         <MenuItem fx:id="menuUndo" mnemonicParsing="false" onAction="#onUndo" text="Undo" />
                                         <MenuItem fx:id="menuRedo" mnemonicParsing="false" onAction="#onRedo" text="Redo" />
