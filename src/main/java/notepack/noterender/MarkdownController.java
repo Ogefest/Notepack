@@ -47,7 +47,7 @@ public class MarkdownController extends TextAreaController {
     private AnchorPane rightPane;
     @FXML
     private SplitPane splitPane;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -55,48 +55,52 @@ public class MarkdownController extends TextAreaController {
         options.set(Parser.EXTENSIONS, Arrays.asList(
                 AbbreviationExtension.create(),
                 DefinitionExtension.create(),
-//                FootnoteExtension.create(),
+                //                FootnoteExtension.create(),
                 TablesExtension.create(),
                 TypographicExtension.create()
-        ));        
-        
+        ));
+
         parser = Parser.builder(options).build();
         renderer = HtmlRenderer.builder(options).build();
-        
+
         markdownWebRender.setContextMenuEnabled(false);
         markdownWebRender.getEngine().setJavaScriptEnabled(false);
-        
-        textArea.textProperty().addListener((obs,old,niu) -> {
+
+        textArea.textProperty().addListener((obs, old, niu) -> {
             Node document = parser.parse(niu);
             String html = renderer.render(document);
             markdownWebRender.getEngine().loadContent(html);
         });
-    
-        
+
     }
-    
+
     @Override
     public void setState(App app, Note note) {
         super.setState(app, note);
-        
+
         Platform.runLater(() -> {
             refreshPaneView(app.getSettings().get("markdown.view", "both"));
-        });        
+        });
     }
-    
+
     @Override
     public void noteActivated() {
         super.noteActivated();
-        
+
         refreshPaneView(app.getSettings().get("markdown.view", "both"));
-        
-        markdownWebRender.getEngine().setUserStyleSheetLocation(getClass().getResource("/notepack/noterender/markdown.css").toString());
-    }    
-    
+
+        String currentThemeCss = app.getSettings().get("color-definition", "color-definition.css");
+        String cssToSet = "/notepack/noterender/markdown-light.css";
+        if (!currentThemeCss.equals("color-definition.css")) {
+            cssToSet = "/notepack/noterender/markdown-dark.css";
+        }
+
+        markdownWebRender.getEngine().setUserStyleSheetLocation(getClass().getResource(cssToSet).toString());
+    }
 
     @FXML
     private void onChangeViewMode(ActionEvent event) {
-        
+
         String currentView = app.getSettings().get("markdown.view", "both");
         String newValue = "";
         if (currentView.equals("both")) {
@@ -109,9 +113,9 @@ public class MarkdownController extends TextAreaController {
         app.getSettings().set("markdown.view", newValue);
         refreshPaneView(newValue);
     }
-    
+
     private void refreshPaneView(String value) {
-        
+
         if (value.equals("both")) {
             splitPane.getItems().clear();
             splitPane.getItems().addAll(leftPane, rightPane);
@@ -124,12 +128,7 @@ public class MarkdownController extends TextAreaController {
             splitPane.getItems().clear();
             splitPane.getItems().add(rightPane);
         }
-        
+
     }
-                
-                
-
-
-
 
 }
