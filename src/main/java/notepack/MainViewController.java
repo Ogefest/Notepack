@@ -508,6 +508,9 @@ public class MainViewController implements Initializable {
     @FXML
     private void onSwitchTheme(ActionEvent event) {
         theme.toggle(mainScene);
+
+        Tab t = tabContainer.getSelectionModel().getSelectedItem();
+        ((NoteRenderController) t.getUserData()).noteActivated();
     }
 
 }
