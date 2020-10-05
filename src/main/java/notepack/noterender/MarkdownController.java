@@ -29,6 +29,8 @@ import com.vladsch.flexmark.parser.ParserEmulationProfile;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 import java.util.Arrays;
 import javafx.application.Platform;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.SplitPane;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
@@ -47,6 +49,12 @@ public class MarkdownController extends TextAreaController {
     private AnchorPane rightPane;
     @FXML
     private SplitPane splitPane;
+    @FXML
+    private Button btnSave;
+    @FXML
+    private Button btnSearch;
+    @FXML
+    private MenuButton btnActions;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -116,18 +124,31 @@ public class MarkdownController extends TextAreaController {
 
     private void refreshPaneView(String value) {
 
+        boolean isVisible = true;
+
         if (value.equals("both")) {
             splitPane.getItems().clear();
             splitPane.getItems().addAll(leftPane, rightPane);
+            isVisible = true;
         }
         if (value.equals("editor")) {
             splitPane.getItems().clear();
             splitPane.getItems().add(leftPane);
+            isVisible = true;
         }
         if (value.equals("renderer")) {
             splitPane.getItems().clear();
             splitPane.getItems().add(rightPane);
+            isVisible = false;
         }
+
+        btnSave.setVisible(isVisible);
+        btnSearch.setVisible(isVisible);
+        btnActions.setVisible(isVisible);
+
+        btnSave.setManaged(isVisible);
+        btnSearch.setManaged(isVisible);
+        btnActions.setManaged(isVisible);
 
     }
 
