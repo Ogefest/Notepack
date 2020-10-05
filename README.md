@@ -55,7 +55,7 @@ Download from [GitHub release](https://github.com/Ogefest/Notepack/releases)
 - ~~GPG encryption~~ done
 - web clipper
 - clipboard manager
-- support to view ~~pdf/images/~~md/doc/xls
+- support to view ~~pdf/images/md~~ /doc/xls
 - notes history
 - OCR for pdf and images
 - full text search in documents
