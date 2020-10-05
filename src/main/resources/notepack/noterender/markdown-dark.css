@@ -1,0 +1,42 @@
+body {
+    background-color: #24242e; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, Roboto, Helvetica, Arial, sans-serif;
+    color: #d4d4d4;
+}
+
+a {
+    color: #e6e6e8;
+}
+
+hr {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-top: 1px solid #444;
+    border-bottom: 0px;
+}
+
+table, th, td {
+    border: 1px solid #444;
+    margin: 0px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+    background-color: #3a3a4a;
+}
+
+td,th {
+    padding: 8px;
+}
+
+table {
+    width: 95%;
+}
+
+::selection {
+  color: #263a59;
+  background: #b3c5e3;
+}
