@@ -18,6 +18,7 @@ Download from [GitHub release](https://github.com/Ogefest/Notepack/releases)
 - multiple notepads, multiple notes in notepad
 - color highlight for notepads
 - multiple note storage backend, filesystem and WebDav supported right now
+- PDF and Markdown supported
 - easy note switch using only shortcuts
 - minimalist clean layout
 - encryption using OpenPGP standard
