@@ -27,7 +27,10 @@ import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.parser.ParserEmulationProfile;
 import com.vladsch.flexmark.util.data.MutableDataSet;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
@@ -56,6 +59,8 @@ public class MarkdownController extends TextAreaController {
     @FXML
     private MenuButton btnActions;
 
+    private String currentCssValue = "";
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -75,11 +80,16 @@ public class MarkdownController extends TextAreaController {
         markdownWebRender.getEngine().setJavaScriptEnabled(false);
 
         textArea.textProperty().addListener((obs, old, niu) -> {
-            Node document = parser.parse(niu);
-            String html = renderer.render(document);
-            markdownWebRender.getEngine().loadContent(html);
+            refreshWebview(niu);
         });
 
+    }
+
+    private void refreshWebview(String value) {
+        Node document = parser.parse(value);
+        String html = renderer.render(document);
+        String htmlDoc = "<html><head><style>" + currentCssValue + "</style></head><body>" + html + "</body>";
+        markdownWebRender.getEngine().loadContent(htmlDoc);
     }
 
     @Override
@@ -103,7 +113,13 @@ public class MarkdownController extends TextAreaController {
             cssToSet = "/notepack/noterender/markdown-dark.css";
         }
 
-        markdownWebRender.getEngine().setUserStyleSheetLocation(getClass().getResource(cssToSet).toString());
+        try {
+            currentCssValue = new String(getClass().getResourceAsStream(cssToSet).readAllBytes());
+        } catch (IOException ex) {
+            Logger.getLogger(MarkdownController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        refreshWebview(textArea.getText());
     }
 
     @FXML
