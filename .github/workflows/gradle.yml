@@ -96,7 +96,7 @@ jobs:
     - name: Create MSI
       run: gradle jpackage -PinstallerType=msi
     - name: Rename MSI
-      run: mv build/Notepack-package/*.exe ./file.exe
+      run: ls -lha build/Notepack-package ; mv build/Notepack-package/*.msi ./file.msi
       
     - name: Create zip runtime
       run: cd build/Notepack-package/; 7z a ../../notepack.zip Notepack/ ; cd ../..      
