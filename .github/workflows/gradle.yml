@@ -26,12 +26,14 @@ jobs:
     - name: Create DEB
       run: gradle jpackage -PinstallerType=deb
     - name: Rename DEB
-      run: mv build/Notepack-package/*.deb notepack.deb/file.deb
+      run: mv build/Notepack-package/*.deb ./file.deb ; ls -lha .
+    - name: Create Runtime ZIP
+      run: cd build/Notepack-package/; zip -r ../../notepack.zip Notepack/ ; cd ../..
 
     - name: Create RPM
       run: gradle jpackage -PinstallerType=rpm
     - name: Rename RPM
-      run: mv build/Notepack-package/*.rpm notepack.rpm/file.rpm
+      run: mv build/Notepack-package/*.rpm ./file.rpm ; ls -lha .
       
     - name: Download appimage
       run: wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
@@ -54,7 +56,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }} 
-        asset_path: ./notepack.deb/file.deb
+        asset_path: ./file.deb
         asset_name: notepack-${{ github.event.release.tag_name }}-1_amd64.deb
         asset_content_type: application/octet-stream        
         
@@ -64,7 +66,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }} 
-        asset_path: ./notepack.rpm/file.rpm
+        asset_path: ./file.rpm
         asset_name: notepack-${{ github.event.release.tag_name }}_amd64.rpm
         asset_content_type: application/octet-stream     
         
@@ -74,7 +76,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }} 
-        asset_path: ./target/notepack.zip
+        asset_path: ./notepack.zip
         asset_name: notepack-${{ github.event.release.tag_name }}-linux-runtime.zip
         asset_content_type: application/octet-stream          
       
