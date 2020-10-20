@@ -14,6 +14,12 @@ import notepack.app.task.ShowUserMessage;
 import notepack.app.task.TypeGui;
 import notepack.app.task.TypeNote;
 import notepack.app.task.TypeNotepad;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+import notepack.app.domain.exception.MessageError;
 
 public class MessageBus {
 
@@ -24,6 +30,8 @@ public class MessageBus {
 
     private Thread dispatchThread;
     private boolean dispatcherStop = false;
+    private final AtomicInteger tasksActive = new AtomicInteger();
+    private int maxTasksActive = 3;
 
     public MessageBus() {
         tasks = new ConcurrentLinkedQueue<>();
@@ -31,6 +39,8 @@ public class MessageBus {
         noteListeners = new ArrayList<>();
         notepadListeners = new ArrayList<>();
         guiListeners = new ArrayList<>();
+
+        tasksActive.set(0);
     }
 
     public void startDispatcher() {
@@ -53,7 +63,7 @@ public class MessageBus {
                         tasks.add(new ShowUserMessage(e.getMessage(), ShowUserMessage.TYPE.ERROR));
                     }
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(100);
                     } catch (InterruptedException ex) {
                         break;
                     }
@@ -70,38 +80,61 @@ public class MessageBus {
         dispatchThread = null;
     }
 
+    synchronized private Task getTaskToDispatch() {
+        return tasks.poll();
+    }
+
     private void dispatch() throws MessageError {
 
-        for (Task t : tasks) {
-            
-            if (t instanceof BaseTask) {
-                ((BaseTask) t).setMessageBus(this);
-            }
-            
-            tasks.remove(t);
-
-            if (t instanceof TypeNote) {
-                t.dispatch();
-
-                for (NoteListener l : noteListeners) {
-                    ((TypeNote) t).notify(l);
-                }
-            }
-            if (t instanceof TypeNotepad) {
-                t.dispatch();
-
-                for (NotepadListener l : notepadListeners) {
-                    ((TypeNotepad) t).notify(l);
-                }
-            }
-            if (t instanceof TypeGui) {
-                for (GuiListener l : guiListeners) {
-                    l.proceed((TypeGui) t);
-                }
-            }
-
+        int currentTasksCounter = tasksActive.get();
+        if (currentTasksCounter > maxTasksActive) {
+            return;
         }
 
+        Task t = getTaskToDispatch();
+        if (t == null) {
+            return;
+        }
+        if (t instanceof BaseTask) {
+            ((BaseTask) t).setMessageBus(this);
+        }
+
+        Thread job = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                tasksActive.incrementAndGet();
+
+                try {
+                    if (t instanceof TypeNote) {
+                        t.dispatch();
+
+                        for (NoteListener l : noteListeners) {
+                            ((TypeNote) t).notify(l);
+                        }
+                    }
+                    if (t instanceof TypeNotepad) {
+                        t.dispatch();
+
+                        for (NotepadListener l : notepadListeners) {
+                            ((TypeNotepad) t).notify(l);
+                        }
+                    }
+                    if (t instanceof TypeGui) {
+                        for (GuiListener l : guiListeners) {
+                            l.proceed((TypeGui) t);
+                        }
+                    }
+                } catch (MessageError ex) {
+                    Logger.getLogger(MessageBus.class.getName()).log(Level.SEVERE, null, ex);
+                    tasks.add(new ShowUserMessage(ex.getMessage(), ShowUserMessage.TYPE.ERROR));
+                }
+
+                tasksActive.decrementAndGet();
+            }
+
+        });
+        job.setName("Task processing " + t.toString());
+        job.start();
     }
 
     public void registerNoteListener(NoteListener l) {
