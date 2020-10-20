@@ -117,7 +117,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }} 
-        asset_path: ./file.exe
-        asset_name: notepack-${{ github.event.release.tag_name }}-windows-installer.exe
+        asset_path: ./file.msi
+        asset_name: notepack-${{ github.event.release.tag_name }}-windows-installer.msi
         asset_content_type: application/octet-stream   
         
