@@ -93,14 +93,13 @@ jobs:
       with:
         java-version: 14
 
-    - name: Create zip runtime
-#      run: cd target ; 7z a notepack.zip notepack/      
-      run: cd build/Notepack-package/; 7z a ../../notepack.zip Notepack/ ; cd ../..
-      
     - name: Create MSI
       run: gradle jpackage -PinstallerType=msi
     - name: Rename MSI
       run: mv build/Notepack-package/*.exe ./file.exe
+      
+    - name: Create zip runtime
+      run: cd build/Notepack-package/; 7z a ../../notepack.zip Notepack/ ; cd ../..      
          
     - name: Upload Windows Runtime
       uses: actions/upload-release-asset@v1
