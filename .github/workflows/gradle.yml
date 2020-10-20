@@ -35,7 +35,7 @@ jobs:
     - name: Download appimage
       run: wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
     - name: Build appimage
-      run: cp -r target/notepack/ appimage-base-dir/ ; chmod +x appimagetool ; ./appimagetool appimage-base-dir/ notepack.AppImage
+      run: cp -r build/Notepack-package/Notepack/ appimage-base-dir/ ; chmod +x appimagetool ; ./appimagetool appimage-base-dir/ notepack.AppImage
       
     - name: Upload AppImage
       uses: actions/upload-release-asset@v1
