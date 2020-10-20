@@ -4,3 +4,7 @@ release/*
 nb-configuration.xml
 dependency-reduced-pom.xml
 nbactions.xml
+.gradle
+gradle
+gradlew
+build
