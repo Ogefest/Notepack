@@ -33,7 +33,6 @@ dependencies {
     compile group: 'org.json', name: 'json', version:'20190722'
     compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version:'1.64'
     compile group: 'org.bouncycastle', name: 'bcpg-jdk15on', version:'1.64'
-    //    compile group: 'com.atlassian.commonmark', name: 'commonmark', version:'0.14.0'
     compile 'com.vladsch.flexmark:flexmark-all:0.62.2'
 
 }
@@ -83,7 +82,6 @@ jlink {
 
         outputDir = 'Notepack-package'
         imageName = 'Notepack'
-	icon = 'gfx/logo_128.png'
         skipInstaller = false
         installerName = 'Notepack'
     }
