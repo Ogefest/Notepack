@@ -1,7 +1,11 @@
 package notepack.app.domain;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
 import notepack.app.task.OpenNote;
@@ -86,7 +90,7 @@ public class App {
     public MessageBus getMessageBus() {
         return messageBus;
     }
-    
+
     public Settings getSettings() {
         return settings;
     }
@@ -163,6 +167,16 @@ public class App {
             File f = new File(dir);
             if (!f.exists()) {
                 f.mkdirs();
+
+                try {
+                    String content = new String(getClass().getResourceAsStream("/notepack/welcome.md").readAllBytes());
+                    File fileOut = new File(f.getAbsolutePath() + File.separator + "Welcome.md");
+                    Files.write(fileOut.toPath(), content.getBytes());
+
+                } catch (IOException ex) {
+                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
 
             nsc.set("directory", dir);
@@ -171,6 +185,8 @@ public class App {
             notepad.setParam("color", "#356fcc");
 
             result.add(notepad);
+
+            openNote(notepad.getStorage().getBasePath() + File.separator + "Welcome.md", notepad, "Welcome.md");
         }
 
         return result;
