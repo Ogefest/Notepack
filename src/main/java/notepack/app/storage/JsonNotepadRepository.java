@@ -35,7 +35,7 @@ public class JsonNotepadRepository implements SessionStorage {
 
     private String getJsonFromFile(String filename) {
         try {
-            String directory = System.getProperty("user.home") + File.separator + ".notepack" + File.separator;
+            String directory = settings.get("session.directory", System.getProperty("user.home")) + File.separator + ".notepack" + File.separator;
             String path = directory + filename;
 
             File f = new File(directory);
@@ -61,7 +61,7 @@ public class JsonNotepadRepository implements SessionStorage {
     private void setJsonToFile(String json, String filename) {
         try {
 
-            String directory = System.getProperty("user.home") + File.separator + ".notepack" + File.separator;
+            String directory = settings.get("session.directory", System.getProperty("user.home")) + File.separator + ".notepack" + File.separator;
             String path = directory + filename;
 
             File f = new File(directory);
