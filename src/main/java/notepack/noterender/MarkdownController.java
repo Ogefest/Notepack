@@ -60,6 +60,7 @@ public class MarkdownController extends TextAreaController {
     private MenuButton btnActions;
 
     private String currentCssValue = "";
+    private String lastNoteValue = "";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -86,10 +87,16 @@ public class MarkdownController extends TextAreaController {
     }
 
     private void refreshWebview(String value) {
+
+        if (lastNoteValue.equals(value)) {
+            return;
+        }
+
         Node document = parser.parse(value);
         String html = renderer.render(document);
         String htmlDoc = "<html><head><style>" + currentCssValue + "</style></head><body>" + html + "</body>";
         markdownWebRender.getEngine().loadContent(htmlDoc);
+        lastNoteValue = value;
     }
 
     @Override
