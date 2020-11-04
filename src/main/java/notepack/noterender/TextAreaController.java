@@ -23,6 +23,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.storage.PreferencesSettings;
@@ -161,6 +162,9 @@ public class TextAreaController implements Initializable, NoteRenderController {
             stage.setTitle("Search/Replace");
             stage.setScene(scene);
             stage.initModality(Modality.WINDOW_MODAL);
+            stage.initStyle(StageStyle.UTILITY);
+            stage.setResizable(false);
+
             stage.show();
 
         } catch (IOException ex) {

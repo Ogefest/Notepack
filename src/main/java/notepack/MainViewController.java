@@ -47,6 +47,7 @@ import notepack.app.task.ShowSearchForNoteDialog;
 import notepack.encrypt.SimpleAES;
 import notepack.noterender.NoteRenderController;
 import notepack.noterender.Render;
+import notepack.noterender.TextAreaController;
 
 /**
  * FXML Controller class
@@ -416,7 +417,7 @@ public class MainViewController implements Initializable {
         parentStage.getScene().getAccelerators().put(kcSearchReplaceString, () -> {
             Tab t = tabContainer.getSelectionModel().getSelectedItem();
             Parent p = (Parent) t.getContent();
-            ((NoteTabContentController) t.getUserData()).showSearchReplaceForm();
+            ((TextAreaController) t.getUserData()).showSearchReplaceForm();
         });
         
     }
