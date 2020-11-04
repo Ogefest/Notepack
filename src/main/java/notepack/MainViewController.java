@@ -431,11 +431,6 @@ public class MainViewController implements Initializable {
         return null;
     }
 
-//    private TextArea getCurrentTextArea() {
-//        Tab t = tabContainer.getSelectionModel().getSelectedItem();
-//        Parent p = (Parent) t.getContent();
-//        return ((NoteTabContentController) t.getUserData()).getTextArea();
-//    }
     private Note getCurrentNote() {
         Tab t = tabContainer.getSelectionModel().getSelectedItem();
         return ((NoteRenderController) t.getUserData()).getNote();
@@ -446,10 +441,6 @@ public class MainViewController implements Initializable {
         return ((NotebookTabController) t.getUserData()).getNotepad();
     }
 
-//    private void onFileSave(ActionEvent event) {
-//        Note n = getCurrentNote();
-//        saveNote(n);
-//    }
     private void saveNote(Note n) {
         
         if (n.getPath() == null) {
