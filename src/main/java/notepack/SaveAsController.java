@@ -64,8 +64,8 @@ public class SaveAsController implements Initializable {
         this.note = note;
 
         directoryName = note.getStorage().getBasePath();
-        if (!directoryName.endsWith("/")) {
-            directoryName += "/";
+        if (!directoryName.endsWith(File.separator)) {
+            directoryName += File.separator;
         }
         parentDirectory.setText(directoryName);
 
@@ -126,18 +126,6 @@ public class SaveAsController implements Initializable {
     public void refreshTreeView() {
         NoteStorageItem items = note.getNotepad().getStorage().getItemsInStorage();
 
-//        Collections.sort(items.get(), (NoteStorageItem o1, NoteStorageItem o2) -> {
-//            if (o1.isLeaf()) {
-//                return 1;
-//            }
-//            if (o1.getModified() > o2.getModified()) {
-//                return -1;
-//            } else if (o1.getModified() == o2.getModified()) {
-//                return 0;
-//            } else {
-//                return 1;
-//            }
-//        });
         NoteTreeViewItem rootItem = new NoteTreeViewItem(note.getNotepad().getName());
         TreeItem root = new TreeItem(rootItem);
 
@@ -152,18 +140,6 @@ public class SaveAsController implements Initializable {
 
     private TreeItem addChildren(TreeItem parent, NoteStorageItem items) {
 
-//        Collections.sort(items.get(), (NoteStorageItem o1, NoteStorageItem o2) -> {
-//            if (o1.isLeaf() && !o2.isLeaf()) {
-//                return 1;
-//            }
-//            if (o1.getModified() > o2.getModified()) {
-//                return -1;
-//            } else if (o1.getModified() == o2.getModified()) {
-//                return 0;
-//            } else {
-//                return 1;
-//            }
-//        });
         for (NoteStorageItem it : items.get()) {
 
             if (it.isLeaf()) {
