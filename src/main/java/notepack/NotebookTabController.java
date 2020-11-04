@@ -22,6 +22,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorageItem;
@@ -236,6 +237,8 @@ public class NotebookTabController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setTitle("Add new notepad");
+            stage.initStyle(StageStyle.UTILITY);
+            stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
 
@@ -267,6 +270,8 @@ public class NotebookTabController implements Initializable {
             new Theme(new PreferencesSettings()).setCurrent(scene);
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
+            stage.initStyle(StageStyle.UTILITY);
+            stage.setResizable(false);
             stage.setTitle("Edit notepad");
             stage.setScene(scene);
             stage.show();
