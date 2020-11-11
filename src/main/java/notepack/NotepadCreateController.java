@@ -1,9 +1,14 @@
 package notepack;
 
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import notepack.NotepadCreateCallback;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,14 +49,12 @@ public class NotepadCreateController implements Initializable {
 
     @FXML
     private TextField notepadName;
-    private TextField directoryPath;
 
     private NotepadCreateCallback clbk;
     @FXML
     private Button btnCancel;
 
     private Notepad notepad;
-    private boolean notepadEdition = false;
     @FXML
     private ToggleButton btnUserColor6;
     @FXML
@@ -77,20 +80,17 @@ public class NotepadCreateController implements Initializable {
     private AnchorPane engineForm;
 
     private EngineController currentFormController;
+
     @FXML
-    private CheckBox gpgCheckbox;
+    private CheckBox encryptionCheckbox;
     @FXML
-    private TextField gpgPublicKeyPath;
+    private PasswordField encryptionPassword;
     @FXML
-    private Button gpgSelectPublicKey;
+    private Button generatePassword;
     @FXML
-    private TextField gpgPrivateKeyPath;
+    private Button copyPasswordBtn;
     @FXML
-    private Button gpgSelectPrivateKey;
-    @FXML
-    private Label gpgPublicLabel;
-    @FXML
-    private Label gpgPrivateLabel;
+    private Label passwordLabel;
 
     /**
      * Initializes the controller class.
@@ -119,21 +119,15 @@ public class NotepadCreateController implements Initializable {
             }
         });
 
-        gpgCheckbox.selectedProperty().addListener((o) -> {
-            if (gpgCheckbox.isSelected()) {
-                gpgPrivateLabel.setDisable(false);
-                gpgPublicLabel.setDisable(false);
-                gpgPrivateKeyPath.setDisable(false);
-                gpgPublicKeyPath.setDisable(false);
-                gpgSelectPrivateKey.setDisable(false);
-                gpgSelectPublicKey.setDisable(false);
+        encryptionCheckbox.selectedProperty().addListener((o) -> {
+            if (encryptionCheckbox.isSelected()) {
+                encryptionPassword.setDisable(false);
+                generatePassword.setDisable(false);
+                passwordLabel.setDisable(false);
             } else {
-                gpgPrivateLabel.setDisable(true);
-                gpgPublicLabel.setDisable(true);
-                gpgPrivateKeyPath.setDisable(true);
-                gpgPublicKeyPath.setDisable(true);
-                gpgSelectPrivateKey.setDisable(true);
-                gpgSelectPublicKey.setDisable(true);
+                encryptionPassword.setDisable(true);
+                generatePassword.setDisable(true);
+                passwordLabel.setDisable(true);
             }
         });
 
@@ -151,8 +145,7 @@ public class NotepadCreateController implements Initializable {
 
             try {
                 Parent root = fxmlLoader.load();
-//                new Theme(new PreferencesSettings()).setCurrent(root.getScene());
-                
+
                 currentFormController = (EngineController) fxmlLoader.getController();
 
                 engineForm.getChildren().add(root);
@@ -171,7 +164,7 @@ public class NotepadCreateController implements Initializable {
 
     public void setNotepadToEdit(Notepad notepad) {
         this.notepad = notepad;
-        notepadEdition = true;
+//        notepadEdition = true;
 
         notepadName.setText(notepad.getName());
 
@@ -188,17 +181,16 @@ public class NotepadCreateController implements Initializable {
         engineSelection.getSelectionModel().select(0);
         engineSelection.setDisable(true);
 
-        if (notepad.getParam("gpg-enabled").equals("1")) {
-            gpgPrivateKeyPath.setText(notepad.getParam("gpg-private-key"));
-            gpgPublicKeyPath.setText(notepad.getParam("gpg-public-key"));
-            gpgCheckbox.setSelected(true);
+        if (notepad.getParam("encryption-enabled").equals("1")) {
+            encryptionPassword.setText(notepad.getParam("encryption-password"));
+            encryptionCheckbox.setSelected(true);
+            copyPasswordBtn.setDisable(false);
         }
 
-        gpgCheckbox.setDisable(true);
-        gpgPrivateKeyPath.setDisable(true);
-        gpgPublicKeyPath.setDisable(true);
-        gpgSelectPrivateKey.setDisable(true);
-        gpgSelectPublicKey.setDisable(true);
+        encryptionCheckbox.setDisable(true);
+        encryptionPassword.setDisable(true);
+        generatePassword.setDisable(true);
+        passwordLabel.setDisable(true);
 
         currentFormController.setStorage(notepad.getStorage());
 
@@ -248,28 +240,21 @@ public class NotepadCreateController implements Initializable {
             return;
         }
 
-        if (gpgCheckbox.isSelected()) {
-            notepad.setParam("gpg-enabled", "1");
+        if (encryptionCheckbox.isSelected()) {
+            notepad.setParam("encryption-enabled", "1");
 
-            File privateFile = new File(gpgPrivateKeyPath.getText());
-            File publicFile = new File(gpgPublicKeyPath.getText());
+            String pwd = encryptionPassword.getText();
 
-            if (!privateFile.exists()) {
-                Alert a = new Alert(Alert.AlertType.ERROR, "GPG private key not exists");
-                a.show();
-                return;
-            }
-            if (!publicFile.exists()) {
-                Alert a = new Alert(Alert.AlertType.ERROR, "GPG public key not exists");
+            if (pwd.length() < 5) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Password must have at least 5 characters");
                 a.show();
                 return;
             }
 
-            notepad.setParam("gpg-private-key", privateFile.getAbsolutePath());
-            notepad.setParam("gpg-public-key", publicFile.getAbsolutePath());
+            notepad.setParam("encryption-password", pwd);
 
         } else {
-            notepad.setParam("gpg-enabled", "0");
+            notepad.setParam("encryption-enabled", "0");
         }
 
         String color = (String) tg.getSelectedToggle().getUserData();
@@ -289,57 +274,81 @@ public class NotepadCreateController implements Initializable {
         stage.close();
     }
 
-    private void webDavTestConnection(ActionEvent event) {
-
-        String url = webDavUrl.getText();
-        String username = webDavUsername.getText();
-        String password = webDavPassword.getText();
-
-        NoteStorageConfiguration nsc = new NoteStorageConfiguration();
-        nsc.set("url", url);
-        nsc.set("username", username);
-        nsc.set("password", password);
-
-        Webdav wd = new Webdav(nsc);
-        
-        try {
-            NoteStorageItem noteItem = wd.getItemsInStorage();
-            wd.refreshItemsInStorage();
-        } catch (MessageError ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "WebDAV problem: " + ex.getMessage());
-            a.showAndWait();
-            return;
+    @FXML
+    public void generateRandomPassword(ActionEvent actionEvent) {
+        String input = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+,./<>?;':[]{}";
+        String pwd = "";
+        for (int i = 0; i < 20; i++) {
+            List<String> result = Arrays.asList(input.split(""));
+            Collections.shuffle(result);
+            pwd = pwd + result.get(0);
         }
+        encryptionPassword.setText(pwd);
+        copyPasswordBtn.setDisable(false);
 
-        Alert a = new Alert(Alert.AlertType.INFORMATION, "WebDAV configuration looks good ");
-        a.showAndWait();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Copy and save generated password, this is possible only now!");
 
+        alert.showAndWait();
     }
 
     @FXML
-    private void onSelectPublicKey(ActionEvent event) {
-        Stage stage = (Stage) gpgPublicKeyPath.getScene().getWindow();
-
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Select GPG public key");
-
-        File selectedFile = chooser.showOpenDialog(stage);
-        if (selectedFile != null) {
-            gpgPublicKeyPath.setText(selectedFile.getAbsolutePath());
-        }
+    public void copyPassword(ActionEvent actionEvent) {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(encryptionPassword.getText());
+        clipboard.setContent(content);
     }
 
-    @FXML
-    private void onSelectPrivateKey(ActionEvent event) {
-        Stage stage = (Stage) gpgPrivateKeyPath.getScene().getWindow();
+//    private void webDavTestConnection(ActionEvent event) {
+//
+//        String url = webDavUrl.getText();
+//        String username = webDavUsername.getText();
+//        String password = webDavPassword.getText();
+//
+//        NoteStorageConfiguration nsc = new NoteStorageConfiguration();
+//        nsc.set("url", url);
+//        nsc.set("username", username);
+//        nsc.set("password", password);
+//
+//        Webdav wd = new Webdav(nsc);
+//
+//        try {
+//            NoteStorageItem noteItem = wd.getItemsInStorage();
+//            wd.refreshItemsInStorage();
+//        } catch (MessageError ex) {
+//            Alert a = new Alert(Alert.AlertType.ERROR, "WebDAV problem: " + ex.getMessage());
+//            a.showAndWait();
+//            return;
+//        }
+//
+//        Alert a = new Alert(Alert.AlertType.INFORMATION, "WebDAV configuration looks good ");
+//        a.showAndWait();
+//
+//    }
 
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Select GPG private key");
-
-        File selectedFile = chooser.showOpenDialog(stage);
-        if (selectedFile != null) {
-            gpgPrivateKeyPath.setText(selectedFile.getAbsolutePath());
-        }
-    }
-
+//    private void onSelectPublicKey(ActionEvent event) {
+//        Stage stage = (Stage) gpgPublicKeyPath.getScene().getWindow();
+//
+//        FileChooser chooser = new FileChooser();
+//        chooser.setTitle("Select GPG public key");
+//
+//        File selectedFile = chooser.showOpenDialog(stage);
+//        if (selectedFile != null) {
+//            gpgPublicKeyPath.setText(selectedFile.getAbsolutePath());
+//        }
+//    }
+//    private void onSelectPrivateKey(ActionEvent event) {
+//        Stage stage = (Stage) gpgPrivateKeyPath.getScene().getWindow();
+//
+//        FileChooser chooser = new FileChooser();
+//        chooser.setTitle("Select GPG private key");
+//
+//        File selectedFile = chooser.showOpenDialog(stage);
+//        if (selectedFile != null) {
+//            gpgPrivateKeyPath.setText(selectedFile.getAbsolutePath());
+//        }
+//    }
 }
