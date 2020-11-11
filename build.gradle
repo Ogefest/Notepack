@@ -34,6 +34,7 @@ dependencies {
     compile group: 'org.bouncycastle', name: 'bcprov-jdk15on', version:'1.64'
     compile group: 'org.bouncycastle', name: 'bcpg-jdk15on', version:'1.64'
     compile 'com.vladsch.flexmark:flexmark-all:0.62.2'
+    compile group: 'net.lingala.zip4j', name: 'zip4j', version: '2.6.4'
 
 }
 jlink {
