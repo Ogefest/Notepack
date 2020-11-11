@@ -3,16 +3,14 @@ package notepack.app.domain;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
-import notepack.encrypt.GPG;
-import notepack.processor.GPGDecrypt;
-import notepack.processor.GPGEncrypt;
+import notepack.processor.ZipDecrypt;
+import notepack.processor.ZipEncrypt;
 
 public class Notepad {
 
     private NoteStorageMiddleware storage;
     private String name;
     private String ident;
-    private GPG gpg;
 
     private HashMap<String, String> params = new HashMap<>();
 
@@ -32,19 +30,11 @@ public class Notepad {
     }
 
     public void registerProcessors() {
-        if (getParam("gpg-enabled").equals("1")) {
-            gpg = new GPG(getParam("gpg-public-key"), getParam("gpg-private-key"), "");
-            storage.registerAfterLoad(new GPGDecrypt(gpg));
-            storage.registerBeforeSave(new GPGEncrypt(gpg));
+        if (getParam("encryption-enabled").equals("1")) {
+            String pwd = getParam("encryption-password");
+            storage.registerAfterLoad(new ZipDecrypt(pwd));
+            storage.registerBeforeSave(new ZipEncrypt(pwd));
         }
-    }
-
-    public boolean isGpgEnabled() {
-        return getParam("gpg-enabled").equals("1");
-    }
-
-    public GPG getGpg() {
-        return gpg;
     }
 
     public String getName() {
