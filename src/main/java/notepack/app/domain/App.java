@@ -6,11 +6,11 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
 import notepack.app.task.OpenNote;
 import notepack.app.storage.Filesystem;
-import notepack.app.storage.JsonNotepadRepository;
 import notepack.app.task.ChangedNote;
 import notepack.app.task.CloseNote;
 import notepack.app.task.CloseNotepad;
@@ -20,9 +20,6 @@ import notepack.app.task.OpenNotepad;
 import notepack.app.task.RefreshNotepad;
 import notepack.app.task.RenameNote;
 import notepack.app.task.SaveNote;
-import notepack.app.task.ShowGPGPasswordDialog;
-import notepack.app.task.ShowUserMessage;
-import notepack.encrypt.Fake;
 
 public class App {
 
@@ -101,13 +98,7 @@ public class App {
     }
 
     public void openNote(Note n) {
-
-        if (n.getNotepad().isGpgEnabled() && !n.getNotepad().getGpg().isPrivateKeyLoaded()) {
-            messageBus.addTask(new ShowGPGPasswordDialog(n.getNotepad()));
-        } else {
-            messageBus.addTask(new OpenNote(n));
-        }
-
+        messageBus.addTask(new OpenNote(n));
     }
 
     public void saveNote(Note note) {
