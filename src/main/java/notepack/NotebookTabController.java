@@ -237,7 +237,6 @@ public class NotebookTabController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setTitle("Add new notepad");
-            stage.initStyle(StageStyle.UTILITY);
             stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
@@ -270,7 +269,6 @@ public class NotebookTabController implements Initializable {
             new Theme(new PreferencesSettings()).setCurrent(scene);
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.initStyle(StageStyle.UTILITY);
             stage.setResizable(false);
             stage.setTitle("Edit notepad");
             stage.setScene(scene);
