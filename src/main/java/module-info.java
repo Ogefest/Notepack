@@ -32,5 +32,6 @@ module notepack {
     requires flexmark.util.ast;
     requires flexmark.util.data;
     requires flexmark.util.misc;
+    requires zip4j;
 
 }
