@@ -18,9 +18,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="825.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotepadCreateController">
+<VBox prefHeight="699.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotepadCreateController">
     <stylesheets>
-        <!--<URL value="@color-definition.css" />-->
+        <URL value="@color-definition.css" />
         <URL value="@scrollbar.css" />  
         <URL value="@icons.css" />  
         <URL value="@default.css" />  
@@ -33,37 +33,31 @@
                <font>
                   <Font size="15.0" />
                </font></Label>
-                <TextField fx:id="notepadName" layoutX="280.0" layoutY="31.0" prefHeight="38.0" prefWidth="315.0" />
+                <TextField fx:id="notepadName" layoutX="215.0" layoutY="32.0" prefHeight="38.0" prefWidth="445.0" />
                 <Label layoutX="56.0" layoutY="84.0" text="Notepad color:" AnchorPane.leftAnchor="20.0">
                <font>
                   <Font size="15.0" />
                </font></Label>
-                <ToggleButton fx:id="btnUserColor6" layoutX="444.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-6;" />
-                <ToggleButton fx:id="btnUserColor5" layoutX="410.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-5;" />
-                <ToggleButton fx:id="btnUserColor4" layoutX="378.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-4;" />
-                <ToggleButton fx:id="btnUserColor3" layoutX="344.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-3;" />
-                <ToggleButton fx:id="btnUserColor2" layoutX="312.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-2;" />
-                <ToggleButton fx:id="btnUserColor1" layoutX="280.0" layoutY="79.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" selected="true" style="-fx-background-color: user-color-1;" />
-            <Label layoutX="40.0" layoutY="126.0" text="Enable GPG encryption:">
+                <ToggleButton fx:id="btnUserColor6" layoutX="379.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-6;" />
+                <ToggleButton fx:id="btnUserColor5" layoutX="345.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-5;" />
+                <ToggleButton fx:id="btnUserColor4" layoutX="313.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-4;" />
+                <ToggleButton fx:id="btnUserColor3" layoutX="279.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-3;" />
+                <ToggleButton fx:id="btnUserColor2" layoutX="247.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-2;" />
+                <ToggleButton fx:id="btnUserColor1" layoutX="215.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" selected="true" style="-fx-background-color: user-color-1;" />
+            <Label layoutX="40.0" layoutY="126.0" text="Enable encryption:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <CheckBox fx:id="gpgCheckbox" layoutX="280.0" layoutY="127.0" mnemonicParsing="false" />
-            <Label fx:id="gpgPublicLabel" disable="true" layoutX="40.0" layoutY="175.0" text="Public key:">
+            <CheckBox fx:id="encryptionCheckbox" layoutX="215.0" layoutY="128.0" mnemonicParsing="false" />
+            <Label fx:id="passwordLabel" disable="true" layoutX="40.0" layoutY="175.0" text="Password:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="gpgPublicKeyPath" disable="true" layoutX="277.0" layoutY="166.0" prefHeight="38.0" prefWidth="253.0" />
-            <Button fx:id="gpgSelectPublicKey" cancelButton="true" disable="true" layoutX="530.0" layoutY="166.0" mnemonicParsing="false" onAction="#onSelectPublicKey" text="Select" />
-            <Label fx:id="gpgPrivateLabel" disable="true" layoutX="40.0" layoutY="228.0" text="Private key:">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <TextField fx:id="gpgPrivateKeyPath" disable="true" layoutX="277.0" layoutY="218.0" prefHeight="38.0" prefWidth="253.0" />
-            <Button fx:id="gpgSelectPrivateKey" cancelButton="true" disable="true" layoutX="530.0" layoutY="218.0" mnemonicParsing="false" onAction="#onSelectPrivateKey" text="Select" />
+            <PasswordField fx:id="encryptionPassword" disable="true" layoutX="214.0" layoutY="167.0" prefHeight="37.0" prefWidth="223.0" />
+            <Button fx:id="generatePassword" disable="true" layoutX="446.0" layoutY="168.0" mnemonicParsing="false" onAction="#generateRandomPassword" text="Generate" />
+            <Button fx:id="copyPasswordBtn" disable="true" layoutX="539.0" layoutY="168.0" mnemonicParsing="false" onAction="#copyPassword" text="Copy password" />
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -78,10 +72,10 @@
          </VBox.margin>
          <children>
             <ComboBox fx:id="engineSelection" layoutX="23.0" layoutY="22.0" prefHeight="26.0" prefWidth="665.0" promptText="Select storage engine" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
-            <AnchorPane fx:id="engineForm" layoutX="15.0" layoutY="52.0" prefHeight="292.0" prefWidth="706.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <AnchorPane fx:id="engineForm" layoutX="15.0" layoutY="52.0" prefHeight="269.0" prefWidth="706.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="100.0" VBox.vgrow="ALWAYS">
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="86.0" prefWidth="706.0" VBox.vgrow="ALWAYS">
             <children>
                 <Button fx:id="btnSave" defaultButton="true" layoutX="333.0" layoutY="436.0" mnemonicParsing="false" onAction="#onAdd" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="0.0" />
                 <Button fx:id="btnCancel" cancelButton="true" layoutX="577.0" layoutY="10.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="60.0" />
