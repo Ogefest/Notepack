@@ -2,6 +2,7 @@ package notepack;
 
 import java.security.Security;
 import java.util.ResourceBundle;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import notepack.app.domain.Settings;
 import notepack.app.storage.PreferencesSettings;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 public class Main extends Application {
 
@@ -29,8 +29,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
-        Security.addProvider(new BouncyCastleProvider());
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
         loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
