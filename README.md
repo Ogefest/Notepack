@@ -53,7 +53,7 @@ Download from [GitHub release](https://github.com/Ogefest/Notepack/releases)
 - notes as todo tasks
 - alerts/notification for some notes
 - s3 storage backend
-- ~~GPG encryption~~ done
+- ~~note encryption~~ done
 - web clipper
 - clipboard manager
 - support to view ~~pdf/images/md~~ /doc/xls
