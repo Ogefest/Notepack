@@ -21,7 +21,7 @@ Download from [GitHub release](https://github.com/Ogefest/Notepack/releases)
 - PDF and Markdown supported
 - easy note switch using only shortcuts
 - minimalist clean layout
-- encryption using OpenPGP standard
+- encryption using zip AES encryption (note packed as zip archive with password protected)
 
 ## Screenshots
 
@@ -40,9 +40,6 @@ Download from [GitHub release](https://github.com/Ogefest/Notepack/releases)
 
 ### Notepad colors
 ![Colors](/gfx/colors.gif)
-
-### GPG
-![GPG](/gfx/gpg.gif)
 
 ### Storage
 ![Storage](/gfx/storage.gif)
