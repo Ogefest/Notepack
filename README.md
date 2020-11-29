@@ -21,7 +21,7 @@ Download from [GitHub release](https://github.com/Ogefest/Notepack/releases)
 - PDF and Markdown supported
 - easy note switch using only shortcuts
 - minimalist clean layout
-- encryption using zip AES encryption (note packed as zip archive with password protected)
+- encryption using zip AES algorithm (note packed as zip archive with password protected)
 
 ## Screenshots
 
