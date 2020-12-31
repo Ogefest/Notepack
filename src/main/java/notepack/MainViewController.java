@@ -77,6 +77,8 @@ public class MainViewController implements Initializable {
     private Scene mainScene;
     
     private Theme theme;
+
+    private Tab currentActiveNoteTab;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -129,12 +131,22 @@ public class MainViewController implements Initializable {
                         if (t == null || t1 == null) {
                             return;
                         }
+                        /*
+                        to avoid call this many times
+                         */
+                        if (currentActiveNoteTab != null && currentActiveNoteTab.equals(t1)) {
+                            return;
+                        }
                         
                         NoteRenderController activatedTab = (NoteRenderController) t1.getUserData();
                         activatedTab.noteActivated();
                         
                         NoteRenderController deactivatedTab = (NoteRenderController) t.getUserData();
                         deactivatedTab.noteDeactivated();
+
+                        app.selectNoteInNotepad(activatedTab.getNote());
+
+                        currentActiveNoteTab = t1;
                     }
                 }
                 );
