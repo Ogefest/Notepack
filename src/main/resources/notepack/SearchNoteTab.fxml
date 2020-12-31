@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="296.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.SearchNoteTabController">
+   <stylesheets>
+      <URL value="@scrollbar.css" />
+      <URL value="@icons.css" />
+      <URL value="@default.css" />
+      <URL value="@notepadsettings.css" />
+   </stylesheets>
+   <children>
+      <TextField fx:id="queryInput" layoutX="14.0" layoutY="14.0"  prefHeight="25.0" prefWidth="243.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ListView fx:id="searchResult" layoutX="56.0" layoutY="143.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="43.0" />
+   </children>
+</AnchorPane>
