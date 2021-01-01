@@ -37,28 +37,40 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onImageResize" styleClass="icon-button" text="%fa.arrows_alt">
+                        <Button mnemonicParsing="false" onAction="#onImageResize" styleClass="icon-button">
                            <tooltip>
                               <Tooltip text="Original size" />
                            </tooltip>
+                            <graphic>
+                                <Label styleClass="icon-base,mi-arrow-expand-all" />
+                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#onImageFitVertical" styleClass="icon-button" text="%fa.arrows_v">
+                        <Button mnemonicParsing="false" onAction="#onImageFitVertical" styleClass="icon-button">
                            <tooltip>
                               <Tooltip text="Vertical scale" />
                            </tooltip>
+                            <graphic>
+                                <Label styleClass="icon-base,mi-arrow-up-down" />
+                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#onImageFitHorizontal" styleClass="icon-button" text="%fa.arrows_h">
+                        <Button mnemonicParsing="false" onAction="#onImageFitHorizontal" styleClass="icon-button">
                            <tooltip>
                               <Tooltip text="Horizontal scale" />
                            </tooltip>
+                            <graphic>
+                                <Label styleClass="icon-base,mi-arrow-left-right" />
+                            </graphic>
                         </Button>
                      </children></HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button" text="%fa.times">
+                                <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
                                     <tooltip>
                                         <Tooltip text="Close note (Ctrl + w)" />
                                     </tooltip>
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-close" />
+                                    </graphic>
                                 </Button>
                             </children>
                         </HBox>
