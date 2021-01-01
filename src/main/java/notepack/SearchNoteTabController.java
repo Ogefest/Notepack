@@ -104,8 +104,6 @@ public class SearchNoteTabController implements Initializable {
 
     public void setApp(App app) {
         this.app = app;
-//        tabBackground.setStyle("-fx-background-color: white");
-
         searchResult.setItems(programList);
     }
 
