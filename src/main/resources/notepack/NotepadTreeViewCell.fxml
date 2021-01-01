@@ -27,7 +27,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="40.0">
                      <children>
-                          <Label fx:id="nodeIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="%fa.file_text_o" />
+                          <Label fx:id="nodeIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="fa.file_text_o" />
                           <VBox fx:id="centerPart" alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
                               <children>
                                   <Label fx:id="nodeName" prefHeight="16.0" text="Label" />
@@ -51,7 +51,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="40.0">
                      <children>
-                        <Label fx:id="directoryIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="%fa.file_text_o" />
+                        <Label fx:id="directoryIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="fa.file_text_o" />
                         <VBox fx:id="centerPart1" alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
                            <children>
                               <Label fx:id="directoryName" prefHeight="16.0" prefWidth="164.0" text="Label">
@@ -69,7 +69,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="40.0">
                      <children>
-                        <Label fx:id="notepadIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="%fa.files_o">
+                        <Label fx:id="notepadIcon" prefHeight="22.0" prefWidth="23.0" style="-fx-font-size: 16;" styleClass="icon-button" text="fa.files_o">
                            <font>
                               <Font size="20.0" />
                            </font>

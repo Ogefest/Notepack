@@ -2,10 +2,25 @@
     -fx-icon-size: 24;
 }
 
+.icon-base {
+    -fx-content-display: graphic-only;
+    /*-fx-padding: 15;*/
+    -fx-background-color: text-color;
+
+    -fx-background-size: 18px;
+
+    -fx-min-height: 16;
+    -fx-min-width: 16;
+    -fx-max-height: 16;
+    -fx-max-width: 16;
+
+}
+
+
 .icon-menu {
     /*-fx-background-color: red;*/
     -fx-fill: green;
-    /*-fx-base: white;*/
+    /*-fx-base: red;*/
     -fx-min-height: -fx-icon-size;
     -fx-min-width: -fx-icon-size;
     -fx-max-height: -fx-icon-size;
@@ -15,7 +30,10 @@
 }
 
 .icon-search {
-    -fx-background-color: #404754;
+    /*-fx-background-color: #404754;*/
+    -fx-background-color: green;
+    /*-fx-color: red;*/
+    -fx-text-fill: red;
     -size: 24;
     -fx-min-height: -size;
     -fx-min-width: -size;
