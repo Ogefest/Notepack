@@ -31,7 +31,6 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
-        loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
 
         Image icon = new Image(getClass().getResourceAsStream("logo.png"));
         stage.getIcons().add(icon);
@@ -52,9 +51,7 @@ public class Main extends Application {
         String darkMode = getClass().getResource("color-definition-dark.css").toExternalForm();
 
         stage.setScene(scene);
-        stage.setOnShowing((t) -> {
-            ctrl.windowRestore();
-        });
+        stage.setOnShowing((t) -> ctrl.windowRestore());
 
         stage.setTitle("NotePack");
 
