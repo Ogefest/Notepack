@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -91,9 +92,19 @@ public class SearchNoteTabController implements Initializable {
 
     }
 
+    public void focusSearchQuery() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                queryInput.requestFocus();
+            }
+        });
+
+    }
+
     public void setApp(App app) {
         this.app = app;
-        tabBackground.setStyle("-fx-background-color: white");
+//        tabBackground.setStyle("-fx-background-color: white");
 
         searchResult.setItems(programList);
     }

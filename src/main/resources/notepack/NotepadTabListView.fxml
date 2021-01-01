@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -10,11 +15,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotebookTabController">
+<AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotebookTabController">
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
         <URL value="@scrollbar.css" />  
-        <URL value="@icons.css" />  
+        <URL value="@icons.css" />
+        <URL value="@material.icons.css" />
         <URL value="@default.css" />  
     </stylesheets>        
     <children>
@@ -34,29 +40,41 @@
          <children>
             <HBox alignment="CENTER_LEFT" maxHeight="40.0" prefHeight="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onFileNotepadAdd" styleClass="icon-button" text="%fa.files_o">
+                  <Button mnemonicParsing="false" onAction="#onFileNotepadAdd" styleClass="icon-button">
                      <tooltip>
                         <Tooltip text="Add notepad" />
                      </tooltip>
+                      <graphic>
+                          <Label  styleClass="icon-base,mi-book-plus-outline" />
+                      </graphic>
                   </Button>
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" maxHeight="40.0" prefHeight="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onFileNew" styleClass="icon-button" text="%fa.edit">
+                  <Button mnemonicParsing="true" onAction="#onFileNew" styleClass="icon-button" text="">
                      <tooltip>
                         <Tooltip text="New note (Ctrl + n)" />
                      </tooltip>
+                     <graphic>
+                        <Label  styleClass="icon-base,mi-text-box-plus-outline" />
+                     </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onNotepadEdit" styleClass="icon-button" text="%fa.cog">
+                  <Button mnemonicParsing="false" onAction="#onNotepadEdit" styleClass="icon-button">
                      <tooltip>
                         <Tooltip text="Settings" />
                      </tooltip>
+                      <graphic>
+                          <Label  styleClass="icon-base,mi-cog-outline" />
+                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onNotepadClose" styleClass="icon-button" text="%fa.times">
+                  <Button mnemonicParsing="false" onAction="#onNotepadClose" styleClass="icon-button">
                      <tooltip>
                         <Tooltip text="Close" />
                      </tooltip>
+                      <graphic>
+                          <Label  styleClass="icon-base,mi-close" />
+                      </graphic>
                   </Button>
                </children>
             </HBox>
