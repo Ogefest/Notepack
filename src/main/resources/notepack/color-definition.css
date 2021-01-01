@@ -19,7 +19,8 @@
     text-color: #333333;
     sub-text-color: #222222;
     
-    input-background: white;
+    input-background: #fbfbfb;
+    /*input-background: white;*/
     text-area-background: white;
     tree-view-background: white;
     list-view-background: white;
