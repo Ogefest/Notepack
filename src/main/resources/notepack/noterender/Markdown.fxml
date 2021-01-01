@@ -36,17 +36,23 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>                        
-                                <Button fx:id="btnSave" mnemonicParsing="false" onAction="#onSaveNote" styleClass="icon-button" text="%fa.floppy_o">
+                                <Button fx:id="btnSave" mnemonicParsing="false" onAction="#onSaveNote" styleClass="icon-button">
                                     <tooltip>
                                         <Tooltip text="Save note (Ctrl + s)" />
                                     </tooltip>
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-content-save-outline" />
+                                    </graphic>
                                 </Button>                         
-                                <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#onSearchInNote" styleClass="icon-button" text="%fa.search">
+                                <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#onSearchInNote" styleClass="icon-button">
                                     <tooltip>
                                         <Tooltip text="Search (Ctrl + f)" />
                                     </tooltip>
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-magnify" />
+                                    </graphic>
                                 </Button>
-                                <MenuButton fx:id="btnActions" mnemonicParsing="false" styleClass="icon-button" text="%fa.pencil">
+                                <MenuButton fx:id="btnActions" mnemonicParsing="false" styleClass="icon-button">
                                     <items>
                                         <MenuItem fx:id="menuUndo" mnemonicParsing="false" onAction="#onUndo" text="Undo" />
                                         <MenuItem fx:id="menuRedo" mnemonicParsing="false" onAction="#onRedo" text="Redo" />
@@ -60,21 +66,30 @@
                                     <tooltip>
                                         <Tooltip text="Edit" />
                                     </tooltip>
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-pencil" />
+                                    </graphic>
                                 </MenuButton>
-                        <Button mnemonicParsing="false" onAction="#onChangeViewMode" styleClass="icon-button" text="%fa.pencil_square_o">
+                        <Button mnemonicParsing="false" onAction="#onChangeViewMode" styleClass="icon-button">
                            <tooltip>
                               <Tooltip text="Toggle editor view" />
                            </tooltip>
+                            <graphic>
+                                <Label styleClass="icon-base,mi-dip-switch" />
+                            </graphic>
                         </Button>                        
 
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button" text="%fa.times">
+                                <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
                                     <tooltip>
                                         <Tooltip text="Close note (Ctrl + w)" />
                                     </tooltip>
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-close" />
+                                    </graphic>
                                 </Button>
                             </children>
                         </HBox>

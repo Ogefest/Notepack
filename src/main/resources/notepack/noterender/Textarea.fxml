@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Label?>
 <AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.noterender.TextAreaController">
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
@@ -29,17 +30,23 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>                        
-                                <Button mnemonicParsing="false" onAction="#onSaveNote" styleClass="icon-button" text="%fa.floppy_o">
+                                <Button mnemonicParsing="false" onAction="#onSaveNote" styleClass="icon-button">
                                     <tooltip>
                                         <Tooltip text="Save note (Ctrl + s)" />
                                     </tooltip>
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-content-save-outline" />
+                                    </graphic>
                                 </Button>                         
-                                <Button mnemonicParsing="false" onAction="#onSearchInNote" styleClass="icon-button" text="%fa.search">
+                                <Button mnemonicParsing="false" onAction="#onSearchInNote" styleClass="icon-button">
                                     <tooltip>
                                         <Tooltip text="Search (Ctrl + f)" />
                                     </tooltip>
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-magnify" />
+                                    </graphic>
                                 </Button>
-                                <MenuButton mnemonicParsing="false" styleClass="icon-button" text="%fa.pencil">
+                                <MenuButton mnemonicParsing="false" styleClass="icon-button">
                                     <items>
                                         <MenuItem fx:id="menuUndo" mnemonicParsing="false" onAction="#onUndo" text="Undo" />
                                         <MenuItem fx:id="menuRedo" mnemonicParsing="false" onAction="#onRedo" text="Redo" />
@@ -53,16 +60,22 @@
                                     <tooltip>
                                         <Tooltip text="Edit" />
                                     </tooltip>
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-pencil" />
+                                    </graphic>
                                 </MenuButton>                        
 
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button" text="%fa.times">
+                                <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
                                     <tooltip>
                                         <Tooltip text="Close note (Ctrl + w)" />
                                     </tooltip>
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-close" />
+                                    </graphic>
                                 </Button>
                             </children>
                         </HBox>
