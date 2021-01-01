@@ -97,6 +97,7 @@ public class SearchNoteTabController implements Initializable {
             @Override
             public void run() {
                 queryInput.requestFocus();
+                filterList("");
             }
         });
 
