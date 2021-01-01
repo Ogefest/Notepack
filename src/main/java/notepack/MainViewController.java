@@ -30,6 +30,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -44,6 +45,7 @@ import notepack.app.storage.JsonNotepadRepository;
 import notepack.app.storage.PreferencesSettings;
 import notepack.app.task.ShowApplicationInfo;
 import notepack.app.task.ShowSearchForNoteDialog;
+import notepack.app.utils.Icon;
 import notepack.encrypt.SimpleAES;
 import notepack.noterender.NoteRenderController;
 import notepack.noterender.Render;
@@ -77,11 +79,9 @@ public class MainViewController implements Initializable {
     private Scene mainScene;
     
     private Theme theme;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-
 
     }
     
@@ -91,40 +91,33 @@ public class MainViewController implements Initializable {
 
     private void initDefaultTab() {
 
-        Tab tab = new Tab();
+        Tab searchNoteTab = new Tab();
+        searchNoteTab.setId("searchNoteTab");
 
         Node tabContent = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchNoteTab.fxml"));
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("NotepadTabListView.fxml"));
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("NotepadTabListView.fxml"));
-//            loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
-//            Node tabContent = loader.load();
-//            NotebookTabController ctrl = loader.getController();
 
             tabContent = loader.load();
 
-//            tab.setContent(tabContent);
-
             SearchNoteTabController ctrl = loader.getController();
-            tab.setContent(tabContent);
+            searchNoteTab.setContent(tabContent);
+            searchNoteTab.setUserData(ctrl);
             ctrl.setApp(app);
 
-//            Label l = (Label) tab.getGraphic();
-//            ResourceBundle bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
-//            l.setText(bundle.getString("%fa.pencil"));
-//            l.setText("saerch");
-//            l.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 16;");
+            searchNoteTab.setGraphic(Icon.get("mi-magnify"));
+            searchNoteTab.setStyle("-fx-background-color: white; -fx-border-color: white" );
+            searchNoteTab.getStyleClass().add("button");
 
-            tab.setGraphic(new Label("Search"));
-            tab.setStyle("-fx-background-color: white; -fx-border-color: white" );
-
-//            notepadContainer.getTabs().add(tab);
             Platform.runLater(() -> {
+                notepadContainer.getTabs().add(searchNoteTab);
+            });
 
-                notepadContainer.getTabs().add(tab);
-//                notepadContainer.getSelectionModel().select(tab);
-
+            notepadContainer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.equals(searchNoteTab)) {
+                    SearchNoteTabController c = (SearchNoteTabController) searchNoteTab.getUserData();
+                    c.focusSearchQuery();
+                }
             });
 
         } catch (IOException e) {
@@ -146,8 +139,6 @@ public class MainViewController implements Initializable {
             });
         });
 
-
-        
         app.getMessageBus().registerNoteListener(new NoteListener() {
             @Override
             public void onOpen(Note note) {
@@ -173,14 +164,14 @@ public class MainViewController implements Initializable {
                 tabContainer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        
+
                         if (t == null || t1 == null) {
                             return;
                         }
-                        
+
                         NoteRenderController activatedTab = (NoteRenderController) t1.getUserData();
                         activatedTab.noteActivated();
-                        
+
                         NoteRenderController deactivatedTab = (NoteRenderController) t.getUserData();
                         deactivatedTab.noteDeactivated();
                     }
@@ -191,7 +182,7 @@ public class MainViewController implements Initializable {
                 
                 Platform.runLater(() -> {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(Render.getFxml(note)));
-                    loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
+//                    loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
                     Node tabContent;
                     try {
                         tabContent = loader.load();
@@ -281,9 +272,10 @@ public class MainViewController implements Initializable {
                             t.setText(n.getName());
                             
                             Label l = (Label) t.getGraphic();
-                            ResourceBundle bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
-                            l.setText(bundle.getString("fa.pencil_square_o"));
-                            l.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 16;");
+//                            ResourceBundle bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
+//                            l.setText(bundle.getString("fa.pencil_square_o"));
+                            l.getStyleClass().addAll("icon-base","mi-pencil");
+//                            l.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 16;");
                         }
                     }
                 });
@@ -312,7 +304,7 @@ public class MainViewController implements Initializable {
                 try {
                     
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("NotepadTabListView.fxml"));
-                    loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
+//                    loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
                     Node tabContent = loader.load();
                     NotebookTabController ctrl = loader.getController();
                     tab.setContent(tabContent);
