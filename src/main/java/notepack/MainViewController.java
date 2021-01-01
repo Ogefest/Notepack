@@ -47,6 +47,7 @@ import notepack.app.task.ShowApplicationInfo;
 import notepack.app.task.ShowSearchForNoteDialog;
 import notepack.app.utils.Icon;
 import notepack.encrypt.SimpleAES;
+import notepack.gui.TabNotepad;
 import notepack.noterender.NoteRenderController;
 import notepack.noterender.Render;
 import notepack.noterender.TextAreaController;
@@ -300,7 +301,7 @@ public class MainViewController implements Initializable {
         app.getMessageBus().registerNotepadListener(new NotepadListener() {
             @Override
             public void onOpen(Notepad notepad) {
-                Tab tab = new Tab();
+                Tab tab = new TabNotepad();
                 try {
                     
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("NotepadTabListView.fxml"));
@@ -360,33 +361,35 @@ public class MainViewController implements Initializable {
             @Override
             public void onClose(Notepad notepad) {
                 
-//                Platform.runLater(() -> {
-//                    for (Tab t : notepadContainer.getTabs()) {
-//
-//                        NotebookTabController ctrl = (NotebookTabController) t.getUserData();
-//                        if (ctrl.getNotepad().getIdent().equals(notepad.getIdent())) {
-//                            notepadContainer.getTabs().remove(t);
-//                            break;
-//                        }
-//                    }
-//                });
+                Platform.runLater(() -> {
+                    for (Tab t : notepadContainer.getTabs()) {
+
+                        if (t instanceof TabNotepad) {
+                            NotebookTabController ctrl = (NotebookTabController) t.getUserData();
+                            if (ctrl.getNotepad().getIdent().equals(notepad.getIdent())) {
+                                notepadContainer.getTabs().remove(t);
+                                break;
+                            }
+                        }
+
+                    }
+                });
             }
             
             @Override
             public void onNotesListUpdated(Notepad notepad) {
                 
-//                Platform.runLater(() -> {
-//
-//                    for (Tab t : notepadContainer.getTabs()) {
-//
-//                        NotebookTabController ctrl = (NotebookTabController) t.getUserData();
-//                        if (ctrl.getNotepad().equals(notepad)) {
-//                            ctrl.refreshTreeView();
-//                        }
-//                    }
-//
-//                });
-                
+                Platform.runLater(() -> {
+                    for (Tab t : notepadContainer.getTabs()) {
+                        if (t instanceof TabNotepad) {
+                            NotebookTabController ctrl = (NotebookTabController) t.getUserData();
+                            if (ctrl.getNotepad().equals(notepad)) {
+                                ctrl.refreshTreeView();
+                            }
+                        }
+                    }
+                });
+
             }
         });
         
