@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import notepack.app.utils.Icon;
 
 public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
 
@@ -50,9 +51,7 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
 
         if (loader == null) {
             try {
-//                bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
                 loader = new FXMLLoader(getClass().getResource("NotepadTreeViewCell.fxml"));
-//                loader.setResources(null);
                 loader.setController(this);
                 loader.load();
 
@@ -79,7 +78,7 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
             if (!item.getNoteStorageItem().isLeaf()) {
 
                 directoryName.setText(item.getLabel());
-                directoryIcon.setText(bundle.getString("fa.folder_o"));
+                directoryIcon = Icon.get("mi-folder-outline");
 
                 setGraphic(directoryRow);
 
@@ -88,7 +87,7 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
                 nodeName.setText(item.getLabel());
 
                 Date date = new Date(item.getNoteStorageItem().getModified());
-                DateFormat formatter = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 lastModified.setText(formatter.format(date));
                 noteSize.setText(formatFileSize(item.getNoteStorageItem().getSize()));
 
