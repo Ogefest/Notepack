@@ -50,9 +50,9 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
 
         if (loader == null) {
             try {
-                bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
+//                bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
                 loader = new FXMLLoader(getClass().getResource("NotepadTreeViewCell.fxml"));
-                loader.setResources(bundle);
+//                loader.setResources(null);
                 loader.setController(this);
                 loader.load();
 
