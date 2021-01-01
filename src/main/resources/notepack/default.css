@@ -4,11 +4,6 @@
 }
 
 @font-face {
-    font-family: 'FontAwesome';
-    src: url('fonts/FontAwesome.otf');
-}
-
-@font-face {
     font-family: 'Zilla Slab Light';
     src: url('fonts/ZillaSlab-Light.ttf');
 }
