@@ -109,6 +109,16 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-text-base-color: tab-text;
+
+    /*-fx-padding: 4 10 4 4 ;*/
+}
+
+.tab.button {
+    -fx-background-insets: 12 0 0 12;
+    -fx-border-insets: 12 0 0 12;
+    -fx-padding: 8 8 8 8;
+    -fx-background-radius: 4 4 0 0;
+    -fx-border-radius: 4 4 0 0;
 }
 
 #noteTabContainer .tab {
@@ -187,7 +197,7 @@
 .icon-button {
     -fx-background-color: transparent;
     -fx-font-size: 20.0 pt;
-    -fx-font-family: 'FontAwesome';
+    /*-fx-font-family: 'FontAwesome';*/
     -fx-padding: 5 ;
     -fx-text-fill:icon-color;
 }
