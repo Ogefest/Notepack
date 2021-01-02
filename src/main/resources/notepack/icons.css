@@ -2,38 +2,39 @@
     -fx-icon-size: 24;
 }
 
-.icon-menu {
-    /*-fx-background-color: red;*/
-    -fx-fill: green;
-    /*-fx-base: white;*/
-    -fx-min-height: -fx-icon-size;
-    -fx-min-width: -fx-icon-size;
-    -fx-max-height: -fx-icon-size;
-    -fx-max-width: -fx-icon-size;
+.icon-base {
+    -fx-content-display: graphic-only;
+    /*-fx-padding: 15;*/
+    -fx-background-color: text-color;
 
-    -fx-shape: "M0 0h24v24H0z M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z";
+    -fx-background-size: 18px;
+
+    -fx-min-height: 16;
+    -fx-min-width: 16;
+    -fx-max-height: 16;
+    -fx-max-width: 16;
 }
 
-.icon-search {
-    -fx-background-color: #404754;
-    -size: 24;
-    -fx-min-height: -size;
-    -fx-min-width: -size;
-    -fx-max-height: -size;
-    -fx-max-width: -size;
+#top-bar .icon-button .menu-item .label {
+    -fx-font-size: 22.0 pt;
 
-    -fx-shape: "M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z M0 0h24v24H0z";
+}
+#top-bar .icon-button {
+    -fx-padding: 13 20 13 20;
+    -fx-text-fill: icon-color2;
 }
 
+#top-bar .icon-button .icon-base {
+    -fx-background-color: icon-color2;
+}
 
-.icon-logo {
-    -fx-background-color: #e2e2ef;
-    -size: 34;
-    -fx-min-height: -size;
-    -fx-min-width: -size;
-    -fx-max-height: -size;
-    -fx-max-width: -size;    
+#top-bar .icon-button:hover {
 
-    -fx-shape: "M413.657,114.343l-96-96A8,8,0,0,0,312,16H72A40.045,40.045,0,0,0,32,56V456a40.045,40.045,0,0,0,40,40H376a40.045,40.045,0,0,0,40-40V376.236l40.97-40.97h0l11.313-11.315A40,40,0,0,0,416,263.674V120A8,8,0,0,0,413.657,114.343ZM319.667,42.98,388.687,112h-45.02a24.027,24.027,0,0,1-24-24ZM72,480a24.028,24.028,0,0,1-24-24V56A24.028,24.028,0,0,1,72,32H303.667V88a40.045,40.045,0,0,0,40,40H400V279.1L264.638,414.461a7.955,7.955,0,0,0-1.927,3.129l-.006,0L241.9,480Zm201.79-45.072,26.949,26.949-40.423,13.474ZM400,456a24.028,24.028,0,0,1-24,24H296.967l21.112-7.037,0-.008a7.98,7.98,0,0,0,3.129-1.925L400,392.236Zm23.029-177.3a24,24,0,0,1,33.942,33.941l-5.658,5.657-33.94-33.941ZM440,329.608,315.549,454.06l-33.941-33.942L406.059,295.667Z M159.667,168a8,8,0,0,0,8,8h192a8,8,0,0,0,0-16h-192A8,8,0,0,0,159.667,168Z M87.667,224h160a8,8,0,1,0,0-16h-160a8,8,0,0,0,0,16Z M360,256H215.667a8,8,0,0,0,0,16H360a8,8,0,0,0,0-16Z M87.667,320h144a8,8,0,1,0,0-16h-144a8,8,0,0,0,0,16Z M87.667,176h48a8,8,0,1,0,0-16h-48a8,8,0,0,0,0,16Z M359.667,224a8,8,0,0,0,0-16h-80a8,8,0,0,0,0,16Z M87.667,272h96a8,8,0,1,0,0-16h-96a8,8,0,0,0,0,16Z M232,400H183.667a8,8,0,0,0,0,16H232a8,8,0,0,0,0-16Z M151.667,400h-64a8,8,0,0,0,0,16h64a8,8,0,1,0,0-16Z M87.667,368h48a8,8,0,1,0,0-16h-48a8,8,0,0,0,0,16Z M87.667,128h96a8,8,0,1,0,0-16h-96a8,8,0,0,0,0,16Z M272,360a8,8,0,0,0-8-8H167.667a8,8,0,0,0,0,16H264A8,8,0,0,0,272,360Z M312,304H264a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16Z";
+    -fx-background-color: rgba(255,255,255,0.75),
+        linear-gradient(to bottom, derive(-fx-bar-background,5%) 0%, derive(-fx-bar-background,5%) 100%);
+    -fx-background-insets: 0,1;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+
 }
 
