@@ -268,7 +268,7 @@ public class MainViewController implements Initializable {
                             t.setText(n.getName());
                             
                             Label l = (Label) t.getGraphic();
-                            l.getStyleClass().addAll("icon-base","mi-pencil");
+                            l.getStyleClass().addAll("icon-base","mi-asterisk");
                         }
                     }
                 });

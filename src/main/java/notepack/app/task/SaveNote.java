@@ -5,7 +5,7 @@ import notepack.app.domain.Task;
 import notepack.app.domain.exception.MessageError;
 import notepack.app.listener.NoteListener;
 
-public class SaveNote implements Task, TypeNote {
+public class SaveNote extends BaseTask implements Task, TypeNote {
 
     private Note note;
 
@@ -16,6 +16,7 @@ public class SaveNote implements Task, TypeNote {
     @Override
     public void dispatch() throws MessageError {
         note.saveToStorage();
+        addTaskToQueue(new MarkNoteAsSaved(note));
     }
 
     @Override

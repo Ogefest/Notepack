@@ -21,4 +21,8 @@ abstract public class BaseTask {
             messageBus.addTask(afterDispatchTask);
         }
     }
+
+    protected void addTaskToQueue(Task t) {
+        messageBus.addTask(t);
+    }
 }
