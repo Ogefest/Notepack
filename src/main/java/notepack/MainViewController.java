@@ -25,7 +25,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -44,7 +43,9 @@ import notepack.app.storage.JsonNotepadRepository;
 import notepack.app.storage.PreferencesSettings;
 import notepack.app.task.ShowApplicationInfo;
 import notepack.app.task.ShowSearchForNoteDialog;
+import notepack.app.utils.Icon;
 import notepack.encrypt.SimpleAES;
+import notepack.gui.TabNotepad;
 import notepack.noterender.NoteRenderController;
 import notepack.noterender.Render;
 import notepack.noterender.TextAreaController;
@@ -79,13 +80,48 @@ public class MainViewController implements Initializable {
     private Theme theme;
 
     private Tab currentActiveNoteTab;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
     }
     
     public void setScene(Scene scene) {
         this.mainScene = scene;
+    }
+
+    private void initDefaultTab() {
+
+        Tab searchNoteTab = new Tab();
+        searchNoteTab.setId("searchNoteTab");
+
+        Node tabContent;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchNoteTab.fxml"));
+
+            tabContent = loader.load();
+
+            SearchNoteTabController ctrl = loader.getController();
+            searchNoteTab.setContent(tabContent);
+            searchNoteTab.setUserData(ctrl);
+            ctrl.setApp(app);
+
+            searchNoteTab.setGraphic(Icon.get("mi-magnify"));
+            searchNoteTab.setStyle("-fx-background-color: white; -fx-border-color: white" );
+            searchNoteTab.getStyleClass().add("button");
+
+            Platform.runLater(() -> notepadContainer.getTabs().add(searchNoteTab));
+
+            notepadContainer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.equals(searchNoteTab)) {
+                    SearchNoteTabController c = (SearchNoteTabController) searchNoteTab.getUserData();
+                    c.focusSearchQuery();
+                }
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     public void appStart() {
@@ -96,12 +132,8 @@ public class MainViewController implements Initializable {
         
         app = new App(sessionStorage, appSettings);
         
-        app.getMessageBus().registerGuiListener((task) -> {
-            Platform.runLater(() -> {
-                task.proceed(parentStage, app);
-            });
-        });
-        
+        app.getMessageBus().registerGuiListener((task) -> Platform.runLater(() -> task.proceed(parentStage, app)));
+
         app.getMessageBus().registerNoteListener(new NoteListener() {
             @Override
             public void onOpen(Note note) {
@@ -109,21 +141,13 @@ public class MainViewController implements Initializable {
                 for (Tab t : tabContainer.getTabs()) {
                     NoteRenderController ctrl = (NoteRenderController) t.getUserData();
                     if (ctrl.getNote().getIdent().equals(note.getIdent())) {
-                        Platform.runLater(() -> {
-                            tabContainer.getSelectionModel().select(t);
-                        });
+                        Platform.runLater(() -> tabContainer.getSelectionModel().select(t));
                         
                         return;
                     }
                 }
 
-//                tabContainer.selectionModelProperty().addListener((arg0, arg1, arg2) -> {
-//                    NoteRenderController activatedTab = (NoteRenderController) arg2.getUserData();
-//                    activatedTab.noteActivated();
-//
-//                    NoteRenderController deactivatedTab = (NoteRenderController) arg1.getUserData();
-//                    deactivatedTab.noteDeactivated();
-//                });
+
                 tabContainer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
                     @Override
                     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
@@ -147,7 +171,14 @@ public class MainViewController implements Initializable {
                         app.selectNoteInNotepad(activatedTab.getNote());
 
                         currentActiveNoteTab = t1;
+
                     }
+
+                    NoteRenderController activatedTab = (NoteRenderController) t1.getUserData();
+                    activatedTab.noteActivated();
+
+                    NoteRenderController deactivatedTab = (NoteRenderController) t.getUserData();
+                    deactivatedTab.noteDeactivated();
                 }
                 );
                 
@@ -155,7 +186,6 @@ public class MainViewController implements Initializable {
                 
                 Platform.runLater(() -> {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(Render.getFxml(note)));
-                    loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
                     Node tabContent;
                     try {
                         tabContent = loader.load();
@@ -165,13 +195,11 @@ public class MainViewController implements Initializable {
                         
                         ContextMenu contextMenu = new ContextMenu();
                         MenuItem closeNoteMenu = new MenuItem("Close");
-                        closeNoteMenu.setOnAction((t) -> {
-                            app.closeNote(note);
-                        });
+                        closeNoteMenu.setOnAction((t) -> app.closeNote(note));
+
                         MenuItem saveNoteMenu = new MenuItem("Save");
-                        saveNoteMenu.setOnAction((t) -> {
-                            app.saveNote(note);
-                        });
+                        saveNoteMenu.setOnAction((t) -> app.saveNote(note));
+
                         contextMenu.getItems().addAll(saveNoteMenu, closeNoteMenu);
                         newTab.setContextMenu(contextMenu);
                         
@@ -215,11 +243,11 @@ public class MainViewController implements Initializable {
                                 alert.getButtonTypes().setAll(buttonDontClose, buttonClose, buttonSave);
                                 
                                 Optional<ButtonType> result = alert.showAndWait();
-                                if (result.get() == buttonSave) {
+                                if (result.isPresent() && result.get() == buttonSave) {
                                     app.saveNote(note);
                                     
                                     tabContainer.getTabs().remove(t);
-                                } else if (result.get() == buttonClose) {
+                                } else if (result.isPresent() && result.get() == buttonClose) {
                                     tabContainer.getTabs().remove(t);
                                 }
                             } else {
@@ -245,9 +273,7 @@ public class MainViewController implements Initializable {
                             t.setText(n.getName());
                             
                             Label l = (Label) t.getGraphic();
-                            ResourceBundle bundle = ResourceBundle.getBundle("notepack.fonts.FontAwesome");
-                            l.setText(bundle.getString("fa.pencil_square_o"));
-                            l.setStyle("-fx-font-family: FontAwesome; -fx-font-size: 16;");
+                            l.getStyleClass().addAll("icon-base","mi-pencil");
                         }
                     }
                 });
@@ -272,11 +298,10 @@ public class MainViewController implements Initializable {
         app.getMessageBus().registerNotepadListener(new NotepadListener() {
             @Override
             public void onOpen(Notepad notepad) {
-                Tab tab = new Tab();
+                Tab tab = new TabNotepad();
                 try {
                     
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("NotepadTabListView.fxml"));
-                    loader.setResources(ResourceBundle.getBundle("notepack.fonts.FontAwesome"));
                     Node tabContent = loader.load();
                     NotebookTabController ctrl = loader.getController();
                     tab.setContent(tabContent);
@@ -293,17 +318,13 @@ public class MainViewController implements Initializable {
                     
                     ContextMenu contextMenu = new ContextMenu();
                     MenuItem closeNotepadMenu = new MenuItem("Close");
-                    closeNotepadMenu.setOnAction((t) -> {
-                        app.closeNotepad(notepad);
-                    });
+                    closeNotepadMenu.setOnAction((t) -> app.closeNotepad(notepad));
+
                     MenuItem refreshNotepadMenu = new MenuItem("Refresh");
-                    refreshNotepadMenu.setOnAction((t) -> {
-                        app.refreshNotepad(notepad);
-                    });
+                    refreshNotepadMenu.setOnAction((t) -> app.refreshNotepad(notepad));
+
                     MenuItem configureNotepadMenu = new MenuItem("Settings");
-                    configureNotepadMenu.setOnAction((t) -> {
-                        ctrl.openNotepadEdit(notepad);
-                    });
+                    configureNotepadMenu.setOnAction((t) -> ctrl.openNotepadEdit(notepad));
                     
                     contextMenu.getItems().addAll(closeNotepadMenu, refreshNotepadMenu, configureNotepadMenu);
                     tab.setContextMenu(contextMenu);
@@ -320,6 +341,7 @@ public class MainViewController implements Initializable {
                         
                         notepadContainer.getTabs().add(tab);
                         notepadContainer.getSelectionModel().select(tab);
+                        ctrl.refreshTreeView();
                         
                     });
                     
@@ -333,12 +355,15 @@ public class MainViewController implements Initializable {
                 
                 Platform.runLater(() -> {
                     for (Tab t : notepadContainer.getTabs()) {
-                        
-                        NotebookTabController ctrl = (NotebookTabController) t.getUserData();
-                        if (ctrl.getNotepad().getIdent().equals(notepad.getIdent())) {
-                            notepadContainer.getTabs().remove(t);
-                            break;
+
+                        if (t instanceof TabNotepad) {
+                            NotebookTabController ctrl = (NotebookTabController) t.getUserData();
+                            if (ctrl.getNotepad().getIdent().equals(notepad.getIdent())) {
+                                notepadContainer.getTabs().remove(t);
+                                break;
+                            }
                         }
+
                     }
                 });
             }
@@ -347,17 +372,16 @@ public class MainViewController implements Initializable {
             public void onNotesListUpdated(Notepad notepad) {
                 
                 Platform.runLater(() -> {
-                    
                     for (Tab t : notepadContainer.getTabs()) {
-                        
-                        NotebookTabController ctrl = (NotebookTabController) t.getUserData();
-                        if (ctrl.getNotepad().equals(notepad)) {
-                            ctrl.refreshTreeView();
+                        if (t instanceof TabNotepad) {
+                            NotebookTabController ctrl = (NotebookTabController) t.getUserData();
+                            if (ctrl.getNotepad().equals(notepad)) {
+                                ctrl.refreshTreeView();
+                            }
                         }
                     }
-                    
                 });
-                
+
             }
         });
         
@@ -389,41 +413,32 @@ public class MainViewController implements Initializable {
         if (appSettings.get("window.is_maximized", "0").equals("1")) {
             parentStage.setMaximized(true);
         }
-        
+
         for (Notepad notepad : app.getAvailableNotepads()) {
             app.openNotepad(notepad);
         }
         
-        if (app.getLastNotes().size() == 0) {
-//            app.newNote(new Filesystem());
-        } else {
+        if (app.getLastNotes().size() > 0) {
             for (Note note : app.getLastNotes()) {
                 app.openNote(note);
             }
         }
+        initDefaultTab();
         
         String cssFile = appSettings.get("color-definition", "color-definition.css");
         theme.set(cssFile, mainScene);
         
         KeyCombination kcCloseNote = new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcCloseNote, () -> {
-            app.closeNote(getCurrentNote());
-        });
+        parentStage.getScene().getAccelerators().put(kcCloseNote, () -> app.closeNote(getCurrentNote()));
         
         KeyCombination kcSave = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcSave, () -> {
-            saveNote(getCurrentNote());
-        });
+        parentStage.getScene().getAccelerators().put(kcSave, () -> saveNote(getCurrentNote()));
         
         KeyCombination kcNewNote = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcNewNote, () -> {
-            app.newNote(getCurrentNotepad());
-        });
+        parentStage.getScene().getAccelerators().put(kcNewNote, () -> app.newNote(getCurrentNotepad()));
         
         KeyCombination kcSearchNote = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
-        parentStage.getScene().getAccelerators().put(kcSearchNote, () -> {
-            app.getMessageBus().addTask(new ShowSearchForNoteDialog());
-        });
+        parentStage.getScene().getAccelerators().put(kcSearchNote, () -> app.getMessageBus().addTask(new ShowSearchForNoteDialog()));
         
         KeyCombination kcSearchReplaceString = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN);
         parentStage.getScene().getAccelerators().put(kcSearchReplaceString, () -> {
@@ -432,16 +447,6 @@ public class MainViewController implements Initializable {
             ((TextAreaController) t.getUserData()).showSearchReplaceForm();
         });
         
-    }
-    
-    private TextArea getTextAreaForNote(Note n) {
-        for (Tab t : tabContainer.getTabs()) {
-            if (t.getUserData().equals(n)) {
-                Parent p = (Parent) t.getContent();
-                return (TextArea) p.getChildrenUnmodifiable().get(1);
-            }
-        }
-        return null;
     }
 
     private Note getCurrentNote() {
@@ -465,7 +470,7 @@ public class MainViewController implements Initializable {
             try {
                 Parent root = fxmlLoader.load();
                 
-                SaveAsController ctrl = (SaveAsController) fxmlLoader.getController();
+                SaveAsController ctrl = fxmlLoader.getController();
                 
                 ctrl.setSaveAsCallback((name) -> {
                     n.setPath(name);
@@ -497,15 +502,7 @@ public class MainViewController implements Initializable {
         }
         app.refreshNotepad(n.getNotepad());
     }
-    
-    private void onFileClose(ActionEvent event) {
-        app.closeNote(getCurrentNote());
-    }
-    
-    private void onFileNew(ActionEvent event) {
-        app.newNote(getCurrentNotepad());
-    }
-    
+
     @FXML
     private void onNoteSearch(ActionEvent event) {
         app.getMessageBus().addTask(new ShowSearchForNoteDialog());
@@ -523,5 +520,5 @@ public class MainViewController implements Initializable {
         Tab t = tabContainer.getSelectionModel().getSelectedItem();
         ((NoteRenderController) t.getUserData()).noteActivated();
     }
-    
+
 }

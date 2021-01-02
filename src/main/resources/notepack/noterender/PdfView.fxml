@@ -38,15 +38,21 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onPrevPage" styleClass="icon-button" text="%fa.long_arrow_left">
+                        <Button mnemonicParsing="false" onAction="#onPrevPage" styleClass="icon-button">
                            <tooltip>
                               <Tooltip text="Prev page" />
                            </tooltip>
+                            <graphic>
+                                <Label styleClass="icon-base,mi-arrow-left" />
+                            </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#onNextPage" styleClass="icon-button" text="%fa.long_arrow_right">
+                        <Button mnemonicParsing="false" onAction="#onNextPage" styleClass="icon-button">
                            <tooltip>
                               <Tooltip text="Next page" />
                            </tooltip>
+                            <graphic>
+                                <Label styleClass="icon-base,mi-arrow-right" />
+                            </graphic>
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
@@ -61,10 +67,13 @@
                      </opaqueInsets></HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button" text="%fa.times">
+                                <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
                                     <tooltip>
                                         <Tooltip text="Close note (Ctrl + w)" />
                                     </tooltip>
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-close" />
+                                    </graphic>
                                 </Button>
                             </children>
                         </HBox>

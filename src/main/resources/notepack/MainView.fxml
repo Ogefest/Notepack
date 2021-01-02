@@ -25,7 +25,8 @@
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
         <URL value="@scrollbar.css" />  
-        <URL value="@icons.css" />  
+        <URL value="@icons.css" />
+        <URL value="@material.icons.css" />
         <URL value="@default.css" />  
     </stylesheets>        
     <children>
@@ -37,20 +38,29 @@
                </font></Label>
             <HBox alignment="CENTER_RIGHT" layoutX="1047.0" layoutY="-23.0" prefHeight="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onSwitchTheme" styleClass="icon-button" text="%fa.adjust" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#onSwitchTheme" styleClass="icon-button" textFill="WHITE">
                      <tooltip>
                         <Tooltip text="Toggle theme" />
                      </tooltip>
+                      <graphic>
+                          <Label styleClass="icon-base,mi-brightness-6" />
+                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onNoteSearch" styleClass="icon-button" text="%fa.search" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#onNoteSearch" styleClass="icon-button" textFill="WHITE">
                      <tooltip>
                         <Tooltip text="Search for note (Ctrl + Shift + F)" />
                      </tooltip>
+                      <graphic>
+                          <Label styleClass="icon-base,mi-magnify" />
+                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onApplicationInfo" styleClass="icon-button" text="%fa.info_circle" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#onApplicationInfo" styleClass="icon-button" textFill="WHITE">
                      <tooltip>
                         <Tooltip text="Info" />
                      </tooltip>
+                      <graphic>
+                          <Label styleClass="icon-base,mi-information-outline" />
+                      </graphic>
                   </Button>
                </children>
             </HBox>

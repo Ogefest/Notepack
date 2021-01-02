@@ -4,18 +4,9 @@
 }
 
 @font-face {
-    font-family: 'FontAwesome';
-    src: url('fonts/FontAwesome.otf');
-}
-
-@font-face {
     font-family: 'Zilla Slab Light';
     src: url('fonts/ZillaSlab-Light.ttf');
 }
-
-/** {
-    -fx-background-color: transparent;
-}*/
 
 #mainBackground {
     -fx-background-color: main-background-color;
@@ -109,6 +100,16 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-text-base-color: tab-text;
+
+    /*-fx-padding: 4 10 4 4 ;*/
+}
+
+.tab.button {
+    -fx-background-insets: 12 0 0 12;
+    -fx-border-insets: 12 0 0 12;
+    -fx-padding: 8 8 8 8;
+    -fx-background-radius: 4 4 0 0;
+    -fx-border-radius: 4 4 0 0;
 }
 
 #noteTabContainer .tab {
@@ -139,12 +140,6 @@
 .top-bar .label {
     -fx-text-fill: tab-text;
 }
-
-/*.search-input {
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
-    -fx-background-color: derive(-fx-bar-background,30%);
-}*/
 
 .split-pane-divider {
     -fx-padding: 0 1 0 1 ;
@@ -187,7 +182,6 @@
 .icon-button {
     -fx-background-color: transparent;
     -fx-font-size: 20.0 pt;
-    -fx-font-family: 'FontAwesome';
     -fx-padding: 5 ;
     -fx-text-fill:icon-color;
 }
@@ -214,10 +208,6 @@
     -fx-background-color: rgba(255,255,255,0.75),
         linear-gradient(to bottom, icon-hover1 0%, icon-hover2 100%);    
 }
-
-/*.icon-button > .menu-item > .label {
-    -fx-font-size: 14.0 pt;
-}*/
 
 .label {
     -fx-text-fill: text-color;
@@ -256,29 +246,6 @@
     -fx-padding: 15;
 }
 
-/*#noteToolbar .button,#noteToolbar .menu-button, #noteToolbar .button, #notepadToolbar .menu-button {
-    -fx-text-fill: #555555;
-}*/
-
-#top-bar .icon-button .menu-item .label {
-    -fx-font-size: 22.0 pt;
-
-}
-#top-bar .icon-button {
-    -fx-padding: 13 20 13 20;
-    -fx-text-fill: icon-color2;
-}
-#top-bar .icon-button:hover {
-
-    -fx-background-color: rgba(255,255,255,0.75),
-        linear-gradient(to bottom, derive(-fx-bar-background,5%) 0%, derive(-fx-bar-background,5%) 100%);
-    -fx-background-insets: 0,1;
-    /*-fx-padding: 7px;*/
-    -fx-background-radius: 3px;
-    -fx-border-radius: 3px;
-    /*-fx-effect: innershadow(three-pass-box, rgba(110,110,110,0.15),1,0,1,1);*/
-
-}
 
 .context-menu {
     -fx-background-color: main-background-color;
