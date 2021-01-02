@@ -10,9 +10,15 @@
     -fx-background-size: 18px;
 
     -fx-min-height: 16;
-    -fx-min-width: 16;
     -fx-max-height: 16;
+    -fx-min-width: 16;
     -fx-max-width: 16;
+/*
+    -fx-pref-width: 12;
+    -fx-pref-height: 16;
+*/
+/*-fx-min-width:30% ;*/
+/*-fx-max-width:30% ;*/
 }
 
 #top-bar .icon-button .menu-item .label {
@@ -46,3 +52,10 @@
     -fx-max-width: 10;
 }
 
+#nodeIcon, #directoryIcon {
+    -fx-background-color: text-color;
+    -fx-min-height: 14;
+    -fx-min-width: 14;
+    -fx-max-height: 14;
+    -fx-max-width: 14;
+}
