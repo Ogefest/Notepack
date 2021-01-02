@@ -107,7 +107,7 @@ public class MainViewController implements Initializable {
             ctrl.setApp(app);
 
             searchNoteTab.setGraphic(Icon.get("mi-magnify"));
-            searchNoteTab.setStyle("-fx-background-color: white; -fx-border-color: white" );
+            searchNoteTab.setStyle("-fx-background-color: card-background; -fx-border-color: card-background" );
             searchNoteTab.getStyleClass().add("button");
 
             Platform.runLater(() -> notepadContainer.getTabs().add(searchNoteTab));
