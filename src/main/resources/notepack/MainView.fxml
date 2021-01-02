@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
@@ -69,6 +71,7 @@
                   <Image url="@../../../../gfx/logo_128.png" />
                </image>
             </ImageView>
+
          </children>
       </AnchorPane>
         <SplitPane id="mainBackground" dividerPositions="0.498" layoutY="28.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
