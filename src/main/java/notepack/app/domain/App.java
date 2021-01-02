@@ -9,17 +9,8 @@ import java.util.logging.Logger;
 
 import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
-import notepack.app.task.OpenNote;
+import notepack.app.task.*;
 import notepack.app.storage.Filesystem;
-import notepack.app.task.ChangedNote;
-import notepack.app.task.CloseNote;
-import notepack.app.task.CloseNotepad;
-import notepack.app.task.DeleteNote;
-import notepack.app.task.NewNote;
-import notepack.app.task.OpenNotepad;
-import notepack.app.task.RefreshNotepad;
-import notepack.app.task.RenameNote;
-import notepack.app.task.SaveNote;
 
 public class App {
 
@@ -206,6 +197,10 @@ public class App {
         }
 
         return result;
+    }
+
+    public void selectNoteInNotepad(Note note) {
+        messageBus.addTask(new SelectNoteInNotepad(note));
     }
 
     private ArrayList<Note> getNoteFromItem(NoteStorageItem item, Notepad notepad) {

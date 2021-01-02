@@ -2,9 +2,7 @@ package notepack;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -22,7 +20,6 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorageItem;
@@ -37,6 +34,12 @@ public class NotebookTabController implements Initializable {
 
     @FXML
     private TreeView<NoteTreeViewItem> notepadStructure;
+
+    /*
+    Structure used for cache items to select note in fast way without
+    searching whole tree structure in notepad
+     */
+    private HashMap<String, TreeItem<NoteTreeViewItem>> treeViewItemsCache = new HashMap<>();
 
     private Notepad notepad;
     @FXML
@@ -73,6 +76,15 @@ public class NotebookTabController implements Initializable {
         return null;
     }
 
+    public void selectNote(Note note) {
+
+        TreeItem<NoteTreeViewItem> item = treeViewItemsCache.get(note.getIdent());
+        if (item != null) {
+            notepadStructure.getSelectionModel().select(item);
+        }
+
+    }
+
     public void setApp(App app) {
         this.app = app;
     }
@@ -94,6 +106,7 @@ public class NotebookTabController implements Initializable {
 
     public void refreshTreeView() {
         NoteStorageItem items = notepad.getStorage().getItemsInStorage();
+        treeViewItemsCache = new HashMap<>();
 
         Collections.sort(items.get(), (NoteStorageItem o1, NoteStorageItem o2) -> {
             if (o1.isLeaf() && !o2.isLeaf()) {
@@ -149,6 +162,7 @@ public class NotebookTabController implements Initializable {
                 TreeItem<NoteTreeViewItem> n = new TreeItem<>(noteTreeViewItem);
 
                 parent.getChildren().add(n);
+                treeViewItemsCache.put(note.getIdent(), n);
 
             } else {
 
