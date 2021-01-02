@@ -79,6 +79,8 @@ public class MainViewController implements Initializable {
     
     private Theme theme;
 
+    private Tab currentActiveNoteTab;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -145,17 +147,33 @@ public class MainViewController implements Initializable {
                     }
                 }
 
-                tabContainer.getSelectionModel().selectedItemProperty().addListener((ov, t, t1) -> {
 
-                    if (t == null || t1 == null) {
-                        return;
+                tabContainer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+                        
+                        if (t == null || t1 == null) {
+                            return;
+                        }
+                        /*
+                        to avoid call this many times
+                         */
+                        if (currentActiveNoteTab != null && currentActiveNoteTab.equals(t1)) {
+                            return;
+                        }
+                        
+                        NoteRenderController activatedTab = (NoteRenderController) t1.getUserData();
+                        activatedTab.noteActivated();
+                        
+                        NoteRenderController deactivatedTab = (NoteRenderController) t.getUserData();
+                        deactivatedTab.noteDeactivated();
+
+                        app.selectNoteInNotepad(activatedTab.getNote());
+
+                        currentActiveNoteTab = t1;
+
                     }
 
-                    NoteRenderController activatedTab = (NoteRenderController) t1.getUserData();
-                    activatedTab.noteActivated();
-
-                    NoteRenderController deactivatedTab = (NoteRenderController) t.getUserData();
-                    deactivatedTab.noteDeactivated();
                 }
                 );
                 
