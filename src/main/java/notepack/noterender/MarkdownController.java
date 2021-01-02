@@ -91,6 +91,7 @@ public class MarkdownController extends TextAreaController {
         if (lastNoteValue.equals(value)) {
             return;
         }
+        updateCssFromTheme();
 
         Node document = parser.parse(value);
         String html = renderer.render(document);
@@ -114,6 +115,12 @@ public class MarkdownController extends TextAreaController {
 
         refreshPaneView(app.getSettings().get("markdown.view", "both"));
 
+        updateCssFromTheme();
+
+        refreshWebview(textArea.getText());
+    }
+
+    private void updateCssFromTheme() {
         String currentThemeCss = app.getSettings().get("color-definition", "color-definition.css");
         String cssToSet = "/notepack/noterender/markdown-light.css";
         if (!currentThemeCss.equals("color-definition.css")) {
@@ -125,8 +132,6 @@ public class MarkdownController extends TextAreaController {
         } catch (IOException ex) {
             Logger.getLogger(MarkdownController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        refreshWebview(textArea.getText());
     }
 
     @FXML
