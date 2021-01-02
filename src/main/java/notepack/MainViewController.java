@@ -174,11 +174,6 @@ public class MainViewController implements Initializable {
 
                     }
 
-                    NoteRenderController activatedTab = (NoteRenderController) t1.getUserData();
-                    activatedTab.noteActivated();
-
-                    NoteRenderController deactivatedTab = (NoteRenderController) t.getUserData();
-                    deactivatedTab.noteDeactivated();
                 }
                 );
                 
