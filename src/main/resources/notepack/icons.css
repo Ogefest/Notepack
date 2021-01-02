@@ -38,8 +38,8 @@
 
 }
 
-#noteTabContainer .icon-base {
-    -fx-background-color: white;
+#noteTabContainer .tab.icon-base {
+    -fx-background-color: text-color;
     -fx-min-height: 10;
     -fx-min-width: 10;
     -fx-max-height: 10;
