@@ -80,7 +80,9 @@ public class NotebookTabController implements Initializable {
 
         TreeItem<NoteTreeViewItem> item = treeViewItemsCache.get(note.getIdent());
         if (item != null) {
+            int nodeIndex = notepadStructure.getRow(item);
             notepadStructure.getSelectionModel().select(item);
+            notepadStructure.scrollTo(nodeIndex);
         }
 
     }
