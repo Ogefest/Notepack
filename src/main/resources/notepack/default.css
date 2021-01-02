@@ -63,6 +63,9 @@
 .text-area .content {
     -fx-background-color: text-area-background;
 }
+.text-area .text {
+     -fx-line-spacing: 4px;
+}
 
 .text-area:focused .content {
     -fx-background-color: text-area-background;
