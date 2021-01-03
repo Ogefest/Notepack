@@ -15,10 +15,6 @@
 
 <AnchorPane id="AnchorPane" prefHeight="267.0" prefWidth="686.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.engine.WebdavController">
     <stylesheets>
-        <URL value="@/notepack/scrollbar.css" />
-        <URL value="@/notepack/icons.css" />  
-        <URL value="@/notepack/default.css" />  
-        <URL value="@/notepack/notepadsettings.css" />  
     </stylesheets>
    <children>
       <Label layoutX="48.0" layoutY="51.0" text="URL:">
