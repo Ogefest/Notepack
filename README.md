@@ -10,6 +10,8 @@ App is available for: Linux (deb,rpm,AppImage) and Windows
 
 Download from [GitHub release](https://github.com/Ogefest/Notepack/releases)
 
+Documentation is available in [wiki](https://github.com/Ogefest/Notepack/wiki/Documentation)
+
 
 ## Core features
 
@@ -44,18 +46,3 @@ Download from [GitHub release](https://github.com/Ogefest/Notepack/releases)
 ### Storage
 ![Storage](/gfx/storage.gif)
 
-## Roadmap
-
-- ~~dark theme~~ done
-- notes as todo tasks
-- alerts/notification for some notes
-- s3 storage backend
-- ~~note encryption~~ done
-- web clipper
-- clipboard manager
-- support to view ~~pdf/images/md~~ /doc/xls
-- notes history
-- OCR for pdf and images
-- full text search in documents
-- note statistics
-- android app?
