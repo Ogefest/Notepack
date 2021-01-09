@@ -20,7 +20,7 @@ Documentation is available in [wiki](https://github.com/Ogefest/Notepack/wiki/Do
 - multiple notepads, multiple notes in notepad
 - color highlight for notepads
 - multiple note storage backend, filesystem and WebDav supported right now
-- PDF and Markdown supported
+- supported file formats: plain text, Markdown, PDF, JPG, PNG
 - easy note switch using only shortcuts
 - minimalist clean layout
 - encryption using zip AES algorithm (note packed as zip archive with password protected)
