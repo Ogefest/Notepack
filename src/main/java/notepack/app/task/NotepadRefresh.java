@@ -26,7 +26,6 @@ public class NotepadRefresh implements Task,TypeNotepad,TypeGui {
 
     @Override
     public void notify(NotepadListener listener) {
-        listener.onNotesListUpdated(notepad);
     }
 
     @Override
