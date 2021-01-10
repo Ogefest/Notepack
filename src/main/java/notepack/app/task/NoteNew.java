@@ -2,6 +2,7 @@ package notepack.app.task;
 
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
+import notepack.app.domain.Notepad;
 import notepack.app.domain.Task;
 import notepack.app.listener.NoteListener;
 import notepack.gui.TaskUtil;
@@ -10,13 +11,10 @@ public class NoteNew implements Task,TypeNote,TypeGui {
     
     private Note note;
     
-    public NoteNew(Note note) {
-        this.note = note;
+    public NoteNew(Notepad notepad) {
+        this.note = new Note(notepad);
     }
 
-    public NoteNew() {
-
-    }
 
     @Override
     public void backgroundWork() {
