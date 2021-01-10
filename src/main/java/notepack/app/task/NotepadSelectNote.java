@@ -37,20 +37,6 @@ public class NotepadSelectNote implements Task, TypeGui {
         container.getSelectionModel().select(notepadTab);
         ctrl.selectNote(note);
 
-
-
-//        for (Tab tab : container.getTabs()) {
-//            if (tab instanceof TabNotepad) {
-//                NotebookTabController ctrl = (NotebookTabController) tab.getUserData();
-//                if (ctrl.getNotepad().getIdent().equals(notepad.getIdent())) {
-//                    container.getSelectionModel().select(tab);
-//
-//                    ctrl.selectNote(note);
-//
-//                    break;
-//                }
-//            }
-//        }
     }
 
 }
