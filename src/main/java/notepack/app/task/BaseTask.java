@@ -7,6 +7,7 @@ abstract public class BaseTask {
 
     protected MessageBus messageBus;
     protected Task afterDispatchTask;
+    private long startNotEarlierThan = 0;
 
     public void setMessageBus(MessageBus mb) {
         this.messageBus = mb;
@@ -14,6 +15,14 @@ abstract public class BaseTask {
 
     public void setAfterDispatchTask(Task t) {
         afterDispatchTask = t;
+    }
+
+    public void startTaskAfterSecondsFromNow(int seconds) {
+        startNotEarlierThan = System.currentTimeMillis() + (seconds * 1000);
+    }
+
+    public boolean isTaskReadyToStart() {
+        return startNotEarlierThan < System.currentTimeMillis();
     }
 
     protected void runNextTaskInChain() {
