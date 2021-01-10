@@ -243,6 +243,13 @@ public class JsonNotepadRepository implements SessionStorage {
     }
 
     @Override
+    public void setNoteList(ArrayList<Note> notes) {
+        this.notesList = notes;
+
+        saveNotesToFile();
+    }
+
+    @Override
     public void addNote(Note note) {
         if (notesList.indexOf(note) == -1) {
             notesList.add(note);

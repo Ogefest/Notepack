@@ -93,6 +93,10 @@ public class TaskUtil {
         return (TabPane) stage.getScene().lookup("#notepadTabContainer");
     }
 
+    public TabPane getNotesContainer() {
+        return (TabPane) stage.getScene().lookup("#noteTabContainer");
+    }
+
     public Stage getStage() {
         return stage;
     }
