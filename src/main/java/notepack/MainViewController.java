@@ -40,8 +40,7 @@ import notepack.app.domain.Settings;
 import notepack.app.listener.NoteListener;
 import notepack.app.storage.JsonNotepadRepository;
 import notepack.app.storage.PreferencesSettings;
-import notepack.app.task.ShowApplicationInfo;
-import notepack.app.task.ShowSearchForNoteDialog;
+import notepack.app.task.*;
 import notepack.gui.Icon;
 import notepack.encrypt.SimpleAES;
 import notepack.gui.TaskUtil;
@@ -335,81 +334,9 @@ public class MainViewController implements Initializable {
 
         String cssFile = appSettings.get("color-definition", "color-definition.css");
         theme.set(cssFile, mainScene);
-        
-        KeyCombination kcCloseNote = new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcCloseNote, () -> app.closeNote(getCurrentNote()));
-        
-        KeyCombination kcSave = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcSave, () -> saveNote(getCurrentNote()));
-        
-        KeyCombination kcNewNote = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcNewNote, () -> app.newNote(getCurrentNotepad()));
-        
-        KeyCombination kcSearchNote = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
-        parentStage.getScene().getAccelerators().put(kcSearchNote, () -> app.getMessageBus().addTask(new ShowSearchForNoteDialog()));
-        
-        KeyCombination kcSearchReplaceString = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcSearchReplaceString, () -> {
-            Tab t = tabContainer.getSelectionModel().getSelectedItem();
-            Parent p = (Parent) t.getContent();
-            ((TextAreaController) t.getUserData()).showSearchReplaceForm();
-        });
 
+        app.addTask(new InitializeShortcuts());
 
-    }
-
-    private Note getCurrentNote() {
-        Tab t = tabContainer.getSelectionModel().getSelectedItem();
-        return ((NoteRenderController) t.getUserData()).getNote();
-    }
-    
-    private Notepad getCurrentNotepad() {
-        Tab t = notepadContainer.getSelectionModel().getSelectedItem();
-        return ((NotebookTabController) t.getUserData()).getNotepad();
-    }
-
-    private void saveNote(Note n) {
-        
-        if (n.getPath() == null) {
-            
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("SaveAs.fxml"));
-            
-            Scene scene;
-            try {
-                Parent root = fxmlLoader.load();
-                
-                SaveAsController ctrl = fxmlLoader.getController();
-                
-                ctrl.setSaveAsCallback((name) -> {
-                    n.setPath(name);
-                    app.saveNote(n);
-                    app.refreshNotepad(n.getNotepad());
-                });
-                
-                ctrl.setNote(n);
-                
-                scene = new Scene(root);
-                theme.setCurrent(scene);
-                
-                Stage stage = new Stage();
-                stage.setTitle("Set name");
-                stage.setScene(scene);
-                stage.initOwner(mainScene.getWindow());
-                stage.initModality(Modality.WINDOW_MODAL);
-                stage.initStyle(StageStyle.UTILITY);
-                stage.setResizable(false);
-                
-                stage.showAndWait();
-                
-            } catch (IOException ex) {
-                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        } else {
-            app.saveNote(n);
-        }
-        app.refreshNotepad(n.getNotepad());
     }
 
     @FXML
