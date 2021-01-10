@@ -4,11 +4,11 @@ import notepack.app.domain.Note;
 import notepack.app.domain.Task;
 import notepack.app.listener.NoteListener;
 
-public class CloseNote implements Task,TypeNote {
-
+public class NoteChanged implements Task,TypeNote {
+    
     private Note note;
-
-    public CloseNote(Note note) {
+    
+    public NoteChanged(Note note) {
         this.note = note;
     }
 
@@ -18,7 +18,7 @@ public class CloseNote implements Task,TypeNote {
 
     @Override
     public void notify(NoteListener listener) {
-        listener.onClose(note);
+        listener.onChange(note);
     }
-
+    
 }

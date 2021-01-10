@@ -6,7 +6,9 @@ import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import notepack.NotebookTabController;
 import notepack.app.domain.App;
+import notepack.app.domain.Note;
 import notepack.app.domain.Notepad;
+import notepack.noterender.NoteRenderController;
 
 import java.util.HashMap;
 import java.util.Timer;
@@ -99,6 +101,18 @@ public class TaskUtil {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public Notepad getCurrentNotepad() {
+        TabPane container = getNotepadContainer();
+        Tab t = container.getSelectionModel().getSelectedItem();
+        return ((NotebookTabController) t.getUserData()).getNotepad();
+    }
+
+    public Note getCurrentNote() {
+        TabPane container = getNotesContainer();
+        Tab t = container.getSelectionModel().getSelectedItem();
+        return ((NoteRenderController) t.getUserData()).getNote();
     }
 
 }

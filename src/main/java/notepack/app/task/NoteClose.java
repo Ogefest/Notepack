@@ -1,25 +1,30 @@
 package notepack.app.task;
 
+import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.Task;
 import notepack.app.listener.NoteListener;
+import notepack.gui.TaskUtil;
 
-public class NewNote implements Task,TypeNote {
-    
+public class NoteClose implements Task,TypeNote,TypeGui {
+
     private Note note;
-    
-    public NewNote(Note note) {
+
+    public NoteClose(Note note) {
         this.note = note;
     }
 
     @Override
     public void backgroundWork() {
-        note.setContents(new byte[0]);
     }
 
     @Override
     public void notify(NoteListener listener) {
-        listener.onOpen(note);
+        listener.onClose(note);
     }
-    
+
+    @Override
+    public void guiWork(TaskUtil taskUtil, App app) {
+        this.note = taskUtil.getCurrentNote();
+    }
 }

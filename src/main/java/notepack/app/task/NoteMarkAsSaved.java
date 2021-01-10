@@ -9,7 +9,7 @@ import notepack.app.domain.Task;
 import notepack.gui.TaskUtil;
 import notepack.noterender.NoteRenderController;
 
-public class MarkNoteAsSaved implements Task, TypeGui {
+public class NoteMarkAsSaved implements Task, TypeGui {
 
     @Override
     public void backgroundWork() {
@@ -17,7 +17,7 @@ public class MarkNoteAsSaved implements Task, TypeGui {
 
     private Note note;
 
-    public MarkNoteAsSaved(Note note) {
+    public NoteMarkAsSaved(Note note) {
         this.note = note;
     }
 

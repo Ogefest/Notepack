@@ -79,46 +79,50 @@ public class App {
         return sessionStorage;
     }
 
+    public void addTask(Task task) {
+        messageBus.addTask(task);
+    }
+
     public void openNote(String path, Notepad notepad, String name) {
         Note note = new Note(path, notepad, name);
-        messageBus.addTask(new OpenNote(note));
+        messageBus.addTask(new NoteOpen(note));
     }
 
     public void openNote(Note n) {
-        messageBus.addTask(new OpenNote(n));
+        messageBus.addTask(new NoteOpen(n));
     }
 
     public void saveNote(Note note) {
-        messageBus.addTask(new SaveNote(note));
+        messageBus.addTask(new NoteSave(note));
     }
 
     public void closeNote(Note n) {
         activeNotes.remove(n);
-        messageBus.addTask(new CloseNote(n));
+        messageBus.addTask(new NoteClose(n));
     }
 
     public void changeNote(Note n, byte[] newValue) {
         n.setContents(newValue);
-        messageBus.addTask(new ChangedNote(n));
+        messageBus.addTask(new NoteChanged(n));
     }
 
     public void renameNote(Note n, String newPath) {
 
-        messageBus.addTask(new RenameNote(n, newPath));
+        messageBus.addTask(new NoteRename(n, newPath));
         messageBus.addTask(new NotepadRefresh(n.getNotepad()));
 
     }
 
     public void deleteNote(Note n) {
 
-        messageBus.addTask(new DeleteNote(n));
+        messageBus.addTask(new NoteDelete(n));
         messageBus.addTask(new NotepadRefresh(n.getNotepad()));
 
     }
 
     public void newNote(Notepad notepad) {
         Note note = new Note(notepad);
-        messageBus.addTask(new NewNote(note));
+        messageBus.addTask(new NoteNew(note));
     }
 
     public void openNotepad(Notepad notepad) {
