@@ -9,11 +9,8 @@ import notepack.app.domain.exception.MessageError;
 import notepack.app.listener.GuiListener;
 import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
-import notepack.app.task.BaseTask;
-import notepack.app.task.ShowUserMessage;
-import notepack.app.task.TypeGui;
-import notepack.app.task.TypeNote;
-import notepack.app.task.TypeNotepad;
+import notepack.app.task.*;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -81,7 +78,15 @@ public class MessageBus {
     }
 
     synchronized private Task getTaskToDispatch() {
-        return tasks.poll();
+        Task temporaryTask = tasks.poll();
+        if (temporaryTask instanceof BaseTask) {
+            if (!((BaseTask) temporaryTask).isTaskReadyToStart()) {
+                tasks.add(temporaryTask);
+                return null;
+            }
+        }
+
+        return temporaryTask;
     }
 
     private void dispatch() throws MessageError {
@@ -105,23 +110,29 @@ public class MessageBus {
                 tasksActive.incrementAndGet();
 
                 try {
-                    if (t instanceof TypeNote) {
+                    if (t instanceof Task) {
                         t.dispatch();
+                    }
 
+                    if (t instanceof TypeGui) {
+                        for (GuiListener l : guiListeners) {
+                            l.proceed((TypeGui) t);
+                        }
+                    }
+
+                    if (t instanceof TypeRecurring) {
+                        ((TypeRecurring) t).startTaskAfterSecondsFromNow(((TypeRecurring) t).getInterval());;
+                        tasks.add(t);
+                    }
+
+                    if (t instanceof TypeNote) {
                         for (NoteListener l : noteListeners) {
                             ((TypeNote) t).notify(l);
                         }
                     }
                     if (t instanceof TypeNotepad) {
-                        t.dispatch();
-
                         for (NotepadListener l : notepadListeners) {
                             ((TypeNotepad) t).notify(l);
-                        }
-                    }
-                    if (t instanceof TypeGui) {
-                        for (GuiListener l : guiListeners) {
-                            l.proceed((TypeGui) t);
                         }
                     }
                 } catch (MessageError ex) {
