@@ -27,6 +27,8 @@ public class App {
         messageBus = new MessageBus();
         messageBus.startDispatcher();
 
+        initializeRecurringTasks();
+
         messageBus.registerNoteListener(new NoteListener() {
             @Override
             public void onOpen(Note n) {
@@ -225,6 +227,14 @@ public class App {
         }
 
         return res;
+    }
+
+    private void initializeRecurringTasks() {
+
+        RefreshNotepadRecurring task = new RefreshNotepadRecurring(this);
+        task.startTaskAfterSecondsFromNow(60);
+        messageBus.addTask(task);
+
     }
 
 }
