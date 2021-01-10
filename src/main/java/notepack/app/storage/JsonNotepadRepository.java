@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -121,7 +122,10 @@ public class JsonNotepadRepository implements SessionStorage {
                     }
                     notepad.registerProcessors();
 
-                    notepadsList.add(notepad);
+                    if (!notepadsList.contains(notepad)) {
+                        notepadsList.add(notepad);
+                    }
+
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InstantiationException ex) {
@@ -134,6 +138,13 @@ public class JsonNotepadRepository implements SessionStorage {
         }
 
         return notepadsList;
+    }
+
+    @Override
+    public void setNotepadList(ArrayList<Notepad> notepads) {
+        this.notepadsList = notepads;
+
+        saveNotepadsToFile();
     }
 
     @Override
@@ -222,12 +233,20 @@ public class JsonNotepadRepository implements SessionStorage {
                 }
 
                 Note note = new Note(notePath, notepadToUse, noteName);
-
-                notesList.add(note);
+                if (!notesList.contains(note)) {
+                    notesList.add(note);
+                }
             }
         }
 
         return notesList;
+    }
+
+    @Override
+    public void setNoteList(ArrayList<Note> notes) {
+        this.notesList = notes;
+
+        saveNotesToFile();
     }
 
     @Override
