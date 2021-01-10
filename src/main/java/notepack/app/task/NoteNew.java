@@ -15,7 +15,6 @@ public class NoteNew implements Task,TypeNote,TypeGui {
         this.note = new Note(notepad);
     }
 
-
     @Override
     public void backgroundWork() {
         note.setContents(new byte[0]);
