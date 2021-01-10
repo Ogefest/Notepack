@@ -4,25 +4,22 @@ import notepack.app.domain.Note;
 import notepack.app.domain.Task;
 import notepack.app.listener.NoteListener;
 
-public class RenameNote implements Task,TypeNote {
+public class NoteDelete implements Task,TypeNote {
     
     private Note note;
-    private String newPath;
     
-    public RenameNote(Note n, String newPath) {
+    public NoteDelete(Note n) {
         this.note = n;
-        this.newPath = newPath;
     }
 
     @Override
     public void backgroundWork() {
-        note.getStorage().rename(note.getPath(), newPath);
-        note.setPath(newPath);
+        note.getStorage().delete(note.getPath());
     }
 
     @Override
     public void notify(NoteListener listener) {
-        listener.onChange(note);
+        listener.onClose(note);
     }
     
 }
