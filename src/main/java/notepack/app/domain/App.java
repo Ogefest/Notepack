@@ -33,13 +33,11 @@ public class App {
             @Override
             public void onOpen(Note n) {
                 activeNotes.add(n);
-                sessionStorage.addNote(n);
             }
 
             @Override
             public void onClose(Note n) {
                 activeNotes.remove(n);
-                sessionStorage.removeNote(n);
             }
 
             @Override
@@ -48,8 +46,6 @@ public class App {
 
             @Override
             public void onSave(Note n) {
-                sessionStorage.removeNote(n);
-                sessionStorage.addNote(n);
             }
         });
 

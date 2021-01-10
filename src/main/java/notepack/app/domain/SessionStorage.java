@@ -10,6 +10,8 @@ public interface SessionStorage {
     public void removeNotepad(Notepad notepad);
     
     public ArrayList<Note> getLastNotes();
+    public void setNoteList(ArrayList<Note> notes);
     public void addNote(Note note);
     public void removeNote(Note note);
+
 }
