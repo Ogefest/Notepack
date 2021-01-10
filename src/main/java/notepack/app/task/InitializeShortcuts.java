@@ -19,17 +19,14 @@ public class InitializeShortcuts extends BaseTask implements Task, TypeGui {
     public void guiWork(TaskUtil taskUtil, App app) {
         Stage parentStage = taskUtil.getStage();
 
-        Note currentNote = taskUtil.getCurrentNote();
-        Notepad currentNotepad = taskUtil.getCurrentNotepad();
-
         KeyCombination kcCloseNote = new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcCloseNote, () -> app.addTask(new NoteClose(currentNote)));
+        parentStage.getScene().getAccelerators().put(kcCloseNote, () -> app.addTask(new NoteClose(taskUtil.getCurrentNote())));
 
         KeyCombination kcSave = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
         parentStage.getScene().getAccelerators().put(kcSave, () -> app.addTask(new NoteSave(taskUtil.getCurrentNote())));
 
         KeyCombination kcNewNote = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcNewNote, () -> app.addTask(new NoteNew(currentNotepad)));
+        parentStage.getScene().getAccelerators().put(kcNewNote, () -> app.addTask(new NoteNew(taskUtil.getCurrentNotepad())));
 
         KeyCombination kcSearchNote = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
         parentStage.getScene().getAccelerators().put(kcSearchNote, () -> app.addTask(new ShowSearchForNoteDialog()));
