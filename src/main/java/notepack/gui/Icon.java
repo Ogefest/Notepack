@@ -1,4 +1,4 @@
-package notepack.app.utils;
+package notepack.gui;
 
 import javafx.scene.control.Label;
 
