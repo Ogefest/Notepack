@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import notepack.app.utils.Icon;
+import notepack.gui.Icon;
 
 public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
 
