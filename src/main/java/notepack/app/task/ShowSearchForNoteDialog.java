@@ -10,14 +10,14 @@ import notepack.app.domain.Task;
 public class ShowSearchForNoteDialog extends BaseTask implements Task, TypeGui {
 
     @Override
-    public void dispatch() {
+    public void backgroundWork() {
     }
 
     public ShowSearchForNoteDialog() {
     }
 
     @Override
-    public void proceed(Stage parentStage, App app) {
+    public void guiWork(Stage parentStage, App app) {
 
         TabPane container = (TabPane) parentStage.getScene().lookup("#notepadTabContainer");
         for (Tab tab : container.getTabs()) {

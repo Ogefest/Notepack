@@ -132,7 +132,7 @@ public class MainViewController implements Initializable {
         
         app = new App(sessionStorage, appSettings);
         
-        app.getMessageBus().registerGuiListener((task) -> Platform.runLater(() -> task.proceed(parentStage, app)));
+        app.getMessageBus().registerGuiListener((task) -> Platform.runLater(() -> task.guiWork(parentStage, app)));
 
         app.getMessageBus().registerNoteListener(new NoteListener() {
             @Override

@@ -13,7 +13,7 @@ public class CloseNote implements Task,TypeNote {
     }
 
     @Override
-    public void dispatch() {
+    public void backgroundWork() {
     }
 
     @Override

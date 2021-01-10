@@ -14,7 +14,7 @@ public class OpenNote extends BaseTask implements Task, TypeNote {
     }
 
     @Override
-    public void dispatch() throws MessageError {
+    public void backgroundWork() throws MessageError {
         try {
             note.readFromStorage();
         } catch(MessageError ex) {

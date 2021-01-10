@@ -14,7 +14,7 @@ public class SaveNote extends BaseTask implements Task, TypeNote {
     }
 
     @Override
-    public void dispatch() throws MessageError {
+    public void backgroundWork() throws MessageError {
         note.saveToStorage();
         addTaskToQueue(new MarkNoteAsSaved(note));
     }

@@ -18,7 +18,7 @@ import notepack.app.storage.PreferencesSettings;
 public class ShowApplicationInfo extends BaseTask implements Task, TypeGui {
 
     @Override
-    public void dispatch() {
+    public void backgroundWork() {
     }
 
     private HostServices hostServices;
@@ -28,7 +28,7 @@ public class ShowApplicationInfo extends BaseTask implements Task, TypeGui {
     }
 
     @Override
-    public void proceed(Stage parentStage, App app) {
+    public void guiWork(Stage parentStage, App app) {
 
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/notepack/AboutDialog.fxml"));

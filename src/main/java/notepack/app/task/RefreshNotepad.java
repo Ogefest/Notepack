@@ -20,7 +20,7 @@ public class RefreshNotepad implements Task,TypeNotepad,TypeGui {
     }
     
     @Override
-    public void dispatch() throws MessageError {
+    public void backgroundWork() throws MessageError {
         notepad.getStorage().refreshItemsInStorage();
     }
 
@@ -30,7 +30,7 @@ public class RefreshNotepad implements Task,TypeNotepad,TypeGui {
     }
 
     @Override
-    public void proceed(Stage stage, App app) {
+    public void guiWork(Stage stage, App app) {
 
         TabPane container = (TabPane) stage.getScene().lookup("#notepadTabContainer");
 
