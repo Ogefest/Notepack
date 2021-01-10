@@ -1,9 +1,11 @@
 package notepack.app.domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface SessionStorage {
     public ArrayList<Notepad> getAvailableNotepads();
+    public void setNotepadList(ArrayList<Notepad> notepads);
     public void addNotepad(Notepad notepad);
     public void removeNotepad(Notepad notepad);
     
