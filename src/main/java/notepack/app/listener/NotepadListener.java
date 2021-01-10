@@ -6,5 +6,4 @@ import notepack.app.domain.Notepad;
 public interface NotepadListener extends EventListener {
     public void onOpen(Notepad notepad);
     public void onClose(Notepad notepad);
-    public void onNotesListUpdated(Notepad notepad);
 }
