@@ -5,11 +5,11 @@ import notepack.app.domain.Task;
 import notepack.app.domain.exception.MessageError;
 import notepack.app.listener.NoteListener;
 
-public class OpenNote extends BaseTask implements Task, TypeNote {
+public class NoteOpen extends BaseTask implements Task, TypeNote {
 
     private Note note;
 
-    public OpenNote(Note note) {
+    public NoteOpen(Note note) {
         this.note = note;
     }
 
@@ -18,7 +18,7 @@ public class OpenNote extends BaseTask implements Task, TypeNote {
         try {
             note.readFromStorage();
         } catch(MessageError ex) {
-            messageBus.addTask(new CloseNote(note));
+            messageBus.addTask(new NoteClose(note));
             
             throw ex;
         }
