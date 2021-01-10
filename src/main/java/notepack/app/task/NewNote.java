@@ -13,7 +13,7 @@ public class NewNote implements Task,TypeNote {
     }
 
     @Override
-    public void dispatch() {
+    public void backgroundWork() {
         note.setContents(new byte[0]);
     }
 

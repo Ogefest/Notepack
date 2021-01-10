@@ -15,7 +15,7 @@ public class RenameNote implements Task,TypeNote {
     }
 
     @Override
-    public void dispatch() {
+    public void backgroundWork() {
         note.getStorage().rename(note.getPath(), newPath);
         note.setPath(newPath);
     }

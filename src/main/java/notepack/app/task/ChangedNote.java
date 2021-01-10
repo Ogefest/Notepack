@@ -13,7 +13,7 @@ public class ChangedNote implements Task,TypeNote {
     }
 
     @Override
-    public void dispatch() {
+    public void backgroundWork() {
     }
 
     @Override

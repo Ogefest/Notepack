@@ -11,12 +11,7 @@ import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
 import notepack.app.task.*;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
-import notepack.app.domain.exception.MessageError;
 
 public class MessageBus {
 
@@ -111,7 +106,7 @@ public class MessageBus {
 
                 try {
                     if (t instanceof Task) {
-                        t.dispatch();
+                        t.backgroundWork();
                     }
 
                     if (t instanceof TypeGui) {
