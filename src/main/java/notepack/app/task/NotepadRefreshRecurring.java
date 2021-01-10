@@ -11,7 +11,7 @@ import notepack.app.listener.NotepadListener;
 
 import java.util.ArrayList;
 
-public class RefreshNotepadRecurring extends BaseTask implements Task, TypeRecurring {
+public class NotepadRefreshRecurring extends BaseTask implements Task, TypeRecurring {
 
     @Override
     public void backgroundWork() {
@@ -28,7 +28,7 @@ public class RefreshNotepadRecurring extends BaseTask implements Task, TypeRecur
 
     private App app;
 
-    public RefreshNotepadRecurring(App app) {
+    public NotepadRefreshRecurring(App app) {
         this.app = app;
     }
 

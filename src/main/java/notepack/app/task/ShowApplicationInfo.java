@@ -14,6 +14,7 @@ import notepack.Theme;
 import notepack.app.domain.App;
 import notepack.app.domain.Task;
 import notepack.app.storage.PreferencesSettings;
+import notepack.gui.TaskUtil;
 
 public class ShowApplicationInfo extends BaseTask implements Task, TypeGui {
 
@@ -28,7 +29,7 @@ public class ShowApplicationInfo extends BaseTask implements Task, TypeGui {
     }
 
     @Override
-    public void guiWork(Stage parentStage, App app) {
+    public void guiWork(TaskUtil taskUtil, App app) {
 
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/notepack/AboutDialog.fxml"));
@@ -45,7 +46,7 @@ public class ShowApplicationInfo extends BaseTask implements Task, TypeGui {
 
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(parentStage.getScene().getWindow());
+            stage.initOwner(taskUtil.getStage().getScene().getWindow());
             stage.setTitle("About");
             stage.setScene(scene);
             stage.showAndWait();
