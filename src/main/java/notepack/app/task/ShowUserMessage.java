@@ -10,7 +10,7 @@ import notepack.app.listener.GuiListener;
 public class ShowUserMessage implements Task, TypeGui {
 
     @Override
-    public void dispatch() {
+    public void backgroundWork() {
     }
 
     public enum TYPE {
@@ -26,7 +26,7 @@ public class ShowUserMessage implements Task, TypeGui {
     }
 
     @Override
-    public void proceed(Stage stage, App app) {
+    public void guiWork(Stage stage, App app) {
 
         AlertType atype = messageType == TYPE.ERROR ? AlertType.ERROR : AlertType.INFORMATION;
 

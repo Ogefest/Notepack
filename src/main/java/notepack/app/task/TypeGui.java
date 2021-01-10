@@ -6,6 +6,6 @@ import notepack.app.listener.GuiListener;
 
 public interface TypeGui {
     
-    public void proceed(Stage stage, App app);
+    public void guiWork(Stage stage, App app);
     
 }

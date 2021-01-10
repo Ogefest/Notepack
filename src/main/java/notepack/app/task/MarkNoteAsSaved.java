@@ -15,7 +15,7 @@ import notepack.noterender.NoteRenderController;
 public class MarkNoteAsSaved implements Task, TypeGui {
 
     @Override
-    public void dispatch() {
+    public void backgroundWork() {
     }
 
     private Note note;
@@ -25,7 +25,7 @@ public class MarkNoteAsSaved implements Task, TypeGui {
     }
 
     @Override
-    public void proceed(Stage stage, App app) {
+    public void guiWork(Stage stage, App app) {
 
         TabPane container = (TabPane) stage.getScene().lookup("#noteTabContainer");
 

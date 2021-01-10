@@ -13,7 +13,7 @@ public class DeleteNote implements Task,TypeNote {
     }
 
     @Override
-    public void dispatch() {
+    public void backgroundWork() {
         note.getStorage().delete(note.getPath());
     }
 
