@@ -365,18 +365,10 @@ public class MainViewController implements Initializable {
             
             @Override
             public void onNotesListUpdated(Notepad notepad) {
-                
-                Platform.runLater(() -> {
-                    for (Tab t : notepadContainer.getTabs()) {
-                        if (t instanceof TabNotepad) {
-                            NotebookTabController ctrl = (NotebookTabController) t.getUserData();
-                            if (ctrl.getNotepad().equals(notepad)) {
-                                ctrl.refreshTreeView();
-                            }
-                        }
-                    }
-                });
-
+                /*
+                refresh GUI using callback is obsolete, all this changes
+                should be done using tasks in type TaskGui
+                 */
             }
         });
         
