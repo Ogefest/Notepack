@@ -25,6 +25,7 @@ import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorageItem;
 import notepack.app.domain.Notepad;
 import notepack.app.storage.PreferencesSettings;
+import notepack.app.task.NoteNew;
 
 /**
  * FXML Controller class
@@ -298,9 +299,7 @@ public class NotebookTabController implements Initializable {
 
     @FXML
     private void onFileNew(ActionEvent event) {
-
-        app.newNote(notepad);
-
+        app.addTask(new NoteNew(notepad));
     }
 
     @FXML

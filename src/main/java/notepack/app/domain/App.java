@@ -121,8 +121,7 @@ public class App {
     }
 
     public void newNote(Notepad notepad) {
-        Note note = new Note(notepad);
-        messageBus.addTask(new NoteNew(note));
+        messageBus.addTask(new NoteNew(notepad));
     }
 
     public void openNotepad(Notepad notepad) {

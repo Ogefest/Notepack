@@ -29,7 +29,7 @@ public class InitializeShortcuts extends BaseTask implements Task, TypeGui {
         parentStage.getScene().getAccelerators().put(kcSave, () -> app.addTask(new NoteSave(taskUtil.getCurrentNote())));
 
         KeyCombination kcNewNote = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcNewNote, () -> app.addTask(new NoteNew()));
+        parentStage.getScene().getAccelerators().put(kcNewNote, () -> app.addTask(new NoteNew(currentNotepad)));
 
         KeyCombination kcSearchNote = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
         parentStage.getScene().getAccelerators().put(kcSearchNote, () -> app.addTask(new ShowSearchForNoteDialog()));
