@@ -33,13 +33,11 @@ public class App {
             @Override
             public void onOpen(Note n) {
                 activeNotes.add(n);
-                sessionStorage.addNote(n);
             }
 
             @Override
             public void onClose(Note n) {
                 activeNotes.remove(n);
-                sessionStorage.removeNote(n);
             }
 
             @Override
@@ -48,8 +46,6 @@ public class App {
 
             @Override
             public void onSave(Note n) {
-                sessionStorage.removeNote(n);
-                sessionStorage.addNote(n);
             }
         });
 
@@ -57,17 +53,11 @@ public class App {
             @Override
             public void onOpen(Notepad notepad) {
                 activeNotepad.add(notepad);
-                sessionStorage.addNotepad(notepad);
             }
 
             @Override
             public void onClose(Notepad notepad) {
                 activeNotepad.remove(notepad);
-                sessionStorage.removeNotepad(notepad);
-            }
-
-            @Override
-            public void onNotesListUpdated(Notepad notepad) {
             }
         });
 
@@ -83,6 +73,10 @@ public class App {
 
     public Settings getSettings() {
         return settings;
+    }
+
+    public SessionStorage getSessionStorage() {
+        return sessionStorage;
     }
 
     public void openNote(String path, Notepad notepad, String name) {
@@ -111,14 +105,14 @@ public class App {
     public void renameNote(Note n, String newPath) {
 
         messageBus.addTask(new RenameNote(n, newPath));
-        messageBus.addTask(new RefreshNotepad(n.getNotepad()));
+        messageBus.addTask(new NotepadRefresh(n.getNotepad()));
 
     }
 
     public void deleteNote(Note n) {
 
         messageBus.addTask(new DeleteNote(n));
-        messageBus.addTask(new RefreshNotepad(n.getNotepad()));
+        messageBus.addTask(new NotepadRefresh(n.getNotepad()));
 
     }
 
@@ -128,15 +122,15 @@ public class App {
     }
 
     public void openNotepad(Notepad notepad) {
-        messageBus.addTask(new OpenNotepad(notepad));
+        messageBus.addTask(new NotepadOpen(notepad));
     }
 
     public void closeNotepad(Notepad notepad) {
-        messageBus.addTask(new CloseNotepad(notepad));
+        messageBus.addTask(new NotepadClose(notepad));
     }
 
     public void refreshNotepad(Notepad notepad) {
-        messageBus.addTask(new RefreshNotepad(notepad));
+        messageBus.addTask(new NotepadRefresh(notepad));
     }
 
     public ArrayList<Notepad> getAvailableNotepads() {
@@ -202,7 +196,7 @@ public class App {
     }
 
     public void selectNoteInNotepad(Note note) {
-        messageBus.addTask(new SelectNoteInNotepad(note));
+        messageBus.addTask(new NotepadSelectNote(note));
     }
 
     private ArrayList<Note> getNoteFromItem(NoteStorageItem item, Notepad notepad) {
@@ -231,9 +225,13 @@ public class App {
 
     private void initializeRecurringTasks() {
 
-        RefreshNotepadRecurring task = new RefreshNotepadRecurring(this);
+        NotepadRefreshRecurring task = new NotepadRefreshRecurring(this);
         task.startTaskAfterSecondsFromNow(60);
         messageBus.addTask(task);
+
+        SaveSession sessionTask = new SaveSession();
+        sessionTask.startTaskAfterSecondsFromNow(30);
+        messageBus.addTask(sessionTask);
 
     }
 
