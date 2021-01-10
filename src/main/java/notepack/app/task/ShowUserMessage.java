@@ -2,10 +2,9 @@ package notepack.app.task;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import notepack.app.domain.App;
 import notepack.app.domain.Task;
-import notepack.app.listener.GuiListener;
+import notepack.gui.TaskUtil;
 
 public class ShowUserMessage implements Task, TypeGui {
 
@@ -26,7 +25,7 @@ public class ShowUserMessage implements Task, TypeGui {
     }
 
     @Override
-    public void guiWork(Stage stage, App app) {
+    public void guiWork(TaskUtil taskUtil, App app) {
 
         AlertType atype = messageType == TYPE.ERROR ? AlertType.ERROR : AlertType.INFORMATION;
 

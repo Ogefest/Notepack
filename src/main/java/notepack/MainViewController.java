@@ -46,6 +46,7 @@ import notepack.app.task.ShowSearchForNoteDialog;
 import notepack.app.utils.Icon;
 import notepack.encrypt.SimpleAES;
 import notepack.gui.TabNotepad;
+import notepack.gui.TaskUtil;
 import notepack.noterender.NoteRenderController;
 import notepack.noterender.Render;
 import notepack.noterender.TextAreaController;
@@ -76,6 +77,8 @@ public class MainViewController implements Initializable {
     public HostServices hostServices;
     
     private Scene mainScene;
+
+    private TaskUtil taskUtil;
     
     private Theme theme;
 
@@ -132,7 +135,7 @@ public class MainViewController implements Initializable {
         
         app = new App(sessionStorage, appSettings);
         
-        app.getMessageBus().registerGuiListener((task) -> Platform.runLater(() -> task.guiWork(parentStage, app)));
+        app.getMessageBus().registerGuiListener((task) -> Platform.runLater(() -> task.guiWork(taskUtil, app)));
 
         app.getMessageBus().registerNoteListener(new NoteListener() {
             @Override
@@ -290,88 +293,6 @@ public class MainViewController implements Initializable {
             }
         });
         
-        app.getMessageBus().registerNotepadListener(new NotepadListener() {
-            @Override
-            public void onOpen(Notepad notepad) {
-                Tab tab = new TabNotepad();
-                try {
-                    
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("NotepadTabListView.fxml"));
-                    Node tabContent = loader.load();
-                    NotebookTabController ctrl = loader.getController();
-                    tab.setContent(tabContent);
-                    ctrl.setNotepad(notepad);
-                    ctrl.setApp(app);
-                    ctrl.getTreeView().setOnMouseClicked((t) -> {
-                        if (t.getClickCount() == 2) {
-                            Note note = ctrl.getSelectedNote();
-                            if (note != null) {
-                                app.openNote(note);
-                            }
-                        }
-                    });
-                    
-                    ContextMenu contextMenu = new ContextMenu();
-                    MenuItem closeNotepadMenu = new MenuItem("Close");
-                    closeNotepadMenu.setOnAction((t) -> app.closeNotepad(notepad));
-
-                    MenuItem refreshNotepadMenu = new MenuItem("Refresh");
-                    refreshNotepadMenu.setOnAction((t) -> app.refreshNotepad(notepad));
-
-                    MenuItem configureNotepadMenu = new MenuItem("Settings");
-                    configureNotepadMenu.setOnAction((t) -> ctrl.openNotepadEdit(notepad));
-                    
-                    contextMenu.getItems().addAll(closeNotepadMenu, refreshNotepadMenu, configureNotepadMenu);
-                    tab.setContextMenu(contextMenu);
-                    
-                    tab.setUserData(ctrl);
-                    tab.setText(notepad.getName());
-                    
-                    String notepadColor = notepad.getBackgroundColor();
-                    tab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);
-                    
-                    app.refreshNotepad(notepad);
-                    
-                    Platform.runLater(() -> {
-                        
-                        notepadContainer.getTabs().add(tab);
-                        notepadContainer.getSelectionModel().select(tab);
-                        ctrl.refreshTreeView();
-                        
-                    });
-                    
-                } catch (IOException ex) {
-                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            
-            @Override
-            public void onClose(Notepad notepad) {
-                
-                Platform.runLater(() -> {
-                    for (Tab t : notepadContainer.getTabs()) {
-
-                        if (t instanceof TabNotepad) {
-                            NotebookTabController ctrl = (NotebookTabController) t.getUserData();
-                            if (ctrl.getNotepad().getIdent().equals(notepad.getIdent())) {
-                                notepadContainer.getTabs().remove(t);
-                                break;
-                            }
-                        }
-
-                    }
-                });
-            }
-            
-            @Override
-            public void onNotesListUpdated(Notepad notepad) {
-                /*
-                refresh GUI using callback is obsolete, all this changes
-                should be done using tasks in type TaskGui
-                 */
-            }
-        });
-        
     }
     
     public void windowRestore() {
@@ -411,7 +332,9 @@ public class MainViewController implements Initializable {
             }
         }
         initDefaultTab();
-        
+        taskUtil = new TaskUtil(app, parentStage);
+
+
         String cssFile = appSettings.get("color-definition", "color-definition.css");
         theme.set(cssFile, mainScene);
         
@@ -433,7 +356,8 @@ public class MainViewController implements Initializable {
             Parent p = (Parent) t.getContent();
             ((TextAreaController) t.getUserData()).showSearchReplaceForm();
         });
-        
+
+
     }
 
     private Note getCurrentNote() {
