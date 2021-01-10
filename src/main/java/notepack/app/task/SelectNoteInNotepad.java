@@ -13,7 +13,7 @@ import notepack.gui.TabNotepad;
 public class SelectNoteInNotepad implements Task, TypeGui {
 
     @Override
-    public void dispatch() {
+    public void backgroundWork() {
     }
 
     public enum TYPE {
@@ -27,7 +27,7 @@ public class SelectNoteInNotepad implements Task, TypeGui {
     }
 
     @Override
-    public void proceed(Stage stage, App app) {
+    public void guiWork(Stage stage, App app) {
         TabPane container = (TabPane) stage.getScene().lookup("#notepadTabContainer");
         Notepad notepad = note.getNotepad();
         for (Tab tab : container.getTabs()) {

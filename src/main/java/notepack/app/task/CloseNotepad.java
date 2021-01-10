@@ -13,7 +13,7 @@ public class CloseNotepad implements Task,TypeNotepad {
     }
     
     @Override
-    public void dispatch() {
+    public void backgroundWork() {
     }
 
     @Override
