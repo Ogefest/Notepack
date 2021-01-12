@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import notepack.MainViewController;
 import notepack.SaveAsController;
+import notepack.Theme;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.Task;
@@ -46,7 +47,7 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
         if (note.getPath() == null) {
 
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("SaveAs.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/notepack/SaveAs.fxml"));
 
             Scene scene;
             try {
@@ -63,7 +64,10 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
                 ctrl.setNote(note);
 
                 scene = new Scene(root);
-//                theme.setCurrent(scene);
+
+                scene.getStylesheets().clear();
+                scene.getStylesheets().add(Theme.class.getResource("/notepack/color-definition.css" ).toExternalForm());
+
 
                 Stage stage = new Stage();
                 stage.setTitle("Set name");
