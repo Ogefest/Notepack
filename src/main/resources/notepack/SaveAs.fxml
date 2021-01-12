@@ -12,10 +12,10 @@
 <AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="477.0" prefWidth="665.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.SaveAsController">
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
-        <URL value="@scrollbar.css" />  
-        <URL value="@icons.css" />  
+        <URL value="@scrollbar.css" />
+        <URL value="@icons.css" />
         <URL value="@default.css" />
-      <URL value="@notepadsettings.css" />  
+      <URL value="@notepadsettings.css" />
     </stylesheets>        
     <children>
       <AnchorPane prefHeight="306.0" prefWidth="635.0" styleClass="card" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
