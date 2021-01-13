@@ -303,6 +303,14 @@ public class Webdav implements NoteStorage {
         return new JSONObject();
     }
 
+    @Override
+    public void deleteMeta(String noteIdent) throws MessageError {
+        if (meta.has(noteIdent)) {
+            meta.remove(noteIdent);
+            saveMetaToStorage();
+        }
+    }
+
     synchronized private void saveMetaToStorage() {
         byte[] bytesToSave = meta.toString().getBytes();
 

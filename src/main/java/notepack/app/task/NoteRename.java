@@ -16,8 +16,11 @@ public class NoteRename implements Task,TypeNote {
 
     @Override
     public void backgroundWork() {
+        String oldNoteIdent = note.getIdent();
         note.getStorage().rename(note.getPath(), newPath);
         note.setPath(newPath);
+        String newNoteIdent = note.getIdent();
+        note.getMeta().changeNamespace(oldNoteIdent, newNoteIdent);
     }
 
     @Override
