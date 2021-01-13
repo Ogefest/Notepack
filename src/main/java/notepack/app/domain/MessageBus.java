@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MessageBus {
 
     private Queue<Task> tasks;
+    private Queue<Task> tasksLowPriority;
     private ArrayList<NoteListener> noteListeners;
     private ArrayList<NotepadListener> notepadListeners;
     private ArrayList<GuiListener> guiListeners;
@@ -27,6 +28,7 @@ public class MessageBus {
 
     public MessageBus() {
         tasks = new ConcurrentLinkedQueue<>();
+        tasksLowPriority = new ConcurrentLinkedQueue<>();
 
         noteListeners = new ArrayList<>();
         notepadListeners = new ArrayList<>();
@@ -73,15 +75,24 @@ public class MessageBus {
     }
 
     synchronized private Task getTaskToDispatch() {
-        Task temporaryTask = tasks.poll();
-        if (temporaryTask instanceof BaseTask) {
-            if (!((BaseTask) temporaryTask).isTaskReadyToStart()) {
-                tasks.add(temporaryTask);
+        int queueSize = tasks.size();
+
+        Task task = tasks.poll();
+        if (task == null) {
+            task = tasksLowPriority.poll();
+        }
+        if (task == null) {
+            return null;
+        }
+
+        if (task instanceof BaseTask) {
+            if (!((BaseTask) task).isTaskReadyToStart()) {
+                tasksLowPriority.add(task);
                 return null;
             }
         }
 
-        return temporaryTask;
+        return task;
     }
 
     private void dispatch() throws MessageError {
