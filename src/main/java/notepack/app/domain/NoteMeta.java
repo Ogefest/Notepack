@@ -12,7 +12,7 @@ public class NoteMeta {
     }
 
     public void changeNamespace(String old, String current) {
-//        storage.
+        storage.changeNamespace(old, current);
     }
 
     public ArrayList<String> getTags() {
