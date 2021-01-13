@@ -3,6 +3,7 @@ package notepack.app.domain;
 import java.util.ArrayList;
 import notepack.app.domain.exception.MessageError;
 import notepack.processor.NoteProcessor;
+import org.json.JSONObject;
 
 public class NoteStorageMiddleware implements NoteStorage {
 
@@ -94,6 +95,16 @@ public class NoteStorageMiddleware implements NoteStorage {
     @Override
     public String getBasePath() {
         return noteStorage.getBasePath();
+    }
+
+    @Override
+    public void setMeta(JSONObject content, String namespace) throws MessageError {
+        noteStorage.setMeta(content, namespace);
+    }
+
+    @Override
+    public JSONObject getMeta(String namespace) throws MessageError {
+        return noteStorage.getMeta(namespace);
     }
 
 }

@@ -14,6 +14,7 @@ import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.domain.NoteStorageItem;
 import notepack.app.domain.exception.MessageError;
 import notepack.noterender.Render;
+import org.json.JSONObject;
 
 public class Filesystem implements NoteStorage {
 
@@ -25,23 +26,76 @@ public class Filesystem implements NoteStorage {
 
     private int deep = 0;
 
+    private String metadataPath = ".metadata.json";
+    private JSONObject meta;
+
     public Filesystem() {
+        /*
+        this constructor is in use when session is loaded
+         */
         nsc = new NoteStorageConfiguration();
         nsc.set("directory", System.getProperty("java.io.tmpdir"));
-    }
 
-    public Filesystem(String path) {
-        nsc = new NoteStorageConfiguration();
-        nsc.set("directory", path);
+        loadMetaFromStorage();
     }
+//
+//    public Filesystem(String path) {
+//        nsc = new NoteStorageConfiguration();
+//        nsc.set("directory", path);
+//    }
 
     public Filesystem(NoteStorageConfiguration nsc) {
         this.nsc = nsc;
+
+        loadMetaFromStorage();
     }
 
     @Override
     public String getBasePath() {
         return nsc.get("directory");
+    }
+
+    @Override
+    synchronized public void setMeta(JSONObject content, String namespace) throws MessageError {
+        meta.put(namespace, content);
+
+        saveMetaToStorage();
+    }
+
+    @Override
+    public JSONObject getMeta(String noteIdent) throws MessageError {
+        if (meta.has(noteIdent)) {
+            return meta.getJSONObject(noteIdent);
+        }
+        return new JSONObject();
+    }
+
+    synchronized private void saveMetaToStorage() {
+        byte[] bytesToSave = meta.toString().getBytes();
+
+        try {
+            saveContent(bytesToSave, getBasePath() + File.separator + metadataPath);
+        } catch (MessageError messageError) {
+            messageError.printStackTrace();
+        }
+    }
+
+    private void loadMetaFromStorage() {
+        File f = new File(getBasePath() + File.separator + metadataPath);
+        if (!f.exists()) {
+            meta = new JSONObject();
+            return;
+        }
+
+        byte[] content = new byte[0];
+        try {
+            content = loadContent(getBasePath() + File.separator + metadataPath);
+            String cnt = new String(content);
+            meta = new JSONObject(cnt);
+        } catch (MessageError messageError) {
+            meta = new JSONObject();
+        }
+
     }
 
     @Override
@@ -135,6 +189,7 @@ public class Filesystem implements NoteStorage {
     @Override
     public void setConfiguration(NoteStorageConfiguration nsc) {
         this.nsc = nsc;
+        loadMetaFromStorage();
     }
 
     @Override
