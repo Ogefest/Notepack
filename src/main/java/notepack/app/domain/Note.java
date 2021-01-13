@@ -3,6 +3,7 @@ package notepack.app.domain;
 import java.io.File;
 import java.util.Date;
 import notepack.app.domain.exception.MessageError;
+import notepack.app.storage.JsonMeta;
 
 public class Note {
 
@@ -10,6 +11,7 @@ public class Note {
     private String path = null;
     private String name = null;
     private Notepad notepad;
+    private NoteMeta meta;
     private String ident;
     private boolean isSaved = true;
 
@@ -87,6 +89,14 @@ public class Note {
 
     public String toString() {
         return getName();
+    }
+
+    public NoteMeta getMeta() {
+        if (meta == null) {
+            meta = notepad.getMetaForNote(this);
+        }
+
+        return meta;
     }
 
 }

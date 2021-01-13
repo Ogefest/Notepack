@@ -29,6 +29,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import notepack.app.domain.exception.MessageError;
 import notepack.noterender.Render;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -50,13 +51,18 @@ public class Webdav implements NoteStorage {
 
     HttpClient client;
 
+    private String metadataPath = ".metadata.json";
+    private JSONObject meta;
+
     public Webdav() {
         createHttpClient();
+        loadMetaFromStorage();
     }
 
     public Webdav(NoteStorageConfiguration nsc) {
         this.nsc = nsc;
         createHttpClient();
+        loadMetaFromStorage();
     }
 
     private void createHttpClient() {
@@ -280,6 +286,48 @@ public class Webdav implements NoteStorage {
     @Override
     public String getBasePath() {
         return nsc.get("url");
+    }
+
+    @Override
+    synchronized public void setMeta(JSONObject content, String namespace) throws MessageError {
+        meta.put(namespace, content);
+
+        saveMetaToStorage();
+    }
+
+    @Override
+    public JSONObject getMeta(String namespace) throws MessageError {
+        if (meta.has(namespace)) {
+            return meta.getJSONObject(namespace);
+        }
+        return new JSONObject();
+    }
+
+    synchronized private void saveMetaToStorage() {
+        byte[] bytesToSave = meta.toString().getBytes();
+
+        try {
+            saveContent(bytesToSave, getBasePath() + File.separator + metadataPath);
+        } catch (MessageError messageError) {
+            messageError.printStackTrace();
+        }
+    }
+
+    private void loadMetaFromStorage() {
+        File f = new File(getBasePath() + File.separator + metadataPath);
+        if (!f.exists()) {
+            meta = new JSONObject();
+            return;
+        }
+
+        byte[] content = new byte[0];
+        try {
+            content = loadContent(getBasePath() + File.separator + metadataPath);
+            meta = new JSONObject(content);
+        } catch (MessageError messageError) {
+            meta = new JSONObject();
+        }
+
     }
 
 }

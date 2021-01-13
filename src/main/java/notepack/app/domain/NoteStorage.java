@@ -1,6 +1,7 @@
 package notepack.app.domain;
 
 import notepack.app.domain.exception.MessageError;
+import org.json.JSONObject;
 
 public interface NoteStorage {
 
@@ -21,5 +22,9 @@ public interface NoteStorage {
     public void delete(String path);
 
     public String getBasePath();
+
+    public void setMeta(JSONObject content, String noteIdent) throws MessageError;
+
+    public JSONObject getMeta(String noteIdent) throws MessageError;
 
 }
