@@ -39,6 +39,16 @@ public class JsonMeta implements NoteMetaStorage {
     }
 
     @Override
+    public void changeNamespace(String old, String current) {
+        storage.delete(old);
+        try {
+            storage.setMeta(noteData, current);
+        } catch (MessageError messageError) {
+            messageError.printStackTrace();
+        }
+    }
+
+    @Override
     public String getValue(String key) {
         if (!noteData.has(key)) {
             return "";

@@ -27,4 +27,6 @@ public interface NoteStorage {
 
     public JSONObject getMeta(String noteIdent) throws MessageError;
 
+    public void deleteMeta(String noteIdent) throws MessageError;
+
 }
