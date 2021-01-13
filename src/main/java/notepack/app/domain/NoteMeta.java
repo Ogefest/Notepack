@@ -11,6 +11,10 @@ public class NoteMeta {
         this.storage = storage;
     }
 
+    public void changeNamespace(String old, String current) {
+//        storage.
+    }
+
     public ArrayList<String> getTags() {
         return storage.getArray("tag");
     }
