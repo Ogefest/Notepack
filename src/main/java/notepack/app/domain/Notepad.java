@@ -3,12 +3,16 @@ package notepack.app.domain;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
+
+import notepack.app.storage.JsonMeta;
 import notepack.processor.ZipDecrypt;
 import notepack.processor.ZipEncrypt;
 
 public class Notepad {
 
     private NoteStorageMiddleware storage;
+    private NoteMetaStorage meta;
+
     private String name;
     private String ident;
 
@@ -27,6 +31,8 @@ public class Notepad {
         this.ident = ident;
 
         params.put("name", name);
+
+//        meta = new JsonMeta(storage);
     }
 
     public void registerProcessors() {
@@ -95,6 +101,10 @@ public class Notepad {
 
     public String getParam(String key) {
         return params.getOrDefault(key, "");
+    }
+
+    public NoteMeta getMetaForNote(Note note) {
+        return new NoteMeta(new JsonMeta(getStorage(), note.getIdent()));
     }
 
 }
