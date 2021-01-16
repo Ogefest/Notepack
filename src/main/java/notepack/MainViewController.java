@@ -2,47 +2,29 @@ package notepack;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.HostServices;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.Notepad;
 import notepack.app.domain.SessionStorage;
 import notepack.app.domain.Settings;
-import notepack.app.listener.NoteListener;
 import notepack.app.storage.JsonNotepadRepository;
 import notepack.app.storage.PreferencesSettings;
 import notepack.app.task.*;
-import notepack.gui.Icon;
 import notepack.encrypt.SimpleAES;
 import notepack.gui.TaskUtil;
-import notepack.noterender.NoteRenderController;
-import notepack.noterender.Render;
-import notepack.noterender.TextAreaController;
+
 
 /**
  * FXML Controller class
@@ -63,14 +45,10 @@ public class MainViewController implements Initializable {
 
     @FXML
     private StackPane parentPane;
-    
-    public HostServices hostServices;
-    
-    private Scene mainScene;
 
+    public HostServices hostServices;
+    private Scene mainScene;
     private TaskUtil taskUtil;
-    
-    private Theme theme;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,12 +60,9 @@ public class MainViewController implements Initializable {
     
     public void appStart() {
         appSettings = new PreferencesSettings();
-
         SessionStorage sessionStorage = new JsonNotepadRepository(new SimpleAES(), appSettings);
         
         app = new App(sessionStorage, appSettings);
-        theme = app.getTheme();
-
         app.getMessageBus().registerGuiListener((task) -> Platform.runLater(() -> task.guiWork(taskUtil, app)));
     }
     
@@ -142,13 +117,11 @@ public class MainViewController implements Initializable {
                 app.openNote(note);
             }
         }
-
         taskUtil = new TaskUtil(app, parentStage);
 
-
         String cssFile = appSettings.get("color-definition", "color-definition.css");
-        theme.set(cssFile, mainScene);
 
+        app.getTheme().set(cssFile, mainScene);
         app.addTask(new InitializeShortcuts());
         app.startDispatcher();
     }
