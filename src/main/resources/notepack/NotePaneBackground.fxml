@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.geometry.Insets?>
+
+<SplitPane id="mainBackground" dividerPositions="0.498" layoutY="28.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotePaneBackgroundController">
+    <items>
+        <VBox maxWidth="400.0" minWidth="300.0" prefWidth="300.0">
+            <children>
+<!--                notepadContainer-->
+                <TabPane id="notepadTabContainer" fx:id="notepadContainer" prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="10.0" top="20.0" />
+                    </padding></TabPane>
+            </children>
+        </VBox>
+        <AnchorPane minHeight="0.0" minWidth="400.0" prefHeight="160.0">
+            <children>
+                <TabPane id="noteTabContainer" fx:id="tabContainer" prefHeight="596.0" prefWidth="579.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+                    <tabs>
+
+                        <!--                                <Tab text="Untitled Tab 1">
+                                                           <content>
+                                                               <fx:include source="NoteTabContent.fxml" />
+                                                           </content>
+                                                        </Tab>
+                                                        <Tab text="Untitled Tab 2">
+                                                           <content>
+                                                               <fx:include source="NoteTabContent.fxml" />
+                                                           </content>
+                                                        </Tab>
+                                                        <Tab text="Untitled Tab 3">
+                                                           <content>
+                                                               <fx:include source="NoteTabContent.fxml" />
+                                                           </content>
+                                                        </Tab>                                                                  -->
+
+                    </tabs>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <padding>
+                        <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
+                    </padding>
+                </TabPane>
+            </children>
+        </AnchorPane>
+    </items>
+</SplitPane>

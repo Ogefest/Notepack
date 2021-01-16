@@ -17,18 +17,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -63,14 +59,11 @@ public class MainViewController implements Initializable {
     private Settings appSettings;
     
     @FXML
-    private TabPane tabContainer;
-    @FXML
     private AnchorPane mainPane;
-    
-    @FXML
-    private TabPane notepadContainer;
 
-//    private MainViewGuiAction guiAction;
+    @FXML
+    private StackPane parentPane;
+    
     public HostServices hostServices;
     
     private Scene mainScene;
@@ -79,222 +72,43 @@ public class MainViewController implements Initializable {
     
     private Theme theme;
 
-    private Tab currentActiveNoteTab;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
     }
     
     public void setScene(Scene scene) {
         this.mainScene = scene;
     }
+    
+    public void appStart() {
+        appSettings = new PreferencesSettings();
 
-    private void initDefaultTab() {
+        SessionStorage sessionStorage = new JsonNotepadRepository(new SimpleAES(), appSettings);
+        
+        app = new App(sessionStorage, appSettings);
+        theme = app.getTheme();
 
-        Tab searchNoteTab = new Tab();
-        searchNoteTab.setId("searchNoteTab");
+        app.getMessageBus().registerGuiListener((task) -> Platform.runLater(() -> task.guiWork(taskUtil, app)));
+    }
+    
+    public void windowRestore() {
 
-        Node tabContent;
+        parentStage = (Stage) mainPane.getScene().getWindow();
+
+        SplitPane notePaneBackground;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchNoteTab.fxml"));
-
-            tabContent = loader.load();
-
-            SearchNoteTabController ctrl = loader.getController();
-            searchNoteTab.setContent(tabContent);
-            searchNoteTab.setUserData(ctrl);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/notepack/NotePaneBackground.fxml"));
+            notePaneBackground = loader.load();
+            NotePaneBackgroundController ctrl = loader.getController();
             ctrl.setApp(app);
 
-            searchNoteTab.setGraphic(Icon.get("mi-magnify"));
-            searchNoteTab.setStyle("-fx-background-color: card-background; -fx-border-color: card-background" );
-            searchNoteTab.getStyleClass().add("button");
-
-            Platform.runLater(() -> notepadContainer.getTabs().add(searchNoteTab));
-
-            notepadContainer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue.equals(searchNoteTab)) {
-                    SearchNoteTabController c = (SearchNoteTabController) searchNoteTab.getUserData();
-                    c.focusSearchQuery();
-                }
-            });
+            parentPane.getChildren().add(notePaneBackground);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    
-    public void appStart() {
-        appSettings = new PreferencesSettings();
-        theme = new Theme(appSettings);
-        
-        SessionStorage sessionStorage = new JsonNotepadRepository(new SimpleAES(), appSettings);
-        
-        app = new App(sessionStorage, appSettings);
-        
-        app.getMessageBus().registerGuiListener((task) -> Platform.runLater(() -> task.guiWork(taskUtil, app)));
-
-        app.getMessageBus().registerNoteListener(new NoteListener() {
-            @Override
-            public void onOpen(Note note) {
-                
-                for (Tab t : tabContainer.getTabs()) {
-                    NoteRenderController ctrl = (NoteRenderController) t.getUserData();
-                    if (ctrl.getNote().getIdent().equals(note.getIdent())) {
-                        Platform.runLater(() -> tabContainer.getSelectionModel().select(t));
-                        
-                        return;
-                    }
-                }
 
 
-                tabContainer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-                        
-                        if (t == null || t1 == null) {
-                            return;
-                        }
-                        /*
-                        to avoid call this many times
-                         */
-                        if (currentActiveNoteTab != null && currentActiveNoteTab.equals(t1)) {
-                            return;
-                        }
-                        
-                        NoteRenderController activatedTab = (NoteRenderController) t1.getUserData();
-                        activatedTab.noteActivated();
-                        
-                        NoteRenderController deactivatedTab = (NoteRenderController) t.getUserData();
-                        deactivatedTab.noteDeactivated();
-
-                        app.selectNoteInNotepad(activatedTab.getNote());
-
-                        currentActiveNoteTab = t1;
-
-                    }
-
-                }
-                );
-                
-                final Tab newTab = new Tab();
-                
-                Platform.runLater(() -> {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(Render.getFxml(note)));
-                    Node tabContent;
-                    try {
-                        tabContent = loader.load();
-                        
-                        NoteRenderController ctrl = loader.getController();
-                        ctrl.setState(app, note);
-                        
-                        ContextMenu contextMenu = new ContextMenu();
-                        MenuItem closeNoteMenu = new MenuItem("Close");
-                        closeNoteMenu.setOnAction((t) -> app.closeNote(note));
-
-                        MenuItem saveNoteMenu = new MenuItem("Save");
-                        saveNoteMenu.setOnAction((t) -> app.saveNote(note));
-
-                        contextMenu.getItems().addAll(saveNoteMenu, closeNoteMenu);
-                        newTab.setContextMenu(contextMenu);
-                        
-                        newTab.setContent(tabContent);
-                        newTab.setUserData(ctrl);
-                        
-                        String notepadColor = note.getNotepad().getBackgroundColor();
-                        newTab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);
-                        if (note.getName().length() > 0) {
-                            newTab.setText(note.getName());
-                        }
-                        newTab.setGraphic(new Label(""));
-                        
-                        tabContainer.getTabs().add(newTab);
-                        tabContainer.getSelectionModel().select(newTab);
-                    } catch (IOException ex) {
-                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                });
-            }
-            
-            @Override
-            public void onClose(Note n) {
-                
-                Platform.runLater(() -> {
-                    for (Tab t : tabContainer.getTabs()) {
-                        NoteRenderController ctrl = (NoteRenderController) t.getUserData();
-                        Note note = ctrl.getNote();
-                        if (note.getIdent().equals(n.getIdent())) {
-                            
-                            if (!note.isSaved()) {
-                                Alert alert = new Alert(AlertType.CONFIRMATION);
-                                alert.setTitle("Confirmation");
-                                alert.setHeaderText(null);
-                                alert.setContentText("Changes not saved, do you want to save document?");
-                                
-                                ButtonType buttonSave = new ButtonType("Save");
-                                ButtonType buttonClose = new ButtonType("Close without saving");
-                                ButtonType buttonDontClose = new ButtonType("Don't close");
-                                
-                                alert.getButtonTypes().setAll(buttonDontClose, buttonClose, buttonSave);
-                                
-                                Optional<ButtonType> result = alert.showAndWait();
-                                if (result.isPresent() && result.get() == buttonSave) {
-                                    app.saveNote(note);
-                                    
-                                    tabContainer.getTabs().remove(t);
-                                } else if (result.isPresent() && result.get() == buttonClose) {
-                                    tabContainer.getTabs().remove(t);
-                                }
-                            } else {
-                                tabContainer.getTabs().remove(t);
-                            }
-                            
-                            break;
-                        }
-                    }
-                });
-                
-            }
-            
-            @Override
-            public void onChange(Note n) {
-                
-                Platform.runLater(() -> {
-                    for (Tab t : tabContainer.getTabs()) {
-                        
-                        NoteRenderController ctrl = (NoteRenderController) t.getUserData();
-                        
-                        if (ctrl.getNote().getIdent().equals(n.getIdent())) {
-                            t.setText(n.getName());
-                            
-                            Label l = (Label) t.getGraphic();
-                            l.getStyleClass().addAll("icon-base","mi-asterisk");
-                        }
-                    }
-                });
-            }
-            
-            @Override
-            public void onSave(Note n) {
-                Platform.runLater(() -> {
-                    for (Tab t : tabContainer.getTabs()) {
-                        NoteRenderController ctrl = (NoteRenderController) t.getUserData();
-                        if (ctrl.getNote().getIdent().equals(n.getIdent())) {
-                            t.setText(n.getName());
-                            
-                            Label l = (Label) t.getGraphic();
-                            l.setText("");
-                        }
-                    }
-                });
-            }
-        });
-        
-    }
-    
-    public void windowRestore() {
-        parentStage = (Stage) mainPane.getScene().getWindow();
-        
         parentStage.setOnCloseRequest((t) -> {
             app.terminate();
             
@@ -328,7 +142,7 @@ public class MainViewController implements Initializable {
                 app.openNote(note);
             }
         }
-        initDefaultTab();
+
         taskUtil = new TaskUtil(app, parentStage);
 
 
@@ -336,25 +150,22 @@ public class MainViewController implements Initializable {
         theme.set(cssFile, mainScene);
 
         app.addTask(new InitializeShortcuts());
-
+        app.startDispatcher();
     }
 
     @FXML
     private void onNoteSearch(ActionEvent event) {
-        app.getMessageBus().addTask(new ShowSearchForNoteDialog());
+        app.addTask(new ShowSearchForNoteDialog());
     }
     
     @FXML
     private void onApplicationInfo(ActionEvent event) {
-        app.getMessageBus().addTask(new ShowApplicationInfo(hostServices));
+        app.addTask(new ShowApplicationInfo(hostServices));
     }
     
     @FXML
     private void onSwitchTheme(ActionEvent event) {
-        theme.toggle(mainScene);
-        
-        Tab t = tabContainer.getSelectionModel().getSelectedItem();
-        ((NoteRenderController) t.getUserData()).noteActivated();
+        app.addTask(new ToggleTheme(mainScene));
     }
 
 }
