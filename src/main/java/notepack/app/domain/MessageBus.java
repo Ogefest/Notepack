@@ -70,7 +70,9 @@ public class MessageBus {
 
     public void stopDispatcher() {
         dispatcherStop = true;
-        dispatchThread.interrupt();
+        if (dispatchThread != null) {
+            dispatchThread.interrupt();
+        }
         dispatchThread = null;
     }
 
