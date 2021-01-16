@@ -3,6 +3,8 @@ package notepack.app.task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -15,6 +17,7 @@ import notepack.app.domain.Task;
 import notepack.app.domain.exception.MessageError;
 import notepack.app.listener.NoteListener;
 import notepack.gui.TaskUtil;
+import notepack.noterender.NoteRenderController;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -84,6 +87,13 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
             }
 
         }
+
+        Tab t = taskUtil.getNoteTab(note);
+        t.setText(note.getName());
+        Label l = (Label) t.getGraphic();
+        l.setText("");
+
+
 //        app.refreshNotepad(note.getNotepad());
     }
 }
