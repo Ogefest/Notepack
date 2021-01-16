@@ -107,4 +107,9 @@ public class NoteStorageMiddleware implements NoteStorage {
         return noteStorage.getMeta(namespace);
     }
 
+    @Override
+    public void deleteMeta(String noteIdent) throws MessageError {
+        noteStorage.deleteMeta(noteIdent);
+    }
+
 }
