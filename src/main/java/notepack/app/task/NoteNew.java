@@ -7,7 +7,7 @@ import notepack.app.domain.Task;
 import notepack.app.listener.NoteListener;
 import notepack.gui.TaskUtil;
 
-public class NoteNew implements Task,TypeNote,TypeGui {
+public class NoteNew extends BaseTask implements Task,TypeNote,TypeGui {
     
     private Note note;
     
@@ -31,5 +31,6 @@ public class NoteNew implements Task,TypeNote,TypeGui {
             note = new Note(taskUtil.getCurrentNotepad());
             note.setContents(new byte[0]);
         }
+        addTaskToQueue(new NoteOpen(note));
     }
 }
