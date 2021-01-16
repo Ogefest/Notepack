@@ -30,22 +30,22 @@ public class Render {
     public static String getFxml(String ext) {
 
         if (txtExtensions.contains(ext)) {
-            return "noterender/Textarea.fxml";
+            return "/notepack/noterender/Textarea.fxml";
         }
 
         if (imageExtension.contains(ext)) {
-            return "noterender/ImageView.fxml";
+            return "/notepack/noterender/ImageView.fxml";
         }
         
         if (pdfExtension.contains(ext)) {
-            return "noterender/PdfView.fxml";
+            return "/notepack/noterender/PdfView.fxml";
         }
         
         if (mdExtension.contains(ext)) {
-            return "noterender/Markdown.fxml";
+            return "/notepack/noterender/Markdown.fxml";
         }        
 
-        return "noterender/Textarea.fxml";
+        return "/notepack/noterender/Textarea.fxml";
     }
 
     public static ArrayList<String> getSupportedExtensions() {
