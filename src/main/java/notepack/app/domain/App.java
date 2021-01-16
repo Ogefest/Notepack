@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import notepack.Theme;
 import notepack.app.listener.NoteListener;
 import notepack.app.listener.NotepadListener;
 import notepack.app.task.*;
@@ -17,15 +18,16 @@ public class App {
     private MessageBus messageBus;
     private SessionStorage sessionStorage;
     private Settings settings;
+    private Theme theme;
     private ArrayList<Note> activeNotes = new ArrayList<>();
     private ArrayList<Notepad> activeNotepad = new ArrayList<>();
 
     public App(SessionStorage sessionStorage, Settings settings) {
         this.sessionStorage = sessionStorage;
         this.settings = settings;
+        this.theme = new Theme(settings);
 
         messageBus = new MessageBus();
-        messageBus.startDispatcher();
 
         initializeRecurringTasks();
 
@@ -63,6 +65,10 @@ public class App {
 
     }
 
+    public void startDispatcher() {
+        messageBus.startDispatcher();
+    }
+
     public void terminate() {
         messageBus.stopDispatcher();
     }
@@ -77,6 +83,10 @@ public class App {
 
     public SessionStorage getSessionStorage() {
         return sessionStorage;
+    }
+
+    public Theme getTheme() {
+        return theme;
     }
 
     public void addTask(Task task) {
