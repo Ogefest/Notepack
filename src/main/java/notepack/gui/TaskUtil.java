@@ -1,6 +1,7 @@
 package notepack.gui;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
@@ -89,6 +90,19 @@ public class TaskUtil {
             return null;
         }
         return notepads.get(notepad);
+    }
+
+    public Tab getNoteTab(Note note) {
+        TabPane tabContainer = getNotesContainer();
+
+        for (Tab t : tabContainer.getTabs()) {
+            NoteRenderController ctrl = (NoteRenderController) t.getUserData();
+            if (ctrl.getNote().getIdent().equals(note.getIdent())) {
+
+                return t;
+            }
+        }
+        return null;
     }
 
     public TabPane getNotepadContainer() {
