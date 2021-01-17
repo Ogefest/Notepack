@@ -11,7 +11,7 @@ import notepack.app.listener.NotepadListener;
 import notepack.gui.TabNotepad;
 import notepack.gui.TaskUtil;
 
-public class NotepadRefresh implements Task,TypeNotepad,TypeGui {
+public class NotepadRefresh extends BaseTask implements Task,TypeNotepad,TypeGui {
 
     private Notepad notepad;
     
@@ -35,17 +35,6 @@ public class NotepadRefresh implements Task,TypeNotepad,TypeGui {
         NotebookTabController ctrl = (NotebookTabController) notepadTab.getUserData();
         ctrl.refreshTreeView();
 
-
-//        TabPane container = (TabPane) taskUtil.getStage().getScene().lookup("#notepadTabContainer");
-//
-//        for (Tab tab : container.getTabs()) {
-//            if (tab instanceof TabNotepad) {
-//                NotebookTabController ctrl = (NotebookTabController) tab.getUserData();
-//                if (ctrl.getNotepad().getIdent().equals(notepad.getIdent())) {
-//                    ctrl.refreshTreeView();
-//                    break;
-//                }
-//            }
-//        }
+        addTaskToQueue(new NotepadSelectNote(taskUtil.getCurrentNote()));
     }
 }
