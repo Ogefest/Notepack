@@ -1,11 +1,12 @@
 package notepack.app.domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class NoteMeta {
     private NoteMetaStorage storage;
-    private String namespace;
 
     public NoteMeta(NoteMetaStorage storage) {
         this.storage = storage;
@@ -33,6 +34,28 @@ public class NoteMeta {
 
     public void setTags(ArrayList<String> tags) {
         storage.setArray("tag", tags);
+    }
+
+    public void setReminder(LocalDate date) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("date", date.toString());
+
+        storage.setObject("reminder", map);
+    }
+
+    public void removeReminder() {
+        storage.setObject("reminder", null);
+    }
+
+    public LocalDate getReminder() {
+        HashMap<String, String> map = storage.getObject("reminder");
+
+        if (!map.containsKey("date")) {
+            return null;
+        }
+
+        LocalDate result = LocalDate.parse(map.get("date"));
+        return result;
     }
 
 }

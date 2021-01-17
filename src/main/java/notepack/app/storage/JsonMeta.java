@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class JsonMeta implements NoteMetaStorage {
 
@@ -84,5 +85,38 @@ public class JsonMeta implements NoteMetaStorage {
         noteData.put(key, array);
 
         saveData();
+    }
+
+    @Override
+    public void setObject(String key, HashMap<String, String> map) {
+
+        if (map != null) {
+            JSONObject toSet = new JSONObject();
+            map.forEach((s, s2) -> toSet.put(s, s2));
+
+            noteData.put(key, toSet);
+        } else {
+            if (noteData.has(key)) {
+                noteData.remove(key);
+            }
+        }
+
+        saveData();
+    }
+
+    @Override
+    public HashMap<String, String> getObject(String key) {
+
+        HashMap<String, String> result = new HashMap<>();
+        if (!noteData.has(key)) {
+            return result;
+        }
+
+        JSONObject tmp = noteData.getJSONObject(key);
+        for (String objectKey : tmp.keySet()) {
+            result.put(objectKey, (String) tmp.get(objectKey));
+        }
+
+        return result;
     }
 }
