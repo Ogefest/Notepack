@@ -1,9 +1,17 @@
 package notepack.gui;
 
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import notepack.NotebookTabController;
 import notepack.app.domain.App;
@@ -113,6 +121,10 @@ public class TaskUtil {
         return (TabPane) stage.getScene().lookup("#noteTabContainer");
     }
 
+    public StackPane getParentPane() {
+        return (StackPane) stage.getScene().lookup("#parentPane");
+    }
+
     public Stage getStage() {
         return stage;
     }
@@ -127,6 +139,38 @@ public class TaskUtil {
         TabPane container = getNotesContainer();
         Tab t = container.getSelectionModel().getSelectedItem();
         return ((NoteRenderController) t.getUserData()).getNote();
+    }
+
+    public void openPopup(Node node) {
+
+        StackPane parent = getParentPane();
+
+        BorderPane bPane = new BorderPane();
+        bPane.setStyle("-fx-background-color: rgba(50, 50, 50, 0.8);");
+        bPane.setId("popup-parent");
+        node.setOnKeyReleased(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                parent.getChildren().remove(bPane);
+            }
+        });
+
+        bPane.setCenter(node);
+        bPane.prefWidthProperty().bind(parent.prefWidthProperty());
+        bPane.prefHeightProperty().bind(parent.prefHeightProperty());
+
+        parent.getChildren().add(bPane);
+        node.requestFocus();
+    }
+
+    public void closePopup(Node node) {
+        StackPane parent = getParentPane();
+
+        parent.getChildren().forEach(node1 -> {
+            if (node1.getId().equals("popup-parent")) {
+                parent.getChildren().remove(node1);
+            }
+        });
+
     }
 
 }
