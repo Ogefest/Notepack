@@ -1,0 +1,10 @@
+.popup-background  {
+    -fx-focus-color: toolbar-background;
+    -fx-effect: dropshadow(gaussian, tab-shadow, 7, 0, 0, 0);
+    /*-fx-border-color: red;*/
+    -fx-background-color: toolbar-background;
+}
+
+.popup-title {
+    -fx-font-size: 25px
+}

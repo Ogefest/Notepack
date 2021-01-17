@@ -18,6 +18,7 @@ import notepack.app.domain.Note;
 
 import netscape.javascript.JSObject;
 import notepack.app.domain.App;
+import notepack.app.task.NoteReminder;
 
 //import javafx.scene.web.WebView;
 public class PdfViewController implements Initializable, NoteRenderController {
@@ -182,6 +183,10 @@ public class PdfViewController implements Initializable, NoteRenderController {
         }
         
         webEngine.executeScript("PDFViewerApplication.pdfViewer._setScale('"+cmd+"')");
+    }
+
+    public void onNoteNotification(ActionEvent actionEvent) {
+        app.addTask(new NoteReminder(note));
     }
     
 }

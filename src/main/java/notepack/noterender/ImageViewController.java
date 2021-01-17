@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import notepack.NoteTabContentCallback;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
+import notepack.app.task.NoteReminder;
 
 /**
  * FXML Controller class
@@ -117,6 +118,10 @@ public class ImageViewController implements Initializable, NoteRenderController 
 
     @Override
     public void noteDeactivated() {
+    }
+
+    public void onNoteNotification(ActionEvent actionEvent) {
+        app.addTask(new NoteReminder(note));
     }
 
 

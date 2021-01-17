@@ -83,14 +83,22 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
+                                <Button mnemonicParsing="false" onAction="#onNoteNotification" styleClass="icon-button">
                                     <tooltip>
-                                        <Tooltip text="Close note (Ctrl + w)" />
+                                        <Tooltip text="Reminder" />
                                     </tooltip>
                                     <graphic>
-                                        <Label styleClass="icon-base,mi-close" />
+                                        <Label styleClass="icon-base,mi-reminder" />
                                     </graphic>
                                 </Button>
+                        <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
+                           <graphic>
+                              <Label styleClass="icon-base,mi-close" />
+                           </graphic>
+                           <tooltip>
+                              <Tooltip text="Close note (Ctrl + w)" />
+                           </tooltip>
+                        </Button>
                             </children>
                         </HBox>
                     </children>
