@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import notepack.app.domain.App;
@@ -72,12 +73,24 @@ public class MainViewController implements Initializable {
 
         SplitPane notePaneBackground;
         try {
+
+            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/notepack/TodoPaneBackground.fxml"));
+            BorderPane todoPaneBackground = loader2.load();
+            TodoPaneBackgroundController ctrl2 = loader2.getController();
+            todoPaneBackground.setUserData(ctrl2);
+            ctrl2.setApp(app);
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/notepack/NotePaneBackground.fxml"));
             notePaneBackground = loader.load();
             NotePaneBackgroundController ctrl = loader.getController();
+            notePaneBackground.setUserData(ctrl);
             ctrl.setApp(app);
 
-            parentPane.getChildren().add(notePaneBackground);
+            parentPane.getChildren().addAll(todoPaneBackground, notePaneBackground);
+
+//            parentPane.getChildren().addAll(todoPaneBackground);
+//            parentPane.getChildren().get(1).tof
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -141,4 +154,13 @@ public class MainViewController implements Initializable {
         app.addTask(new ToggleTheme(mainScene));
     }
 
+    @FXML
+    private void onShowTodo(ActionEvent event) {
+        app.addTask(new ShowTodoView());
+    }
+
+    @FXML
+    private void onShowNotes(ActionEvent event) {
+        app.addTask(new ShowNotesView());
+    }
 }
