@@ -21,6 +21,7 @@ public class App {
     private Theme theme;
     private ArrayList<Note> activeNotes = new ArrayList<>();
     private ArrayList<Notepad> activeNotepad = new ArrayList<>();
+    private ArrayList<Todo> activeTodo = new ArrayList<>();
 
     public App(SessionStorage sessionStorage, Settings settings) {
         this.sessionStorage = sessionStorage;
@@ -30,6 +31,7 @@ public class App {
         messageBus = new MessageBus();
 
         initializeRecurringTasks();
+        messageBus.addTask(new TodoRefresh());
 
         messageBus.registerNoteListener(new NoteListener() {
             @Override
@@ -247,5 +249,29 @@ public class App {
         messageBus.addTask(sessionTask);
 
     }
+
+    public ArrayList<Note> getNotesWithTodo() {
+
+        ArrayList<Note> tmp = new ArrayList<>();
+        for (Notepad notepad : activeNotepad) {
+            NoteStorageItem it = notepad.getStorage().getItemsInStorage();
+
+            tmp.addAll(getNoteFromItem(it, notepad));
+        }
+
+        ArrayList<Note> result = new ArrayList<>();
+        for (Note n : tmp) {
+            if (n.getMeta().getTodo() != null) {
+                result.add(n);
+            }
+        }
+
+        return result;
+    }
+
+    public void refreshTodo(Note note) {
+
+    }
+
 
 }
