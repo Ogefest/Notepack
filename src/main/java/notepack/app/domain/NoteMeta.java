@@ -36,25 +36,40 @@ public class NoteMeta {
         storage.setArray("tag", tags);
     }
 
-    public void setReminder(LocalDate date) {
+    public void setTodo(Todo todo) {
         HashMap<String, String> map = new HashMap<>();
-        map.put("date", date.toString());
+        map.put("duedate", todo.getDueDate().toString());
+        map.put("summary", todo.getSummary());
+        map.put("finished", todo.isFinished() ? "1" : "0");
 
-        storage.setObject("reminder", map);
+        storage.setObject("todo", map);
     }
 
-    public void removeReminder() {
-        storage.setObject("reminder", null);
+    public void removeTodo() {
+        storage.setObject("todo", null);
     }
 
-    public LocalDate getReminder() {
-        HashMap<String, String> map = storage.getObject("reminder");
+    public Todo getTodo() {
 
-        if (!map.containsKey("date")) {
+        HashMap<String, String> map = storage.getObject("todo");
+
+        if (map == null) {
             return null;
         }
 
-        LocalDate result = LocalDate.parse(map.get("date"));
+        if (!map.containsKey("summary")) {
+            return null;
+        }
+
+        LocalDate dueDate = LocalDate.parse(map.get("duedate"));
+        boolean isFinished = map.get("finished").equals("1") ? true : false;
+        String summary = map.get("summary");
+
+        Todo result = new Todo();
+        result.setDueDate(dueDate);
+        result.setFinished(isFinished);
+        result.setSummary(summary);
+
         return result;
     }
 
