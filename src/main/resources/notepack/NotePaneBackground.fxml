@@ -24,22 +24,6 @@
                 <TabPane id="noteTabContainer" fx:id="tabContainer" prefHeight="596.0" prefWidth="579.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
                     <tabs>
 
-                        <!--                                <Tab text="Untitled Tab 1">
-                                                           <content>
-                                                               <fx:include source="NoteTabContent.fxml" />
-                                                           </content>
-                                                        </Tab>
-                                                        <Tab text="Untitled Tab 2">
-                                                           <content>
-                                                               <fx:include source="NoteTabContent.fxml" />
-                                                           </content>
-                                                        </Tab>
-                                                        <Tab text="Untitled Tab 3">
-                                                           <content>
-                                                               <fx:include source="NoteTabContent.fxml" />
-                                                           </content>
-                                                        </Tab>                                                                  -->
-
                     </tabs>
                     <opaqueInsets>
                         <Insets />

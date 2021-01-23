@@ -66,10 +66,10 @@
                             <children>
                                 <Button mnemonicParsing="false" onAction="#onNoteNotification" styleClass="icon-button">
                                     <tooltip>
-                                        <Tooltip text="Reminder" />
+                                        <Tooltip text="Make todo" />
                                     </tooltip>
                                     <graphic>
-                                        <Label styleClass="icon-base,mi-reminder" />
+                                        <Label styleClass="icon-base,mi-sticker-check-outline" />
                                     </graphic>
                                 </Button>
                                 <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
