@@ -22,6 +22,9 @@ public class ShowSearchForNoteDialog extends BaseTask implements Task, TypeGui {
         TabPane container = (TabPane) taskUtil.getStage().getScene().lookup("#notepadTabContainer");
         for (Tab tab : container.getTabs()) {
             if (tab.getId().equals("searchNoteTab")) {
+
+                taskUtil.showNotesPane();
+
                 container.getSelectionModel().select(tab);
 
                 SearchNoteTabController c = (SearchNoteTabController) tab.getUserData();
