@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import java.net.URL?>
+<BorderPane fx:id="todoBackground" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.TodoPaneBackgroundController">
+   <stylesheets>
+
+      <URL value="@material.icons.css" />
+      <URL value="@default.css" />
+      <URL value="@notepadsettings.css" />
+      <URL value="@todo.css" />
+
+   </stylesheets>
+   <center>
+      <VBox alignment="TOP_CENTER">
+         <children>
+            <ScrollPane maxWidth="800.0" minWidth="600.0">
+               <content>
+                  <VBox fx:id="listviewContainer" minWidth="800.0" prefWidth="800.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </center>
+   <top>
+      <VBox maxWidth="800.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefWidth="200.0">
+               <children>
+                  <TextField fx:id="filterInput" layoutX="14.0" layoutY="8.0" promptText="Filter tasks" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="20.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </top>
+</BorderPane>
