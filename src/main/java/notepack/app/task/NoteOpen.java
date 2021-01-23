@@ -44,14 +44,17 @@ public class NoteOpen extends BaseTask implements Task, TypeNote, TypeGui {
     @Override
     public void guiWork(TaskUtil taskUtil, App app) {
 
+        taskUtil.showNotesPane();
+        TabPane tabContainer = taskUtil.getNotesContainer();
+
         Tab tab = taskUtil.getNoteTab(note);
         if (tab != null) {
+            tabContainer.getSelectionModel().select(tab);
             return;
         }
 
 
         Tab newTab = new Tab();
-        TabPane tabContainer = taskUtil.getNotesContainer();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Render.getFxml(note)));
         Node tabContent;
