@@ -17,6 +17,7 @@ import notepack.NotebookTabController;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.Notepad;
+import notepack.app.task.TodoRefresh;
 import notepack.noterender.NoteRenderController;
 
 import java.util.HashMap;
@@ -66,7 +67,7 @@ public class TaskUtil {
                     });
                     break;
 
-                } while(true);
+                } while (true);
             }
         };
         Timer timer = new Timer("Timer");
@@ -123,6 +124,25 @@ public class TaskUtil {
 
     public StackPane getParentPane() {
         return (StackPane) stage.getScene().lookup("#parentPane");
+    }
+
+    public BorderPane getTodoPane() {
+        return (BorderPane) stage.getScene().lookup("#todoBackground");
+    }
+
+    public void showTodoPane() {
+
+        if (getParentPane().getChildren().get(0).getId().equals("todoBackground")) {
+            app.addTask(new TodoRefresh());
+            getParentPane().getChildren().get(0).toFront();
+        }
+    }
+
+    public void showNotesPane() {
+
+        if (getParentPane().getChildren().get(0).getId().equals("mainBackground")) {
+            getParentPane().getChildren().get(0).toFront();
+        }
     }
 
     public Stage getStage() {
