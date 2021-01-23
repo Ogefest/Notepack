@@ -1,0 +1,66 @@
+.tag-label {
+    -fx-background-color: red;
+    -fx-text-fill: tab-text;
+    -fx-padding: 4 7 4 7;
+    -fx-background-radius: 4, 4, 4, 4;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+}
+
+.check-box {
+/*
+    -fx-label-padding: 0;
+    -fx-cursor: hand;
+*/
+    /*-fx-border-color: gray;*/
+}
+
+.check-box > .box {
+    /* background color of unselected checkbox */
+    -fx-background-color: transparent;
+
+    -fx-border-color: gray;
+    /*-fx-background-radius: 30px;*/
+    /*-fx-border-radius: 30px;*/
+    -fx-padding: 2px;
+    /*-fx-border-color: red;*/
+
+}
+
+.check-box:selected > .box {
+    /* background color for selected checkbox */
+    -fx-background-color: green;
+    -fx-border-color: green;
+}
+
+.check-box:selected > .box > .mark,
+.check-box:indeterminate  > .box > .mark {
+    /* modify mark color */
+    -fx-background-color: white;
+    -fx-shape:"M14.596,2.055L12.455,0C9.687,2.884,6.011,6.714,5.158,7.602L2.055,4.624L0,6.765l5.242,5.037l0.003-0.004 l0.003,0.004L14.596,2.055z";
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-unit-increment: 30 ;
+    -fx-block-increment: 150 ;
+}
+
+.scroll-pane .scroll-bar:horizontal {
+    -fx-unit-increment: 15 ;
+    -fx-block-increment: 40 ;
+}
+
+.summary {
+    -fx-font-size: 30;
+    -fx-font-family: 'Lato';
+    -fx-padding: 15px 0 10px 0;
+}
+
+.todo-note-row .icon-button {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}

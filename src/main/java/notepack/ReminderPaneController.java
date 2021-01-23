@@ -3,10 +3,13 @@ package notepack;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
+import notepack.app.domain.Todo;
 import notepack.gui.TaskUtil;
 
 import java.time.LocalDate;
@@ -20,7 +23,13 @@ public class ReminderPaneController {
     private Button btnRemoveReminder;
 
     @FXML
-    private DatePicker calendarPicker;
+    private DatePicker taskDueDate;
+
+    @FXML
+    private TextField taskSummary;
+
+    @FXML
+    private CheckBox taskDone;
 
     private App app;
     private Note note;
@@ -33,17 +42,31 @@ public class ReminderPaneController {
 
         btnRemoveReminder.setVisible(false);
 
-        LocalDate currentDate = note.getMeta().getReminder();
-        if (currentDate != null) {
-            calendarPicker.setValue(currentDate);
+        Todo todo = note.getMeta().getTodo();
+        if (todo != null) {
+            taskDueDate.setValue(todo.getDueDate());
+
+            String textSummary  = todo.getSummary();
+            if (textSummary.length() == 0) {
+                textSummary = note.getName();
+            }
+            taskSummary.setText(textSummary);
+            taskDone.setSelected(todo.isFinished());
             btnRemoveReminder.setVisible(true);
+        } else {
+            taskSummary.setText(note.getName());
         }
     }
 
     @FXML
     void onSaveBtn(ActionEvent event) {
-        LocalDate date = calendarPicker.getValue();
-        note.getMeta().setReminder(date);
+        LocalDate date = taskDueDate.getValue();
+        Todo todo = new Todo();
+        todo.setDueDate(date);
+        todo.setSummary(taskSummary.getText());
+        todo.setFinished(taskDone.isSelected());
+
+        note.getMeta().setTodo(todo);
 
         taskUtil.closePopup(reminderPaneBackground);
     }
@@ -55,7 +78,7 @@ public class ReminderPaneController {
 
     @FXML
     void onRemoveReminderBtn(ActionEvent event) {
-        note.getMeta().removeReminder();
+        note.getMeta().removeTodo();
         taskUtil.closePopup(reminderPaneBackground);
     }
 
