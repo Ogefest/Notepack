@@ -37,6 +37,12 @@ public class InitializeShortcuts extends BaseTask implements Task, TypeGui {
             Parent p = (Parent) t.getContent();
             ((TextAreaController) t.getUserData()).showSearchReplaceForm();
         });
+
+        KeyCombination kcOpenNotes = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
+        parentStage.getScene().getAccelerators().put(kcOpenNotes, () -> taskUtil.showNotesPane());
+
+        KeyCombination kcOpenTodo = new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
+        parentStage.getScene().getAccelerators().put(kcOpenTodo, () -> taskUtil.showTodoPane());
     }
 
     @Override
