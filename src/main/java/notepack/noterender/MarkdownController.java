@@ -14,18 +14,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.parser.ParserEmulationProfile;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 import java.io.IOException;
 import java.util.Arrays;
@@ -37,7 +32,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.SplitPane;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
-import notepack.app.task.NoteReminder;
+import notepack.app.task.NoteTodo;
 
 public class MarkdownController extends TextAreaController {
 
@@ -182,6 +177,6 @@ public class MarkdownController extends TextAreaController {
     }
 
     public void onNoteNotification(ActionEvent actionEvent) {
-        app.addTask(new NoteReminder(note));
+        app.addTask(new NoteTodo(note));
     }
 }

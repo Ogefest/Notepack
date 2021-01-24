@@ -64,3 +64,18 @@
     -fx-scale-x: 1.2;
     -fx-scale-y: 1.2;
 }
+
+.todo-finished {
+        -fx-background-color: rgba(0, 255, 0, 0.1);
+        /*-fx-effect: dropshadow(gaussian, red, 50, 0, 0, 0);*/
+        /*-fx-background-insets: 50;*/
+}
+
+.todo-finished .check-box  {
+    -fx-text-fill: rgba(110, 110, 110, 0.8);;
+
+}
+
+.todo-finished .check-box .text  {
+    -fx-strikethrough: true;
+}

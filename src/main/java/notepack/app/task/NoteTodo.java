@@ -14,11 +14,11 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NoteReminder implements Task, TypeGui {
+public class NoteTodo implements Task, TypeGui {
 
     private Note note;
 
-    public NoteReminder(Note note) {
+    public NoteTodo(Note note) {
         this.note = note;
     }
 
