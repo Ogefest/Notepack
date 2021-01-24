@@ -1,7 +1,9 @@
 package notepack.app.task;
 
 import javafx.scene.Parent;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -18,21 +20,23 @@ public class InitializeShortcuts extends BaseTask implements Task, TypeGui {
     @Override
     public void guiWork(TaskUtil taskUtil, App app) {
         Stage parentStage = taskUtil.getStage();
+        SplitPane notePane = taskUtil.getNotePane();
+        TabPane notes = taskUtil.getNotesContainer();
 
         KeyCombination kcCloseNote = new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcCloseNote, () -> app.addTask(new NoteClose(taskUtil.getCurrentNote())));
+        notes.getScene().getAccelerators().put(kcCloseNote, () -> app.addTask(new NoteClose(taskUtil.getCurrentNote())));
 
         KeyCombination kcSave = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcSave, () -> app.addTask(new NoteSave(taskUtil.getCurrentNote())));
+        notes.getScene().getAccelerators().put(kcSave, () -> app.addTask(new NoteSave(taskUtil.getCurrentNote())));
 
         KeyCombination kcNewNote = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcNewNote, () -> app.addTask(new NoteNew(taskUtil.getCurrentNotepad())));
+        notePane.getScene().getAccelerators().put(kcNewNote, () -> app.addTask(new NoteNew(taskUtil.getCurrentNotepad())));
 
         KeyCombination kcSearchNote = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
         parentStage.getScene().getAccelerators().put(kcSearchNote, () -> app.addTask(new ShowSearchForNoteDialog()));
 
         KeyCombination kcSearchReplaceString = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN);
-        parentStage.getScene().getAccelerators().put(kcSearchReplaceString, () -> {
+        notes.getScene().getAccelerators().put(kcSearchReplaceString, () -> {
             Tab t = taskUtil.getNotesContainer().getSelectionModel().getSelectedItem();
             Parent p = (Parent) t.getContent();
             ((TextAreaController) t.getUserData()).showSearchReplaceForm();
