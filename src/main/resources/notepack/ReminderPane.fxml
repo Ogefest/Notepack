@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<AnchorPane fx:id="reminderPaneBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="339.0" prefWidth="508.0" styleClass="popup-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.ReminderPaneController">
+<AnchorPane fx:id="reminderPaneBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="339.0" prefWidth="508.0" styleClass="popup-background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.TodoPopupController">
    <stylesheets>
       <!--<URL value="@color-definition.css" />-->
       <URL value="@scrollbar.css" />
