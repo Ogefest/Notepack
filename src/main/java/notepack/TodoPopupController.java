@@ -1,5 +1,6 @@
 package notepack;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,12 +8,14 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.StringConverter;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.Todo;
 import notepack.gui.TaskUtil;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class TodoPopupController {
 
@@ -34,11 +37,31 @@ public class TodoPopupController {
     private App app;
     private Note note;
     private TaskUtil taskUtil;
+    private DateTimeFormatter formatter;
 
     public void setAppNote(App app, Note note, TaskUtil taskUtil) {
         this.app = app;
         this.note = note;
         this.taskUtil = taskUtil;
+
+        formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+        taskDueDate.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate object) {
+                if (object == null) {
+                    return "";
+                }
+                return formatter.format(object);
+            }
+
+            @Override
+            public LocalDate fromString(String dateString) {
+                if (dateString == null || dateString.trim().isEmpty()) {
+                    return null;
+                }
+                return LocalDate.parse(dateString, formatter);
+            }
+        });
 
         btnRemoveReminder.setVisible(false);
 
@@ -46,7 +69,7 @@ public class TodoPopupController {
         if (todo != null) {
             taskDueDate.setValue(todo.getDueDate());
 
-            String textSummary  = todo.getSummary();
+            String textSummary = todo.getSummary();
             if (textSummary.length() == 0) {
                 textSummary = note.getName();
             }
@@ -56,6 +79,9 @@ public class TodoPopupController {
         } else {
             taskSummary.setText(note.getName());
         }
+        Platform.runLater(() -> {
+            taskSummary.requestFocus();
+        });
     }
 
     @FXML
