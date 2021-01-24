@@ -1,12 +1,9 @@
 package notepack.app.task;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import notepack.MainViewController;
-import notepack.NotePaneBackgroundController;
-import notepack.NotebookTabController;
-import notepack.ReminderPaneController;
+import notepack.TodoPopupController;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.Task;
@@ -35,7 +32,7 @@ public class NoteReminder implements Task, TypeGui {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/notepack/ReminderPane.fxml"));
             pane = loader.load();
 
-            ReminderPaneController ctrl = loader.getController();
+            TodoPopupController ctrl = loader.getController();
             ctrl.setAppNote(app, note, taskUtil);
 
             taskUtil.openPopup(pane);
