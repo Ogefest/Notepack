@@ -40,12 +40,22 @@ public class TodoNoteCellController {
         doneCheckbox.setSelected(todo.isFinished());
 
         notepadLabel.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
+        if (todo.isFinished()) {
+            cellBackground.getStyleClass().add("todo-finished");
+        }
 
         doneCheckbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 todo.setFinished(doneCheckbox.isSelected());
                 note.getMeta().setTodo(todo);
+
+                if (todo.isFinished()) {
+                    cellBackground.getStyleClass().add("todo-finished");
+                } else {
+                    cellBackground.getStyleClass().remove("todo-finished");
+                }
+
             }
         });
 

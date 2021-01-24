@@ -18,7 +18,7 @@ import notepack.app.domain.Note;
 
 import netscape.javascript.JSObject;
 import notepack.app.domain.App;
-import notepack.app.task.NoteReminder;
+import notepack.app.task.NoteTodo;
 
 //import javafx.scene.web.WebView;
 public class PdfViewController implements Initializable, NoteRenderController {
@@ -186,7 +186,7 @@ public class PdfViewController implements Initializable, NoteRenderController {
     }
 
     public void onNoteNotification(ActionEvent actionEvent) {
-        app.addTask(new NoteReminder(note));
+        app.addTask(new NoteTodo(note));
     }
     
 }

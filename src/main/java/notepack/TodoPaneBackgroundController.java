@@ -76,6 +76,16 @@ public class TodoPaneBackgroundController implements Initializable {
             }
 
             LocalDate todoDate = n.getMeta().getTodo().getDueDate();
+            /*
+            skip finished tasks from past
+             */
+            if (n.getMeta().getTodo().isFinished()) {
+                if (today.compareTo(todoDate) > 0) {
+                    continue;
+                }
+            }
+
+
             if (todoDate == null || today.compareTo(todoDate) >= 0) {
                 currentKey = LocalDate.now();
             } else {
