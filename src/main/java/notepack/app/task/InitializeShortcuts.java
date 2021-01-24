@@ -9,8 +9,6 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import notepack.app.domain.App;
-import notepack.app.domain.Note;
-import notepack.app.domain.Notepad;
 import notepack.app.domain.Task;
 import notepack.app.domain.exception.MessageError;
 import notepack.gui.TaskUtil;
@@ -25,6 +23,10 @@ public class InitializeShortcuts extends BaseTask implements Task, TypeGui {
 
         KeyCombination kcCloseNote = new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN);
         notes.getScene().getAccelerators().put(kcCloseNote, () -> app.addTask(new NoteClose(taskUtil.getCurrentNote())));
+
+        KeyCombination kcTodoNote = new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN);
+        notes.getScene().getAccelerators().put(kcTodoNote, () -> app.addTask(new NoteTodo(taskUtil.getCurrentNote())));
+
 
         KeyCombination kcSave = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
         notes.getScene().getAccelerators().put(kcSave, () -> app.addTask(new NoteSave(taskUtil.getCurrentNote())));
