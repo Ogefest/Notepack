@@ -41,7 +41,9 @@ public class TodoPaneBackgroundController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        filterInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            refreshTodolist();
+        });
     }
 
     public void setApp(App app) {
@@ -63,7 +65,15 @@ public class TodoPaneBackgroundController implements Initializable {
         HashMap<LocalDate, ArrayList<Note>> groups = new HashMap<>();
         LocalDate currentKey;
         ArrayList<LocalDate> keys = new ArrayList<>();
+        String filterKey = filterInput.getText().toLowerCase();
+
         for (Note n : allTodos) {
+
+            if (filterKey.length() > 0) {
+                if (!n.getMeta().getTodo().getSummary().toLowerCase().contains(filterKey)) {
+                    continue;
+                }
+            }
 
             LocalDate todoDate = n.getMeta().getTodo().getDueDate();
             if (todoDate == null || today.compareTo(todoDate) >= 0) {
