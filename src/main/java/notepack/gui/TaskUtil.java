@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
@@ -128,6 +129,10 @@ public class TaskUtil {
 
     public BorderPane getTodoPane() {
         return (BorderPane) stage.getScene().lookup("#todoBackground");
+    }
+
+    public SplitPane getNotePane() {
+        return (SplitPane) stage.getScene().lookup("#mainBackground");
     }
 
     public void showTodoPane() {
