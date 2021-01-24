@@ -19,6 +19,10 @@ import notepack.gui.Icon;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class TodoPaneBackgroundController implements Initializable {
@@ -33,6 +37,7 @@ public class TodoPaneBackgroundController implements Initializable {
     private TextField filterInput;
 
     private App app;
+    private DateTimeFormatter formatter;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -41,25 +46,67 @@ public class TodoPaneBackgroundController implements Initializable {
 
     public void setApp(App app) {
         this.app = app;
+        formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
     }
 
     public void refreshTodolist() {
 
         listviewContainer.getChildren().clear();
 
-        addListview("Dzisiejsze");
-        addListview("Soon");
+        ArrayList<Note> allTodos = app.getNotesWithTodo();
+        if (allTodos.size() == 0) {
+            return;
+        }
+
+        LocalDate today = LocalDate.now();
+
+        HashMap<LocalDate, ArrayList<Note>> groups = new HashMap<>();
+        LocalDate currentKey;
+        ArrayList<LocalDate> keys = new ArrayList<>();
+        for (Note n : allTodos) {
+
+            LocalDate todoDate = n.getMeta().getTodo().getDueDate();
+            if (todoDate == null || today.compareTo(todoDate) >= 0) {
+                currentKey = LocalDate.now();
+            } else {
+                currentKey = todoDate;
+            }
+
+            if (!groups.containsKey(currentKey)) {
+                groups.put(currentKey, new ArrayList<>());
+            }
+
+            groups.get(currentKey).add(n);
+            if (!keys.contains(currentKey)) {
+                keys.add(currentKey);
+            }
+
+        }
+
+        keys.sort((o1, o2) -> {
+            return o1.compareTo(o2);
+        });
+
+        for (LocalDate d : keys) {
+            String groupLabel = "";
+            if (d.compareTo(LocalDate.now()) <= 0) {
+                groupLabel = "Today";
+            } else {
+                groupLabel = d.format(formatter);
+            }
+
+            addListview(groupLabel, groups.get(d));
+        }
 
     }
 
-    private void addListview(String header) {
+    private void addListview(String header, ArrayList<Note> group) {
 
         Label label = new Label();
         label.setText(header);
-//        label.setStyle("-fx-font-size: 30");
         label.getStyleClass().add("summary");
         listviewContainer.getChildren().add(label);
-        for (Note n : app.getNotesWithTodo()) {
+        for (Note n : group) {
             addNote(n);
         }
 
