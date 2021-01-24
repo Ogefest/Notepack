@@ -14,7 +14,7 @@ import notepack.gui.TaskUtil;
 
 import java.time.LocalDate;
 
-public class ReminderPaneController {
+public class TodoPopupController {
 
     @FXML
     private AnchorPane reminderPaneBackground;
