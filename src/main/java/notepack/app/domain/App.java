@@ -261,9 +261,11 @@ public class App {
 
         ArrayList<Note> result = new ArrayList<>();
         for (Note n : tmp) {
-            if (n.getMeta().getTodo() != null) {
+
+            if (n.getName().contains(".ics")) {
                 result.add(n);
             }
+
         }
 
         return result;
