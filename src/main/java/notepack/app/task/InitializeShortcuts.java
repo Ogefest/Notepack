@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
+import notepack.TodoPaneBackgroundController;
 import notepack.app.domain.App;
 import notepack.app.domain.Task;
 import notepack.app.domain.exception.MessageError;
@@ -25,8 +26,12 @@ public class InitializeShortcuts extends BaseTask implements Task, TypeGui {
         notes.getScene().getAccelerators().put(kcCloseNote, () -> app.addTask(new NoteClose(taskUtil.getCurrentNote())));
 
         KeyCombination kcTodoNote = new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN);
-        notes.getScene().getAccelerators().put(kcTodoNote, () -> app.addTask(new NoteTodo(taskUtil.getCurrentNote())));
-
+        notes.getScene().getAccelerators().put(kcTodoNote, () -> {
+            Tab t = taskUtil.getNotesContainer().getSelectionModel().getSelectedItem();
+            if (t.getUserData() instanceof TodoPaneBackgroundController) {
+                app.addTask(new NoteTodo(taskUtil.getCurrentNote()));
+            }
+        });
 
         KeyCombination kcSave = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
         notes.getScene().getAccelerators().put(kcSave, () -> app.addTask(new NoteSave(taskUtil.getCurrentNote())));
@@ -40,12 +45,9 @@ public class InitializeShortcuts extends BaseTask implements Task, TypeGui {
         KeyCombination kcSearchReplaceString = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN);
         notes.getScene().getAccelerators().put(kcSearchReplaceString, () -> {
             Tab t = taskUtil.getNotesContainer().getSelectionModel().getSelectedItem();
-            Parent p = (Parent) t.getContent();
-
             if (t.getUserData() instanceof TextAreaController) {
                 ((TextAreaController) t.getUserData()).showSearchReplaceForm();
             }
-
         });
 
         KeyCombination kcOpenNotes = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
