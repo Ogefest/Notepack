@@ -11,6 +11,7 @@ public class Render {
     private static final ArrayList<String> mdExtension = new ArrayList<>(Arrays.asList("md"));
     private static final ArrayList<String> imageExtension = new ArrayList<>(Arrays.asList("jpg", "jpeg", "png", "bmp"));
     private static final ArrayList<String> pdfExtension = new ArrayList<>(Arrays.asList("pdf"));
+    private static final ArrayList<String> todoExtension = new ArrayList<>(Arrays.asList("ics"));
 
     public static String getFxml(Note note) {
         String name = note.getName();
@@ -43,7 +44,11 @@ public class Render {
         
         if (mdExtension.contains(ext)) {
             return "/notepack/noterender/Markdown.fxml";
-        }        
+        }
+
+        if (todoExtension.contains(ext)) {
+            return "/notepack/TodoPaneBackground.fxml";
+        }
 
         return "/notepack/noterender/Textarea.fxml";
     }
@@ -55,6 +60,7 @@ public class Render {
         result.addAll(imageExtension);
         result.addAll(pdfExtension);
         result.addAll(mdExtension);
+        result.addAll(todoExtension);
 
         return result;
     }
