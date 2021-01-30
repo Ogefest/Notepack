@@ -79,3 +79,9 @@
 .todo-finished .check-box .text  {
     -fx-strikethrough: true;
 }
+
+.todo-note-button {
+    -fx-padding: 2 7 2 7;
+    -fx-background-radius: 2px;
+    -fx-border-radius: 2px;
+}
