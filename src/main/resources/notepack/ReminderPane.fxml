@@ -18,7 +18,7 @@
    <children>
       <DatePicker fx:id="taskDueDate" layoutX="30.0" layoutY="153.0" prefHeight="35.0" prefWidth="290.0" />
       <Button defaultButton="true" layoutX="426.0" layoutY="193.0" mnemonicParsing="false" onAction="#onSaveBtn" text="Save" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
-      <Label layoutX="14.0" layoutY="14.0" styleClass="popup-title" text="Make task" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
+      <Label layoutX="14.0" layoutY="14.0" styleClass="popup-title" text="New task" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
       <Label layoutX="30.0" layoutY="138.0" text="Due date" />
       <Button cancelButton="true" layoutX="357.0" layoutY="193.0" mnemonicParsing="false" onAction="#onCancelBtn" text="Cancel" AnchorPane.bottomAnchor="14.0" />
       <Button fx:id="btnRemoveReminder" layoutX="14.0" layoutY="193.0" mnemonicParsing="false" onAction="#onRemoveReminderBtn" text="Remove reminder" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
