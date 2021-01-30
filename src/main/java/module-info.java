@@ -31,5 +31,6 @@ module notepack {
     requires flexmark.util.data;
     requires flexmark.util.misc;
     requires zip4j;
+    requires org.mnode.ical4j.core;
 
 }

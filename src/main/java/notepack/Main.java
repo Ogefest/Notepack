@@ -9,12 +9,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import net.fortuna.ical4j.util.MapTimeZoneCache;
 import notepack.app.domain.Settings;
 import notepack.app.storage.PreferencesSettings;
 
 public class Main extends Application {
 
     public static void main(String[] args) {
+
+        System.setProperty("net.fortuna.ical4j.timezone.cache.impl", MapTimeZoneCache.class.getName());
 
         Settings s = new PreferencesSettings();
         s.set("session.directory", System.getProperty("user.home"));
