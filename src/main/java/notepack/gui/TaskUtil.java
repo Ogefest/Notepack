@@ -22,6 +22,7 @@ import notepack.app.task.TodoRefresh;
 import notepack.noterender.NoteRenderController;
 
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -187,14 +188,13 @@ public class TaskUtil {
         node.requestFocus();
     }
 
-    public void closePopup(Node node) {
+    synchronized public void closePopup(Node node) {
         StackPane parent = getParentPane();
 
-        parent.getChildren().forEach(node1 -> {
-            if (node1.getId().equals("popup-parent")) {
-                parent.getChildren().remove(node1);
-            }
-        });
+        Optional<Node> popupNode = parent.getChildren().stream().filter(node1 -> node1.getId().equals("popup-parent")).findFirst();
+        if (popupNode.isPresent()) {
+            parent.getChildren().remove(popupNode.get());
+        }
 
     }
 
