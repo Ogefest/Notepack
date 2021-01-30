@@ -33,6 +33,7 @@ dependencies {
     compile group: 'org.json', name: 'json', version:'20190722'
     compile 'com.vladsch.flexmark:flexmark-all:0.62.2'
     compile group: 'net.lingala.zip4j', name: 'zip4j', version: '2.6.4'
+    compile group: 'org.mnode.ical4j', name: 'ical4j', version: '3.0.21'
 
 }
 jlink {
