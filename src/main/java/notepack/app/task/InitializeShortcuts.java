@@ -47,6 +47,9 @@ public class InitializeShortcuts extends BaseTask implements Task, TypeGui {
             if (t.getUserData() instanceof TextAreaController) {
                 ((TextAreaController) t.getUserData()).showSearchReplaceForm();
             }
+            if (t.getUserData() instanceof TodoPaneBackgroundController) {
+                ((TodoPaneBackgroundController) t.getUserData()).toggleSearchInput();
+            }
         });
 
         KeyCombination kcOpenNotes = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
