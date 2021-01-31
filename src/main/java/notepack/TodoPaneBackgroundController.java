@@ -197,6 +197,10 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
     }
 
     public void onTaskSearch(ActionEvent actionEvent) {
+        toggleSearchInput();
+    }
+
+    public void toggleSearchInput() {
         if (filterInput.isVisible()) {
             filterInput.setVisible(false);
         } else {
@@ -204,5 +208,4 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
             filterInput.requestFocus();
         }
     }
-
 }
