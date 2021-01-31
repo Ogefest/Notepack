@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<AnchorPane fx:id="cellBackground" maxWidth="800.0" minWidth="600.0" prefHeight="40.0" styleClass="todo-note-row" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.TodoNoteCellController">
+<AnchorPane fx:id="cellBackground" maxWidth="800.0" minWidth="600.0" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="40.0" styleClass="todo-note-row" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.TodoNoteCellController">
    <stylesheets>
 
       <URL value="@material.icons.css" />
@@ -18,17 +18,21 @@
 
    </stylesheets>
    <children>
-      <Label fx:id="notepadLabel" styleClass="tag-label" text="Notepad" textAlignment="RIGHT" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="5.0">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <CheckBox fx:id="doneCheckbox" layoutX="3.0" layoutY="9.0" mnemonicParsing="false" prefWidth="530.0" styleClass="done-checkbox" text="Summary" AnchorPane.leftAnchor="40.0">
+      <CheckBox fx:id="doneCheckbox" layoutX="46.0" layoutY="9.0" mnemonicParsing="false" prefWidth="440.0" styleClass="done-checkbox" text="Summary" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="43.0" AnchorPane.topAnchor="8.0">
          <font>
             <Font size="15.0" />
          </font>
       </CheckBox>
-      <Hyperlink layoutX="527.0" layoutY="8.0" onAction="#onShowNote" text="view" AnchorPane.rightAnchor="10.0" />
+      <Button fx:id="noteButton" layoutX="542.0" layoutY="11.0" mnemonicParsing="false" onAction="#onShowNote" style="-fx-background-color: red;" styleClass="todo-note-button" text="note" AnchorPane.rightAnchor="44.0">
+      </Button>
+      <Button fx:id="editNote" layoutX="477.0" layoutY="8.0" mnemonicParsing="false" onAction="#onEditTodo" styleClass="icon-button" visible="false" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="3.0">
+         <tooltip>
+            <Tooltip text="Edit todo" />
+         </tooltip>
+         <graphic>
+            <Label styleClass="icon-base,mi-pencil" />
+         </graphic>
+      </Button>
    </children>
    <padding>
       <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

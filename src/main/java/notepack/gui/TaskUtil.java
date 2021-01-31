@@ -186,6 +186,10 @@ public class TaskUtil {
 
         parent.getChildren().add(bPane);
         node.requestFocus();
+
+        TabPane container = getNotesContainer();
+        Tab t = container.getSelectionModel().getSelectedItem();
+        ((NoteRenderController) t.getUserData()).noteDeactivated();
     }
 
     synchronized public void closePopup(Node node) {
@@ -195,6 +199,10 @@ public class TaskUtil {
         if (popupNode.isPresent()) {
             parent.getChildren().remove(popupNode.get());
         }
+
+        TabPane container = getNotesContainer();
+        Tab t = container.getSelectionModel().getSelectedItem();
+        ((NoteRenderController) t.getUserData()).noteActivated();
 
     }
 

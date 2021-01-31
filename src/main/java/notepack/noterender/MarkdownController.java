@@ -32,7 +32,6 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.SplitPane;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
-import notepack.app.task.NoteTodo;
 
 public class MarkdownController extends TextAreaController {
 
@@ -176,7 +175,4 @@ public class MarkdownController extends TextAreaController {
 
     }
 
-    public void onNoteNotification(ActionEvent actionEvent) {
-        app.addTask(new NoteTodo(note));
-    }
 }

@@ -52,6 +52,14 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" maxHeight="40.0" prefHeight="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
+                   <Button mnemonicParsing="true" onAction="#onChecklistNew" styleClass="icon-button" text="">
+                       <tooltip>
+                           <Tooltip text="New checklist" />
+                       </tooltip>
+                       <graphic>
+                           <Label  styleClass="icon-base,mi-sticker-check-outline" />
+                       </graphic>
+                   </Button>
                   <Button mnemonicParsing="true" onAction="#onFileNew" styleClass="icon-button" text="">
                      <tooltip>
                         <Tooltip text="New note (Ctrl + n)" />
