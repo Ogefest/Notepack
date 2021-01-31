@@ -67,14 +67,7 @@
                      </opaqueInsets></HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#onNoteNotification" styleClass="icon-button">
-                                    <tooltip>
-                                        <Tooltip text="Make todo" />
-                                    </tooltip>
-                                    <graphic>
-                                        <Label styleClass="icon-base,mi-sticker-check-outline" />
-                                    </graphic>
-                                </Button>
+
                                 <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
                                     <tooltip>
                                         <Tooltip text="Close note (Ctrl + w)" />
