@@ -20,10 +20,10 @@ public class TodoRefresh extends BaseTask implements Task,TypeGui {
 
     @Override
     public void guiWork(TaskUtil taskUtil, App app) {
-        TodoPaneBackgroundController ctrl = (TodoPaneBackgroundController) taskUtil.getTodoPane().getUserData();
-        if (ctrl != null) {
-            ctrl.refreshTodolist();
-        }
+//        TodoPaneBackgroundController ctrl = (TodoPaneBackgroundController) taskUtil.getTodoPane().getUserData();
+//        if (ctrl != null) {
+//            ctrl.refreshTodolist();
+//        }
     }
 
 }

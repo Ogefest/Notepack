@@ -18,7 +18,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
-import notepack.app.task.NoteTodo;
 
 /**
  * FXML Controller class
@@ -118,11 +117,5 @@ public class ImageViewController implements Initializable, NoteRenderController 
     @Override
     public void noteDeactivated() {
     }
-
-    public void onNoteNotification(ActionEvent actionEvent) {
-        app.addTask(new NoteTodo(note));
-    }
-
-
 
 }
