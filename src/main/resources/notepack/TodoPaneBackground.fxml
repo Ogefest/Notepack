@@ -8,39 +8,91 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<BorderPane fx:id="todoBackground" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.TodoPaneBackgroundController">
-   <stylesheets>
+<AnchorPane fx:id="todoBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.TodoPaneBackgroundController">
+<stylesheets>
 
-      <URL value="@material.icons.css" />
-      <URL value="@default.css" />
-      <URL value="@notepadsettings.css" />
-      <URL value="@todo.css" />
+   <URL value="@material.icons.css" />
+   <URL value="@default.css" />
+   <URL value="@notepadsettings.css" />
+   <URL value="@todo.css" />
 
-   </stylesheets>
-   <center>
-      <VBox alignment="TOP_CENTER">
-         <children>
-            <ScrollPane maxWidth="800.0" minWidth="600.0">
-               <content>
-                  <VBox fx:id="listviewContainer" minWidth="800.0" prefWidth="800.0" />
-               </content>
-            </ScrollPane>
-         </children>
-      </VBox>
-   </center>
-   <top>
-      <VBox maxWidth="800.0" prefWidth="500.0" BorderPane.alignment="CENTER">
-         <children>
-            <AnchorPane prefWidth="200.0">
-               <children>
-                  <TextField fx:id="filterInput" layoutX="14.0" layoutY="8.0" promptText="Filter tasks" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-         </children>
-      </VBox>
-   </top>
-</BorderPane>
+</stylesheets>
+<children>
+   <VBox prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+         <AnchorPane id="noteToolbar" prefHeight="40.0" prefWidth="1011.0">
+            <children>
+               <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                        <Button mnemonicParsing="false" onAction="#onTaskCreate" styleClass="icon-button">
+                           <tooltip>
+                              <Tooltip text="Add todo (ctrl + t)" />
+                           </tooltip>
+                            <graphic>
+                                <Label styleClass="icon-base,mi-plus" />
+                            </graphic>
+                        </Button>
+                     <Button mnemonicParsing="false" onAction="#onTaskSearch" styleClass="icon-button">
+                        <tooltip>
+                           <Tooltip text="Add todo (ctrl + t)" />
+                        </tooltip>
+                        <graphic>
+                           <Label styleClass="icon-base,mi-magnify" />
+                        </graphic>
+                     </Button>
+                     <TextField fx:id="filterInput" minWidth="300.0" promptText="Filter tasks" visible="false">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </TextField>
+                  </children>
+               </HBox>
+               <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
+                  <children>
+                     <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
+                        <tooltip>
+                           <Tooltip text="Close note (Ctrl + w)" />
+                        </tooltip>
+                        <graphic>
+                           <Label styleClass="icon-base,mi-close" />
+                        </graphic>
+                     </Button>
+                  </children>
+               </HBox>
+            </children>
+            <VBox.margin>
+               <Insets top="2.0" />
+            </VBox.margin>
+         </AnchorPane>
+         <AnchorPane fx:id="todoViewBackground" VBox.vgrow="ALWAYS">
+            <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+      
+      
+      
+                     <BorderPane fx:id="todoListBackground" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+      
+                        <center>
+                           <VBox alignment="TOP_CENTER">
+                              <children>
+                                 <ScrollPane maxWidth="800.0" minWidth="600.0">
+                                    <content>
+                                       <VBox fx:id="listviewContainer" minWidth="800.0" prefWidth="800.0" />
+                                    </content>
+                                 </ScrollPane>
+                              </children>
+                           </VBox>
+                        </center>
+                     </BorderPane>
+                     </children>
+                  </VBox>
+
+
+
+            </children>
+         </AnchorPane>
+      </children>
+   </VBox>
+</children>
+</AnchorPane>

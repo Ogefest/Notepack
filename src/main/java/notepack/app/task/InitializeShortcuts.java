@@ -1,6 +1,5 @@
 package notepack.app.task;
 
-import javafx.scene.Parent;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -29,7 +28,7 @@ public class InitializeShortcuts extends BaseTask implements Task, TypeGui {
         notes.getScene().getAccelerators().put(kcTodoNote, () -> {
             Tab t = taskUtil.getNotesContainer().getSelectionModel().getSelectedItem();
             if (t.getUserData() instanceof TodoPaneBackgroundController) {
-                app.addTask(new NoteTodo(taskUtil.getCurrentNote()));
+                app.addTask(new TodoPopup(taskUtil.getCurrentNote()));
             }
         });
 

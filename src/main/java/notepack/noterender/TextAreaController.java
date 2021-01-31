@@ -27,7 +27,6 @@ import javafx.stage.StageStyle;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.storage.PreferencesSettings;
-import notepack.app.task.NoteTodo;
 
 /**
  * FXML Controller class
@@ -227,7 +226,4 @@ public class TextAreaController implements Initializable, NoteRenderController {
     public void noteDeactivated() {
     }
 
-    public void onNoteNotification(ActionEvent actionEvent) {
-        app.addTask(new NoteTodo(note));
-    }
 }

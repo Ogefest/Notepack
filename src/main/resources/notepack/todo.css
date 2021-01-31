@@ -1,3 +1,7 @@
+#todoViewBackground, #todoListBackground, #cellBackground, #listviewContainer {
+    -fx-background-color: todo-area-background;
+}
+
 .tag-label {
     -fx-background-color: red;
     -fx-text-fill: tab-text;
@@ -84,4 +88,21 @@
     -fx-padding: 2 7 2 7;
     -fx-background-radius: 2px;
     -fx-border-radius: 2px;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-font-size: 15.0 pt;
+    -fx-padding: 3 ;
+    -fx-text-fill:icon-color;
+}
+
+.icon-button:hover {
+
+    -fx-background-color: transparent;
+    -fx-background-insets: 0,1;
+    /*-fx-padding: 7px;*/
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+
 }

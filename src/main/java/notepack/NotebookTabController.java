@@ -26,6 +26,7 @@ import notepack.app.domain.NoteStorageItem;
 import notepack.app.domain.Notepad;
 import notepack.app.storage.PreferencesSettings;
 import notepack.app.task.NoteNew;
+import notepack.app.task.TodoNew;
 
 /**
  * FXML Controller class
@@ -312,4 +313,7 @@ public class NotebookTabController implements Initializable {
         app.closeNotepad(notepad);
     }
 
+    public void onChecklistNew(ActionEvent actionEvent) {
+        app.addTask(new TodoNew(notepad));
+    }
 }

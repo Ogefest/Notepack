@@ -9,9 +9,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
-import notepack.app.domain.App;
-import notepack.app.domain.Note;
-import notepack.app.domain.Todo;
+import notepack.app.domain.*;
 import notepack.gui.TaskUtil;
 
 import java.time.LocalDate;
@@ -36,13 +34,18 @@ public class TodoPopupController {
 
     private App app;
     private Note note;
+    private Todo todo;
     private TaskUtil taskUtil;
     private DateTimeFormatter formatter;
 
-    public void setAppNote(App app, Note note, TaskUtil taskUtil) {
-        this.app = app;
+    public void setAppNote(Todo todo, Note note, TaskUtil taskUtil) {
+
         this.note = note;
         this.taskUtil = taskUtil;
+
+        this.todo = todo;
+
+        taskSummary.setText(todo.getSummary());
 
         formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         taskDueDate.setConverter(new StringConverter<LocalDate>() {
@@ -63,22 +66,12 @@ public class TodoPopupController {
             }
         });
 
-        btnRemoveReminder.setVisible(false);
-
-        Todo todo = note.getMeta().getTodo();
-        if (todo != null) {
-            taskDueDate.setValue(todo.getDueDate());
-
-            String textSummary = todo.getSummary();
-            if (textSummary.length() == 0) {
-                textSummary = note.getName();
-            }
-            taskSummary.setText(textSummary);
-            taskDone.setSelected(todo.isFinished());
-            btnRemoveReminder.setVisible(true);
-        } else {
-            taskSummary.setText(note.getName());
+        if (todo.getSummary() == null || todo.getSummary().length() > 0) {
+            btnRemoveReminder.setVisible(false);
         }
+        taskDone.setSelected(todo.isFinished());
+        taskDueDate.setValue(todo.getDueDate());
+
         Platform.runLater(() -> {
             taskSummary.requestFocus();
         });
@@ -87,12 +80,13 @@ public class TodoPopupController {
     @FXML
     void onSaveBtn(ActionEvent event) {
         LocalDate date = taskDueDate.getValue();
-        Todo todo = new Todo();
+
         todo.setDueDate(date);
         todo.setSummary(taskSummary.getText());
         todo.setFinished(taskDone.isSelected());
 
-        note.getMeta().setTodo(todo);
+        TodoWrapper wrapper = new TodoWrapper(note);
+        wrapper.setTodo(todo);
 
         taskUtil.closePopup(reminderPaneBackground);
     }
@@ -104,7 +98,9 @@ public class TodoPopupController {
 
     @FXML
     void onRemoveReminderBtn(ActionEvent event) {
-        note.getMeta().removeTodo();
+        TodoWrapper wrapper = new TodoWrapper(note);
+        wrapper.removeTodo(todo);
+
         taskUtil.closePopup(reminderPaneBackground);
     }
 
