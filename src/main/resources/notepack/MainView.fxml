@@ -40,7 +40,8 @@
                </font></Label>
             <HBox alignment="CENTER_RIGHT" layoutX="1047.0" layoutY="-23.0" prefHeight="50.0" prefWidth="318.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onShowTodo" styleClass="icon-button" textFill="WHITE">
+
+                  <!--<Button mnemonicParsing="false" onAction="#onShowTodo" styleClass="icon-button" textFill="WHITE">
                      <graphic>
                         <Label styleClass="icon-base,mi-order-bool-ascending-variant" />
                      </graphic>
@@ -55,7 +56,8 @@
                      <tooltip>
                         <Tooltip text="Show notes (Ctrl + Shift + N)" />
                      </tooltip>
-                  </Button>
+                  </Button>-->
+
                   <Button mnemonicParsing="false" onAction="#onNoteSearch" styleClass="icon-button" textFill="WHITE">
                      <tooltip>
                         <Tooltip text="Search for note (Ctrl + Shift + F)" />
