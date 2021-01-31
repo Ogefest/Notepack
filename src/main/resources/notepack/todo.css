@@ -14,11 +14,7 @@
 }
 
 .check-box {
-/*
-    -fx-label-padding: 0;
-    -fx-cursor: hand;
-*/
-    /*-fx-border-color: gray;*/
+    -fx-text-fill: text-color;
 }
 
 .check-box > .box {
