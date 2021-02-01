@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'notepack'
-version = '0.9.3'
+version = '0.9.4'
 description 'Privacy oriented, without vendor lock in note organizer desktop application.'
 
 sourceCompatibility = 1.9
