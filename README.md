@@ -2,7 +2,7 @@
 
 Privacy oriented, without vendor lock in note organizer desktop application.
 
-![Main notepack window](/gfx/screen1.png)
+![Main notepack window](./gfx/screen1.png)
 
 ## Current release
 
@@ -18,9 +18,10 @@ Documentation is available in [wiki](https://github.com/Ogefest/Notepack/wiki/Do
 - privacy by design - no cloud, no accounts, no usage tracking
 - without vendor lock in - all features uses plain files in filesystem structure
 - multiple notepads, multiple notes in notepad
+- TODO list support using [iCalendar format](https://en.wikipedia.org/wiki/ICalendar#To-do_(VTODO))
 - color highlight for notepads
 - multiple note storage backend, filesystem and WebDav supported right now
-- supported file formats: plain text, Markdown, PDF, JPG, PNG
+- supported file formats: plain text, Markdown, PDF, JPG, PNG, ics (calendar files)
 - easy note switch using only shortcuts
 - minimalist clean layout
 - encryption using zip AES algorithm (note packed as zip archive with password protected)
@@ -28,21 +29,21 @@ Documentation is available in [wiki](https://github.com/Ogefest/Notepack/wiki/Do
 ## Screenshots
 
 ### Main window
-![Main notepack window](/gfx/screen1.png)
+![Main notepack window](./gfx/screen1.png)
 
 ### New notepad
-![New notepad](/gfx/new-notepad.png)
+![New notepad](./gfx/new-notepad.png)
 
 
 ### Dark theme
-![Dark theme](/gfx/dark-mode.gif)
+![Dark theme](./gfx/dark-mode.gif)
 
 ### Search for notes
-![Search for notes](/gfx/search.gif)
+![Search for notes](./gfx/search.gif)
 
 ### Notepad colors
-![Colors](/gfx/colors.gif)
+![Colors](./gfx/colors.gif)
 
 ### Storage
-![Storage](/gfx/storage.gif)
+![Storage](./gfx/storage.gif)
 
