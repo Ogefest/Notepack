@@ -8,7 +8,7 @@
 <AnchorPane fx:id="todoBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.TodoPaneBackgroundController">
 <stylesheets>
 
-   <URL value="@material.icons.css" />
+   <URL value="@material.icons"/>
    <URL value="@default.css" />
    <URL value="@notepadsettings.css" />
    <URL value="@todo.css" />

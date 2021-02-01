@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import java.net.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <?import java.net.URL?>
-
 <AnchorPane fx:id="cellBackground" maxWidth="800.0" minWidth="600.0" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="40.0" styleClass="todo-note-row" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.TodoNoteCellController">
    <stylesheets>
 
-      <URL value="@material.icons.css" />
+      <URL value="@material.icons"/>
       <URL value="@default.css" />
       <URL value="@notepadsettings.css" />
       <URL value="@todo.css" />

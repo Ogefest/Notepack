@@ -9,7 +9,7 @@
         <!--<URL value="@color-definition.css" />-->
         <URL value="@scrollbar.css" />  
         <URL value="@icons.css" />
-        <URL value="@material.icons.css" />
+        <URL value="@material.icons"/>
         <URL value="@default.css" />  
     </stylesheets>        
     <children>
