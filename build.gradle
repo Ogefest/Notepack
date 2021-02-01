@@ -35,13 +35,21 @@ dependencies {
     compile group: 'net.lingala.zip4j', name: 'zip4j', version: '2.6.4'
     compile group: 'org.mnode.ical4j', name: 'ical4j', version: '3.0.21'
 
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+
 }
 jlink {
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages', '--ignore-signing-information']
+    addExtraDependencies("javafx")
     launcher {
         name = 'Notepack'
         jvmArgs = ['-Xms256m', '-Xmx2g']
-    }    
+    }
+    mergedModule {
+        additive = true
+        uses 'net.fortuna.ical4j.validate.CalendarValidatorFactory'
+
+    }
     jpackage {
         installerOptions += [
                 '--description', project.description,
