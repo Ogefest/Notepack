@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <?import java.net.URL?>
-
 <AnchorPane fx:id="todoBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.TodoPaneBackgroundController">
 <stylesheets>
 
@@ -34,7 +31,7 @@
                         </Button>
                      <Button mnemonicParsing="false" onAction="#onTaskSearch" styleClass="icon-button">
                         <tooltip>
-                           <Tooltip text="Add todo (ctrl + t)" />
+                           <Tooltip text="Search todo (ctrl + f)"/>
                         </tooltip>
                         <graphic>
                            <Label styleClass="icon-base,mi-magnify" />
