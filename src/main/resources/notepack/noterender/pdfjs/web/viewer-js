@@ -247,7 +247,7 @@ function getViewerConfiguration() {
     },
     printContainer: document.getElementById("printContainer"),
     openFileInputName: "fileInput",
-    debuggerScriptPath: "./debugger.js"
+    debuggerScriptPath: "./debugger-js"
   };
 }
 
@@ -4691,7 +4691,7 @@ var defaultOptions = {
     kind: OptionKind.WORKER
   },
   workerSrc: {
-    value: "../build/pdf.worker.js",
+    value: "../build/pdf.worker-js",
     kind: OptionKind.WORKER
   }
 };
