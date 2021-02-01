@@ -2,6 +2,7 @@ module notepack {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires javafx.graphics;
     requires jdk.jsobject;
     requires java.net.http;
     requires java.xml;

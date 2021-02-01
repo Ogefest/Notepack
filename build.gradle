@@ -2,6 +2,8 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
     id 'org.beryx.jlink' version '2.22.1'
+
+    id 'com.gluonhq.client-gradle-plugin' version '0.1.36'
     //    id 'org.beryx.runtime' version '1.11.3'
 }
 
@@ -16,8 +18,8 @@ tasks.withType(JavaCompile) {
 }
 
 
+
 repositories {
-        
     maven { url "https://repo.maven.apache.org/maven2" }
 }
 
@@ -94,4 +96,4 @@ jpackage {
     }
 }
 
-mainClassName = 'notepack.Main'
+mainClassName = 'notepack.Startup'
