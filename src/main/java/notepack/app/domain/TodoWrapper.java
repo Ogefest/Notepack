@@ -7,10 +7,7 @@ import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.component.CalendarComponent;
 import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.component.VToDo;
-import net.fortuna.ical4j.model.property.Due;
-import net.fortuna.ical4j.model.property.PercentComplete;
-import net.fortuna.ical4j.model.property.ProdId;
-import net.fortuna.ical4j.model.property.Version;
+import net.fortuna.ical4j.model.property.*;
 import notepack.app.domain.exception.MessageError;
 
 import java.io.ByteArrayOutputStream;
@@ -43,7 +40,6 @@ public class TodoWrapper {
             }
 
             Todo tmp = new Todo();
-//            tmp.setNote(note);
             String Uid = component.getProperty(Property.UID).getValue();
             if (Uid != null) {
                 tmp.setUuid(Uid);
@@ -63,6 +59,12 @@ public class TodoWrapper {
             PercentComplete percentComplete = component.getProperty(Property.PERCENT_COMPLETE);
             if (percentComplete != null && percentComplete.getValue().equals("100")) {
                 tmp.setFinished(true);
+            }
+
+            Completed completed = component.getProperty(Property.COMPLETED);
+            if (completed != null) {
+                LocalDate completedDate = LocalDate.ofInstant(Instant.ofEpochMilli(completed.getDate().getTime()), ZoneId.systemDefault());
+                tmp.setCompleteDate(completedDate);
             }
 
             result.add(tmp);
@@ -106,10 +108,6 @@ public class TodoWrapper {
     public void removeTodo(Todo todo) {
         //
     }
-
-//    public Note getNote() {
-//        return note;
-//    }
 
     private void parseCalendar() {
 

@@ -81,24 +81,27 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
                 }
             }
 
-            LocalDate todoDate = n.getDueDate();
+            LocalDate dueDate = n.getDueDate();
+            LocalDate completedDate = n.getCompleteDate();
             /*
             skip finished tasks from past
              */
-            if (todoDate == null && n.isFinished()) {
-                continue;
-            }
-            if (n.isFinished()) {
-                if (today.compareTo(todoDate) > 0) {
+            if (filterKey.length() == 0 && n.isFinished()) {
+                if (completedDate == null || today.compareTo(completedDate) > 0) {
                     continue;
                 }
             }
 
-            if (todoDate == null || today.compareTo(todoDate) >= 0) {
-                currentKey = LocalDate.now();
+            if (n.isFinished()) {
+                currentKey = completedDate;
             } else {
-                currentKey = todoDate;
+                if (dueDate == null || today.compareTo(dueDate) >= 0) {
+                    currentKey = LocalDate.now();
+                } else {
+                    currentKey = dueDate;
+                }
             }
+
 
             if (!groups.containsKey(currentKey)) {
                 groups.put(currentKey, new ArrayList<>());
@@ -118,7 +121,11 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
         for (LocalDate d : keys) {
             String groupLabel = "";
             if (d.compareTo(LocalDate.now()) <= 0) {
-                groupLabel = "Today";
+                if (filterInput.getText().length() > 0) {
+                    groupLabel = d.format(formatter);
+                } else {
+                    groupLabel = "Today";
+                }
             } else {
                 groupLabel = d.format(formatter);
             }

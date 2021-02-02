@@ -5,7 +5,6 @@ import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.component.VToDo;
 import net.fortuna.ical4j.model.property.*;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -13,6 +12,7 @@ import java.util.UUID;
 public class Todo {
 
     private LocalDate dueDate;
+    private LocalDate completeDate;
     private String summary;
     private boolean isFinished;
     private String uuid;
@@ -44,6 +44,11 @@ public class Todo {
 
     public void setFinished(boolean finished) {
         isFinished = finished;
+        if (finished) {
+            completeDate = LocalDate.now();
+        } else {
+            completeDate = null;
+        }
     }
 
     public String getUuid() {
@@ -124,4 +129,11 @@ public class Todo {
         return getIcalTodo(todo);
     }
 
+    public LocalDate getCompleteDate() {
+        return completeDate;
+    }
+
+    public void setCompleteDate(LocalDate completeDate) {
+        this.completeDate = completeDate;
+    }
 }
