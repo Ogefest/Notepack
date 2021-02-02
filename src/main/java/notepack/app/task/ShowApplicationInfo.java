@@ -1,20 +1,17 @@
 package notepack.app.task;
 
+import javafx.application.HostServices;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
+import notepack.AboutDialogController;
+import notepack.MainViewController;
+import notepack.app.domain.App;
+import notepack.app.domain.Task;
+import notepack.gui.TaskUtil;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.HostServices;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import notepack.AboutDialogController;
-import notepack.Theme;
-import notepack.app.domain.App;
-import notepack.app.domain.Task;
-import notepack.app.storage.PreferencesSettings;
-import notepack.gui.TaskUtil;
 
 public class ShowApplicationInfo extends BaseTask implements Task, TypeGui {
 
@@ -31,28 +28,21 @@ public class ShowApplicationInfo extends BaseTask implements Task, TypeGui {
     @Override
     public void guiWork(TaskUtil taskUtil, App app) {
 
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/notepack/AboutDialog.fxml"));
 
-        Scene scene;
+        AnchorPane pane;
         try {
-            Parent root = fxmlLoader.load();
 
-            AboutDialogController ctrl = (AboutDialogController) fxmlLoader.getController();
-            ctrl.hostServices = hostServices;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/notepack/AboutPopup.fxml"));
+            pane = loader.load();
 
-            scene = new Scene(root);
-            new Theme(new PreferencesSettings()).setCurrent(scene);
+            AboutDialogController ctrl = loader.getController();
+            ctrl.setTaskUtil(taskUtil);
 
-            Stage stage = new Stage();
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(taskUtil.getStage().getScene().getWindow());
-            stage.setTitle("About");
-            stage.setScene(scene);
-            stage.showAndWait();
+            taskUtil.openPopup(pane);
 
         } catch (IOException ex) {
-            Logger.getLogger(AboutDialogController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 }

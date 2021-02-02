@@ -1,20 +1,19 @@
 package notepack;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
+import notepack.app.domain.PopupController;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
- *
  */
-public class AboutDialogController implements Initializable {
+public class AboutDialogController extends PopupController implements Initializable {
 
     @FXML
     private Button btnCancel;
@@ -31,8 +30,7 @@ public class AboutDialogController implements Initializable {
 
     @FXML
     private void onCancel(ActionEvent event) {
-        Stage stage = (Stage) btnCancel.getScene().getWindow();
-        stage.close();
+        getTaskUtil().closePopup();
     }
 
     @FXML

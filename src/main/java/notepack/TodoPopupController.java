@@ -3,19 +3,15 @@ package notepack;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import notepack.app.domain.*;
-import notepack.gui.TaskUtil;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class TodoPopupController {
+public class TodoPopupController extends PopupController {
 
     @FXML
     private AnchorPane reminderPaneBackground;
@@ -32,20 +28,24 @@ public class TodoPopupController {
     @FXML
     private CheckBox taskDone;
 
+    @FXML
+    private Label headerLabel;
+
     private App app;
     private Note note;
     private Todo todo;
-    private TaskUtil taskUtil;
     private DateTimeFormatter formatter;
 
-    public void setAppNote(Todo todo, Note note, TaskUtil taskUtil) {
+    public void setAppNote(Todo todo, Note note) {
 
         this.note = note;
-        this.taskUtil = taskUtil;
 
         this.todo = todo;
 
         taskSummary.setText(todo.getSummary());
+        if (todo.getSummary() != null) {
+            headerLabel.setText("Edit todo");
+        }
 
         formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         taskDueDate.setConverter(new StringConverter<LocalDate>() {
@@ -88,12 +88,12 @@ public class TodoPopupController {
         TodoWrapper wrapper = new TodoWrapper(note);
         wrapper.setTodo(todo);
 
-        taskUtil.closePopup(reminderPaneBackground);
+        getTaskUtil().closePopup();
     }
 
     @FXML
     void onCancelBtn(ActionEvent event) {
-        taskUtil.closePopup(reminderPaneBackground);
+        getTaskUtil().closePopup();
     }
 
     @FXML
@@ -101,7 +101,7 @@ public class TodoPopupController {
         TodoWrapper wrapper = new TodoWrapper(note);
         wrapper.removeTodo(todo);
 
-        taskUtil.closePopup(reminderPaneBackground);
+        getTaskUtil().closePopup();
     }
 
 }

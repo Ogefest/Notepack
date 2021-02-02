@@ -69,7 +69,7 @@
             </HBox>
             <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="-15.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@../../../../gfx/logo_128.png" />
+                  <Image url="@./logo.png"/>
                </image>
             </ImageView>
 

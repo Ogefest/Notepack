@@ -1,17 +1,12 @@
 package notepack.gui;
 
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import notepack.NotebookTabController;
@@ -192,7 +187,7 @@ public class TaskUtil {
         ((NoteRenderController) t.getUserData()).noteDeactivated();
     }
 
-    synchronized public void closePopup(Node node) {
+    synchronized public void closePopup() {
         StackPane parent = getParentPane();
 
         Optional<Node> popupNode = parent.getChildren().stream().filter(node1 -> node1.getId().equals("popup-parent")).findFirst();
