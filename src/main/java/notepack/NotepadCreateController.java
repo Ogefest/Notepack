@@ -1,9 +1,23 @@
 package notepack;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import notepack.NotepadCreateCallback;
-import java.io.File;
+import javafx.scene.layout.AnchorPane;
+import notepack.app.domain.NoteStorage;
+import notepack.app.domain.NoteStorageMiddleware;
+import notepack.app.domain.Notepad;
+import notepack.app.domain.PopupController;
+import notepack.app.storage.Filesystem;
+import notepack.app.storage.Webdav;
+import notepack.engine.EngineController;
+import notepack.engine.EngineType;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -12,40 +26,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import notepack.app.domain.NoteStorage;
-import notepack.app.domain.NoteStorageConfiguration;
-import notepack.app.domain.NoteStorageItem;
-import notepack.app.domain.NoteStorageMiddleware;
-import notepack.app.domain.Notepad;
-import notepack.app.domain.exception.MessageError;
-import notepack.app.storage.Filesystem;
-import notepack.app.storage.PreferencesSettings;
-import notepack.app.storage.Webdav;
-import notepack.engine.EngineController;
-import notepack.engine.EngineType;
 
 /**
  * FXML Controller class
- *
  */
-public class NotepadCreateController implements Initializable {
+public class NotepadCreateController extends PopupController implements Initializable {
 
     @FXML
     private TextField notepadName;
@@ -264,14 +249,17 @@ public class NotepadCreateController implements Initializable {
 
         clbk.ready(notepad);
 
-        Stage stage = (Stage) btnCancel.getScene().getWindow();
-        stage.close();
+        getTaskUtil().closePopup();
+
+//        Stage stage = (Stage) btnCancel.getScene().getWindow();
+//        stage.close();
     }
 
     @FXML
     private void onCancel(ActionEvent event) {
-        Stage stage = (Stage) btnCancel.getScene().getWindow();
-        stage.close();
+        getTaskUtil().closePopup();
+//        Stage stage = (Stage) btnCancel.getScene().getWindow();
+//        stage.close();
     }
 
     @FXML
@@ -302,53 +290,4 @@ public class NotepadCreateController implements Initializable {
         clipboard.setContent(content);
     }
 
-//    private void webDavTestConnection(ActionEvent event) {
-//
-//        String url = webDavUrl.getText();
-//        String username = webDavUsername.getText();
-//        String password = webDavPassword.getText();
-//
-//        NoteStorageConfiguration nsc = new NoteStorageConfiguration();
-//        nsc.set("url", url);
-//        nsc.set("username", username);
-//        nsc.set("password", password);
-//
-//        Webdav wd = new Webdav(nsc);
-//
-//        try {
-//            NoteStorageItem noteItem = wd.getItemsInStorage();
-//            wd.refreshItemsInStorage();
-//        } catch (MessageError ex) {
-//            Alert a = new Alert(Alert.AlertType.ERROR, "WebDAV problem: " + ex.getMessage());
-//            a.showAndWait();
-//            return;
-//        }
-//
-//        Alert a = new Alert(Alert.AlertType.INFORMATION, "WebDAV configuration looks good ");
-//        a.showAndWait();
-//
-//    }
-
-//    private void onSelectPublicKey(ActionEvent event) {
-//        Stage stage = (Stage) gpgPublicKeyPath.getScene().getWindow();
-//
-//        FileChooser chooser = new FileChooser();
-//        chooser.setTitle("Select GPG public key");
-//
-//        File selectedFile = chooser.showOpenDialog(stage);
-//        if (selectedFile != null) {
-//            gpgPublicKeyPath.setText(selectedFile.getAbsolutePath());
-//        }
-//    }
-//    private void onSelectPrivateKey(ActionEvent event) {
-//        Stage stage = (Stage) gpgPrivateKeyPath.getScene().getWindow();
-//
-//        FileChooser chooser = new FileChooser();
-//        chooser.setTitle("Select GPG private key");
-//
-//        File selectedFile = chooser.showOpenDialog(stage);
-//        if (selectedFile != null) {
-//            gpgPrivateKeyPath.setText(selectedFile.getAbsolutePath());
-//        }
-//    }
 }
