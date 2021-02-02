@@ -10,12 +10,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import notepack.app.domain.*;
-import notepack.gui.TaskUtil;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class TodoPopupController {
+public class TodoPopupController extends PopupController {
 
     @FXML
     private AnchorPane reminderPaneBackground;
@@ -35,13 +34,11 @@ public class TodoPopupController {
     private App app;
     private Note note;
     private Todo todo;
-    private TaskUtil taskUtil;
     private DateTimeFormatter formatter;
 
-    public void setAppNote(Todo todo, Note note, TaskUtil taskUtil) {
+    public void setAppNote(Todo todo, Note note) {
 
         this.note = note;
-        this.taskUtil = taskUtil;
 
         this.todo = todo;
 
@@ -88,12 +85,12 @@ public class TodoPopupController {
         TodoWrapper wrapper = new TodoWrapper(note);
         wrapper.setTodo(todo);
 
-        taskUtil.closePopup(reminderPaneBackground);
+        getTaskUtil().closePopup();
     }
 
     @FXML
     void onCancelBtn(ActionEvent event) {
-        taskUtil.closePopup(reminderPaneBackground);
+        getTaskUtil().closePopup();
     }
 
     @FXML
@@ -101,7 +98,7 @@ public class TodoPopupController {
         TodoWrapper wrapper = new TodoWrapper(note);
         wrapper.removeTodo(todo);
 
-        taskUtil.closePopup(reminderPaneBackground);
+        getTaskUtil().closePopup();
     }
 
 }

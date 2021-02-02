@@ -40,7 +40,8 @@ public class TodoPopup implements Task, TypeGui {
             pane = loader.load();
 
             TodoPopupController ctrl = loader.getController();
-            ctrl.setAppNote(todo, note, taskUtil);
+            ctrl.setTaskUtil(taskUtil);
+            ctrl.setAppNote(todo, note);
 
             taskUtil.openPopup(pane);
 
