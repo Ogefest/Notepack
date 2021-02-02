@@ -5,17 +5,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
-<AnchorPane fx:id="cellBackground" maxWidth="800.0" minWidth="600.0" onMouseEntered="#onMouseEntered" onMouseExited="#onMouseExited" prefHeight="40.0" styleClass="todo-note-row" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.TodoNoteCellController">
+<AnchorPane fx:id="cellBackground" maxWidth="700.0" minWidth="500.0" onMouseEntered="#onMouseEntered"
+            onMouseExited="#onMouseExited" prefHeight="40.0" styleClass="todo-note-row"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="notepack.TodoNoteCellController">
    <stylesheets>
 
       <URL value="@material.icons"/>
-      <URL value="@default.css" />
-      <URL value="@notepadsettings.css" />
-      <URL value="@todo.css" />
+      <URL value="@default.css"/>
+      <URL value="@notepadsettings.css"/>
+      <URL value="@todo.css"/>
 
    </stylesheets>
    <children>
-      <CheckBox fx:id="doneCheckbox" layoutX="46.0" layoutY="9.0" mnemonicParsing="false" prefWidth="440.0" styleClass="done-checkbox" text="Summary" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="43.0" AnchorPane.topAnchor="8.0">
+      <CheckBox fx:id="doneCheckbox" layoutX="46.0" layoutY="9.0" mnemonicParsing="false" prefWidth="440.0"
+                styleClass="done-checkbox" text="Summary" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="43.0"
+                AnchorPane.topAnchor="8.0">
          <font>
             <Font size="15.0" />
          </font>
