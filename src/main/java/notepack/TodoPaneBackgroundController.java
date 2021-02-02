@@ -8,10 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import notepack.app.domain.*;
-import notepack.app.task.TodoNew;
+import notepack.app.domain.App;
+import notepack.app.domain.Note;
+import notepack.app.domain.Todo;
+import notepack.app.domain.TodoWrapper;
 import notepack.app.task.TodoPopup;
 import notepack.noterender.NoteRenderController;
 
@@ -48,6 +49,7 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
         });
         filterInput.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
+                filterInput.setText("");
                 filterInput.setVisible(false);
             }
         });
@@ -209,6 +211,7 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
     public void toggleSearchInput() {
         if (filterInput.isVisible()) {
             filterInput.setVisible(false);
+            filterInput.setText("");
         } else {
             filterInput.setVisible(true);
             filterInput.requestFocus();
