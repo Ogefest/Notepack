@@ -3,10 +3,7 @@ package notepack;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import notepack.app.domain.*;
@@ -31,6 +28,9 @@ public class TodoPopupController extends PopupController {
     @FXML
     private CheckBox taskDone;
 
+    @FXML
+    private Label headerLabel;
+
     private App app;
     private Note note;
     private Todo todo;
@@ -43,6 +43,9 @@ public class TodoPopupController extends PopupController {
         this.todo = todo;
 
         taskSummary.setText(todo.getSummary());
+        if (todo.getSummary() != null) {
+            headerLabel.setText("Edit todo");
+        }
 
         formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         taskDueDate.setConverter(new StringConverter<LocalDate>() {
