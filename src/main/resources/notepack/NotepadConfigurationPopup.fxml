@@ -4,12 +4,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<?import java.net.*?>
+<?import java.net.URL?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0"
             prefWidth="780.0" styleClass="card" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="notepack.NotepadCreateController">
     <stylesheets>
-        <URL value="@color-definition.css"/>
+        <!--        <URL value="@color-definition.css"/>-->
         <URL value="@scrollbar.css"/>
         <URL value="@icons.css"/>
         <URL value="@default.css"/>
