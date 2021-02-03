@@ -56,7 +56,7 @@ public class Webdav implements NoteStorage {
 
     public Webdav() {
         createHttpClient();
-        loadMetaFromStorage();
+
     }
 
     public Webdav(NoteStorageConfiguration nsc) {
@@ -250,6 +250,7 @@ public class Webdav implements NoteStorage {
     @Override
     public void setConfiguration(NoteStorageConfiguration nsc) {
         this.nsc = nsc;
+        loadMetaFromStorage();
     }
 
     @Override
