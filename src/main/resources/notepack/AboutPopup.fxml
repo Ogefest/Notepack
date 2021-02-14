@@ -14,7 +14,7 @@
       <URL value="@scrollbar.css"/>
       <URL value="@icons.css"/>
       <URL value="@default.css"/>
-      <URL value="@notepadsettings.css"/>
+      <URL value="@layout.css"/>
       <URL value="@popup.css"/>
    </stylesheets>
    <children>

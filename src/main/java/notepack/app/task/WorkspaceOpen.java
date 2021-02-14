@@ -8,25 +8,25 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import notepack.MainViewController;
-import notepack.NotebookTabController;
+import notepack.WorkspaceTabController;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
-import notepack.app.domain.Notepad;
 import notepack.app.domain.Task;
-import notepack.app.listener.NotepadListener;
-import notepack.gui.TabNotepad;
+import notepack.app.domain.Workspace;
+import notepack.app.listener.WorkspaceListener;
+import notepack.gui.TabWorkspace;
 import notepack.gui.TaskUtil;
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NotepadOpen implements Task,TypeNotepad,TypeGui {
+public class WorkspaceOpen implements Task, TypeWorkspace,TypeGui {
 
-    private Notepad notepad;
+    private Workspace workspace;
     
-    public NotepadOpen(Notepad notepad) {
-        this.notepad = notepad;
+    public WorkspaceOpen(Workspace workspace) {
+        this.workspace = workspace;
     }
     
     @Override
@@ -34,23 +34,23 @@ public class NotepadOpen implements Task,TypeNotepad,TypeGui {
     }
 
     @Override
-    public void notify(NotepadListener listener) {
-        listener.onOpen(notepad);
+    public void notify(WorkspaceListener listener) {
+        listener.onOpen(workspace);
     }
 
     @Override
     public void guiWork(TaskUtil taskUtil, App app) {
 
-        TabPane notepadContainer = taskUtil.getNotepadContainer();
+        TabPane notepadContainer = taskUtil.getWorkspaceContainer();
 
-        Tab tab = new TabNotepad();
+        Tab tab = new TabWorkspace();
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/notepack/NotepadTabListView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/notepack/WorkspaceTabListView.fxml"));
             Node tabContent = loader.load();
-            NotebookTabController ctrl = loader.getController();
+            WorkspaceTabController ctrl = loader.getController();
             tab.setContent(tabContent);
-            ctrl.setNotepad(notepad);
+            ctrl.setWorkspace(workspace);
             ctrl.setApp(app);
             ctrl.getTreeView().setOnMouseClicked((t) -> {
                 if (t.getClickCount() == 2) {
@@ -62,25 +62,25 @@ public class NotepadOpen implements Task,TypeNotepad,TypeGui {
             });
 
             ContextMenu contextMenu = new ContextMenu();
-            MenuItem closeNotepadMenu = new MenuItem("Close");
-            closeNotepadMenu.setOnAction((t) -> app.closeNotepad(notepad));
+            MenuItem closeWorkspaceMenu = new MenuItem("Close");
+            closeWorkspaceMenu.setOnAction((t) -> app.closeWorkspace(workspace));
 
-            MenuItem refreshNotepadMenu = new MenuItem("Refresh");
-            refreshNotepadMenu.setOnAction((t) -> app.refreshNotepad(notepad));
+            MenuItem refreshWorkspaceMenu = new MenuItem("Refresh");
+            refreshWorkspaceMenu.setOnAction((t) -> app.refreshWorkspace(workspace));
 
-            MenuItem configureNotepadMenu = new MenuItem("Settings");
-            configureNotepadMenu.setOnAction((t) -> ctrl.openNotepadEdit(notepad));
+            MenuItem configureWorkspaceMenu = new MenuItem("Settings");
+            configureWorkspaceMenu.setOnAction((t) -> ctrl.openWorkspaceEdit(workspace));
 
-            contextMenu.getItems().addAll(closeNotepadMenu, refreshNotepadMenu, configureNotepadMenu);
+            contextMenu.getItems().addAll(closeWorkspaceMenu, refreshWorkspaceMenu, configureWorkspaceMenu);
             tab.setContextMenu(contextMenu);
 
             tab.setUserData(ctrl);
-            tab.setText(notepad.getName());
+            tab.setText(workspace.getName());
 
-            String notepadColor = notepad.getBackgroundColor();
-            tab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);
+            String workspaceColor = workspace.getBackgroundColor();
+            tab.setStyle("-fx-background-color: " + workspaceColor + ";-fx-border-color:" + workspaceColor);
 
-            app.refreshNotepad(notepad);
+            app.refreshWorkspace(workspace);
 
             Platform.runLater(() -> {
 

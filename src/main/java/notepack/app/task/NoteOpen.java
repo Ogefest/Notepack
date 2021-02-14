@@ -77,8 +77,8 @@ public class NoteOpen extends BaseTask implements Task, TypeNote, TypeGui {
             newTab.setContent(tabContent);
             newTab.setUserData(ctrl);
 
-            String notepadColor = note.getNotepad().getBackgroundColor();
-            newTab.setStyle("-fx-background-color: " + notepadColor + ";-fx-border-color:" + notepadColor);
+            String workspaceColor = note.getWorkspace().getBackgroundColor();
+            newTab.setStyle("-fx-background-color: " + workspaceColor + ";-fx-border-color:" + workspaceColor);
             if (note.getName().length() > 0) {
                 newTab.setText(note.getName());
             }

@@ -1,17 +1,17 @@
 package notepack.app.domain;
 
+import notepack.Theme;
+import notepack.app.listener.NoteListener;
+import notepack.app.listener.WorkspaceListener;
+import notepack.app.storage.Filesystem;
+import notepack.app.task.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import notepack.Theme;
-import notepack.app.listener.NoteListener;
-import notepack.app.listener.NotepadListener;
-import notepack.app.task.*;
-import notepack.app.storage.Filesystem;
 
 public class App {
 
@@ -20,7 +20,7 @@ public class App {
     private Settings settings;
     private Theme theme;
     private ArrayList<Note> activeNotes = new ArrayList<>();
-    private ArrayList<Notepad> activeNotepad = new ArrayList<>();
+    private ArrayList<Workspace> activeWorkspace = new ArrayList<>();
     private ArrayList<Todo> activeTodo = new ArrayList<>();
 
     public App(SessionStorage sessionStorage, Settings settings) {
@@ -53,15 +53,15 @@ public class App {
             }
         });
 
-        messageBus.registerNotepadListener(new NotepadListener() {
+        messageBus.registerWorkspaceListener(new WorkspaceListener() {
             @Override
-            public void onOpen(Notepad notepad) {
-                activeNotepad.add(notepad);
+            public void onOpen(Workspace workspace) {
+                activeWorkspace.add(workspace);
             }
 
             @Override
-            public void onClose(Notepad notepad) {
-                activeNotepad.remove(notepad);
+            public void onClose(Workspace workspace) {
+                activeWorkspace.remove(workspace);
             }
         });
 
@@ -95,8 +95,8 @@ public class App {
         messageBus.addTask(task);
     }
 
-    public void openNote(String path, Notepad notepad, String name) {
-        Note note = new Note(path, notepad, name);
+    public void openNote(String path, Workspace workspace, String name) {
+        Note note = new Note(path, workspace, name);
         messageBus.addTask(new NoteOpen(note));
     }
 
@@ -121,36 +121,36 @@ public class App {
     public void renameNote(Note n, String newPath) {
 
         messageBus.addTask(new NoteRename(n, newPath));
-        messageBus.addTask(new NotepadRefresh(n.getNotepad()));
+        messageBus.addTask(new WorkspaceRefresh(n.getWorkspace()));
 
     }
 
     public void deleteNote(Note n) {
 
         messageBus.addTask(new NoteDelete(n));
-        messageBus.addTask(new NotepadRefresh(n.getNotepad()));
+        messageBus.addTask(new WorkspaceRefresh(n.getWorkspace()));
 
     }
 
-    public void newNote(Notepad notepad) {
-        messageBus.addTask(new NoteNew(notepad));
+    public void newNote(Workspace workspace) {
+        messageBus.addTask(new NoteNew(workspace));
     }
 
-    public void openNotepad(Notepad notepad) {
-        messageBus.addTask(new NotepadOpen(notepad));
+    public void openWorkspace(Workspace workspace) {
+        messageBus.addTask(new WorkspaceOpen(workspace));
     }
 
-    public void closeNotepad(Notepad notepad) {
-        messageBus.addTask(new NotepadClose(notepad));
+    public void closeWorkspace(Workspace workspace) {
+        messageBus.addTask(new WorkspaceClose(workspace));
     }
 
-    public void refreshNotepad(Notepad notepad) {
-        messageBus.addTask(new NotepadRefresh(notepad));
+    public void refreshWorkspace(Workspace workspace) {
+        messageBus.addTask(new WorkspaceRefresh(workspace));
     }
 
-    public ArrayList<Notepad> getAvailableNotepads() {
+    public ArrayList<Workspace> getAvailableWorkspaces() {
 
-        ArrayList<Notepad> result = sessionStorage.getAvailableNotepads();
+        ArrayList<Workspace> result = sessionStorage.getAvailableWorkspaces();
 
         if (result.isEmpty()) {
 
@@ -174,12 +174,12 @@ public class App {
 
             nsc.set("directory", dir);
 
-            Notepad notepad = new Notepad(new Filesystem(nsc), "First notepad");
-            notepad.setParam("color", "#356fcc");
+            Workspace workspace = new Workspace(new Filesystem(nsc), "First workspace");
+            workspace.setParam("color", "#356fcc");
 
-            result.add(notepad);
+            result.add(workspace);
 
-            openNote(notepad.getStorage().getBasePath() + File.separator + "Welcome.md", notepad, "Welcome.md");
+            openNote(workspace.getStorage().getBasePath() + File.separator + "Welcome.md", workspace, "Welcome.md");
         }
 
         return result;
@@ -194,10 +194,10 @@ public class App {
     public ArrayList<Note> searchForNote(String q) {
 
         ArrayList<Note> tmp = new ArrayList<>();
-        for (Notepad notepad : activeNotepad) {
-            NoteStorageItem it = notepad.getStorage().getItemsInStorage();
+        for (Workspace workspace : activeWorkspace) {
+            NoteStorageItem it = workspace.getStorage().getItemsInStorage();
 
-            tmp.addAll(getNoteFromItem(it, notepad));
+            tmp.addAll(getNoteFromItem(it, workspace));
         }
 
         ArrayList<Note> result = new ArrayList<>();
@@ -210,11 +210,11 @@ public class App {
         return result;
     }
 
-    public void selectNoteInNotepad(Note note) {
-        messageBus.addTask(new NotepadSelectNote(note));
+    public void selectNoteInWorkspace(Note note) {
+        messageBus.addTask(new WorkspaceSelectNote(note));
     }
 
-    private ArrayList<Note> getNoteFromItem(NoteStorageItem item, Notepad notepad) {
+    private ArrayList<Note> getNoteFromItem(NoteStorageItem item, Workspace workspace) {
 
         ArrayList<Note> res = new ArrayList<>();
 
@@ -223,15 +223,15 @@ public class App {
             for (NoteStorageItem it : item.get()) {
 
                 if (it.isLeaf()) {
-                    Note n = new Note(it.getPath(), notepad, it.getName());
+                    Note n = new Note(it.getPath(), workspace, it.getName());
                     res.add(n);
                 } else {
-                    res.addAll(getNoteFromItem(it, notepad));
+                    res.addAll(getNoteFromItem(it, workspace));
                 }
             }
 
         } else {
-            Note n = new Note(item.getPath(), notepad, item.getName());
+            Note n = new Note(item.getPath(), workspace, item.getName());
             res.add(n);
         }
 
@@ -240,7 +240,7 @@ public class App {
 
     private void initializeRecurringTasks() {
 
-        NotepadRefreshRecurring task = new NotepadRefreshRecurring(this);
+        WorkspaceRefreshRecurring task = new WorkspaceRefreshRecurring(this);
         task.startTaskAfterSecondsFromNow(60);
         messageBus.addTask(task);
 
@@ -253,10 +253,10 @@ public class App {
     public ArrayList<Note> getNotesWithTodo() {
 
         ArrayList<Note> tmp = new ArrayList<>();
-        for (Notepad notepad : activeNotepad) {
-            NoteStorageItem it = notepad.getStorage().getItemsInStorage();
+        for (Workspace workspace : activeWorkspace) {
+            NoteStorageItem it = workspace.getStorage().getItemsInStorage();
 
-            tmp.addAll(getNoteFromItem(it, notepad));
+            tmp.addAll(getNoteFromItem(it, workspace));
         }
 
         ArrayList<Note> result = new ArrayList<>();

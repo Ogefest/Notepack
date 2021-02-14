@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.NotebookTabController">
+<AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.WorkspaceTabController">
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
         <URL value="@scrollbar.css" />  
@@ -13,7 +13,7 @@
         <URL value="@default.css" />  
     </stylesheets>        
     <children>
-        <TreeView fx:id="notepadStructure" layoutY="52.0" prefHeight="508.0" prefWidth="269.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
+        <TreeView fx:id="workspaceStructure" layoutY="52.0" prefHeight="508.0" prefWidth="269.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
          <contextMenu>
             <ContextMenu>
               <items>
@@ -29,9 +29,9 @@
          <children>
             <HBox alignment="CENTER_LEFT" maxHeight="40.0" prefHeight="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onFileNotepadAdd" styleClass="icon-button">
+                  <Button mnemonicParsing="false" onAction="#onFileWorkspaceAdd" styleClass="icon-button">
                      <tooltip>
-                        <Tooltip text="Add notepad" />
+                        <Tooltip text="Add workspace" />
                      </tooltip>
                       <graphic>
                           <Label  styleClass="icon-base,mi-book-plus-outline" />
@@ -57,7 +57,7 @@
                         <Label  styleClass="icon-base,mi-text-box-plus-outline" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onNotepadEdit" styleClass="icon-button">
+                  <Button mnemonicParsing="false" onAction="#onWorkspaceEdit" styleClass="icon-button">
                      <tooltip>
                         <Tooltip text="Settings" />
                      </tooltip>
@@ -65,7 +65,7 @@
                           <Label  styleClass="icon-base,mi-cog-outline" />
                       </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onNotepadClose" styleClass="icon-button">
+                  <Button mnemonicParsing="false" onAction="#onWorkspaceClose" styleClass="icon-button">
                      <tooltip>
                         <Tooltip text="Close" />
                      </tooltip>

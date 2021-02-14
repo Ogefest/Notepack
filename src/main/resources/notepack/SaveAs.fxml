@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
+<?import java.net.URL?>
 <AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="477.0" prefWidth="665.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.SaveAsController">
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
         <URL value="@scrollbar.css" />
         <URL value="@icons.css" />
         <URL value="@default.css" />
-      <URL value="@notepadsettings.css" />
+      <URL value="@layout.css" />
     </stylesheets>        
     <children>
       <AnchorPane prefHeight="306.0" prefWidth="635.0" styleClass="card" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <children>
-              <TreeView fx:id="notepadStructure" layoutY="39.0" prefHeight="252.0" prefWidth="605.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="39.0" />
+              <TreeView fx:id="workspaceStructure" layoutY="39.0" prefHeight="252.0" prefWidth="605.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="39.0" />
             <Label layoutX="14.0" layoutY="12.0" text="Parent directory:">
                <font>
                   <Font size="15.0" />

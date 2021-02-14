@@ -17,7 +17,7 @@ import java.io.IOException;
 public class NotePaneBackgroundController {
 
     @FXML
-    private TabPane notepadContainer;
+    private TabPane workspaceContainer;
 
     @FXML
     private TabPane tabContainer;
@@ -41,7 +41,7 @@ public class NotePaneBackgroundController {
                 NoteRenderController deactivatedTab = (NoteRenderController) t.getUserData();
                 deactivatedTab.noteDeactivated();
 
-                app.selectNoteInNotepad(activatedTab.getNote());
+                app.selectNoteInWorkspace(activatedTab.getNote());
 
             }
 
@@ -70,9 +70,9 @@ public class NotePaneBackgroundController {
             searchNoteTab.setStyle("-fx-background-color: card-background; -fx-border-color: card-background" );
             searchNoteTab.getStyleClass().add("button");
 
-            Platform.runLater(() -> notepadContainer.getTabs().add(searchNoteTab));
+            Platform.runLater(() -> workspaceContainer.getTabs().add(searchNoteTab));
 
-            notepadContainer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            workspaceContainer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue.equals(searchNoteTab)) {
                     SearchNoteTabController c = (SearchNoteTabController) searchNoteTab.getUserData();
                     c.focusSearchQuery();

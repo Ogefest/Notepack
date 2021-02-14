@@ -1,29 +1,25 @@
 package notepack;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.MenuItem;
-
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import notepack.app.domain.Note;
 import notepack.app.storage.PreferencesSettings;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * FXML Controller class
@@ -67,7 +63,7 @@ public class NoteTabContentController implements Initializable {
 
         textArea.setText(new String(note.getContent()));
 
-        tabBackground.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
+        tabBackground.setStyle("-fx-background-color: " + note.getWorkspace().getBackgroundColor());
 
         textArea.requestFocus();
     }

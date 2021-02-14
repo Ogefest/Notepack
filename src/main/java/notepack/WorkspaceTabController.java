@@ -9,10 +9,10 @@ import javafx.scene.layout.AnchorPane;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorageItem;
-import notepack.app.domain.Notepad;
+import notepack.app.domain.Workspace;
 import notepack.app.task.NoteNew;
-import notepack.app.task.NotepadPopup;
 import notepack.app.task.TodoNew;
+import notepack.app.task.WorkspacePopup;
 
 import java.net.URL;
 import java.util.Collections;
@@ -24,10 +24,10 @@ import java.util.ResourceBundle;
  * FXML Controller class
  *
  */
-public class NotebookTabController implements Initializable {
+public class WorkspaceTabController implements Initializable {
 
     @FXML
-    private TreeView<NoteTreeViewItem> notepadStructure;
+    private TreeView<NoteTreeViewItem> workspaceStructure;
 
     /*
     Structure used for cache items to select note in fast way without
@@ -35,7 +35,7 @@ public class NotebookTabController implements Initializable {
      */
     private HashMap<String, TreeItem<NoteTreeViewItem>> treeViewItemsCache = new HashMap<>();
 
-    private Notepad notepad;
+    private Workspace workspace;
     @FXML
     private AnchorPane tabBackground;
 
@@ -50,11 +50,11 @@ public class NotebookTabController implements Initializable {
     }
 
     public TreeView<NoteTreeViewItem> getTreeView() {
-        return notepadStructure;
+        return workspaceStructure;
     }
 
     public Note getSelectedNote() {
-        TreeItem<NoteTreeViewItem> it = notepadStructure.getSelectionModel().getSelectedItem();
+        TreeItem<NoteTreeViewItem> it = workspaceStructure.getSelectionModel().getSelectedItem();
 
         if (it == null) {
             return null;
@@ -74,9 +74,9 @@ public class NotebookTabController implements Initializable {
 
         TreeItem<NoteTreeViewItem> item = treeViewItemsCache.get(note.getIdent());
         if (item != null) {
-            int nodeIndex = notepadStructure.getRow(item);
-            notepadStructure.getSelectionModel().select(item);
-            notepadStructure.scrollTo(nodeIndex);
+            int nodeIndex = workspaceStructure.getRow(item);
+            workspaceStructure.getSelectionModel().select(item);
+            workspaceStructure.scrollTo(nodeIndex);
         }
 
     }
@@ -85,23 +85,23 @@ public class NotebookTabController implements Initializable {
         this.app = app;
     }
 
-    public void setNotepad(Notepad notepad) {
-        this.notepad = notepad;
+    public void setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
 
-        tabBackground.setStyle("-fx-background-color: " + notepad.getBackgroundColor());
-        notepadStructure.setStyle("cell-selection-color: " + notepad.getBackgroundColor());
+        tabBackground.setStyle("-fx-background-color: " + workspace.getBackgroundColor());
+        workspaceStructure.setStyle("cell-selection-color: " + workspace.getBackgroundColor());
 
-        notepadStructure.setCellFactory((p) -> {
+        workspaceStructure.setCellFactory((p) -> {
             return new NoteTreeCell();
         });
     }
 
-    public Notepad getNotepad() {
-        return notepad;
+    public Workspace getWorkspace() {
+        return workspace;
     }
 
     public void refreshTreeView() {
-        NoteStorageItem items = notepad.getStorage().getItemsInStorage();
+        NoteStorageItem items = workspace.getStorage().getItemsInStorage();
         treeViewItemsCache = new HashMap<>();
 
         Collections.sort(items.get(), (NoteStorageItem o1, NoteStorageItem o2) -> {
@@ -121,14 +121,14 @@ public class NotebookTabController implements Initializable {
             }
         });
 
-        NoteTreeViewItem rootItem = new NoteTreeViewItem(notepad.getName());
+        NoteTreeViewItem rootItem = new NoteTreeViewItem(workspace.getName());
         TreeItem root = new TreeItem(rootItem);
 
         root = addChildren(root, items);
         root.setExpanded(true);
 
-        notepadStructure.setRoot(root);
-        notepadStructure.setShowRoot(false);
+        workspaceStructure.setRoot(root);
+        workspaceStructure.setShowRoot(false);
     }
 
     private TreeItem addChildren(TreeItem parent, NoteStorageItem items) {
@@ -153,7 +153,7 @@ public class NotebookTabController implements Initializable {
 
             if (it.isLeaf()) {
 
-                Note note = new Note(it.getPath(), notepad, it.getName());
+                Note note = new Note(it.getPath(), workspace, it.getName());
                 NoteTreeViewItem noteTreeViewItem = new NoteTreeViewItem(note, it);
                 TreeItem<NoteTreeViewItem> n = new TreeItem<>(noteTreeViewItem);
 
@@ -175,20 +175,20 @@ public class NotebookTabController implements Initializable {
 
     @FXML
     private void treeViewOnOpen(ActionEvent event) {
-        Note n = notepadStructure.getSelectionModel().getSelectedItem().getValue().getNote();
+        Note n = workspaceStructure.getSelectionModel().getSelectedItem().getValue().getNote();
         app.openNote(n);
     }
 
     @FXML
     private void treeViewOnClose(ActionEvent event) {
-        Note n = notepadStructure.getSelectionModel().getSelectedItem().getValue().getNote();
+        Note n = workspaceStructure.getSelectionModel().getSelectedItem().getValue().getNote();
         app.closeNote(n);
 
     }
 
     @FXML
     private void treeViewOnRefresh(ActionEvent event) {
-        app.refreshNotepad(notepad);
+        app.refreshWorkspace(workspace);
     }
 
     @FXML
@@ -201,7 +201,7 @@ public class NotebookTabController implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            Note n = notepadStructure.getSelectionModel().getSelectedItem().getValue().getNote();
+            Note n = workspaceStructure.getSelectionModel().getSelectedItem().getValue().getNote();
             app.deleteNote(n);
         }
 
@@ -210,7 +210,7 @@ public class NotebookTabController implements Initializable {
     @FXML
     private void treeViewOnRename(ActionEvent event) {
 
-        Note n = notepadStructure.getSelectionModel().getSelectedItem().getValue().getNote();
+        Note n = workspaceStructure.getSelectionModel().getSelectedItem().getValue().getNote();
 
         TextInputDialog dialog = new TextInputDialog(n.getPath());
         dialog.setTitle("Rename");
@@ -225,87 +225,34 @@ public class NotebookTabController implements Initializable {
     }
 
     @FXML
-    private void onFileNotepadAdd(ActionEvent event) {
+    private void onFileWorkspaceAdd(ActionEvent event) {
 
-        app.addTask(new NotepadPopup());
+        app.addTask(new WorkspacePopup());
 
-//        FXMLLoader fxmlLoader = new FXMLLoader();
-//        fxmlLoader.setLocation(getClass().getResource("NotepadConfigurationPopup.fxml"));
-//
-//        Scene scene;
-//        try {
-//            Parent root = fxmlLoader.load();
-//
-//            NotepadCreateController ctrl = (NotepadCreateController) fxmlLoader.getController();
-//            ctrl.setNotepadCreateCallback(notepad -> app.openNotepad(notepad));
-//
-//            scene = new Scene(root);
-//            new Theme(new PreferencesSettings()).setCurrent(scene);
-//
-//            Stage stage = new Stage();
-//            stage.initModality(Modality.WINDOW_MODAL);
-//            stage.setTitle("Add new notepad");
-//            stage.setResizable(false);
-//            stage.setScene(scene);
-//            stage.show();
-//
-//        } catch (IOException ex) {
-//            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }
 
-    public void openNotepadEdit(Notepad notepad) {
+    public void openWorkspaceEdit(Workspace workspace) {
 
-        app.addTask(new NotepadPopup(notepad));
-
-//        FXMLLoader fxmlLoader = new FXMLLoader();
-//        fxmlLoader.setLocation(getClass().getResource("NotepadConfigurationPopup.fxml"));
-//
-//        Scene scene;
-//        try {
-//            Parent root = fxmlLoader.load();
-//
-//            NotepadCreateController nctrl = (NotepadCreateController) fxmlLoader.getController();
-//            nctrl.setNotepadToEdit(notepad);
-//            nctrl.setNotepadCreateCallback(new NotepadCreateCallback() {
-//                @Override
-//                public void ready(Notepad notepad) {
-//                    app.closeNotepad(notepad);
-//                    app.openNotepad(notepad);
-//                }
-//            });
-//
-//            scene = new Scene(root);
-//            new Theme(new PreferencesSettings()).setCurrent(scene);
-//            Stage stage = new Stage();
-//            stage.initModality(Modality.WINDOW_MODAL);
-//            stage.setResizable(false);
-//            stage.setTitle("Edit notepad");
-//            stage.setScene(scene);
-//            stage.show();
-//
-//        } catch (IOException ex) {
-//            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        app.addTask(new WorkspacePopup(workspace));
 
     }
 
     @FXML
     private void onFileNew(ActionEvent event) {
-        app.addTask(new NoteNew(notepad));
+        app.addTask(new NoteNew(workspace));
     }
 
     @FXML
-    private void onNotepadEdit(ActionEvent event) {
-        openNotepadEdit(notepad);
+    private void onWorkspaceEdit(ActionEvent event) {
+        openWorkspaceEdit(workspace);
     }
 
     @FXML
-    private void onNotepadClose(ActionEvent event) {
-        app.closeNotepad(notepad);
+    private void onWorkspaceClose(ActionEvent event) {
+        app.closeWorkspace(workspace);
     }
 
     public void onChecklistNew(ActionEvent actionEvent) {
-        app.addTask(new TodoNew(notepad));
+        app.addTask(new TodoNew(workspace));
     }
 }

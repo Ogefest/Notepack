@@ -1,7 +1,5 @@
 package notepack.noterender;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
@@ -10,14 +8,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import notepack.app.domain.Note;
-
 import netscape.javascript.JSObject;
 import notepack.app.domain.App;
+import notepack.app.domain.Note;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 //import javafx.scene.web.WebView;
 public class PdfViewController implements Initializable, NoteRenderController {
@@ -94,7 +93,7 @@ public class PdfViewController implements Initializable, NoteRenderController {
         this.note = note;
         this.app = app;
         
-        tabBackground.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
+        tabBackground.setStyle("-fx-background-color: " + note.getWorkspace().getBackgroundColor());
         
         webEngine.getLoadWorker()
                 .stateProperty()

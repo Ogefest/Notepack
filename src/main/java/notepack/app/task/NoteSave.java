@@ -17,7 +17,6 @@ import notepack.app.domain.Task;
 import notepack.app.domain.exception.MessageError;
 import notepack.app.listener.NoteListener;
 import notepack.gui.TaskUtil;
-import notepack.noterender.NoteRenderController;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -36,7 +35,7 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
         if (note.getPath() != null) {
             note.saveToStorage();
             addTaskToQueue(new NoteMarkAsSaved(note));
-            addTaskToQueue(new NotepadRefresh(note.getNotepad()));
+            addTaskToQueue(new WorkspaceRefresh(note.getWorkspace()));
         }
     }
 

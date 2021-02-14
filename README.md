@@ -17,9 +17,9 @@ Documentation is available in [wiki](https://github.com/Ogefest/Notepack/wiki/Do
 
 - privacy by design - no cloud, no accounts, no usage tracking
 - without vendor lock in - all features uses plain files in filesystem structure
-- multiple notepads, multiple notes in notepad
+- multiple workspaces, multiple notes in workspace
 - TODO list support using [iCalendar format](https://en.wikipedia.org/wiki/ICalendar#To-do_(VTODO))
-- color highlight for notepads
+- color highlight for workspaces
 - multiple note storage backend, filesystem and WebDav supported right now
 - supported file formats: plain text, Markdown, PDF, JPG, PNG, ics (calendar files)
 - easy note switch using only shortcuts
@@ -31,8 +31,8 @@ Documentation is available in [wiki](https://github.com/Ogefest/Notepack/wiki/Do
 ### Main window
 ![Main notepack window](./gfx/screen1.png)
 
-### New notepad
-![New notepad](./gfx/new-notepad.png)
+### New workspace
+![New workspace](./gfx/new-workspace.png)
 
 
 ### Dark theme

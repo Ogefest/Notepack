@@ -13,7 +13,7 @@
 
       <URL value="@material.icons"/>
       <URL value="@default.css"/>
-      <URL value="@notepadsettings.css"/>
+      <URL value="@layout.css"/>
       <URL value="@todo.css"/>
 
    </stylesheets>

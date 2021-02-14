@@ -1,18 +1,18 @@
 package notepack.engine;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageConfiguration;
 import notepack.app.storage.Filesystem;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -40,7 +40,7 @@ public class FilesystemController implements Initializable, EngineController {
         Stage stage = (Stage) directoryPath.getScene().getWindow();
 
         DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setTitle("Notepad directory");
+        chooser.setTitle("Workspace directory");
 
         File selectedDirectory = chooser.showDialog(stage);
         if (selectedDirectory != null) {

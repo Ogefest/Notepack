@@ -7,13 +7,13 @@
 <?import java.net.URL?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0"
             prefWidth="780.0" styleClass="card" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="notepack.NotepadCreateController">
+            fx:controller="notepack.WorkspaceCreateController">
     <stylesheets>
         <!--        <URL value="@color-definition.css"/>-->
         <URL value="@scrollbar.css"/>
         <URL value="@icons.css"/>
         <URL value="@default.css"/>
-        <URL value="@notepadsettings.css"/>
+        <URL value="@layout.css"/>
     </stylesheets>
     <children>
         <AnchorPane prefHeight="228.0" prefWidth="706.0" styleClass="card" AnchorPane.leftAnchor="15.0"
@@ -24,8 +24,8 @@
                         <Font size="15.0"/>
                     </font>
                 </Label>
-                <TextField fx:id="notepadName" layoutX="215.0" layoutY="32.0" prefHeight="38.0" prefWidth="445.0"/>
-                <Label layoutX="56.0" layoutY="84.0" text="Notepad color:" AnchorPane.leftAnchor="20.0">
+                <TextField fx:id="workspaceName" layoutX="215.0" layoutY="32.0" prefHeight="38.0" prefWidth="445.0"/>
+                <Label layoutX="56.0" layoutY="84.0" text="Workspace color:" AnchorPane.leftAnchor="20.0">
                     <font>
                         <Font size="15.0"/>
                     </font>

@@ -1,9 +1,5 @@
 package notepack;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -11,6 +7,11 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import notepack.gui.Icon;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ResourceBundle;
 
 public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
 
@@ -45,13 +46,13 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
     @FXML
     private VBox centerPart11;
     @FXML
-    private Label notepadName;
+    private Label workspaceName;
 
     public NoteTreeCell() {
 
         if (loader == null) {
             try {
-                loader = new FXMLLoader(getClass().getResource("NotepadTreeViewCell.fxml"));
+                loader = new FXMLLoader(getClass().getResource("WorkspaceTreeViewCell.fxml"));
                 loader.setController(this);
                 loader.load();
 
@@ -70,7 +71,7 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
         } else {
             
             if (item.isRoot()) {
-                notepadName.setText(item.getLabel());
+                workspaceName.setText(item.getLabel());
                 setGraphic(parentRow);
                 return;
             }
