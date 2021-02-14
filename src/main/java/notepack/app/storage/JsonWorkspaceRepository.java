@@ -83,7 +83,7 @@ public class JsonWorkspaceRepository implements SessionStorage {
         if (workspacesList == null) {
             workspacesList = new ArrayList<>();
 
-            String content = getJsonFromFile("notepads.data");
+            String content = getJsonFromFile("workspace.data");
             if (content.length() == 0) {
                 return workspacesList;
             }
@@ -189,7 +189,7 @@ public class JsonWorkspaceRepository implements SessionStorage {
             toSave.put(current);
         }
 
-        setJsonToFile(toSave.toString(), "notepads.data");
+        setJsonToFile(toSave.toString(), "workspace.data");
 
     }
 
@@ -211,7 +211,7 @@ public class JsonWorkspaceRepository implements SessionStorage {
 
                 String notePath = obj.getString("path");
                 String noteName = obj.getString("name");
-                String workspaceIdent = obj.getString("notepad_ident");
+                String workspaceIdent = obj.getString("workspace_ident");
                 Workspace workspaceToUse = null;
 
                 for (Workspace nn : getAvailableWorkspaces()) {
@@ -267,8 +267,7 @@ public class JsonWorkspaceRepository implements SessionStorage {
             }
 
             JSONObject current = new JSONObject();
-//            current.put("storage_class", n.getStorage().getClass().getCanonicalName());
-            current.put("notepad_ident", n.getWorkspace().getIdent());
+            current.put("workspace_ident", n.getWorkspace().getIdent());
             current.put("path", n.getPath());
             current.put("name", n.getName());
 
