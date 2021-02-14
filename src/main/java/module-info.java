@@ -32,5 +32,7 @@ module notepack {
     requires flexmark.util.misc;
     requires zip4j;
     requires org.mnode.ical4j.core;
+    requires jackrabbit.webdav;
+    requires org.apache.httpcomponents.httpclient;
 
 }

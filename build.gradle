@@ -35,9 +35,17 @@ dependencies {
     compile group: 'net.lingala.zip4j', name: 'zip4j', version: '2.6.4'
     compile group: 'org.mnode.ical4j', name: 'ical4j', version: '3.0.21'
 
-    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+    compile group: 'org.apache.jackrabbit', name: 'jackrabbit-webdav', version: '2.21.5'
 
 }
+
+configurations {
+    all {
+        exclude module: 'commons-logging'
+    }
+}
+
 jlink {
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages', '--ignore-signing-information']
     addExtraDependencies("javafx")
