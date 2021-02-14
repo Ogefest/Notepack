@@ -17,7 +17,6 @@ import notepack.app.domain.Task;
 import notepack.app.domain.exception.MessageError;
 import notepack.app.listener.NoteListener;
 import notepack.gui.TaskUtil;
-import notepack.noterender.NoteRenderController;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -36,7 +35,7 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
         if (note.getPath() != null) {
             note.saveToStorage();
             addTaskToQueue(new NoteMarkAsSaved(note));
-            addTaskToQueue(new NotepadRefresh(note.getNotepad()));
+            addTaskToQueue(new WorkspaceRefresh(note.getWorkspace()));
         }
     }
 
@@ -71,7 +70,6 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
                 scene.getStylesheets().clear();
                 scene.getStylesheets().add(Theme.class.getResource("/notepack/color-definition.css" ).toExternalForm());
 
-
                 Stage stage = new Stage();
                 stage.setTitle("Set name");
                 stage.setScene(scene);
@@ -93,7 +91,5 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
         Label l = (Label) t.getGraphic();
         l.setText("");
 
-
-//        app.refreshNotepad(note.getNotepad());
     }
 }

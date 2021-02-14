@@ -6,15 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.Todo;
-import notepack.app.domain.TodoWrapper;
-import notepack.app.task.NoteOpen;
-import notepack.gui.Icon;
 
 public class TodoNoteCellController {
 
@@ -38,16 +34,11 @@ public class TodoNoteCellController {
 
     public void setTodo(Todo todo, TodoNoteCellCallback callback) {
         this.app = app;
-//        this.note = todo;
         this.todo = todo;
         this.callback = callback;
-//        this.todoWrapper = wrapper;
 
         doneCheckbox.setText(this.todo.getSummary());
         doneCheckbox.setSelected(this.todo.isFinished());
-
-//        noteButton.setStyle("-fx-background-color: " + todo.getNote().getNotepad().getBackgroundColor());
-//        noteButton.setText(todo.getNote().getName());
 
         if (this.todo.isFinished()) {
             cellBackground.getStyleClass().add("todo-finished");
@@ -59,8 +50,6 @@ public class TodoNoteCellController {
                 todo.setFinished(doneCheckbox.isSelected());
 
                 callback.onTodoFinished(todo);
-
-//                wrapper.addTodoToNote(todo);
 
                 if (TodoNoteCellController.this.todo.isFinished()) {
                     cellBackground.getStyleClass().add("todo-finished");

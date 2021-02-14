@@ -1,24 +1,24 @@
 package notepack.app.domain;
 
-import java.util.ArrayList;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import notepack.app.domain.exception.MessageError;
 import notepack.app.listener.GuiListener;
 import notepack.app.listener.NoteListener;
-import notepack.app.listener.NotepadListener;
+import notepack.app.listener.WorkspaceListener;
 import notepack.app.task.*;
 
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MessageBus {
 
     private Queue<Task> tasks;
     private Queue<Task> tasksLowPriority;
     private ArrayList<NoteListener> noteListeners;
-    private ArrayList<NotepadListener> notepadListeners;
+    private ArrayList<WorkspaceListener> workspaceListeners;
     private ArrayList<GuiListener> guiListeners;
 
     private Thread dispatchThread;
@@ -31,7 +31,7 @@ public class MessageBus {
         tasksLowPriority = new ConcurrentLinkedQueue<>();
 
         noteListeners = new ArrayList<>();
-        notepadListeners = new ArrayList<>();
+        workspaceListeners = new ArrayList<>();
         guiListeners = new ArrayList<>();
 
         tasksActive.set(0);
@@ -138,9 +138,9 @@ public class MessageBus {
                             ((TypeNote) t).notify(l);
                         }
                     }
-                    if (t instanceof TypeNotepad) {
-                        for (NotepadListener l : notepadListeners) {
-                            ((TypeNotepad) t).notify(l);
+                    if (t instanceof TypeWorkspace) {
+                        for (WorkspaceListener l : workspaceListeners) {
+                            ((TypeWorkspace) t).notify(l);
                         }
                     }
                 } catch (MessageError ex) {
@@ -160,8 +160,8 @@ public class MessageBus {
         noteListeners.add(l);
     }
 
-    public void registerNotepadListener(NotepadListener l) {
-        notepadListeners.add(l);
+    public void registerWorkspaceListener(WorkspaceListener l) {
+        workspaceListeners.add(l);
     }
 
     public void registerGuiListener(GuiListener l) {

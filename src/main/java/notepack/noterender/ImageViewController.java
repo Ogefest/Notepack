@@ -5,19 +5,19 @@
  */
 package notepack.noterender;
 
-import java.io.ByteArrayInputStream;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
+
+import java.io.ByteArrayInputStream;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -63,7 +63,7 @@ public class ImageViewController implements Initializable, NoteRenderController 
 
         imageRender.setImage(currentImage);
         
-        tabBackground.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
+        tabBackground.setStyle("-fx-background-color: " + note.getWorkspace().getBackgroundColor());
         
         refreshImageScale();
     }

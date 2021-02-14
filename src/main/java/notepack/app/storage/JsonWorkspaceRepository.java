@@ -1,35 +1,28 @@
 package notepack.app.storage;
 
+import notepack.app.domain.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import notepack.app.domain.Note;
-import notepack.app.domain.NoteStorage;
-import notepack.app.domain.NoteStorageConfiguration;
-import notepack.app.domain.Notepad;
-import notepack.app.domain.NoteStorageMiddleware;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import notepack.app.domain.SessionStorage;
-import notepack.app.domain.Settings;
-import notepack.app.domain.StringEncryption;
 
-public class JsonNotepadRepository implements SessionStorage {
+public class JsonWorkspaceRepository implements SessionStorage {
 
-    private ArrayList<Notepad> notepadsList = null;
+    private ArrayList<Workspace> workspacesList = null;
     private ArrayList<Note> notesList = null;
 
     private StringEncryption encryption;
     private Settings settings;
 
-    public JsonNotepadRepository(StringEncryption encryption, Settings settings) {
+    public JsonWorkspaceRepository(StringEncryption encryption, Settings settings) {
         this.encryption = encryption;
         this.settings = settings;
     }
@@ -80,19 +73,19 @@ public class JsonNotepadRepository implements SessionStorage {
 
             Files.write(Paths.get(path), toSave.getBytes());
         } catch (IOException ex) {
-            Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JsonWorkspaceRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public ArrayList<Notepad> getAvailableNotepads() {
+    public ArrayList<Workspace> getAvailableWorkspaces() {
 
-        if (notepadsList == null) {
-            notepadsList = new ArrayList<>();
+        if (workspacesList == null) {
+            workspacesList = new ArrayList<>();
 
-            String content = getJsonFromFile("notepads.data");
+            String content = getJsonFromFile("workspace.data");
             if (content.length() == 0) {
-                return notepadsList;
+                return workspacesList;
             }
 
             JSONArray input = new JSONArray(content);
@@ -101,7 +94,7 @@ public class JsonNotepadRepository implements SessionStorage {
                 JSONObject obj = input.getJSONObject(i);
 
                 String storageClassName = obj.getString("storage_class");
-                String notepadIdent = obj.getString("ident");
+                String workspaceIdent = obj.getString("ident");
 
                 NoteStorageConfiguration nsc = new NoteStorageConfiguration();
 
@@ -115,60 +108,60 @@ public class JsonNotepadRepository implements SessionStorage {
                     NoteStorage storage = (NoteStorage) cls.newInstance();
                     storage.setConfiguration(nsc);
 
-                    Notepad notepad = new Notepad(storage, "", notepadIdent);
+                    Workspace workspace = new Workspace(storage, "", workspaceIdent);
                     JSONObject paramsJson = obj.getJSONObject("params");
                     for (String k : paramsJson.keySet()) {
-                        notepad.setParam(k, paramsJson.getString(k));
+                        workspace.setParam(k, paramsJson.getString(k));
                     }
-                    notepad.registerProcessors();
+                    workspace.registerProcessors();
 
-                    if (!notepadsList.contains(notepad)) {
-                        notepadsList.add(notepad);
+                    if (!workspacesList.contains(workspace)) {
+                        workspacesList.add(workspace);
                     }
 
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(JsonWorkspaceRepository.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InstantiationException ex) {
-                    Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(JsonWorkspaceRepository.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IllegalAccessException ex) {
-                    Logger.getLogger(JsonNotepadRepository.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(JsonWorkspaceRepository.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
         }
 
-        return notepadsList;
+        return workspacesList;
     }
 
     @Override
-    public void setNotepadList(ArrayList<Notepad> notepads) {
-        this.notepadsList = notepads;
+    public void setWorkspaceList(ArrayList<Workspace> workspaces) {
+        this.workspacesList = workspaces;
 
-        saveNotepadsToFile();
+        saveWorkspacesToFile();
     }
 
     @Override
-    public void addNotepad(Notepad notepad) {
+    public void addWorkspace(Workspace workspace) {
 
-        if (notepadsList.indexOf(notepad) == -1) {
-            notepadsList.add(notepad);
+        if (workspacesList.indexOf(workspace) == -1) {
+            workspacesList.add(workspace);
         }
 
-        saveNotepadsToFile();
+        saveWorkspacesToFile();
     }
 
     @Override
-    public void removeNotepad(Notepad notepad) {
-        notepadsList.remove(notepad);
+    public void removeWorkspace(Workspace workspace) {
+        workspacesList.remove(workspace);
 
-        saveNotepadsToFile();
+        saveWorkspacesToFile();
     }
 
-    private void saveNotepadsToFile() {
+    private void saveWorkspacesToFile() {
 
         JSONArray toSave = new JSONArray();
 
-        for (Notepad n : notepadsList) {
+        for (Workspace n : workspacesList) {
 
             JSONObject current = new JSONObject();
             
@@ -186,17 +179,17 @@ public class JsonNotepadRepository implements SessionStorage {
             }
             current.put("storage_config", storageConfig);
 
-            JSONObject notepadParams = new JSONObject();
+            JSONObject workspaceParams = new JSONObject();
             HashMap<String, String> params = n.getParams();
             for (String k : params.keySet()) {
-                notepadParams.put(k, params.get(k));
+                workspaceParams.put(k, params.get(k));
             }
-            current.put("params", notepadParams);
+            current.put("params", workspaceParams);
 
             toSave.put(current);
         }
 
-        setJsonToFile(toSave.toString(), "notepads.data");
+        setJsonToFile(toSave.toString(), "workspace.data");
 
     }
 
@@ -218,21 +211,21 @@ public class JsonNotepadRepository implements SessionStorage {
 
                 String notePath = obj.getString("path");
                 String noteName = obj.getString("name");
-                String notepadIdent = obj.getString("notepad_ident");
-                Notepad notepadToUse = null;
+                String workspaceIdent = obj.getString("workspace_ident");
+                Workspace workspaceToUse = null;
 
-                for (Notepad nn : getAvailableNotepads()) {
-                    if (nn.getIdent().equals(notepadIdent)) {
-                        notepadToUse = nn;
+                for (Workspace nn : getAvailableWorkspaces()) {
+                    if (nn.getIdent().equals(workspaceIdent)) {
+                        workspaceToUse = nn;
                         break;
                     }
                 }
 
-                if (notepadToUse == null) {
+                if (workspaceToUse == null) {
                     continue;
                 }
 
-                Note note = new Note(notePath, notepadToUse, noteName);
+                Note note = new Note(notePath, workspaceToUse, noteName);
                 if (!notesList.contains(note)) {
                     notesList.add(note);
                 }
@@ -274,8 +267,7 @@ public class JsonNotepadRepository implements SessionStorage {
             }
 
             JSONObject current = new JSONObject();
-//            current.put("storage_class", n.getStorage().getClass().getCanonicalName());
-            current.put("notepad_ident", n.getNotepad().getIdent());
+            current.put("workspace_ident", n.getWorkspace().getIdent());
             current.put("path", n.getPath());
             current.put("name", n.getName());
 

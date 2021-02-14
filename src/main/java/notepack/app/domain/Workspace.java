@@ -1,14 +1,14 @@
 package notepack.app.domain;
 
-import java.util.HashMap;
-import java.util.Random;
-import java.util.UUID;
-
 import notepack.app.storage.JsonMeta;
 import notepack.processor.ZipDecrypt;
 import notepack.processor.ZipEncrypt;
 
-public class Notepad {
+import java.util.HashMap;
+import java.util.Random;
+import java.util.UUID;
+
+public class Workspace {
 
     private NoteStorageMiddleware storage;
     private NoteMetaStorage meta;
@@ -18,14 +18,14 @@ public class Notepad {
 
     private HashMap<String, String> params = new HashMap<>();
 
-    public Notepad(NoteStorage storage, String name) {
+    public Workspace(NoteStorage storage, String name) {
         this.storage = new NoteStorageMiddleware(storage);
         this.ident = UUID.randomUUID().toString();
 
         params.put("name", name);
     }
 
-    public Notepad(NoteStorage storage, String name, String ident) {
+    public Workspace(NoteStorage storage, String name, String ident) {
         this.storage = new NoteStorageMiddleware(storage);
         this.name = name;
         this.ident = ident;

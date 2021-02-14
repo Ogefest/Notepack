@@ -1,30 +1,30 @@
 package notepack.app.domain;
 
+import notepack.app.domain.exception.MessageError;
+
 import java.io.File;
 import java.util.Date;
-import notepack.app.domain.exception.MessageError;
-import notepack.app.storage.JsonMeta;
 
 public class Note {
 
     private byte[] content;
     private String path = null;
     private String name = null;
-    private Notepad notepad;
+    private Workspace workspace;
     private NoteMeta meta;
     private String ident;
     private boolean isSaved = true;
 
-    public Note(Notepad notepad) {
-        this.ident = notepad.getIdent() + Long.toString(new Date().getTime());
+    public Note(Workspace workspace) {
+        this.ident = workspace.getIdent() + Long.toString(new Date().getTime());
         this.path = null;
-        this.notepad = notepad;
+        this.workspace = workspace;
     }
 
-    public Note(String path, Notepad notepad, String name) {
-        this.ident = notepad.getIdent() + path;
+    public Note(String path, Workspace workspace, String name) {
+        this.ident = workspace.getIdent() + path;
         this.path = path;
-        this.notepad = notepad;
+        this.workspace = workspace;
         this.name = name;
     }
 
@@ -44,12 +44,12 @@ public class Note {
         return f.getName();
     }
 
-    public Notepad getNotepad() {
-        return notepad;
+    public Workspace getWorkspace() {
+        return workspace;
     }
 
     public NoteStorage getStorage() {
-        return notepad.getStorage();
+        return workspace.getStorage();
     }
 
     public String getPath() {
@@ -73,12 +73,12 @@ public class Note {
         if (path == null) {
             content = new byte[0];
         } else {
-            content = notepad.getStorage().loadContent(path);
+            content = workspace.getStorage().loadContent(path);
         }
     }
 
     public void saveToStorage() throws MessageError {
-        notepad.getStorage().saveContent(content, path);
+        workspace.getStorage().saveContent(content, path);
         setPath(path);
         isSaved = true;
     }
@@ -93,7 +93,7 @@ public class Note {
 
     public NoteMeta getMeta() {
         if (meta == null) {
-            meta = notepad.getMetaForNote(this);
+            meta = workspace.getMetaForNote(this);
         }
 
         return meta;

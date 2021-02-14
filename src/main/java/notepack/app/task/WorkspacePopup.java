@@ -3,10 +3,10 @@ package notepack.app.task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import notepack.MainViewController;
-import notepack.NotepadCreateController;
+import notepack.WorkspaceCreateController;
 import notepack.app.domain.App;
-import notepack.app.domain.Notepad;
 import notepack.app.domain.Task;
+import notepack.app.domain.Workspace;
 import notepack.app.domain.exception.MessageError;
 import notepack.gui.TaskUtil;
 
@@ -14,15 +14,15 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NotepadPopup implements Task, TypeGui {
+public class WorkspacePopup implements Task, TypeGui {
 
-    private Notepad notepad;
+    private Workspace workspace;
 
-    public NotepadPopup(Notepad notepad) {
-        this.notepad = notepad;
+    public WorkspacePopup(Workspace workspace) {
+        this.workspace = workspace;
     }
 
-    public NotepadPopup() {
+    public WorkspacePopup() {
 
     }
 
@@ -30,23 +30,23 @@ public class NotepadPopup implements Task, TypeGui {
     public void guiWork(TaskUtil taskUtil, App app) {
 
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/notepack/NotepadConfigurationPopup.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/notepack/WorkspaceConfigurationPopup.fxml"));
 
         Node root;
         try {
             root = fxmlLoader.load();
 
-            NotepadCreateController ctrl = fxmlLoader.getController();
+            WorkspaceCreateController ctrl = fxmlLoader.getController();
 
             ctrl.setTaskUtil(taskUtil);
-            if (this.notepad != null) {
-                ctrl.setNotepadToEdit(notepad);
-                ctrl.setNotepadCreateCallback(notepad -> {
-                    app.closeNotepad(notepad);
-                    app.openNotepad(notepad);
+            if (this.workspace != null) {
+                ctrl.setWorkspaceToEdit(workspace);
+                ctrl.setWorkspaceCreateCallback(workspace -> {
+                    app.closeWorkspace(workspace);
+                    app.openWorkspace(workspace);
                 });
             } else {
-                ctrl.setNotepadCreateCallback(notepad -> app.openNotepad(notepad));
+                ctrl.setWorkspaceCreateCallback(workspace -> app.openWorkspace(workspace));
             }
 
             taskUtil.openPopup(root);

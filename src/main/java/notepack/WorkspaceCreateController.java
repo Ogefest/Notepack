@@ -11,8 +11,8 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
 import notepack.app.domain.NoteStorage;
 import notepack.app.domain.NoteStorageMiddleware;
-import notepack.app.domain.Notepad;
 import notepack.app.domain.PopupController;
+import notepack.app.domain.Workspace;
 import notepack.app.storage.Filesystem;
 import notepack.app.storage.Webdav;
 import notepack.engine.EngineController;
@@ -30,16 +30,16 @@ import java.util.logging.Logger;
 /**
  * FXML Controller class
  */
-public class NotepadCreateController extends PopupController implements Initializable {
+public class WorkspaceCreateController extends PopupController implements Initializable {
 
     @FXML
-    private TextField notepadName;
+    private TextField workspaceName;
 
-    private NotepadCreateCallback clbk;
+    private WorkspaceCreateCallback clbk;
     @FXML
     private Button btnCancel;
 
-    private Notepad notepad;
+    private Workspace workspace;
     @FXML
     private ToggleButton btnUserColor6;
     @FXML
@@ -136,26 +136,25 @@ public class NotepadCreateController extends PopupController implements Initiali
                 engineForm.getChildren().add(root);
 
             } catch (IOException ex) {
-                Logger.getLogger(NotepadCreateController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(WorkspaceCreateController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         });
 
     }
 
-    public void setNotepadCreateCallback(NotepadCreateCallback clbk) {
+    public void setWorkspaceCreateCallback(WorkspaceCreateCallback clbk) {
         this.clbk = clbk;
     }
 
-    public void setNotepadToEdit(Notepad notepad) {
-        this.notepad = notepad;
-//        notepadEdition = true;
+    public void setWorkspaceToEdit(Workspace workspace) {
+        this.workspace = workspace;
 
-        notepadName.setText(notepad.getName());
+        workspaceName.setText(workspace.getName());
 
         engineSelection.getItems().clear();
 
-        NoteStorage parentStorage = ((NoteStorageMiddleware) notepad.getStorage()).getParentStorage();
+        NoteStorage parentStorage = ((NoteStorageMiddleware) workspace.getStorage()).getParentStorage();
 
         if (Filesystem.class.isInstance(parentStorage)) {
             engineSelection.getItems().add(new EngineType("Filesystem", "engine/Filesystem.fxml"));
@@ -166,8 +165,8 @@ public class NotepadCreateController extends PopupController implements Initiali
         engineSelection.getSelectionModel().select(0);
         engineSelection.setDisable(true);
 
-        if (notepad.getParam("encryption-enabled").equals("1")) {
-            encryptionPassword.setText(notepad.getParam("encryption-password"));
+        if (workspace.getParam("encryption-enabled").equals("1")) {
+            encryptionPassword.setText(workspace.getParam("encryption-password"));
             encryptionCheckbox.setSelected(true);
             copyPasswordBtn.setDisable(false);
         }
@@ -177,25 +176,25 @@ public class NotepadCreateController extends PopupController implements Initiali
         generatePassword.setDisable(true);
         passwordLabel.setDisable(true);
 
-        currentFormController.setStorage(notepad.getStorage());
+        currentFormController.setStorage(workspace.getStorage());
 
-        String currentNotepadColor = notepad.getParam("color");
-        if (btnUserColor1.getUserData().equals(currentNotepadColor)) {
+        String currentWorkspaceColor = workspace.getParam("color");
+        if (btnUserColor1.getUserData().equals(currentWorkspaceColor)) {
             tg.selectToggle(btnUserColor1);
         }
-        if (btnUserColor2.getUserData().equals(currentNotepadColor)) {
+        if (btnUserColor2.getUserData().equals(currentWorkspaceColor)) {
             tg.selectToggle(btnUserColor2);
         }
-        if (btnUserColor3.getUserData().equals(currentNotepadColor)) {
+        if (btnUserColor3.getUserData().equals(currentWorkspaceColor)) {
             tg.selectToggle(btnUserColor3);
         }
-        if (btnUserColor4.getUserData().equals(currentNotepadColor)) {
+        if (btnUserColor4.getUserData().equals(currentWorkspaceColor)) {
             tg.selectToggle(btnUserColor4);
         }
-        if (btnUserColor5.getUserData().equals(currentNotepadColor)) {
+        if (btnUserColor5.getUserData().equals(currentWorkspaceColor)) {
             tg.selectToggle(btnUserColor5);
         }
-        if (btnUserColor6.getUserData().equals(currentNotepadColor)) {
+        if (btnUserColor6.getUserData().equals(currentWorkspaceColor)) {
             tg.selectToggle(btnUserColor6);
         }
 
@@ -205,28 +204,28 @@ public class NotepadCreateController extends PopupController implements Initiali
     @FXML
     private void onAdd(ActionEvent event) {
 
-        String name = notepadName.getText();
+        String name = workspaceName.getText();
         if (name.trim().length() == 0) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "Notepad name is required");
+            Alert a = new Alert(Alert.AlertType.ERROR, "Workspace name is required");
             a.show();
             return;
         }
 
-        if (notepad == null) {
-            notepad = new Notepad(currentFormController.getStorage(), name);
+        if (workspace == null) {
+            workspace = new Workspace(currentFormController.getStorage(), name);
         } else {
-            notepad.getStorage().setConfiguration(currentFormController.getStorage().getConfiguration());
-            notepad.setParam("name", name);
+            workspace.getStorage().setConfiguration(currentFormController.getStorage().getConfiguration());
+            workspace.setParam("name", name);
         }
 
         if (tg.getSelectedToggle() == null) {
-            Alert a = new Alert(Alert.AlertType.ERROR, "Notepad color is required");
+            Alert a = new Alert(Alert.AlertType.ERROR, "Workspace color is required");
             a.show();
             return;
         }
 
         if (encryptionCheckbox.isSelected()) {
-            notepad.setParam("encryption-enabled", "1");
+            workspace.setParam("encryption-enabled", "1");
 
             String pwd = encryptionPassword.getText();
 
@@ -236,18 +235,18 @@ public class NotepadCreateController extends PopupController implements Initiali
                 return;
             }
 
-            notepad.setParam("encryption-password", pwd);
+            workspace.setParam("encryption-password", pwd);
 
         } else {
-            notepad.setParam("encryption-enabled", "0");
+            workspace.setParam("encryption-enabled", "0");
         }
 
         String color = (String) tg.getSelectedToggle().getUserData();
-        notepad.setParam("color", color);
+        workspace.setParam("color", color);
 
-        notepad.registerProcessors();
+        workspace.registerProcessors();
 
-        clbk.ready(notepad);
+        clbk.ready(workspace);
 
         getTaskUtil().closePopup();
 

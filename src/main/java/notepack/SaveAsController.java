@@ -1,24 +1,18 @@
 package notepack;
 
-import java.io.File;
-import java.net.URL;
-import java.util.Collections;
-import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorageItem;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -29,7 +23,7 @@ public class SaveAsController implements Initializable {
     @FXML
     private AnchorPane tabBackground;
     @FXML
-    private TreeView<NoteTreeViewItem> notepadStructure;
+    private TreeView<NoteTreeViewItem> workspaceStructure;
     @FXML
     private TextField noteName;
     @FXML
@@ -71,13 +65,13 @@ public class SaveAsController implements Initializable {
 
         refreshTreeView();
 
-        notepadStructure.setCellFactory((p) -> {
+        workspaceStructure.setCellFactory((p) -> {
             return new NoteTreeCell();
         });
 
-        notepadStructure.setOnMouseClicked((t) -> {
+        workspaceStructure.setOnMouseClicked((t) -> {
 
-            TreeItem<NoteTreeViewItem> it = notepadStructure.getSelectionModel().getSelectedItem();
+            TreeItem<NoteTreeViewItem> it = workspaceStructure.getSelectionModel().getSelectedItem();
 
             if (it.getValue().getNoteStorageItem().isLeaf()) {
                 noteName.setText(it.getValue().getNoteStorageItem().getName());
@@ -124,16 +118,16 @@ public class SaveAsController implements Initializable {
     }
 
     public void refreshTreeView() {
-        NoteStorageItem items = note.getNotepad().getStorage().getItemsInStorage();
+        NoteStorageItem items = note.getWorkspace().getStorage().getItemsInStorage();
 
-        NoteTreeViewItem rootItem = new NoteTreeViewItem(note.getNotepad().getName());
+        NoteTreeViewItem rootItem = new NoteTreeViewItem(note.getWorkspace().getName());
         TreeItem root = new TreeItem(rootItem);
 
         root = addChildren(root, items);
         root.setExpanded(true);
 
-        notepadStructure.setRoot(root);
-        notepadStructure.setShowRoot(false);
+        workspaceStructure.setRoot(root);
+        workspaceStructure.setShowRoot(false);
 
         noteName.requestFocus();
     }
@@ -144,7 +138,7 @@ public class SaveAsController implements Initializable {
 
             if (it.isLeaf()) {
 
-                Note cnote = new Note(it.getPath(), note.getNotepad(), it.getName());
+                Note cnote = new Note(it.getPath(), note.getWorkspace(), it.getName());
                 NoteTreeViewItem noteTreeViewItem = new NoteTreeViewItem(cnote, it);
                 TreeItem<NoteTreeViewItem> n = new TreeItem<>(noteTreeViewItem);
 

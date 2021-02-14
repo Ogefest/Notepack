@@ -9,10 +9,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import notepack.NotebookTabController;
+import notepack.WorkspaceTabController;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
-import notepack.app.domain.Notepad;
+import notepack.app.domain.Workspace;
 import notepack.app.task.TodoRefresh;
 import notepack.noterender.NoteRenderController;
 
@@ -26,13 +26,13 @@ public class TaskUtil {
     private App app;
     private Stage stage;
 
-    private HashMap<Notepad, Tab> notepads;
+    private HashMap<Workspace, Tab> workspaceTabHashMap;
 
     public TaskUtil(App app, Stage stage) {
         this.app = app;
         this.stage = stage;
 
-        refreshNotepads();
+        refreshWorkspaces();
         initEventListener();
     }
 
@@ -60,7 +60,7 @@ public class TaskUtil {
                         if (oldValue.equals(newValue)) {
                             return;
                         }
-                        refreshNotepads();
+                        refreshWorkspaces();
                     });
                     break;
 
@@ -72,8 +72,8 @@ public class TaskUtil {
         timer.schedule(task, delay);
     }
 
-    private void refreshNotepads() {
-        notepads = new HashMap<>();
+    private void refreshWorkspaces() {
+        workspaceTabHashMap = new HashMap<>();
 
         Scene scene = stage.getScene();
 
@@ -83,19 +83,19 @@ public class TaskUtil {
         }
 
         for (Tab tab : container.getTabs()) {
-            if (tab instanceof TabNotepad) {
-                NotebookTabController ctrl = (NotebookTabController) tab.getUserData();
+            if (tab instanceof TabWorkspace) {
+                WorkspaceTabController ctrl = (WorkspaceTabController) tab.getUserData();
 
-                notepads.put(ctrl.getNotepad(), tab);
+                workspaceTabHashMap.put(ctrl.getWorkspace(), tab);
             }
         }
     }
 
-    public Tab getNotepadTab(Notepad notepad) {
-        if (!notepads.containsKey(notepad)) {
+    public Tab getWorkspaceTab(Workspace workspace) {
+        if (!workspaceTabHashMap.containsKey(workspace)) {
             return null;
         }
-        return notepads.get(notepad);
+        return workspaceTabHashMap.get(workspace);
     }
 
     public Tab getNoteTab(Note note) {
@@ -111,7 +111,7 @@ public class TaskUtil {
         return null;
     }
 
-    public TabPane getNotepadContainer() {
+    public TabPane getWorkspaceContainer() {
         return (TabPane) stage.getScene().lookup("#notepadTabContainer");
     }
 
@@ -150,10 +150,10 @@ public class TaskUtil {
         return stage;
     }
 
-    public Notepad getCurrentNotepad() {
-        TabPane container = getNotepadContainer();
+    public Workspace getCurrentWorkspace() {
+        TabPane container = getWorkspaceContainer();
         Tab t = container.getSelectionModel().getSelectedItem();
-        return ((NotebookTabController) t.getUserData()).getNotepad();
+        return ((WorkspaceTabController) t.getUserData()).getWorkspace();
     }
 
     public Note getCurrentNote() {

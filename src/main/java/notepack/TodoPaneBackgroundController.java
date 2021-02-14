@@ -190,7 +190,7 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
         this.note = note;
 
         todoWrapper = new TodoWrapper(note);
-        todoBackground.setStyle("-fx-background-color: " + note.getNotepad().getBackgroundColor());
+        todoBackground.setStyle("-fx-background-color: " + note.getWorkspace().getBackgroundColor());
     }
 
     @Override

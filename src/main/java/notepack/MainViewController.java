@@ -1,8 +1,5 @@
 package notepack;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -10,21 +7,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import notepack.app.domain.App;
-import notepack.app.domain.Note;
-import notepack.app.domain.Notepad;
-import notepack.app.domain.SessionStorage;
-import notepack.app.domain.Settings;
-import notepack.app.storage.JsonNotepadRepository;
+import notepack.app.domain.*;
+import notepack.app.storage.JsonWorkspaceRepository;
 import notepack.app.storage.PreferencesSettings;
 import notepack.app.task.*;
 import notepack.encrypt.SimpleAES;
 import notepack.gui.TaskUtil;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
 /**
@@ -61,7 +57,7 @@ public class MainViewController implements Initializable {
     
     public void appStart() {
         appSettings = new PreferencesSettings();
-        SessionStorage sessionStorage = new JsonNotepadRepository(new SimpleAES(), appSettings);
+        SessionStorage sessionStorage = new JsonWorkspaceRepository(new SimpleAES(), appSettings);
         
         app = new App(sessionStorage, appSettings);
         app.getMessageBus().registerGuiListener((task) -> Platform.runLater(() -> task.guiWork(taskUtil, app)));
@@ -87,16 +83,10 @@ public class MainViewController implements Initializable {
             ctrl.setApp(app);
 
             parentPane.getChildren().addAll(notePaneBackground);
-//            parentPane.getChildren().addAll(todoPaneBackground, notePaneBackground);
-
-//            parentPane.getChildren().addAll(todoPaneBackground);
-//            parentPane.getChildren().get(1).tof
-
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         parentStage.setOnCloseRequest((t) -> {
             app.terminate();
@@ -122,8 +112,8 @@ public class MainViewController implements Initializable {
             parentStage.setMaximized(true);
         }
 
-        for (Notepad notepad : app.getAvailableNotepads()) {
-            app.openNotepad(notepad);
+        for (Workspace workspace : app.getAvailableWorkspaces()) {
+            app.openWorkspace(workspace);
         }
         
         if (app.getLastNotes().size() > 0) {
