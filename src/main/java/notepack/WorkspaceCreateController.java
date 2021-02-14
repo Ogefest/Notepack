@@ -149,7 +149,6 @@ public class WorkspaceCreateController extends PopupController implements Initia
 
     public void setWorkspaceToEdit(Workspace workspace) {
         this.workspace = workspace;
-//        notepadEdition = true;
 
         workspaceName.setText(workspace.getName());
 

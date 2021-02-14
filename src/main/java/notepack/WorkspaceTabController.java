@@ -31,7 +31,7 @@ public class WorkspaceTabController implements Initializable {
 
     /*
     Structure used for cache items to select note in fast way without
-    searching whole tree structure in notepad
+    searching whole tree structure in workspace
      */
     private HashMap<String, TreeItem<NoteTreeViewItem>> treeViewItemsCache = new HashMap<>();
 

@@ -29,8 +29,8 @@ public class WorkspaceRefresh extends BaseTask implements Task, TypeWorkspace,Ty
     @Override
     public void guiWork(TaskUtil taskUtil, App app) {
 
-        Tab notepadTab = taskUtil.getWorkspaceTab(workspace);
-        WorkspaceTabController ctrl = (WorkspaceTabController) notepadTab.getUserData();
+        Tab workspaceTab = taskUtil.getWorkspaceTab(workspace);
+        WorkspaceTabController ctrl = (WorkspaceTabController) workspaceTab.getUserData();
         ctrl.refreshTreeView();
 
         addTaskToQueue(new WorkspaceSelectNote(taskUtil.getCurrentNote()));

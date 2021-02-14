@@ -70,7 +70,6 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
                 scene.getStylesheets().clear();
                 scene.getStylesheets().add(Theme.class.getResource("/notepack/color-definition.css" ).toExternalForm());
 
-
                 Stage stage = new Stage();
                 stage.setTitle("Set name");
                 stage.setScene(scene);
@@ -92,7 +91,5 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
         Label l = (Label) t.getGraphic();
         l.setText("");
 
-
-//        app.refreshNotepad(note.getNotepad());
     }
 }

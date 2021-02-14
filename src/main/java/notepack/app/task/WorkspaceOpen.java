@@ -41,7 +41,7 @@ public class WorkspaceOpen implements Task, TypeWorkspace,TypeGui {
     @Override
     public void guiWork(TaskUtil taskUtil, App app) {
 
-        TabPane notepadContainer = taskUtil.getWorkspaceContainer();
+        TabPane workspaceContainer = taskUtil.getWorkspaceContainer();
 
         Tab tab = new TabWorkspace();
         try {
@@ -84,8 +84,8 @@ public class WorkspaceOpen implements Task, TypeWorkspace,TypeGui {
 
             Platform.runLater(() -> {
 
-                notepadContainer.getTabs().add(tab);
-                notepadContainer.getSelectionModel().select(tab);
+                workspaceContainer.getTabs().add(tab);
+                workspaceContainer.getSelectionModel().select(tab);
                 ctrl.refreshTreeView();
 
             });
