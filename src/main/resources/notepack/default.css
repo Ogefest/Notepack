@@ -319,4 +319,8 @@
     -fx-background-color: main-background-color;
     -fx-background-insets: 0;
 
-} 
+}
+
+.tooltip {
+    -fx-font-size: 13.0 pt;
+}
