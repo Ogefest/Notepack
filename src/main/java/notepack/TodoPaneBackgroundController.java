@@ -5,9 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
@@ -35,6 +37,12 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
 
     @FXML
     private TextField filterInput;
+
+    @FXML
+    private ScrollPane taskBox;
+
+    @FXML
+    private HBox messageBox;
 
     private App app;
     private Note note;
@@ -133,6 +141,13 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
             addListview(groupLabel, groups.get(d));
         }
 
+        if (listviewContainer.getChildren().size() == 0) {
+            messageBox.setVisible(true);
+            taskBox.setVisible(false);
+        } else {
+            messageBox.setVisible(false);
+            taskBox.setVisible(true);
+        }
     }
 
     private void addListview(String header, ArrayList<Todo> group) {

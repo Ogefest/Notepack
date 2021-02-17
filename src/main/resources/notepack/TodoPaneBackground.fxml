@@ -73,11 +73,20 @@
                         <center>
                            <VBox alignment="TOP_CENTER">
                               <children>
-                                 <ScrollPane maxWidth="800.0" minWidth="600.0">
+                                 <ScrollPane fx:id="taskBox" maxWidth="800.0" minWidth="600.0">
                                     <content>
-                                       <VBox fx:id="listviewContainer" minWidth="800.0" prefWidth="800.0" />
+                                       <VBox fx:id="listviewContainer" minWidth="800.0" prefWidth="800.0"/>
                                     </content>
                                  </ScrollPane>
+                                 <HBox fx:id="messageBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                    <children>
+                                       <Label text="Your list is empty, press + to add task">
+                                          <font>
+                                             <Font name="Lato Light" size="35.0"/>
+                                          </font>
+                                       </Label>
+                                    </children>
+                                 </HBox>
                               </children>
                            </VBox>
                         </center>
