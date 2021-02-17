@@ -248,6 +248,10 @@ public class App {
         sessionTask.startTaskAfterSecondsFromNow(30);
         messageBus.addTask(sessionTask);
 
+        NoteSaveRecurring noteSave = new NoteSaveRecurring();
+        noteSave.startTaskAfterSecondsFromNow(20);
+        messageBus.addTask(noteSave);
+
     }
 
     public ArrayList<Note> getNotesWithTodo() {

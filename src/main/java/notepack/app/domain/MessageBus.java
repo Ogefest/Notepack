@@ -110,6 +110,7 @@ public class MessageBus {
         }
         if (t instanceof BaseTask) {
             ((BaseTask) t).setMessageBus(this);
+
         }
 
         Thread job = new Thread(new Runnable() {
