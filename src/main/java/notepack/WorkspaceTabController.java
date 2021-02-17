@@ -3,14 +3,18 @@ package notepack;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorageItem;
 import notepack.app.domain.Workspace;
 import notepack.app.task.NoteNew;
+import notepack.app.task.NoteSetNamePopup;
 import notepack.app.task.TodoNew;
 import notepack.app.task.WorkspacePopup;
 
@@ -212,15 +216,17 @@ public class WorkspaceTabController implements Initializable {
 
         Note n = workspaceStructure.getSelectionModel().getSelectedItem().getValue().getNote();
 
-        TextInputDialog dialog = new TextInputDialog(n.getPath());
-        dialog.setTitle("Rename");
-        dialog.setHeaderText(null);
-        dialog.setContentText("Please enter note name:");
+        app.addTask(new NoteSetNamePopup(n));
 
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            app.renameNote(n, result.get());
-        }
+//        TextInputDialog dialog = new TextInputDialog(n.getPath());
+//        dialog.setTitle("Rename");
+//        dialog.setHeaderText(null);
+//        dialog.setContentText("Please enter note name:");
+//
+//        Optional<String> result = dialog.showAndWait();
+//        if (result.isPresent()) {
+//            app.renameNote(n, result.get());
+//        }
 
     }
 

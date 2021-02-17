@@ -324,3 +324,10 @@
 .tooltip {
     -fx-font-size: 13.0 pt;
 }
+
+.tag-label {
+    -fx-background-color: red;
+    -fx-text-fill: tab-text;
+    -fx-padding: 4 7 4 7;
+    -fx-background-radius: 4, 4, 4, 4;
+}

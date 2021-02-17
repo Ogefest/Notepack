@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="187.0"
+            prefWidth="600.0" styleClass="popup-background" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.SetNameController">
+   <stylesheets>
+      <!--<URL value="@color-definition.css" />-->
+      <URL value="@scrollbar.css"/>
+      <URL value="@icons.css"/>
+      <URL value="@default.css"/>
+      <URL value="@layout.css"/>
+      <URL value="@popup.css"/>
+   </stylesheets>
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" styleClass="popup-title" text="Set name"/>
+      <HBox alignment="CENTER" layoutX="14.0" layoutY="39.0" prefHeight="55.0" prefWidth="572.0"
+            AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <Label fx:id="workspaceLabel" styleClass="tag-label" text="Workspace" textAlignment="CENTER">
+               <opaqueInsets>
+                  <Insets left="10.0" right="10.0"/>
+               </opaqueInsets>
+               <font>
+                  <Font size="15.0"/>
+               </font>
+            </Label>
+            <TextField fx:id="noteName" prefHeight="35.0" prefWidth="360.0">
+               <opaqueInsets>
+                  <Insets/>
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets left="10.0"/>
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <Button fx:id="btnCancel" cancelButton="true" layoutX="447.0" layoutY="137.0" mnemonicParsing="false"
+              onAction="#onCancelBtn" text="Cancel" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="84.0"/>
+      <Button fx:id="btnSave" defaultButton="true" layoutX="530.0" layoutY="138.0" mnemonicParsing="false"
+              onAction="#onSaveBtn" text="Save" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="14.0"/>
+   </children>
+</AnchorPane>

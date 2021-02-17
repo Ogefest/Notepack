@@ -2,12 +2,7 @@
     -fx-background-color: todo-area-background;
 }
 
-.tag-label {
-    -fx-background-color: red;
-    -fx-text-fill: tab-text;
-    -fx-padding: 4 7 4 7;
-    -fx-background-radius: 4, 4, 4, 4;
-}
+
 
 .icon-button {
     -fx-background-color: transparent;
