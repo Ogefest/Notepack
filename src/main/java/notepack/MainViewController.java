@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import notepack.app.domain.*;
+import notepack.app.domain.exception.GuiNotReadyError;
 import notepack.app.storage.JsonWorkspaceRepository;
 import notepack.app.storage.PreferencesSettings;
 import notepack.app.task.*;
@@ -58,9 +59,15 @@ public class MainViewController implements Initializable {
     public void appStart() {
         appSettings = new PreferencesSettings();
         SessionStorage sessionStorage = new JsonWorkspaceRepository(new SimpleAES(), appSettings);
-        
+
         app = new App(sessionStorage, appSettings);
-        app.getMessageBus().registerGuiListener((task) -> Platform.runLater(() -> task.guiWork(taskUtil, app)));
+        app.getMessageBus().registerGuiListener((task) -> Platform.runLater(() -> {
+            try {
+                task.guiWork(taskUtil, app);
+            } catch (GuiNotReadyError guiNotReadyError) {
+                app.addTask((Task) task);
+            }
+        }));
     }
     
     public void windowRestore() {
