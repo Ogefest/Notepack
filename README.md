@@ -43,6 +43,7 @@ Documentation is available in [wiki](https://github.com/Ogefest/Notepack/wiki/Do
 
 ### Tasks
 ![Task list](./gfx/task-list.png)
+![Task new](./gfx/task-new.png)
 
 ### PDF Support
 ![PDF](./gfx/pdf.png)
