@@ -7,31 +7,29 @@ package notepack.noterender;
 
 import com.vladsch.flexmark.ext.abbreviation.AbbreviationExtension;
 import com.vladsch.flexmark.ext.definition.DefinitionExtension;
-//import com.vladsch.flexmark.ext.footnotes.FootnoteExtension;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
 import com.vladsch.flexmark.ext.typographic.TypographicExtension;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebView;
-
-import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.data.MutableDataSet;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.SplitPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.web.WebView;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MarkdownController extends TextAreaController {
 
@@ -47,8 +45,6 @@ public class MarkdownController extends TextAreaController {
     private AnchorPane rightPane;
     @FXML
     private SplitPane splitPane;
-    @FXML
-    private Button btnSave;
     @FXML
     private Button btnSearch;
     @FXML
@@ -165,11 +161,9 @@ public class MarkdownController extends TextAreaController {
             isVisible = false;
         }
 
-        btnSave.setVisible(isVisible);
         btnSearch.setVisible(isVisible);
         btnActions.setVisible(isVisible);
 
-        btnSave.setManaged(isVisible);
         btnSearch.setManaged(isVisible);
         btnActions.setManaged(isVisible);
 
