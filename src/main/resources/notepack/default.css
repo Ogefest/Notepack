@@ -137,11 +137,11 @@
 }
 
 .top-bar {
-    -fx-background-color: -fx-bar-background;
+    /*-fx-background-color: -fx-bar-background;*/
 }
 
 .top-bar .label {
-    -fx-text-fill: tab-text;
+    /*-fx-text-fill: tab-text;*/
 }
 
 .split-pane-divider {

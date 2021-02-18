@@ -27,9 +27,9 @@
 }
 #top-bar .icon-button {
     -fx-padding: 13 20 13 20;
-    -fx-text-fill: icon-color2;
+    /*-fx-text-fill: icon-color2;*/
 }
-
+/*
 #top-bar .icon-button .icon-base {
     -fx-background-color: icon-color2;
 }
@@ -42,7 +42,7 @@
     -fx-background-radius: 3px;
     -fx-border-radius: 3px;
 
-}
+}*/
 
 #noteTabContainer .tab.icon-base {
     -fx-background-color: text-color;
