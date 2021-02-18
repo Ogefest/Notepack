@@ -2,7 +2,7 @@
 
 Privacy oriented, without vendor lock in note organizer and todo list desktop application.
 
-![Main notepack window](./gfx/screen1.png)
+![Main notepack window](./gfx/markdown.png)
 
 ## Current release
 
@@ -15,35 +15,35 @@ Documentation is available in [wiki](https://github.com/Ogefest/Notepack/wiki/Do
 
 ## Core features
 
-- privacy by design - no cloud, no accounts, no usage tracking
-- without vendor lock in - all features uses plain files in filesystem structure
+- [privacy by design](https://github.com/Ogefest/Notepack/wiki/Privacy) - no cloud, no accounts, no usage tracking
+- [without vendor lock in](https://github.com/Ogefest/Notepack/wiki/No-vendor-lock-in) - all features uses plain files in filesystem structure
 - multiple workspaces, multiple notes in workspace
 - TODO list support using [iCalendar format](https://en.wikipedia.org/wiki/ICalendar#To-do_(VTODO))
 - color highlight for workspaces
 - multiple note storage backend, filesystem and WebDav supported right now
-- supported file formats: plain text, Markdown, PDF, JPG, PNG, ics (calendar files)
+- [supported file formats](https://github.com/Ogefest/Notepack/wiki/File-type-supported): plain text, Markdown, PDF, JPG, PNG, ics (calendar files)
 - easy note switch using only shortcuts
 - minimalist clean layout
-- encryption using zip AES algorithm (note packed as zip archive with password protected)
+- [encryption](https://github.com/Ogefest/Notepack/wiki/Encryption) using zip AES algorithm (note packed as zip archive with password protected)
 
 ## Screenshots
 
 ### Main window
-![Main notepack window](./gfx/screen1.png)
+![Main notepack window](./gfx/markdown.png)
 
 ### New workspace
-![New workspace](./gfx/new-workspace.png)
+![New workspace](./gfx/create-workspace.png)
 
 
 ### Dark theme
-![Dark theme](./gfx/dark-mode.gif)
+![Dark theme](./gfx/dark-mode.png)
 
 ### Search for notes
-![Search for notes](./gfx/search.gif)
+![Search for notes](./gfx/search.png)
 
-### Notepad colors
-![Colors](./gfx/colors.gif)
+### Tasks
+![Task list](./gfx/task-list.png)
 
-### Storage
-![Storage](./gfx/storage.gif)
+### PDF Support
+![PDF](./gfx/pdf.png)
 
