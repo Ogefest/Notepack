@@ -1,26 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.web.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckMenuItem?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
+<?import javafx.scene.web.WebView?>
+<?import java.net.URL?>
 <AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.noterender.MarkdownController">
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
@@ -35,21 +20,14 @@
                 <AnchorPane id="noteToolbar" prefHeight="40.0" prefWidth="1011.0">
                     <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>                        
-                                <Button fx:id="btnSave" mnemonicParsing="false" onAction="#onSaveNote" styleClass="icon-button">
+                            <children>
+                                <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#onSearchInNote"
+                                        styleClass="icon-button">
                                     <tooltip>
-                                        <Tooltip text="Save note (Ctrl + s)" />
+                                        <Tooltip text="Search (Ctrl + f)"/>
                                     </tooltip>
                                     <graphic>
-                                        <Label styleClass="icon-base,mi-content-save-outline" />
-                                    </graphic>
-                                </Button>                         
-                                <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#onSearchInNote" styleClass="icon-button">
-                                    <tooltip>
-                                        <Tooltip text="Search (Ctrl + f)" />
-                                    </tooltip>
-                                    <graphic>
-                                        <Label styleClass="icon-base,mi-magnify" />
+                                        <Label styleClass="icon-base,mi-magnify"/>
                                     </graphic>
                                 </Button>
                                 <MenuButton fx:id="btnActions" mnemonicParsing="false" styleClass="icon-button">
