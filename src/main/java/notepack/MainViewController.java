@@ -77,12 +77,6 @@ public class MainViewController implements Initializable {
         SplitPane notePaneBackground;
         try {
 
-//            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/notepack/TodoPaneBackground.fxml"));
-//            BorderPane todoPaneBackground = loader2.load();
-//            TodoPaneBackgroundController ctrl2 = loader2.getController();
-//            todoPaneBackground.setUserData(ctrl2);
-//            ctrl2.setApp(app);
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/notepack/NotePaneBackground.fxml"));
             notePaneBackground = loader.load();
             NotePaneBackgroundController ctrl = loader.getController();
