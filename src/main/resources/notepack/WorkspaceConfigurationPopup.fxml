@@ -19,7 +19,7 @@
         <AnchorPane prefHeight="228.0" prefWidth="706.0" styleClass="card" AnchorPane.leftAnchor="15.0"
                     AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
             <children>
-                <Label layoutX="36.0" layoutY="39.0" text="Notepad name:" AnchorPane.leftAnchor="20.0">
+                <Label layoutX="36.0" layoutY="39.0" text="Workspace name:" AnchorPane.leftAnchor="20.0">
                     <font>
                         <Font size="15.0"/>
                     </font>
