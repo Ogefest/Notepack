@@ -51,7 +51,7 @@ jlink {
     addExtraDependencies("javafx")
     launcher {
         name = 'Notepack'
-        jvmArgs = ['-Xms256m', '-Xmx2g']
+        jvmArgs = ['-Xms128m', '-Xmx2g']
     }
     mergedModule {
         additive = true
