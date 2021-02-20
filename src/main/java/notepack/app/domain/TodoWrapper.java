@@ -7,6 +7,7 @@ import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.component.CalendarComponent;
 import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.component.VToDo;
+import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.model.property.*;
 import notepack.app.domain.exception.MessageError;
 

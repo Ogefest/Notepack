@@ -26,5 +26,6 @@
       <Hyperlink layoutX="195.0" layoutY="161.0" onAction="#openBrowser" text="github.com/Ogefest/Notepack"/>
       <Button fx:id="btnCancel" cancelButton="true" layoutX="519.0" layoutY="215.0" mnemonicParsing="false"
               onAction="#onCancel" text="Close"/>
+      <Label fx:id="versionLabel" layoutX="265.0" layoutY="133.0" text="Version: 1"/>
    </children>
 </AnchorPane>

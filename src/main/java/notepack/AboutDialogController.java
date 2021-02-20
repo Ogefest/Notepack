@@ -5,7 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import notepack.app.domain.PopupController;
+import notepack.app.domain.Version;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +20,9 @@ public class AboutDialogController extends PopupController implements Initializa
     @FXML
     private Button btnCancel;
 
+    @FXML
+    private Label versionLabel;
+
     public HostServices hostServices;
 
     /**
@@ -25,7 +30,7 @@ public class AboutDialogController extends PopupController implements Initializa
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        versionLabel.setText("Version: " + Version.app());
     }
 
     @FXML
