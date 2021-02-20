@@ -115,13 +115,14 @@ jpackage {
 }
 
 processResources {
-    doFirst {
+    outputs.upToDateWhen { false }
+    doLast {
         def date = new Date()
         def formattedDate = date.format('yyyyMMddHHmmss')
-
         def resourcesDir = sourceSets.main.output.resourcesDir
         resourcesDir.mkdirs()
         def contents = "name=$project.name\nversion=" + getCurrentGitTag() + "\nbuild=" + formattedDate + "\n"
+        println contents
         new File(resourcesDir, "build-info.properties").text = contents
     }
 }

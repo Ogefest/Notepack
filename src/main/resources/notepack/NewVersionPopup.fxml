@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="212.0"
+            prefWidth="517.0" styleClass="card" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="notepack.NewVersionController">
+   <stylesheets>
+      <!--<URL value="@color-definition.css" />-->
+      <URL value="@scrollbar.css"/>
+      <URL value="@icons.css"/>
+      <URL value="@default.css"/>
+      <URL value="@layout.css"/>
+      <URL value="@popup.css"/>
+   </stylesheets>
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" styleClass="popup-title" text="New version">
+         <font>
+            <Font size="62.0"/>
+         </font>
+      </Label>
+      <Button fx:id="btnCancel" cancelButton="true" layoutX="370.0" layoutY="163.0" mnemonicParsing="false"
+              onAction="#onCancel" text="Ignore" AnchorPane.bottomAnchor="14.0"/>
+      <Label fx:id="versionLabel" contentDisplay="CENTER" layoutX="14.0" layoutY="71.0" prefHeight="62.0"
+             prefWidth="574.0" text="New version was released, click open to open github page and download"
+             textAlignment="CENTER" wrapText="true" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"/>
+      <Button fx:id="btnOpen" defaultButton="true" layoutX="444.0" layoutY="163.0" mnemonicParsing="false"
+              onAction="#onOpen" text="Open" AnchorPane.bottomAnchor="14.0"/>
+   </children>
+</AnchorPane>

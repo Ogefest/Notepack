@@ -128,6 +128,7 @@ public class MainViewController implements Initializable {
 
         app.getTheme().set(cssFile, mainScene);
         app.addTask(new InitializeShortcuts());
+        app.addTask(new NewVersionCheck(hostServices));
         app.startDispatcher();
     }
 

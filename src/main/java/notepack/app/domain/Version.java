@@ -13,7 +13,20 @@ public class Version {
             props.load(in);
             version = (String) props.get("version");
         } catch (IOException e) {
-            e.printStackTrace();
+            // run locally
+        }
+        return version;
+    }
+
+    public static String build() {
+        InputStream in = Version.class.getClassLoader().getResourceAsStream("build-info.properties");
+        Properties props = new Properties();
+        String version = "unknown";
+        try {
+            props.load(in);
+            version = (String) props.get("build");
+        } catch (IOException e) {
+            // run locally
         }
         return version;
     }
