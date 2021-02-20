@@ -37,6 +37,7 @@ public class ShowApplicationInfo extends BaseTask implements Task, TypeGui {
 
             AboutDialogController ctrl = loader.getController();
             ctrl.setTaskUtil(taskUtil);
+            ctrl.setHostServices(hostServices);
 
             taskUtil.openPopup(pane);
 

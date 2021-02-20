@@ -33,6 +33,10 @@ public class AboutDialogController extends PopupController implements Initializa
         versionLabel.setText("Version: " + Version.app());
     }
 
+    public void setHostServices(HostServices hostServices) {
+        this.hostServices = hostServices;
+    }
+
     @FXML
     private void onCancel(ActionEvent event) {
         getTaskUtil().closePopup();
