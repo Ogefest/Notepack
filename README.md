@@ -16,14 +16,14 @@ Documentation is available in [wiki](https://github.com/Ogefest/Notepack/wiki/Do
 ## Core features
 
 - [privacy by design](https://github.com/Ogefest/Notepack/wiki/Privacy) - no cloud, no accounts, no usage tracking
-- [without vendor lock in](https://github.com/Ogefest/Notepack/wiki/No-vendor-lock-in) - all features uses plain files in filesystem structure
+- [without vendor lock in](https://github.com/Ogefest/Notepack/wiki/No-vendor-lock-in) - all features uses plain files in filesystem structure, all files are [Open format](https://en.wikipedia.org/wiki/Open_format)
 - multiple workspaces, multiple notes in workspace
 - TODO list support using [iCalendar format](https://en.wikipedia.org/wiki/ICalendar#To-do_(VTODO))
 - color highlight for workspaces
-- multiple note storage backend, filesystem and WebDav supported right now
-- [supported file formats](https://github.com/Ogefest/Notepack/wiki/File-type-supported): plain text, Markdown, PDF, JPG, PNG, ics (calendar files)
 - easy note switch using only shortcuts
 - minimalist clean layout
+- multiple note storage backend, filesystem and WebDav supported right now
+- [supported file formats](https://github.com/Ogefest/Notepack/wiki/File-type-supported): plain text, Markdown, PDF, JPG, PNG, iCalendar
 - [encryption](https://github.com/Ogefest/Notepack/wiki/Encryption) using zip AES algorithm (note packed as zip archive with password protected)
 
 ## Screenshots
