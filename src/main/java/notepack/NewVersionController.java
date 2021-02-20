@@ -109,6 +109,7 @@ public class NewVersionController extends PopupController implements Initializab
     @FXML
     private void onOpen(ActionEvent event) {
         hostServices.showDocument(urlWithVersion);
+        getTaskUtil().closePopup();
     }
 
 }
