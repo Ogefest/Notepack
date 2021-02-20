@@ -16,6 +16,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * FXML Controller class
@@ -66,7 +68,7 @@ public class NewVersionController extends PopupController implements Initializab
 
         HttpURLConnection con = null;
         try {
-            URL appVersionUrl = new URL("https://notepackapp.com/version.json?build=" + currentBuild + "&version=" + currentVersion);
+            URL appVersionUrl = new URL("https://notepackapp.com/version.json?build=" + currentBuild + "&version=" + currentVersion + "&system=" + System.getProperty("os.name"));
             con = (HttpURLConnection) appVersionUrl.openConnection();
             con.setRequestMethod("GET");
             BufferedReader in = new BufferedReader(
@@ -91,6 +93,7 @@ public class NewVersionController extends PopupController implements Initializab
             urlWithVersion = jsonObject.getString("url");
 
         } catch (IOException e) {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, e);
             isNewVersionAvailable = false;
         }
 
