@@ -15,6 +15,7 @@ import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.Todo;
 import notepack.app.domain.TodoWrapper;
+import notepack.app.task.TagPopup;
 import notepack.app.task.TodoPopup;
 import notepack.noterender.NoteRenderController;
 
@@ -238,5 +239,10 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
             filterInput.setVisible(true);
             filterInput.requestFocus();
         }
+    }
+
+    @FXML
+    protected void onTagNote(ActionEvent event) {
+        app.addTask(new TagPopup(note));
     }
 }

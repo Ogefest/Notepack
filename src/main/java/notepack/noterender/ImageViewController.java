@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
+import notepack.app.task.TagPopup;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
@@ -47,6 +48,11 @@ public class ImageViewController implements Initializable, NoteRenderController 
     @FXML
     private void onCloseNote(ActionEvent event) {
         app.closeNote(note);
+    }
+
+    @FXML
+    protected void onTagNote(ActionEvent event) {
+        app.addTask(new TagPopup(note));
     }
 
     @Override

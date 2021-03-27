@@ -17,6 +17,7 @@ import notepack.*;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.storage.PreferencesSettings;
+import notepack.app.task.TagPopup;
 
 import java.io.IOException;
 import java.net.URL;
@@ -206,12 +207,18 @@ public class TextAreaController implements Initializable, NoteRenderController {
 
     @FXML
     protected void onSelectAll(ActionEvent event) {
-        textArea.selectAll();;
+        textArea.selectAll();
+        ;
     }
 
     @FXML
     protected void onCloseNote(ActionEvent event) {
         app.closeNote(note);
+    }
+
+    @FXML
+    protected void onTagNote(ActionEvent event) {
+        app.addTask(new TagPopup(note));
     }
 
     @Override

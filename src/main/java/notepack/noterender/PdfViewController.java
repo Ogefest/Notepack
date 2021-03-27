@@ -14,6 +14,7 @@ import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
+import notepack.app.task.TagPopup;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -179,8 +180,13 @@ public class PdfViewController implements Initializable, NoteRenderController {
             default:
                 cmd = "auto";
         }
-        
-        webEngine.executeScript("PDFViewerApplication.pdfViewer._setScale('"+cmd+"')");
+
+        webEngine.executeScript("PDFViewerApplication.pdfViewer._setScale('" + cmd + "')");
     }
-    
+
+    @FXML
+    protected void onTagNote(ActionEvent event) {
+        app.addTask(new TagPopup(note));
+    }
+
 }

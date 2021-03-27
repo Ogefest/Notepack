@@ -46,12 +46,21 @@
                </HBox>
                <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
                   <children>
-                     <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
+                     <Button mnemonicParsing="false" onAction="#onTagNote" styleClass="icon-button">
                         <tooltip>
-                           <Tooltip text="Close note (Ctrl + w)" />
+                           <Tooltip text="Tag"/>
                         </tooltip>
                         <graphic>
-                           <Label styleClass="icon-base,mi-close" />
+                           <Label styleClass="icon-base,mi-tag-outline"/>
+                        </graphic>
+                     </Button>
+
+                     <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
+                        <tooltip>
+                           <Tooltip text="Close note (Ctrl + w)"/>
+                        </tooltip>
+                        <graphic>
+                           <Label styleClass="icon-base,mi-close"/>
                         </graphic>
                      </Button>
                   </children>
