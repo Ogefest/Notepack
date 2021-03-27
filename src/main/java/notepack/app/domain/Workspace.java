@@ -1,6 +1,8 @@
 package notepack.app.domain;
 
 import notepack.app.storage.JsonMeta;
+import notepack.processor.ConvertFromUtf8;
+import notepack.processor.ConvertToUtf8;
 import notepack.processor.ZipDecrypt;
 import notepack.processor.ZipEncrypt;
 
@@ -40,6 +42,10 @@ public class Workspace {
             String pwd = getParam("encryption-password");
             storage.registerAfterLoad(new ZipDecrypt(pwd));
             storage.registerBeforeSave(new ZipEncrypt(pwd));
+        }
+        if (getParam("convert-to-utf8").equals("1")) {
+            storage.registerAfterLoad(new ConvertFromUtf8());
+            storage.registerBeforeSave(new ConvertToUtf8());
         }
     }
 

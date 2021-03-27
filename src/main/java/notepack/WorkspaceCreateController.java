@@ -20,6 +20,7 @@ import notepack.engine.EngineType;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -76,6 +77,11 @@ public class WorkspaceCreateController extends PopupController implements Initia
     private Button copyPasswordBtn;
     @FXML
     private Label passwordLabel;
+
+    @FXML
+    private CheckBox utfContentCheckbox;
+    @FXML
+    private Label contentUtfLabel;
 
     /**
      * Initializes the controller class.
@@ -141,6 +147,12 @@ public class WorkspaceCreateController extends PopupController implements Initia
 
         });
 
+        String systemEncoding = Charset.defaultCharset().displayName();
+        if (systemEncoding.equals("UTF-8")) {
+            contentUtfLabel.setVisible(false);
+            utfContentCheckbox.setVisible(false);
+        }
+
     }
 
     public void setWorkspaceCreateCallback(WorkspaceCreateCallback clbk) {
@@ -198,6 +210,21 @@ public class WorkspaceCreateController extends PopupController implements Initia
             tg.selectToggle(btnUserColor6);
         }
 
+        String defaultEncoding = workspace.getParam("convert-to-utf8");
+        String systemEncoding = Charset.defaultCharset().displayName();
+        if (systemEncoding.equals("UTF-8")) {
+            utfContentCheckbox.setVisible(false);
+            contentUtfLabel.setVisible(false);
+            utfContentCheckbox.setSelected(false);
+        } else {
+            contentUtfLabel.setVisible(true);
+            utfContentCheckbox.setVisible(true);
+
+            if (defaultEncoding.equals("1")) {
+                utfContentCheckbox.setSelected(true);
+            }
+        }
+
         btnSave.setText("Save");
     }
 
@@ -243,6 +270,7 @@ public class WorkspaceCreateController extends PopupController implements Initia
 
         String color = (String) tg.getSelectedToggle().getUserData();
         workspace.setParam("color", color);
+        workspace.setParam("convert-to-utf8", utfContentCheckbox.isSelected() ? "1" : "");
 
         workspace.registerProcessors();
 
@@ -250,15 +278,11 @@ public class WorkspaceCreateController extends PopupController implements Initia
 
         getTaskUtil().closePopup();
 
-//        Stage stage = (Stage) btnCancel.getScene().getWindow();
-//        stage.close();
     }
 
     @FXML
     private void onCancel(ActionEvent event) {
         getTaskUtil().closePopup();
-//        Stage stage = (Stage) btnCancel.getScene().getWindow();
-//        stage.close();
     }
 
     @FXML

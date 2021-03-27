@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0"
             prefWidth="780.0" styleClass="card" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
@@ -16,71 +16,91 @@
         <URL value="@layout.css"/>
     </stylesheets>
     <children>
-        <AnchorPane prefHeight="228.0" prefWidth="706.0" styleClass="card" AnchorPane.leftAnchor="15.0"
-                    AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"
+              AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
             <children>
-                <Label layoutX="36.0" layoutY="39.0" text="Workspace name:" AnchorPane.leftAnchor="20.0">
-                    <font>
-                        <Font size="15.0"/>
-                    </font>
-                </Label>
-                <TextField fx:id="workspaceName" layoutX="215.0" layoutY="32.0" prefHeight="38.0" prefWidth="445.0"/>
-                <Label layoutX="56.0" layoutY="84.0" text="Workspace color:" AnchorPane.leftAnchor="20.0">
-                    <font>
-                        <Font size="15.0"/>
-                    </font>
-                </Label>
-                <ToggleButton fx:id="btnUserColor6" layoutX="379.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-6;" />
-                <ToggleButton fx:id="btnUserColor5" layoutX="345.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-5;" />
-                <ToggleButton fx:id="btnUserColor4" layoutX="313.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-4;" />
-                <ToggleButton fx:id="btnUserColor3" layoutX="279.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-3;" />
-                <ToggleButton fx:id="btnUserColor2" layoutX="247.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-2;" />
-                <ToggleButton fx:id="btnUserColor1" layoutX="215.0" layoutY="80.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="25.0" selected="true" style="-fx-background-color: user-color-1;" />
-            <Label layoutX="40.0" layoutY="126.0" text="Enable encryption:">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <CheckBox fx:id="encryptionCheckbox" layoutX="215.0" layoutY="128.0" mnemonicParsing="false" />
-            <Label fx:id="passwordLabel" disable="true" layoutX="40.0" layoutY="175.0" text="Password:">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="encryptionPassword" disable="true" layoutX="214.0" layoutY="167.0" prefHeight="37.0" prefWidth="223.0" />
-            <Button fx:id="generatePassword" disable="true" layoutX="446.0" layoutY="168.0" mnemonicParsing="false" onAction="#generateRandomPassword" text="Generate" />
-            <Button fx:id="copyPasswordBtn" disable="true" layoutX="539.0" layoutY="168.0" mnemonicParsing="false" onAction="#copyPassword" text="Copy password" />
-         </children>
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
-         <VBox.margin>
-            <Insets bottom="20.0" />
-         </VBox.margin>
-      </AnchorPane>
-        <AnchorPane layoutX="15.0" layoutY="269.0" prefHeight="364.0" prefWidth="706.0" styleClass="card"
-                    AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
-            <VBox.margin>
-                <Insets bottom="20.0"/>
-            </VBox.margin>
-            <children>
-                <ComboBox fx:id="engineSelection" layoutX="23.0" layoutY="22.0" prefHeight="26.0" prefWidth="665.0"
-                          promptText="Select storage engine" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
-                          AnchorPane.topAnchor="15.0"/>
-                <AnchorPane fx:id="engineForm" layoutX="15.0" layoutY="52.0" prefHeight="293.0" prefWidth="702.0"
-                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+                <AnchorPane prefHeight="259.0" prefWidth="750.0" styleClass="card">
+                    <children>
+                        <Label layoutX="36.0" layoutY="39.0" text="Workspace name:" AnchorPane.leftAnchor="20.0">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="workspaceName" layoutX="250.0" layoutY="29.0" prefHeight="38.0"
+                                   prefWidth="445.0"/>
+                        <Label layoutX="56.0" layoutY="84.0" text="Workspace color:" AnchorPane.leftAnchor="20.0">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Label>
+                        <ToggleButton fx:id="btnUserColor6" layoutX="391.0" layoutY="77.0" mnemonicParsing="false"
+                                      prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-6;"/>
+                        <ToggleButton fx:id="btnUserColor5" layoutX="430.0" layoutY="77.0" mnemonicParsing="false"
+                                      prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-5;"/>
+                        <ToggleButton fx:id="btnUserColor4" layoutX="348.0" layoutY="77.0" mnemonicParsing="false"
+                                      prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-4;"/>
+                        <ToggleButton fx:id="btnUserColor3" layoutX="314.0" layoutY="77.0" mnemonicParsing="false"
+                                      prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-3;"/>
+                        <ToggleButton fx:id="btnUserColor2" layoutX="282.0" layoutY="77.0" mnemonicParsing="false"
+                                      prefHeight="26.0" prefWidth="25.0" style="-fx-background-color: user-color-2;"/>
+                        <ToggleButton fx:id="btnUserColor1" layoutX="250.0" layoutY="77.0" mnemonicParsing="false"
+                                      prefHeight="26.0" prefWidth="25.0" selected="true"
+                                      style="-fx-background-color: user-color-1;"/>
+                        <Label layoutX="39.0" layoutY="126.0" text="Enable encryption:">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Label>
+                        <CheckBox fx:id="encryptionCheckbox" layoutX="248.0" layoutY="127.0" mnemonicParsing="false"/>
+                        <Label fx:id="passwordLabel" disable="true" layoutX="39.0" layoutY="175.0" text="Password:">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Label>
+                        <PasswordField fx:id="encryptionPassword" disable="true" layoutX="248.0" layoutY="164.0"
+                                       prefHeight="37.0" prefWidth="223.0"/>
+                        <Button fx:id="generatePassword" disable="true" layoutX="480.0" layoutY="165.0"
+                                mnemonicParsing="false" onAction="#generateRandomPassword" text="Generate"/>
+                        <Button fx:id="copyPasswordBtn" disable="true" layoutX="573.0" layoutY="165.0"
+                                mnemonicParsing="false" onAction="#copyPassword" text="Copy password"/>
+                        <CheckBox fx:id="utfContentCheckbox" layoutX="247.0" layoutY="220.0" mnemonicParsing="false"/>
+                        <Label fx:id="contentUtfLabel" layoutX="39.0" layoutY="219.0" text="Save content using UTF-8:">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </padding>
+                    <VBox.margin>
+                        <Insets bottom="20.0"/>
+                    </VBox.margin>
+                </AnchorPane>
+                <AnchorPane prefHeight="347.0" prefWidth="750.0" styleClass="card">
+                    <VBox.margin>
+                        <Insets bottom="20.0"/>
+                    </VBox.margin>
+                    <children>
+                        <ComboBox fx:id="engineSelection" layoutX="23.0" layoutY="22.0" prefHeight="26.0"
+                                  prefWidth="665.0" promptText="Select storage engine" AnchorPane.leftAnchor="15.0"
+                                  AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0"/>
+                        <AnchorPane fx:id="engineForm" layoutX="15.0" layoutY="52.0" prefHeight="325.0"
+                                    prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0"/>
+                    </children>
+                </AnchorPane>
+                <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="52.0" prefWidth="750.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <Button fx:id="btnSave" defaultButton="true" layoutX="333.0" layoutY="436.0"
+                                mnemonicParsing="false" onAction="#onAdd" text="Add" AnchorPane.bottomAnchor="10.0"
+                                AnchorPane.rightAnchor="0.0"/>
+                        <Button fx:id="btnCancel" cancelButton="true" layoutX="577.0" layoutY="10.0"
+                                mnemonicParsing="false" onAction="#onCancel" text="Cancel"
+                                AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="60.0"/>
+                    </children>
+                </AnchorPane>
             </children>
-        </AnchorPane>
-        <AnchorPane layoutX="20.0" layoutY="599.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="76.0" prefWidth="706.0"
-                    AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0"
-                    VBox.vgrow="ALWAYS">
-            <children>
-                <Button fx:id="btnSave" defaultButton="true" layoutX="333.0" layoutY="436.0" mnemonicParsing="false"
-                        onAction="#onAdd" text="Add" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="0.0"/>
-                <Button fx:id="btnCancel" cancelButton="true" layoutX="577.0" layoutY="10.0" mnemonicParsing="false"
-                        onAction="#onCancel" text="Cancel" AnchorPane.bottomAnchor="10.0"
-                        AnchorPane.rightAnchor="60.0"/>
-            </children>
-        </AnchorPane>
+        </VBox>
     </children>
 </AnchorPane>
