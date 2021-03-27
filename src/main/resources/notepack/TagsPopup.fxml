@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+<AnchorPane fx:id="reminderPaneBackground" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="282.0" prefWidth="508.0" styleClass="popup-background"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="notepack.TagPopupController">
+   <stylesheets>
+      <!--<URL value="@color-definition.css" />-->
+      <URL value="@scrollbar.css"/>
+      <URL value="@icons.css"/>
+      <URL value="@default.css"/>
+      <URL value="@layout.css"/>
+      <URL value="@popup.css"/>
+      <URL value="@tags.css"/>
+   </stylesheets>
+   <children>
+      <Button cancelButton="true" layoutX="426.0" layoutY="193.0" mnemonicParsing="false" onAction="#onCloseBtn"
+              text="Close" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0"/>
+      <Label fx:id="headerLabel" layoutX="14.0" layoutY="14.0" styleClass="popup-title" text="Tags"
+             AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0"/>
+      <Label layoutX="30.0" layoutY="88.0" text="New tag:"/>
+      <TextField fx:id="tagInput" layoutX="117.0" layoutY="78.0" prefHeight="35.0" prefWidth="360.0"/>
+      <HBox fx:id="tagContainer" alignment="CENTER_LEFT" layoutX="28.0" layoutY="169.0" prefHeight="43.0"
+            prefWidth="452.0" spacing="10.0"/>
+      <Label fx:id="currentTagsLabel" layoutX="30.0" layoutY="148.0" text="Current tags (click to remove):"/>
+   </children>
+</AnchorPane>
