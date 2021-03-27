@@ -61,6 +61,12 @@ public class TagPopupController extends PopupController {
     private void refreshTagList() {
         tagContainer.getChildren().clear();
 
+        if (note.getMeta().getTags().size() == 0) {
+            currentTagsLabel.setVisible(false);
+        } else {
+            currentTagsLabel.setVisible(true);
+        }
+
         for (String tag : note.getMeta().getTags()) {
 
             Button tagBtn = new Button();
