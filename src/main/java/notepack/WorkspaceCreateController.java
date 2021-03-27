@@ -147,6 +147,12 @@ public class WorkspaceCreateController extends PopupController implements Initia
 
         });
 
+        String systemEncoding = Charset.defaultCharset().displayName();
+        if (systemEncoding.equals("UTF-8")) {
+            contentUtfLabel.setVisible(false);
+            utfContentCheckbox.setVisible(false);
+        }
+
     }
 
     public void setWorkspaceCreateCallback(WorkspaceCreateCallback clbk) {
