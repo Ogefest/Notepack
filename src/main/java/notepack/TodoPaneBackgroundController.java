@@ -10,11 +10,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.Todo;
 import notepack.app.domain.TodoWrapper;
+import notepack.app.task.TagPopup;
 import notepack.app.task.TodoPopup;
 import notepack.noterender.NoteRenderController;
 
@@ -43,6 +45,10 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
 
     @FXML
     private HBox messageBox;
+
+    @FXML
+    private HBox tagContainer;
+
 
     private App app;
     private Note note;
@@ -218,6 +224,11 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
 
     }
 
+    @Override
+    public Pane getTagContainer() {
+        return tagContainer;
+    }
+
     public void onCloseNote(ActionEvent actionEvent) {
         app.closeNote(note);
     }
@@ -238,5 +249,10 @@ public class TodoPaneBackgroundController implements Initializable, NoteRenderCo
             filterInput.setVisible(true);
             filterInput.requestFocus();
         }
+    }
+
+    @FXML
+    protected void onTagNote(ActionEvent event) {
+        app.addTask(new TagPopup(note));
     }
 }

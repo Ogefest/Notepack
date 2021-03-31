@@ -4,17 +4,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<?import java.net.URL?>
-<AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.noterender.TextAreaController">
+<?import java.net.*?>
+<AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="notepack.noterender.TextAreaController">
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
-        <URL value="@notepack/scrollbar.css" />  
-        <URL value="@notepack/icons.css" />  
-        <URL value="@notepack/default.css" />  
-        <URL value="@notepack/notepadsettings.css" />
-    </stylesheets>        
+        <URL value="@notepack/scrollbar.css"/>
+        <URL value="@notepack/icons.css"/>
+        <URL value="@notepack/default.css"/>
+        <URL value="@notepack/notepadsettings.css"/>
+        <URL value="@notepack/tags.css"/>
+    </stylesheets>
     <children>
-        <VBox prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
             <children>
                 <AnchorPane id="noteToolbar" prefHeight="40.0" prefWidth="1011.0">
                     <children>
@@ -49,15 +53,31 @@
 
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="400.0" AnchorPane.rightAnchor="0.0">
                             <children>
+                                <HBox fx:id="tagContainer" alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="361.0"
+                                      spacing="5.0">
+                                    <HBox.margin>
+                                        <Insets right="5.0"/>
+                                    </HBox.margin>
+                                </HBox>
+
+
+                                <Button mnemonicParsing="false" onAction="#onTagNote" styleClass="icon-button">
+                                    <tooltip>
+                                        <Tooltip text="Tag"/>
+                                    </tooltip>
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-tag-outline"/>
+                                    </graphic>
+                                </Button>
 
                                 <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
                                     <tooltip>
-                                        <Tooltip text="Close note (Ctrl + w)" />
+                                        <Tooltip text="Close note (Ctrl + w)"/>
                                     </tooltip>
                                     <graphic>
-                                        <Label styleClass="icon-base,mi-close" />
+                                        <Label styleClass="icon-base,mi-close"/>
                                     </graphic>
                                 </Button>
                             </children>

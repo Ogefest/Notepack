@@ -1,28 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.web.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.web.WebView?>
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckMenuItem?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
 <AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.noterender.PdfViewController">
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
@@ -65,15 +47,30 @@
                      <opaqueInsets>
                         <Insets left="20.0" />
                      </opaqueInsets></HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="400.0" AnchorPane.rightAnchor="0.0">
                             <children>
+                                <HBox fx:id="tagContainer" alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="361.0"
+                                      spacing="5.0">
+                                    <HBox.margin>
+                                        <Insets right="5.0"/>
+                                    </HBox.margin>
+                                </HBox>
+
+                                <Button mnemonicParsing="false" onAction="#onTagNote" styleClass="icon-button">
+                                    <tooltip>
+                                        <Tooltip text="Tag"/>
+                                    </tooltip>
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-tag-outline"/>
+                                    </graphic>
+                                </Button>
 
                                 <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
                                     <tooltip>
-                                        <Tooltip text="Close note (Ctrl + w)" />
+                                        <Tooltip text="Close note (Ctrl + w)"/>
                                     </tooltip>
                                     <graphic>
-                                        <Label styleClass="icon-base,mi-close" />
+                                        <Label styleClass="icon-base,mi-close"/>
                                     </graphic>
                                 </Button>
                             </children>

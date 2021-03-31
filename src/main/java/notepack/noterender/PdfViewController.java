@@ -9,27 +9,32 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
+import notepack.app.task.TagPopup;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 //import javafx.scene.web.WebView;
 public class PdfViewController implements Initializable, NoteRenderController {
-    
+
     @FXML
     private AnchorPane tabBackground;
-    
+
     private Note note;
     private App app;
-    
+
     @FXML
     private WebView webView;
-    
+    @FXML
+    private HBox tagContainer;
+
     private WebEngine webEngine;
     @FXML
     private TextField pageNumber;
@@ -37,7 +42,7 @@ public class PdfViewController implements Initializable, NoteRenderController {
     private Label labelMaxPage;
     @FXML
     private ComboBox<String> zoomSelect;
-    
+
     private String lastPageValue = "1";
 
     /**
@@ -128,11 +133,16 @@ public class PdfViewController implements Initializable, NoteRenderController {
         } else {
             webEngine.executeScript("document.body.style.background = \"#24242e\";");
         }
-        
+
     }
 
     @Override
     public void noteDeactivated() {
+    }
+
+    @Override
+    public Pane getTagContainer() {
+        return tagContainer;
     }
 
     @FXML
@@ -179,8 +189,13 @@ public class PdfViewController implements Initializable, NoteRenderController {
             default:
                 cmd = "auto";
         }
-        
-        webEngine.executeScript("PDFViewerApplication.pdfViewer._setScale('"+cmd+"')");
+
+        webEngine.executeScript("PDFViewerApplication.pdfViewer._setScale('" + cmd + "')");
     }
-    
+
+    @FXML
+    protected void onTagNote(ActionEvent event) {
+        app.addTask(new TagPopup(note));
+    }
+
 }
