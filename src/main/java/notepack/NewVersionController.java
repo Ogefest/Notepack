@@ -68,7 +68,7 @@ public class NewVersionController extends PopupController implements Initializab
 
         HttpURLConnection con = null;
         try {
-            URL appVersionUrl = new URL("https://notepackapp.com/version.json?build=" + currentBuild + "&version=" + currentVersion + "&system=" + System.getProperty("os.name"));
+            URL appVersionUrl = new URL("https://notepackapp.com/version.json?build=" + currentBuild + "&version=" + currentVersion + "&system=" + System.getProperty("os.name").replace(' ','_'));
             con = (HttpURLConnection) appVersionUrl.openConnection();
             con.setRequestMethod("GET");
             BufferedReader in = new BufferedReader(
