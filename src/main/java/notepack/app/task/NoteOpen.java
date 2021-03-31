@@ -90,7 +90,9 @@ public class NoteOpen extends BaseTask implements Task, TypeNote, TypeGui {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
+        if (note.getMeta().getTags().size() > 0) {
+            app.addTask(new TagRefresh(note));
+        }
 
     }
 }
