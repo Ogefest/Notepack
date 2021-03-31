@@ -46,6 +46,13 @@
                </HBox>
                <HBox alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="200.0" AnchorPane.rightAnchor="0.0">
                   <children>
+                     <HBox fx:id="tagContainer" alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="361.0"
+                           spacing="5.0">
+                        <HBox.margin>
+                           <Insets right="5.0"/>
+                        </HBox.margin>
+                     </HBox>
+
                      <Button mnemonicParsing="false" onAction="#onTagNote" styleClass="icon-button">
                         <tooltip>
                            <Tooltip text="Tag"/>

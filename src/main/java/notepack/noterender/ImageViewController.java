@@ -12,6 +12,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.task.TagPopup;
@@ -31,6 +33,9 @@ public class ImageViewController implements Initializable, NoteRenderController 
     private AnchorPane tabBackground;
     @FXML
     private ImageView imageRender;
+    @FXML
+    private HBox tagContainer;
+
 
     private Note note;
     private App app;
@@ -122,6 +127,11 @@ public class ImageViewController implements Initializable, NoteRenderController 
 
     @Override
     public void noteDeactivated() {
+    }
+
+    @Override
+    public Pane getTagContainer() {
+        return tagContainer;
     }
 
 }

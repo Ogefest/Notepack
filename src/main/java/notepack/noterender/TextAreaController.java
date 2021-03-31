@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -37,6 +39,9 @@ public class TextAreaController implements Initializable, NoteRenderController {
     protected Note note;
     protected App app;
 
+
+    @FXML
+    private HBox tagContainer;
     @FXML
     protected AnchorPane tabBackground;
     @FXML
@@ -60,9 +65,6 @@ public class TextAreaController implements Initializable, NoteRenderController {
 
     }
 
-//    public void setNoteTabContentCallback(NoteTabContentCallback clbk) {
-//        this.clbk = clbk;
-//    }
     @Override
     public void setState(App app, Note note) {
         this.note = note;
@@ -227,6 +229,11 @@ public class TextAreaController implements Initializable, NoteRenderController {
 
     @Override
     public void noteDeactivated() {
+    }
+
+    @Override
+    public Pane getTagContainer() {
+        return tagContainer;
     }
 
 }

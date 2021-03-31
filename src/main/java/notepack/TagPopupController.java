@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.PopupController;
+import notepack.app.task.TagRefresh;
 import notepack.gui.TagColor;
 
 public class TagPopupController extends PopupController {
@@ -82,8 +83,9 @@ public class TagPopupController extends PopupController {
             });
 
             tagContainer.getChildren().add(tagBtn);
-
         }
+
+        app.addTask(new TagRefresh(note));
     }
 
 }
