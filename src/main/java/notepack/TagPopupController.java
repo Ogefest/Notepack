@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.PopupController;
+import notepack.gui.TagColor;
 
 public class TagPopupController extends PopupController {
 
@@ -72,7 +73,9 @@ public class TagPopupController extends PopupController {
             Button tagBtn = new Button();
             tagBtn.setText(tag);
             tagBtn.getStyleClass().add("tag-btn");
-            tagBtn.setStyle("-fx-background-color: green");
+
+            String color = TagColor.get(tag);
+            tagBtn.setStyle("-fx-background-color: " + color);
             tagBtn.setOnAction(event -> {
                 note.getMeta().removeTag(tag);
                 refreshTagList();
