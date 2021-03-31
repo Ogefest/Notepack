@@ -1,5 +1,6 @@
 package notepack;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -52,6 +53,10 @@ public class TagPopupController extends PopupController {
                     tagInput.requestFocus();
                 }
             }
+        });
+
+        Platform.runLater(() -> {
+            tagInput.requestFocus();
         });
     }
 
