@@ -1,5 +1,6 @@
 package notepack;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -90,7 +91,9 @@ public class SetNameController extends PopupController {
         workspaceLabel.setStyle("-fx-background-color: " + note.getWorkspace().getBackgroundColor());
         workspaceLabel.setText(note.getWorkspace().getName());
 
-        noteName.requestFocus();
+        Platform.runLater(() -> {
+            noteName.requestFocus();
+        });
     }
 
 
