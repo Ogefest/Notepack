@@ -13,10 +13,7 @@ import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorageItem;
 import notepack.app.domain.Workspace;
-import notepack.app.task.NoteNew;
-import notepack.app.task.NoteSetNamePopup;
-import notepack.app.task.TodoNew;
-import notepack.app.task.WorkspacePopup;
+import notepack.app.task.*;
 
 import java.net.URL;
 import java.util.Collections;
@@ -254,13 +251,8 @@ public class WorkspaceTabController implements Initializable {
     }
 
     @FXML
-    private void onWorkspaceClose(ActionEvent event) {
-        app.closeWorkspace(workspace);
-    }
-
-    @FXML
     private void onWorkspaceArchive(ActionEvent event) {
-        app.closeWorkspace(workspace);
+        app.addTask(new WorkspaceArchive(workspace));
     }
 
     public void onChecklistNew(ActionEvent actionEvent) {
