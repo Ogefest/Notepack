@@ -58,6 +58,7 @@ public class Note {
 
     public void setPath(String path) {
         this.path = path;
+        ident = workspace.getIdent() + path;
     }
 
     public void setContents(byte[] content) {
