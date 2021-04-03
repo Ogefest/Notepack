@@ -39,6 +39,7 @@ public class WorkspacePopup implements Task, TypeGui {
             WorkspaceCreateController ctrl = fxmlLoader.getController();
 
             ctrl.setTaskUtil(taskUtil);
+            ctrl.setApp(app);
             if (this.workspace != null) {
                 ctrl.setWorkspaceToEdit(workspace);
                 ctrl.setWorkspaceCreateCallback(workspace -> {
