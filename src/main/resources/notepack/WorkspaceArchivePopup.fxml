@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0"
+            prefWidth="596.0" styleClass="card" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="notepack.WorkspaceArchiveController">
+    <stylesheets>
+        <!--        <URL value="@color-definition.css"/>-->
+        <URL value="@scrollbar.css"/>
+        <URL value="@icons.css"/>
+        <URL value="@default.css"/>
+        <URL value="@layout.css"/>
+        <URL value="@popup.css"/>
+    </stylesheets>
+    <children>
+        <Label layoutX="14.0" layoutY="14.0" styleClass="popup-title" text="Workspace Archive"/>
+        <ListView fx:id="workspaceList" layoutX="14.0" layoutY="60.0" prefHeight="275.0" prefWidth="567.0"
+                  AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="60.0"/>
+        <Button fx:id="openSelectedBtn" layoutX="520.0" layoutY="350.0" mnemonicParsing="false"
+                onAction="#onOpenSelected" text="Open selected" AnchorPane.rightAnchor="14.0"/>
+        <Button fx:id="deleteSelectedBtn" layoutX="320.0" layoutY="350.0" mnemonicParsing="false"
+                onAction="#onCloseSelected" text="Close selected"/>
+        <Button layoutX="520.0" layoutY="481.0" mnemonicParsing="false" onAction="#onClose" text="Close"
+                AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0"/>
+    </children>
+</AnchorPane>
