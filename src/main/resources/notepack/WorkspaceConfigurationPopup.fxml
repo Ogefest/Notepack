@@ -98,6 +98,9 @@
                         <Button fx:id="btnCancel" cancelButton="true" layoutX="577.0" layoutY="10.0"
                                 mnemonicParsing="false" onAction="#onCancel" text="Cancel"
                                 AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="60.0"/>
+                        <Button fx:id="openArchivedWorkspaceBtn" layoutX="14.0" mnemonicParsing="false"
+                                onAction="#onOpenArchivedWorkspace" text="Open archived workspace"
+                                AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0"/>
                     </children>
                 </AnchorPane>
             </children>

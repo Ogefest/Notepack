@@ -114,6 +114,9 @@ public class MainViewController implements Initializable {
         }
 
         for (Workspace workspace : app.getAvailableWorkspaces()) {
+            if (workspace.getParam("is_archived").equals("1")) {
+                continue;
+            }
             app.openWorkspace(workspace);
         }
         
