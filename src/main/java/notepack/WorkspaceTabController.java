@@ -258,6 +258,11 @@ public class WorkspaceTabController implements Initializable {
         app.closeWorkspace(workspace);
     }
 
+    @FXML
+    private void onWorkspaceArchive(ActionEvent event) {
+        app.closeWorkspace(workspace);
+    }
+
     public void onChecklistNew(ActionEvent actionEvent) {
         app.addTask(new TodoNew(workspace));
     }

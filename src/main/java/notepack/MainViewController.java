@@ -136,12 +136,17 @@ public class MainViewController implements Initializable {
     private void onNoteSearch(ActionEvent event) {
         app.addTask(new ShowSearchForNoteDialog());
     }
-    
+
+    @FXML
+    private void onWorkspaceCreate(ActionEvent event) {
+        app.addTask(new WorkspacePopup());
+    }
+
     @FXML
     private void onApplicationInfo(ActionEvent event) {
         app.addTask(new ShowApplicationInfo(hostServices));
     }
-    
+
     @FXML
     private void onSwitchTheme(ActionEvent event) {
         app.addTask(new ToggleTheme(mainScene));

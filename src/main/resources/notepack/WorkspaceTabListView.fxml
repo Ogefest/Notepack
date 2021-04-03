@@ -3,82 +3,119 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <?import java.net.URL?>
 <AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="271.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.WorkspaceTabController">
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
-        <URL value="@scrollbar.css" />  
-        <URL value="@icons.css" />
+        <URL value="@scrollbar.css"/>
+        <URL value="@icons.css"/>
         <URL value="@material.icons"/>
-        <URL value="@default.css" />  
-    </stylesheets>        
+        <URL value="@default.css"/>
+    </stylesheets>
     <children>
-        <TreeView fx:id="workspaceStructure" layoutY="52.0" prefHeight="508.0" prefWidth="269.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
-         <contextMenu>
-            <ContextMenu>
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#treeViewOnOpen" text="Open" />
-                <MenuItem mnemonicParsing="false" onAction="#treeViewOnClose" text="Close" />
-                <MenuItem mnemonicParsing="false" onAction="#treeViewOnRename" text="Rename" />
-                <MenuItem mnemonicParsing="false" onAction="#treeViewOnRefresh" text="Refresh" />
-                <MenuItem mnemonicParsing="false" onAction="#treeViewOnDelete" text="Delete" />
-              </items>
-            </ContextMenu>
-         </contextMenu></TreeView>
-      <AnchorPane id="notepadToolbar" prefHeight="40.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox alignment="CENTER_LEFT" maxHeight="40.0" prefHeight="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#onFileWorkspaceAdd" styleClass="icon-button">
-                     <tooltip>
-                        <Tooltip text="Add workspace" />
-                     </tooltip>
-                      <graphic>
-                          <Label  styleClass="icon-base,mi-book-plus-outline" />
-                      </graphic>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT" maxHeight="40.0" prefHeight="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                   <Button mnemonicParsing="true" onAction="#onChecklistNew" styleClass="icon-button" text="">
-                       <tooltip>
-                           <Tooltip text="New check list"/>
-                       </tooltip>
-                       <graphic>
-                           <Label  styleClass="icon-base,mi-sticker-check-outline" />
-                       </graphic>
-                   </Button>
-                  <Button mnemonicParsing="true" onAction="#onFileNew" styleClass="icon-button" text="">
-                     <tooltip>
-                        <Tooltip text="New note (Ctrl + n)" />
-                     </tooltip>
-                     <graphic>
-                        <Label  styleClass="icon-base,mi-text-box-plus-outline" />
-                     </graphic>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#onWorkspaceEdit" styleClass="icon-button">
-                     <tooltip>
-                        <Tooltip text="Settings" />
-                     </tooltip>
-                      <graphic>
-                          <Label  styleClass="icon-base,mi-cog-outline" />
-                      </graphic>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#onWorkspaceClose" styleClass="icon-button">
-                     <tooltip>
-                        <Tooltip text="Close" />
-                     </tooltip>
-                      <graphic>
-                          <Label  styleClass="icon-base,mi-close" />
-                      </graphic>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </AnchorPane>
+        <TreeView fx:id="workspaceStructure" layoutY="52.0" prefHeight="508.0" prefWidth="269.0"
+                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="52.0">
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#treeViewOnOpen" text="Open"/>
+                        <MenuItem mnemonicParsing="false" onAction="#treeViewOnClose" text="Close"/>
+                        <MenuItem mnemonicParsing="false" onAction="#treeViewOnRename" text="Rename"/>
+                        <MenuItem mnemonicParsing="false" onAction="#treeViewOnRefresh" text="Refresh"/>
+                        <MenuItem mnemonicParsing="false" onAction="#treeViewOnDelete" text="Delete"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </TreeView>
+        <AnchorPane id="notepadToolbar" prefHeight="40.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" maxHeight="54.0" prefHeight="54.0" prefWidth="120.0"
+                      AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+
+                        <MenuButton mnemonicParsing="false" styleClass="icon-button">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#onFileNew" styleClass="" text="New note">
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-text-box-plus-outline"/>
+                                    </graphic>
+                                </MenuItem>
+
+                                <MenuItem mnemonicParsing="false" onAction="#onChecklistNew" text="New check list">
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-sticker-check-outline"/>
+                                    </graphic>
+                                </MenuItem>
+
+                                <SeparatorMenuItem mnemonicParsing="false"/>
+
+                                <MenuItem mnemonicParsing="false" onAction="#onWorkspaceEdit" text="Settings">
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-cog-outline"/>
+                                    </graphic>
+                                </MenuItem>
+                                <MenuItem mnemonicParsing="false" onMenuValidation="#onWorkspaceArchive" text="Archive">
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-archive-outline"/>
+                                    </graphic>
+                                </MenuItem>
+
+                            </items>
+                            <tooltip>
+                                <Tooltip text="Menu"/>
+                            </tooltip>
+                            <graphic>
+                                <Label styleClass="icon-base,mi-menu"/>
+                            </graphic>
+                            <font>
+                                <Font size="11.0"/>
+                            </font>
+                        </MenuButton>
+                    </children>
+                </HBox>
+                <!--            <HBox alignment="CENTER_RIGHT" maxHeight="40.0" prefHeight="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
+                <!--               <children>-->
+                <!--                   <Button mnemonicParsing="true" onAction="#onChecklistNew" styleClass="icon-button" text="">-->
+                <!--                       <tooltip>-->
+                <!--                           <Tooltip text="New check list" />-->
+                <!--                       </tooltip>-->
+                <!--                       <graphic>-->
+                <!--                           <Label styleClass="icon-base,mi-sticker-check-outline" />-->
+                <!--                       </graphic>-->
+                <!--                   </Button>-->
+                <!--                  <Button mnemonicParsing="true" onAction="#onFileNew" styleClass="icon-button" text="">-->
+                <!--                     <tooltip>-->
+                <!--                        <Tooltip text="New note (Ctrl + n)" />-->
+                <!--                     </tooltip>-->
+                <!--                     <graphic>-->
+                <!--                        <Label styleClass="icon-base,mi-text-box-plus-outline" />-->
+                <!--                     </graphic>-->
+                <!--                  </Button>-->
+                <!--                  <Button mnemonicParsing="false" onAction="#onWorkspaceEdit" styleClass="icon-button">-->
+                <!--                     <tooltip>-->
+                <!--                        <Tooltip text="Settings" />-->
+                <!--                     </tooltip>-->
+                <!--                      <graphic>-->
+                <!--                          <Label styleClass="icon-base,mi-cog-outline" />-->
+                <!--                      </graphic>-->
+                <!--                  </Button>-->
+                <!--                  <Button mnemonicParsing="false" onAction="#onWorkspaceClose" styleClass="icon-button">-->
+                <!--                     <tooltip>-->
+                <!--                        <Tooltip text="Close" />-->
+                <!--                     </tooltip>-->
+                <!--                      <graphic>-->
+                <!--                          <Label styleClass="icon-base,mi-close" />-->
+                <!--                      </graphic>-->
+                <!--                  </Button>-->
+                <!--               </children>-->
+                <!--            </HBox>-->
+            </children>
+        </AnchorPane>
     </children>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
+    <opaqueInsets>
+        <Insets/>
+    </opaqueInsets>
 </AnchorPane>
