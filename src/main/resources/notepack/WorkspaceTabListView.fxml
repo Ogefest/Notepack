@@ -57,7 +57,7 @@
                                         <Label styleClass="icon-base,mi-cog-outline"/>
                                     </graphic>
                                 </MenuItem>
-                                <MenuItem mnemonicParsing="false" onMenuValidation="#onWorkspaceArchive" text="Archive">
+                                <MenuItem mnemonicParsing="false" onAction="#onWorkspaceArchive" text="Archive">
                                     <graphic>
                                         <Label styleClass="icon-base,mi-archive-outline"/>
                                     </graphic>
