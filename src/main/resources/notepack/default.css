@@ -331,3 +331,21 @@
     -fx-padding: 4 7 4 7;
     -fx-background-radius: 4, 4, 4, 4;
 }
+
+.menu-button > .arrow-button {
+    -fx-padding: 0;
+}
+
+.menu-button > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+.menu-button .menu-item .label{
+    -fx-padding: 5;
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+.menu-button .text {
+    -fx-font-size: 16;
+} "
