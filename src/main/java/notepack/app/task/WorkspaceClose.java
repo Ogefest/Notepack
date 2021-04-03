@@ -29,6 +29,10 @@ public class WorkspaceClose implements Task,TypeGui, TypeWorkspace {
     public void guiWork(TaskUtil taskUtil, App app) {
 
         Tab tabToClose = taskUtil.getWorkspaceTab(workspace);
+        if (tabToClose == null) {
+            return;
+        }
+
         TabPane container = taskUtil.getWorkspaceContainer();
         container.getTabs().remove(tabToClose);
 
