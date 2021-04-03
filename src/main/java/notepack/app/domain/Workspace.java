@@ -113,4 +113,8 @@ public class Workspace {
         return new NoteMeta(new JsonMeta(getStorage(), note.getIdent()));
     }
 
+    public String toString() {
+        return getName();
+    }
+
 }
