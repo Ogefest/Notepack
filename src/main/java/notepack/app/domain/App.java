@@ -145,7 +145,9 @@ public class App {
     }
 
     public void refreshWorkspace(Workspace workspace) {
-        messageBus.addTask(new WorkspaceRefresh(workspace));
+        if (!workspace.getParam("is_archived").equals("1")) {
+            messageBus.addTask(new WorkspaceRefresh(workspace));
+        }
     }
 
     public ArrayList<Workspace> getAvailableWorkspaces() {
