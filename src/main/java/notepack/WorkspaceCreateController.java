@@ -9,12 +9,10 @@ import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
-import notepack.app.domain.NoteStorage;
-import notepack.app.domain.NoteStorageMiddleware;
-import notepack.app.domain.PopupController;
-import notepack.app.domain.Workspace;
+import notepack.app.domain.*;
 import notepack.app.storage.Filesystem;
 import notepack.app.storage.Webdav;
+import notepack.app.task.WorkspaceArchivePopup;
 import notepack.engine.EngineController;
 import notepack.engine.EngineType;
 
@@ -82,6 +80,10 @@ public class WorkspaceCreateController extends PopupController implements Initia
     private CheckBox utfContentCheckbox;
     @FXML
     private Label contentUtfLabel;
+    @FXML
+    private Button openArchivedWorkspaceBtn;
+
+    private App app;
 
     /**
      * Initializes the controller class.
@@ -155,6 +157,19 @@ public class WorkspaceCreateController extends PopupController implements Initia
 
     }
 
+    public void setApp(App app) {
+        this.app = app;
+
+        openArchivedWorkspaceBtn.setVisible(false);
+        for (Workspace w : app.getAvailableWorkspaces()) {
+            if (w.getParam("is_archived").equals("1")) {
+                openArchivedWorkspaceBtn.setVisible(true);
+                break;
+            }
+        }
+
+    }
+
     public void setWorkspaceCreateCallback(WorkspaceCreateCallback clbk) {
         this.clbk = clbk;
     }
@@ -187,6 +202,8 @@ public class WorkspaceCreateController extends PopupController implements Initia
         encryptionPassword.setDisable(true);
         generatePassword.setDisable(true);
         passwordLabel.setDisable(true);
+
+        openArchivedWorkspaceBtn.setVisible(false);
 
         currentFormController.setStorage(workspace.getStorage());
 
@@ -311,6 +328,13 @@ public class WorkspaceCreateController extends PopupController implements Initia
         ClipboardContent content = new ClipboardContent();
         content.putString(encryptionPassword.getText());
         clipboard.setContent(content);
+    }
+
+
+    @FXML
+    void onOpenArchivedWorkspace(ActionEvent event) {
+        getTaskUtil().closePopup();
+        app.addTask(new WorkspaceArchivePopup());
     }
 
 }
