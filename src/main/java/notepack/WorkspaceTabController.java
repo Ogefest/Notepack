@@ -9,12 +9,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.NoteStorageItem;
 import notepack.app.domain.Workspace;
 import notepack.app.task.*;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
@@ -210,34 +212,17 @@ public class WorkspaceTabController implements Initializable {
 
     @FXML
     private void treeViewOnRename(ActionEvent event) {
-
         Note n = workspaceStructure.getSelectionModel().getSelectedItem().getValue().getNote();
-
         app.addTask(new NoteSetNamePopup(n));
-
-//        TextInputDialog dialog = new TextInputDialog(n.getPath());
-//        dialog.setTitle("Rename");
-//        dialog.setHeaderText(null);
-//        dialog.setContentText("Please enter note name:");
-//
-//        Optional<String> result = dialog.showAndWait();
-//        if (result.isPresent()) {
-//            app.renameNote(n, result.get());
-//        }
-
     }
 
     @FXML
     private void onFileWorkspaceAdd(ActionEvent event) {
-
         app.addTask(new WorkspacePopup());
-
     }
 
     public void openWorkspaceEdit(Workspace workspace) {
-
         app.addTask(new WorkspacePopup(workspace));
-
     }
 
     @FXML
@@ -254,6 +239,27 @@ public class WorkspaceTabController implements Initializable {
     private void onWorkspaceArchive(ActionEvent event) {
         app.addTask(new WorkspaceArchive(workspace));
     }
+
+    @FXML
+    private void onImportFile(ActionEvent event) {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Import file");
+        fileChooser.setInitialDirectory(
+                new File(System.getProperty("user.home"))
+        );
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Supported files", "*.txt", "*.md", "*.csv", "*.ics", "*.pdf", "*.png", "*.jpg", "*.jpeg")
+        );
+        File file = fileChooser.showOpenDialog(tabBackground.getScene().getWindow());
+        if (file != null) {
+            app.addTask(new WorkspaceUploadFile(workspace, file));
+        }
+
+
+    }
+
 
     public void onChecklistNew(ActionEvent actionEvent) {
         app.addTask(new TodoNew(workspace));
