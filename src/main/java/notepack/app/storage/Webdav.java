@@ -39,14 +39,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//import net.fortuna.ical4j.connector.CalendarStore;
-//import net.fortuna.ical4j.connector.ObjectNotFoundException;
-//import net.fortuna.ical4j.connector.ObjectStoreException;
-//import net.fortuna.ical4j.connector.dav.CalDavCalendarCollection;
-//import net.fortuna.ical4j.connector.dav.CalDavCalendarStore;
-//import net.fortuna.ical4j.connector.dav.PathResolver;
-
-
 public class Webdav implements NoteStorage {
 
     private NoteStorageConfiguration nsc;
