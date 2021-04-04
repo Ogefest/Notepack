@@ -49,6 +49,11 @@
                                         <Label styleClass="icon-base,mi-sticker-check-outline"/>
                                     </graphic>
                                 </MenuItem>
+                                <MenuItem mnemonicParsing="false" onAction="#onImportFile" text="Import file">
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-file-upload-outline"/>
+                                    </graphic>
+                                </MenuItem>
 
                                 <SeparatorMenuItem mnemonicParsing="false"/>
 
