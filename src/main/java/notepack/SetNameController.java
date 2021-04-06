@@ -10,13 +10,12 @@ import javafx.scene.control.TextField;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.PopupController;
+import notepack.app.storage.Validator;
 import notepack.app.task.NoteRename;
 import notepack.app.task.NoteSave;
 import notepack.app.task.WorkspaceRefresh;
 
 import java.io.File;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Paths;
 
 public class SetNameController extends PopupController {
 
@@ -71,9 +70,8 @@ public class SetNameController extends PopupController {
             }
 
         }
-        try {
-            Paths.get(name);
-        } catch (InvalidPathException ex) {
+
+        if (!Validator.isNameValid(name)) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText(null);
             errorAlert.setContentText("Invalid filename");
@@ -81,7 +79,6 @@ public class SetNameController extends PopupController {
 
             return;
         }
-
 
         if (note.getPath() != null) {
             app.addTask(new NoteRename(note, note.getWorkspace().getStorage().getBasePath() + File.separator + name));

@@ -3,9 +3,7 @@ package notepack.app.task;
 import notepack.app.domain.Note;
 import notepack.app.domain.Task;
 import notepack.app.listener.NoteListener;
-
-import java.nio.file.InvalidPathException;
-import java.nio.file.Paths;
+import notepack.app.storage.Validator;
 
 public class NoteRename extends BaseTask implements Task, TypeNote {
 
@@ -20,10 +18,8 @@ public class NoteRename extends BaseTask implements Task, TypeNote {
     @Override
     public void backgroundWork() {
 
-        try {
-            Paths.get(newPath);
-        } catch (InvalidPathException ex) {
-            addTaskToQueue(new ShowUserMessage(ex.getMessage(), ShowUserMessage.TYPE.ERROR));
+        if (Validator.isNameValid(newPath)) {
+            addTaskToQueue(new ShowUserMessage("Invalid note name", ShowUserMessage.TYPE.ERROR));
             return;
         }
 

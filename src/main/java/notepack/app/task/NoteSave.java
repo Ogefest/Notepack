@@ -7,10 +7,8 @@ import notepack.app.domain.Note;
 import notepack.app.domain.Task;
 import notepack.app.domain.exception.MessageError;
 import notepack.app.listener.NoteListener;
+import notepack.app.storage.Validator;
 import notepack.gui.TaskUtil;
-
-import java.nio.file.InvalidPathException;
-import java.nio.file.Paths;
 
 public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
 
@@ -24,10 +22,9 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
     public void backgroundWork() throws MessageError {
 
         if (note.getPath() != null) {
-            try {
-                Paths.get(note.getPath());
-            } catch (InvalidPathException ex) {
-                addTaskToQueue(new ShowUserMessage(ex.getMessage(), ShowUserMessage.TYPE.ERROR));
+
+            if (Validator.isNameValid(note.getPath())) {
+                addTaskToQueue(new ShowUserMessage("Invalid note name", ShowUserMessage.TYPE.ERROR));
                 return;
             }
 
