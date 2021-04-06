@@ -3,12 +3,14 @@ package notepack;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
 import notepack.app.domain.PopupController;
+import notepack.app.storage.Validator;
 import notepack.app.task.NoteRename;
 import notepack.app.task.NoteSave;
 import notepack.app.task.WorkspaceRefresh;
@@ -67,6 +69,15 @@ public class SetNameController extends PopupController {
                 name = name + ".txt";
             }
 
+        }
+
+        if (!Validator.isNameValid(name)) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText("Invalid filename");
+            errorAlert.showAndWait();
+
+            return;
         }
 
         if (note.getPath() != null) {

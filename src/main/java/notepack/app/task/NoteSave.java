@@ -7,6 +7,7 @@ import notepack.app.domain.Note;
 import notepack.app.domain.Task;
 import notepack.app.domain.exception.MessageError;
 import notepack.app.listener.NoteListener;
+import notepack.app.storage.Validator;
 import notepack.gui.TaskUtil;
 
 public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
@@ -19,7 +20,14 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
 
     @Override
     public void backgroundWork() throws MessageError {
+
         if (note.getPath() != null) {
+
+            if (!Validator.isNameValid(note.getPath())) {
+                addTaskToQueue(new ShowUserMessage("Invalid note name", ShowUserMessage.TYPE.ERROR));
+                return;
+            }
+
             note.saveToStorage();
             addTaskToQueue(new NoteMarkAsSaved(note));
             addTaskToQueue(new WorkspaceRefresh(note.getWorkspace()));
