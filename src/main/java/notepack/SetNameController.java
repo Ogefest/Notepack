@@ -3,6 +3,7 @@ package notepack;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +15,8 @@ import notepack.app.task.NoteSave;
 import notepack.app.task.WorkspaceRefresh;
 
 import java.io.File;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
 
 public class SetNameController extends PopupController {
 
@@ -68,6 +71,17 @@ public class SetNameController extends PopupController {
             }
 
         }
+        try {
+            Paths.get(name);
+        } catch (InvalidPathException ex) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText("Invalid filename");
+            errorAlert.showAndWait();
+
+            return;
+        }
+
 
         if (note.getPath() != null) {
             app.addTask(new NoteRename(note, note.getWorkspace().getStorage().getBasePath() + File.separator + name));

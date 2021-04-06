@@ -9,6 +9,9 @@ import notepack.app.domain.exception.MessageError;
 import notepack.app.listener.NoteListener;
 import notepack.gui.TaskUtil;
 
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
+
 public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
 
     private Note note;
@@ -19,7 +22,15 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
 
     @Override
     public void backgroundWork() throws MessageError {
+
         if (note.getPath() != null) {
+            try {
+                Paths.get(note.getPath());
+            } catch (InvalidPathException ex) {
+                addTaskToQueue(new ShowUserMessage(ex.getMessage(), ShowUserMessage.TYPE.ERROR));
+                return;
+            }
+
             note.saveToStorage();
             addTaskToQueue(new NoteMarkAsSaved(note));
             addTaskToQueue(new WorkspaceRefresh(note.getWorkspace()));
