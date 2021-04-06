@@ -23,7 +23,7 @@ public class NoteSave extends BaseTask implements Task, TypeNote,TypeGui {
 
         if (note.getPath() != null) {
 
-            if (Validator.isNameValid(note.getPath())) {
+            if (!Validator.isNameValid(note.getPath())) {
                 addTaskToQueue(new ShowUserMessage("Invalid note name", ShowUserMessage.TYPE.ERROR));
                 return;
             }

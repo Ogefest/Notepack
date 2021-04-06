@@ -18,7 +18,7 @@ public class NoteRename extends BaseTask implements Task, TypeNote {
     @Override
     public void backgroundWork() {
 
-        if (Validator.isNameValid(newPath)) {
+        if (!Validator.isNameValid(newPath)) {
             addTaskToQueue(new ShowUserMessage("Invalid note name", ShowUserMessage.TYPE.ERROR));
             return;
         }
