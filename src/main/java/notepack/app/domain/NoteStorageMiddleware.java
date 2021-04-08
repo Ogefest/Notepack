@@ -1,9 +1,10 @@
 package notepack.app.domain;
 
-import java.util.ArrayList;
 import notepack.app.domain.exception.MessageError;
 import notepack.processor.NoteProcessor;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class NoteStorageMiddleware implements NoteStorage {
 
@@ -51,13 +52,17 @@ public class NoteStorageMiddleware implements NoteStorage {
     public void saveContent(byte[] content, String path) throws MessageError {
 
         for (NoteProcessor p : beforeSave) {
-            content = p.run(content);
+            if (p.isAvailableForPath(path)) {
+                content = p.run(content);
+            }
         }
 
         noteStorage.saveContent(content, path);
 
         for (NoteProcessor p : afterSave) {
-            content = p.run(content);
+            if (p.isAvailableForPath(path)) {
+                content = p.run(content);
+            }
         }
     }
 
@@ -66,7 +71,9 @@ public class NoteStorageMiddleware implements NoteStorage {
         byte[] content = noteStorage.loadContent(path);
 
         for (NoteProcessor p : afterLoad) {
-            content = p.run(content);
+            if (p.isAvailableForPath(path)) {
+                content = p.run(content);
+            }
         }
 
         return content;
