@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 
-public class ZipDecrypt implements NoteProcessor {
+public class ZipDecrypt extends NoteProcessor implements BinaryProcessor {
 
     private String pwd;
 

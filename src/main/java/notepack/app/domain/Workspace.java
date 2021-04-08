@@ -33,8 +33,6 @@ public class Workspace {
         this.ident = ident;
 
         params.put("name", name);
-
-//        meta = new JsonMeta(storage);
     }
 
     public void registerProcessors() {

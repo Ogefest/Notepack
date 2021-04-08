@@ -1,15 +1,15 @@
 package notepack.processor;
 
+import net.lingala.zip4j.io.outputstream.ZipOutputStream;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.model.enums.EncryptionMethod;
-import net.lingala.zip4j.io.outputstream.ZipOutputStream;
 import notepack.app.domain.exception.MessageError;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 
-public class ZipEncrypt implements NoteProcessor {
+public class ZipEncrypt extends NoteProcessor implements BinaryProcessor {
 
     private String pwd;
 
