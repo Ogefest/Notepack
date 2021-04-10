@@ -146,6 +146,18 @@ public class TaskUtil {
         }
     }
 
+    public void showSearchPane() {
+        if (getParentPane().getChildren().get(0).getId().equals("searchPaneBackground")) {
+            getParentPane().getChildren().get(0).toFront();
+        }
+    }
+
+    public void hideSearchPane() {
+        if (getParentPane().getChildren().get(0).getId().equals("searchPaneBackground")) {
+            getParentPane().getChildren().get(0).toBack();
+        }
+    }
+
     public Stage getStage() {
         return stage;
     }
