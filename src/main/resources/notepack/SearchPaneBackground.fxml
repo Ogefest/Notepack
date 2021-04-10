@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<AnchorPane fx:id="searchPaneBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="notepack.SearchPaneController">
+   <stylesheets>
+
+      <URL value="@material.icons"/>
+      <URL value="@default.css"/>
+      <URL value="@layout.css"/>
+      <URL value="@todo.css"/>
+
+   </stylesheets>
+   <children>
+      <TextField fx:id="searchQueryInput" layoutX="376.0" layoutY="59.0" promptText="Search for note"
+                 AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="60.0">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </TextField>
+      <ListView fx:id="searchResult" layoutX="200.0" layoutY="116.0" prefHeight="200.0" prefWidth="200.0"
+                AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0"
+                AnchorPane.topAnchor="120.0"/>
+
+      <Button mnemonicParsing="false" onAction="#closeSearchPane" styleClass="icon-button" textFill="WHITE"
+              AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+         <tooltip>
+            <Tooltip text="Close search"/>
+         </tooltip>
+         <graphic>
+            <Label styleClass="icon-base,mi-close"/>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
