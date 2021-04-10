@@ -8,7 +8,7 @@
     src: url('fonts/ZillaSlab-Light.ttf');
 }
 
-#mainBackground, #todoBackground {
+#mainBackground, #todoBackground, #searchPaneBackground {
     -fx-background-color: main-background-color;
 }
 
