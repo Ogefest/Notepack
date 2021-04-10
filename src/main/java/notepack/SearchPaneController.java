@@ -48,6 +48,8 @@ public class SearchPaneController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> searchQueryInput.requestFocus());
 
+        searchResult.setCellFactory(noteListView -> new SearchNoteViewCell());
+
         searchQueryInput.setOnKeyReleased(keyEvent -> {
 
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
