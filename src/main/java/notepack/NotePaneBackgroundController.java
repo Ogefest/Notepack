@@ -1,18 +1,12 @@
 package notepack;
 
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import notepack.app.domain.App;
-import notepack.gui.Icon;
 import notepack.noterender.NoteRenderController;
-
-import java.io.IOException;
 
 public class NotePaneBackgroundController {
 
@@ -47,41 +41,6 @@ public class NotePaneBackgroundController {
 
         });
 
-        initDefaultTab();
-    }
-
-    private void initDefaultTab() {
-
-        Tab searchNoteTab = new Tab();
-        searchNoteTab.setId("searchNoteTab");
-
-        Node tabContent;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchNoteTab.fxml"));
-
-            tabContent = loader.load();
-
-            SearchNoteTabController ctrl = loader.getController();
-            searchNoteTab.setContent(tabContent);
-            searchNoteTab.setUserData(ctrl);
-            ctrl.setApp(app);
-
-            searchNoteTab.setGraphic(Icon.get("mi-magnify"));
-            searchNoteTab.setStyle("-fx-background-color: card-background; -fx-border-color: card-background" );
-            searchNoteTab.getStyleClass().add("button");
-
-            Platform.runLater(() -> workspaceContainer.getTabs().add(searchNoteTab));
-
-            workspaceContainer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue.equals(searchNoteTab)) {
-                    SearchNoteTabController c = (SearchNoteTabController) searchNoteTab.getUserData();
-                    c.focusSearchQuery();
-                }
-            });
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }
