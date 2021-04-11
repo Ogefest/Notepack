@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
-<AnchorPane fx:id="searchPaneBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0"
+<AnchorPane fx:id="searchPaneBackground" minHeight="0.0" minWidth="0.0" prefHeight="652.0" prefWidth="1066.0"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="notepack.SearchPaneController">
    <stylesheets>
@@ -16,18 +16,18 @@
 
    </stylesheets>
    <children>
-      <TextField fx:id="searchQueryInput" layoutX="376.0" layoutY="59.0" promptText="Search for note"
+      <TextField fx:id="searchQueryInput" layoutX="376.0" layoutY="59.0" maxWidth="1000.0" promptText="Search for note"
                  AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="60.0">
          <font>
             <Font size="18.0"/>
          </font>
       </TextField>
-      <ListView fx:id="searchResult" layoutX="200.0" layoutY="116.0" prefHeight="200.0" prefWidth="200.0"
-                AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0"
-                AnchorPane.topAnchor="120.0"/>
+      <ListView fx:id="searchResult" layoutX="200.0" layoutY="116.0" maxWidth="1000.0" prefHeight="200.0"
+                prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="200.0"
+                AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="120.0"/>
 
       <Button mnemonicParsing="false" onAction="#closeSearchPane" styleClass="icon-button" textFill="WHITE"
-              AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+              AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <tooltip>
             <Tooltip text="Close search"/>
          </tooltip>

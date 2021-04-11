@@ -8,8 +8,6 @@
             minWidth="200.0" prefHeight="70.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="noteSizeLabel" layoutX="467.0" layoutY="13.0" text="size" AnchorPane.rightAnchor="5.0"
-             AnchorPane.topAnchor="5.0"/>
       <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="20.0" prefHeight="40.0" spacing="5.0"
             AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
@@ -30,5 +28,16 @@
             <Font size="10.0"/>
          </font>
       </Label>
+      <HBox alignment="TOP_RIGHT" layoutX="369.0" layoutY="5.0" prefHeight="31.0" AnchorPane.rightAnchor="5.0"
+            AnchorPane.topAnchor="5.0">
+         <children>
+            <HBox fx:id="tagContainer" prefHeight="100.0" spacing="3.0">
+               <HBox.margin>
+                  <Insets right="10.0"/>
+               </HBox.margin>
+            </HBox>
+            <Label fx:id="noteSizeLabel" text="size"/>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
