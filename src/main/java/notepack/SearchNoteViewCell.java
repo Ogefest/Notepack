@@ -20,6 +20,12 @@ public class SearchNoteViewCell extends ListCell<Note> {
     @FXML
     private AnchorPane searchNoteCell;
 
+    @FXML
+    private Label noteSizeLabel;
+
+    @FXML
+    private Label pathLabel;
+
     private FXMLLoader mLLoader;
 
     public SearchNoteViewCell() {
@@ -33,20 +39,20 @@ public class SearchNoteViewCell extends ListCell<Note> {
         }
     }
 
-
     @Override
     protected void updateItem(Note note, boolean empty) {
         super.updateItem(note, empty);
 
         if (empty || note == null) {
+            setGraphic(null);
             return;
         }
 
+//        noteSizeLabel.setText(note.);
+        pathLabel.setText(note.getPath());
         noteNameLabel.setText(note.getName());
         workspaceLabel.setText(note.getWorkspace().getName());
-//        String workspaceColor = note.getWorkspace().getBackgroundColor();
-//        String fontColor = note.getWorkspace().getFontColor();
-//        workspaceLabel.setStyle("-fx-border-color:"+workspaceColor+"; -fx-background-color: "+workspaceColor+";");
+
         workspaceLabel.setStyle("-fx-background-color: " + note.getWorkspace().getBackgroundColor());
 
         setGraphic(searchNoteCell);

@@ -50,6 +50,18 @@ public class SearchPaneController implements Initializable {
 
         searchResult.setCellFactory(noteListView -> new SearchNoteViewCell());
 
+        searchResult.setOnKeyReleased(keyEvent -> {
+            if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+                app.addTask(new NoteOpen(searchResult.getSelectionModel().getSelectedItem()));
+            }
+            if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+                app.addTask(new SearchPaneHide());
+            }
+        });
+        searchResult.setOnMouseClicked(mouseEvent -> {
+            app.addTask(new NoteOpen(searchResult.getSelectionModel().getSelectedItem()));
+        });
+
         searchQueryInput.setOnKeyReleased(keyEvent -> {
 
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
@@ -59,12 +71,15 @@ public class SearchPaneController implements Initializable {
                 app.addTask(new SearchPaneHide());
             }
             if (keyEvent.getCode().equals(KeyCode.DOWN)) {
+                searchResult.requestFocus();
+
                 int selectedIndex = searchResult.getSelectionModel().getSelectedIndex();
                 if (searchResultObservableList.size() > selectedIndex) {
                     searchResult.getSelectionModel().select(selectedIndex + 1);
                 }
             }
             if (keyEvent.getCode().equals(KeyCode.UP)) {
+                searchResult.requestFocus();
                 int selectedIndex = searchResult.getSelectionModel().getSelectedIndex();
                 if (selectedIndex > 0) {
                     searchResult.getSelectionModel().select(selectedIndex - 1);
