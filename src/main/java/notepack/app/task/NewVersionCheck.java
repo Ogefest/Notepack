@@ -34,6 +34,15 @@ public class NewVersionCheck extends BaseTask implements Task, TypeRecurring, Ty
     @Override
     public void guiWork(TaskUtil taskUtil, App app) throws GuiNotReadyError {
         AnchorPane pane;
+
+        String lastCheckTimestamp = app.getSettings().get("last-check-timestamp", "0");
+        long lastCheckTs = Long.parseLong(lastCheckTimestamp);
+        long currentTs = System.currentTimeMillis() / 1000L;
+        if (lastCheckTs + 3600 > currentTs) {
+            return;
+        }
+        app.getSettings().set("last-check-timestamp", Long.toString(currentTs));
+
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/notepack/NewVersionPopup.fxml"));
