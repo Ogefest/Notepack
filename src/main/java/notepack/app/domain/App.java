@@ -226,6 +226,7 @@ public class App {
 
                 if (it.isLeaf()) {
                     Note n = new Note(it.getPath(), workspace, it.getName());
+                    n.setSize(it.getSize());
                     res.add(n);
                 } else {
                     res.addAll(getNoteFromItem(it, workspace));
@@ -234,6 +235,7 @@ public class App {
 
         } else {
             Note n = new Note(item.getPath(), workspace, item.getName());
+            n.setSize(item.getSize());
             res.add(n);
         }
 
