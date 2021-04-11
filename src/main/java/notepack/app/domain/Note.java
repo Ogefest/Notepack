@@ -13,6 +13,7 @@ public class Note {
     private Workspace workspace;
     private NoteMeta meta;
     private String ident;
+    private long size = 0;
     private boolean isSaved = true;
 
     public Note(Workspace workspace) {
@@ -30,6 +31,14 @@ public class Note {
 
     public String getIdent() {
         return ident;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
     }
 
     public String getName() {

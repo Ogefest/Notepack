@@ -39,7 +39,7 @@ public class InitializeShortcuts extends BaseTask implements Task, TypeGui {
         notePane.getScene().getAccelerators().put(kcNewNote, () -> app.addTask(new NoteNew(taskUtil.getCurrentWorkspace())));
 
         KeyCombination kcSearchNote = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
-        parentStage.getScene().getAccelerators().put(kcSearchNote, () -> app.addTask(new ShowSearchForNoteDialog()));
+        parentStage.getScene().getAccelerators().put(kcSearchNote, () -> app.addTask(new SearchPaneShow()));
 
         KeyCombination kcSearchReplaceString = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN);
         notes.getScene().getAccelerators().put(kcSearchReplaceString, () -> {

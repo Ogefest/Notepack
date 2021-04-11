@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane fx:id="searchNoteCell" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="50.0"
+            minWidth="200.0" prefHeight="70.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="20.0" prefHeight="40.0" spacing="5.0"
+            AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <Label fx:id="workspaceLabel" styleClass="tag-label" text="Workspace"/>
+            <Label fx:id="noteNameLabel" text="Label">
+               <font>
+                  <Font size="20.0"/>
+               </font>
+            </Label>
+         </children>
+         <opaqueInsets>
+            <Insets/>
+         </opaqueInsets>
+      </HBox>
+      <Label fx:id="pathLabel" layoutX="5.0" layoutY="45.0" text="Label" AnchorPane.leftAnchor="5.0"
+             AnchorPane.topAnchor="45.0">
+         <font>
+            <Font size="10.0"/>
+         </font>
+      </Label>
+      <HBox alignment="TOP_RIGHT" layoutX="369.0" layoutY="5.0" prefHeight="31.0" AnchorPane.rightAnchor="5.0"
+            AnchorPane.topAnchor="5.0">
+         <children>
+            <HBox fx:id="tagContainer" prefHeight="100.0" spacing="3.0">
+               <HBox.margin>
+                  <Insets right="10.0"/>
+               </HBox.margin>
+            </HBox>
+            <Label fx:id="noteSizeLabel" text="size"/>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

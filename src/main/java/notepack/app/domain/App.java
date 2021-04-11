@@ -57,11 +57,13 @@ public class App {
             @Override
             public void onOpen(Workspace workspace) {
                 activeWorkspace.add(workspace);
+                sessionStorage.addWorkspace(workspace);
             }
 
             @Override
             public void onClose(Workspace workspace) {
                 activeWorkspace.remove(workspace);
+                sessionStorage.removeWorkspace(workspace);
             }
         });
 
@@ -226,6 +228,7 @@ public class App {
 
                 if (it.isLeaf()) {
                     Note n = new Note(it.getPath(), workspace, it.getName());
+                    n.setSize(it.getSize());
                     res.add(n);
                 } else {
                     res.addAll(getNoteFromItem(it, workspace));
@@ -234,6 +237,7 @@ public class App {
 
         } else {
             Note n = new Note(item.getPath(), workspace, item.getName());
+            n.setSize(item.getSize());
             res.add(n);
         }
 

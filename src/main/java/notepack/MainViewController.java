@@ -83,7 +83,13 @@ public class MainViewController implements Initializable {
             notePaneBackground.setUserData(ctrl);
             ctrl.setApp(app);
 
-            parentPane.getChildren().addAll(notePaneBackground);
+            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/notepack/SearchPaneBackground.fxml"));
+            AnchorPane searchPaneBackground = loader2.load();
+            SearchPaneController ctrl2 = loader2.getController();
+            searchPaneBackground.setUserData(ctrl2);
+            ctrl2.setApp(app);
+
+            parentPane.getChildren().addAll(notePaneBackground, searchPaneBackground);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -137,7 +143,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void onNoteSearch(ActionEvent event) {
-        app.addTask(new ShowSearchForNoteDialog());
+        app.addTask(new SearchPaneShow());
     }
 
     @FXML
