@@ -57,11 +57,13 @@ public class App {
             @Override
             public void onOpen(Workspace workspace) {
                 activeWorkspace.add(workspace);
+                sessionStorage.addWorkspace(workspace);
             }
 
             @Override
             public void onClose(Workspace workspace) {
                 activeWorkspace.remove(workspace);
+                sessionStorage.removeWorkspace(workspace);
             }
         });
 
