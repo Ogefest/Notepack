@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0"
+            prefWidth="569.0" styleClass="card" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="notepack.ClipboardPopupController">
+   <stylesheets>
+      <!--<URL value="@color-definition.css" />-->
+      <URL value="@scrollbar.css"/>
+      <URL value="@icons.css"/>
+      <URL value="@default.css"/>
+      <URL value="@layout.css"/>
+      <URL value="@popup.css"/>
+   </stylesheets>
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" styleClass="popup-title" text="Clipboard"/>
+      <CheckBox fx:id="isClipboardEnabledCheckbox" layoutX="14.0" layoutY="69.0" mnemonicParsing="false"
+                onAction="#changeClipboardActive" text="Clipboard manager active"/>
+      <ListView fx:id="itemList" layoutX="14.0" layoutY="137.0" prefHeight="291.0" prefWidth="541.0"
+                AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"/>
+      <Button layoutX="493.0" layoutY="438.0" mnemonicParsing="false" onAction="#clearAll" text="Clear all"
+              AnchorPane.rightAnchor="14.0"/>
+      <Button layoutX="477.0" layoutY="511.0" mnemonicParsing="false" onAction="#closePopup" text="Close"
+              AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0"/>
+      <Label layoutX="14.0" layoutY="115.0" text="Select text to clipboard" AnchorPane.leftAnchor="14.0"/>
+   </children>
+</AnchorPane>
