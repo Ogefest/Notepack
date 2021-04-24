@@ -22,34 +22,42 @@
                   <Font name="Lato Light" size="30.0" />
                </font></Label>
             <HBox alignment="CENTER_RIGHT" layoutX="1047.0" layoutY="-23.0" prefHeight="50.0" prefWidth="318.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
+                <children>
+                    <Button mnemonicParsing="false" onAction="#onClipboard" styleClass="icon-button" textFill="WHITE">
+                        <graphic>
+                            <Label styleClass="icon-base,mi-clipboard-outline"/>
+                        </graphic>
+                        <tooltip>
+                            <Tooltip text="New workspace"/>
+                        </tooltip>
+                    </Button>
 
-                  <!--<Button mnemonicParsing="false" onAction="#onShowTodo" styleClass="icon-button" textFill="WHITE">
-                     <graphic>
-                        <Label styleClass="icon-base,mi-order-bool-ascending-variant" />
-                     </graphic>
-                     <tooltip>
-                        <Tooltip text="Show todo (Ctrl + Shift + T)" />
-                     </tooltip>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#onShowNotes" styleClass="icon-button" textFill="WHITE">
-                     <graphic>
-                        <Label styleClass="icon-base,mi-text-box-multiple-outline" />
-                     </graphic>
-                     <tooltip>
-                        <Tooltip text="Show notes (Ctrl + Shift + N)" />
-                     </tooltip>
-                  </Button>-->
-
-                   <Button mnemonicParsing="false" onAction="#onWorkspaceCreate" styleClass="icon-button"
-                           textFill="WHITE">
-                       <tooltip>
-                           <Tooltip text="New workspace"/>
-                       </tooltip>
+                    <!--<Button mnemonicParsing="false" onAction="#onShowTodo" styleClass="icon-button" textFill="WHITE">
                        <graphic>
-                           <Label styleClass="icon-base,mi-folder-plus-outline"/>
+                          <Label styleClass="icon-base,mi-order-bool-ascending-variant" />
                        </graphic>
-                   </Button>
+                       <tooltip>
+                          <Tooltip text="Show todo (Ctrl + Shift + T)" />
+                       </tooltip>
+                    </Button>
+                    <Button mnemonicParsing="false" onAction="#onShowNotes" styleClass="icon-button" textFill="WHITE">
+                       <graphic>
+                          <Label styleClass="icon-base,mi-text-box-multiple-outline" />
+                       </graphic>
+                       <tooltip>
+                          <Tooltip text="Show notes (Ctrl + Shift + N)" />
+                       </tooltip>
+                    </Button>-->
+
+                    <Button mnemonicParsing="false" onAction="#onWorkspaceCreate" styleClass="icon-button"
+                            textFill="WHITE">
+                        <tooltip>
+                            <Tooltip text="New workspace"/>
+                        </tooltip>
+                        <graphic>
+                            <Label styleClass="icon-base,mi-folder-plus-outline"/>
+                        </graphic>
+                    </Button>
 
                    <Button mnemonicParsing="false" onAction="#onNoteSearch" styleClass="icon-button" textFill="WHITE">
                        <tooltip>
@@ -79,7 +87,7 @@
             </HBox>
             <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="-15.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@./logo.png"/>
+                   <Image url="@./logo.png"/>
                </image>
             </ImageView>
 

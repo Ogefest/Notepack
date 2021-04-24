@@ -37,7 +37,7 @@ public class MainViewController implements Initializable {
     private Stage parentStage;
     
     private Settings appSettings;
-    
+
     @FXML
     private AnchorPane mainPane;
 
@@ -65,6 +65,9 @@ public class MainViewController implements Initializable {
             try {
                 task.guiWork(taskUtil, app);
             } catch (GuiNotReadyError guiNotReadyError) {
+                if (task instanceof TypeRecurring) {
+                    ((TypeRecurring) task).startTaskAfterSecondsFromNow(5);
+                }
                 app.addTask((Task) task);
             }
         }));
@@ -159,6 +162,11 @@ public class MainViewController implements Initializable {
     @FXML
     private void onSwitchTheme(ActionEvent event) {
         app.addTask(new ToggleTheme(mainScene));
+    }
+
+    @FXML
+    private void onClipboard(ActionEvent event) {
+        app.addTask(new ClipboardPopup());
     }
 
     @FXML
