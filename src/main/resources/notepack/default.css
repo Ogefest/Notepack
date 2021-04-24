@@ -241,7 +241,7 @@
     -fx-background-color: toolbar-background;
 }
 
-#noteToolbar .menu-button, #notepadToolbar .menu-button {
+#noteToolbar .menu-button, #notepadToolbar .menu-button, #top-bar .menu-button {
     -fx-padding: 8;
 }
 
@@ -347,5 +347,5 @@
 }
 
 .menu-button .text {
-    -fx-font-size: 16;
+    /*-fx-font-size: 16;*/
 } "
