@@ -103,6 +103,10 @@ public class Workspace {
         }
     }
 
+    public boolean isActive() {
+        return !getParam("is_archived").equals("1");
+    }
+
     public String getParam(String key) {
         return params.getOrDefault(key, "");
     }
