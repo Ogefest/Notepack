@@ -65,6 +65,9 @@ public class MainViewController implements Initializable {
             try {
                 task.guiWork(taskUtil, app);
             } catch (GuiNotReadyError guiNotReadyError) {
+                if (task instanceof TypeRecurring) {
+                    ((TypeRecurring) task).startTaskAfterSecondsFromNow(5);
+                }
                 app.addTask((Task) task);
             }
         }));
