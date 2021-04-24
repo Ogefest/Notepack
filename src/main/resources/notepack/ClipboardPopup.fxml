@@ -22,8 +22,10 @@
                 AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"/>
       <Button layoutX="493.0" layoutY="438.0" mnemonicParsing="false" onAction="#clearAll" text="Clear all"
               AnchorPane.rightAnchor="14.0"/>
-      <Button layoutX="477.0" layoutY="511.0" mnemonicParsing="false" onAction="#closePopup" text="Close"
-              AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0"/>
+      <Button cancelButton="true" layoutX="376.0" layoutY="511.0" mnemonicParsing="false" onAction="#closePopup"
+              text="Close" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="133.0"/>
       <Label layoutX="14.0" layoutY="115.0" text="Select text to clipboard" AnchorPane.leftAnchor="14.0"/>
+      <Button fx:id="setClipboardBtn" defaultButton="true" layoutX="445.0" layoutY="511.0" mnemonicParsing="false"
+              onAction="#setClipboard" text="Set clipboard"/>
    </children>
 </AnchorPane>

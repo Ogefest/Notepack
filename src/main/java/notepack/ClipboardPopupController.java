@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.input.Clipboard;
@@ -21,15 +22,23 @@ public class ClipboardPopupController extends PopupController implements Initial
     ObservableList<String> items = FXCollections.observableArrayList();
 
     @FXML
+    private Button setClipboardBtn;
+    @FXML
     private ListView<String> itemList;
     @FXML
     private CheckBox isClipboardEnabledCheckbox;
 
     public void setApp(App app) {
         this.app = app;
+        setClipboardBtn.setDisable(true);
+
         itemList.setItems(items);
         itemList.getSelectionModel().selectedItemProperty().addListener((observableValue, s, label) -> {
-            setClipboardFromSelectedListView();
+            if (itemList.getSelectionModel().getSelectedIndex() >= 0) {
+                setClipboardBtn.setDisable(false);
+            } else {
+                setClipboardBtn.setDisable(true);
+            }
         });
         itemList.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getClickCount() == 2) {
@@ -53,6 +62,7 @@ public class ClipboardPopupController extends PopupController implements Initial
             isClipboardEnabledCheckbox.setSelected(false);
             itemList.setDisable(true);
         }
+
     }
 
     private void setClipboardFromSelectedListView() {
@@ -91,6 +101,12 @@ public class ClipboardPopupController extends PopupController implements Initial
 
     @FXML
     void closePopup(ActionEvent event) {
+        getTaskUtil().closePopup();
+    }
+
+    @FXML
+    void setClipboard(ActionEvent event) {
+        setClipboardFromSelectedListView();
         getTaskUtil().closePopup();
     }
 
