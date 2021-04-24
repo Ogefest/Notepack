@@ -37,7 +37,7 @@ public class MainViewController implements Initializable {
     private Stage parentStage;
     
     private Settings appSettings;
-    
+
     @FXML
     private AnchorPane mainPane;
 
@@ -159,6 +159,11 @@ public class MainViewController implements Initializable {
     @FXML
     private void onSwitchTheme(ActionEvent event) {
         app.addTask(new ToggleTheme(mainScene));
+    }
+
+    @FXML
+    private void onClipboard(ActionEvent event) {
+        app.addTask(new ClipboardPopup());
     }
 
     @FXML
