@@ -44,6 +44,10 @@ public class NoteOpen extends BaseTask implements Task, TypeNote, TypeGui {
     @Override
     public void guiWork(TaskUtil taskUtil, App app) {
 
+        if (!note.getWorkspace().isActive()) {
+            return;
+        }
+
         taskUtil.showNotesPane();
         TabPane tabContainer = taskUtil.getNotesContainer();
 
