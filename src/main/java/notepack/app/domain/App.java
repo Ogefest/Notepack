@@ -19,14 +19,17 @@ public class App {
     private SessionStorage sessionStorage;
     private Settings settings;
     private Theme theme;
+    private ClipboardManager clipboardManager;
     private ArrayList<Note> activeNotes = new ArrayList<>();
     private ArrayList<Workspace> activeWorkspace = new ArrayList<>();
     private ArrayList<Todo> activeTodo = new ArrayList<>();
+
 
     public App(SessionStorage sessionStorage, Settings settings) {
         this.sessionStorage = sessionStorage;
         this.settings = settings;
         this.theme = new Theme(settings);
+        this.clipboardManager = new ClipboardManager();
 
         messageBus = new MessageBus();
 
@@ -258,6 +261,14 @@ public class App {
         noteSave.startTaskAfterSecondsFromNow(20);
         messageBus.addTask(noteSave);
 
+        ClipboadUpdater clipboadUpdater = new ClipboadUpdater();
+        clipboadUpdater.startTaskAfterSecondsFromNow(10);
+        messageBus.addTask(clipboadUpdater);
+
+    }
+
+    public ClipboardManager getClipboardManager() {
+        return clipboardManager;
     }
 
     public ArrayList<Note> getNotesWithTodo() {
