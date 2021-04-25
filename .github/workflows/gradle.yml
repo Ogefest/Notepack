@@ -18,15 +18,15 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 14
-    - uses: eskatos/gradle-command-action@v1
-      with:
-        gradle-version: 6.8
 #    - name: Build with Maven
 #      run: mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
 #    - name: Create zip runtime
 #      run: cd target ; zip -r notepack.zip notepack/
       
     - name: Create DEB
+    - uses: eskatos/gradle-command-action@v1
+      with:
+        gradle-version: 6.8
       run: gradle jpackage -PinstallerType=deb
     - name: Rename DEB
       run: mv build/Notepack-package/*.deb ./file.deb ; ls -lha .
@@ -95,10 +95,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 14
-    - uses: eskatos/gradle-command-action@v1
-      with:
-        gradle-version: 6.8
-        
     - name: Create MSI
       run: gradle jpackage -PinstallerType=msi
     - name: Rename MSI
