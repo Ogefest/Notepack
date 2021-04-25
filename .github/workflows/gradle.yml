@@ -20,9 +20,9 @@ jobs:
         java-version: 14
 
       
-
-    - uses: eskatos/gradle-command-action@v1
     - name: Create DEB
+    - uses: eskatos/gradle-command-action@v1
+
       with:
         gradle-version: 6.8
         arguments: jpackage -PinstallerType=deb
@@ -121,4 +121,4 @@ jobs:
 #        asset_path: ./file.msi
 #        asset_name: notepack-${{ github.event.release.tag_name }}-windows-installer.msi
 #        asset_content_type: application/octet-stream
-#        
+#
