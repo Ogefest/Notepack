@@ -18,6 +18,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 14
+    - uses: eskatos/gradle-command-action@v1
+      with:
+        gradle-version: 6.8
 #    - name: Build with Maven
 #      run: mvn -X clean install resources:resources compiler:compile javafx:jlink --file pom.xml
 #    - name: Create zip runtime
@@ -92,7 +95,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 14
-
+    - uses: eskatos/gradle-command-action@v1
+      with:
+        gradle-version: 6.8
+        
     - name: Create MSI
       run: gradle jpackage -PinstallerType=msi
     - name: Rename MSI
