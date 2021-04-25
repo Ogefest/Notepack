@@ -18,11 +18,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 14
-
-      
     - name: Create DEB
-    - uses: eskatos/gradle-command-action@v1
-
+      uses: eskatos/gradle-command-action@v1
       with:
         gradle-version: 6.8
         arguments: jpackage -PinstallerType=deb
@@ -31,12 +28,10 @@ jobs:
       run: mv build/Notepack-package/*.deb ./file.deb ; ls -lha .
     - name: Create Runtime ZIP
       run: cd build/Notepack-package/; zip -r ../../notepack.zip Notepack/ ; cd ../..
-
 #    - name: Create RPM
 #      run: gradle jpackage -PinstallerType=rpm
 #    - name: Rename RPM
 #      run: mv build/Notepack-package/*.rpm ./file.rpm ; ls -lha .
-      
     - name: Download appimage
       run: wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage"
     - name: Build appimage
