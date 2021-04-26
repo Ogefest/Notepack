@@ -3,29 +3,18 @@ package notepack.noterender;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import notepack.*;
 import notepack.app.domain.App;
 import notepack.app.domain.Note;
-import notepack.app.storage.PreferencesSettings;
 import notepack.app.task.TagPopup;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * FXML Controller class
@@ -53,16 +42,47 @@ public class TextAreaController implements Initializable, NoteRenderController {
     @FXML
     protected MenuItem menuCopy;
 
-    protected NoteTabContentCallback clbk;
     @FXML
     protected CheckMenuItem wordWrapMenu;
+
+    @FXML
+    private Button searchOpenBtn;
+    @FXML
+    private Button closeSearchBtn;
+    @FXML
+    private Button searchDownBtn;
+
+    @FXML
+    private TextField searchInput;
+
+    @FXML
+    private TextField replaceInput;
+    @FXML
+    private Button replaceBtn;
+    @FXML
+    private Button replaceOpenBtn;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        searchInput.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                searchClose(null);
+            }
+            if (event.getCode() == KeyCode.ENTER) {
+                searchDown(null);
+            }
+        });
+        replaceInput.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                searchClose(null);
+            }
+            if (event.getCode() == KeyCode.ENTER) {
+                replaceText(null);
+            }
+        });
     }
 
     @Override
@@ -96,10 +116,48 @@ public class TextAreaController implements Initializable, NoteRenderController {
 
     @FXML
     protected void onSearchInNote(ActionEvent event) {
-        showSearchReplaceForm();
+        showSearchForm();
     }
 
-    public void showSearchReplaceForm() {
+    public void showReplaceForm() {
+        replaceInput.setVisible(true);
+        replaceInput.setManaged(true);
+        searchInput.setVisible(true);
+        searchInput.setManaged(true);
+        replaceBtn.setVisible(true);
+        replaceBtn.setManaged(true);
+        closeSearchBtn.setVisible(true);
+        closeSearchBtn.setManaged(true);
+
+        searchOpenBtn.setVisible(false);
+        searchOpenBtn.setManaged(false);
+        replaceOpenBtn.setVisible(false);
+        replaceOpenBtn.setManaged(false);
+
+        searchInput.requestFocus();
+    }
+
+    public void showSearchForm() {
+
+        searchDownBtn.setVisible(true);
+        searchInput.setVisible(true);
+        closeSearchBtn.setVisible(true);
+        searchOpenBtn.setVisible(false);
+        searchOpenBtn.setManaged(false);
+
+        replaceBtn.setVisible(false);
+        replaceBtn.setManaged(false);
+        replaceInput.setVisible(false);
+        replaceInput.setManaged(false);
+        replaceOpenBtn.setVisible(false);
+        replaceOpenBtn.setManaged(false);
+
+
+        searchInput.requestFocus();
+
+
+
+        /*
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/notepack/SearchForm.fxml"));
 
@@ -169,6 +227,8 @@ public class TextAreaController implements Initializable, NoteRenderController {
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+         */
     }
 
     @FXML
@@ -234,6 +294,82 @@ public class TextAreaController implements Initializable, NoteRenderController {
     @Override
     public Pane getTagContainer() {
         return tagContainer;
+    }
+
+    @FXML
+    void searchClose(ActionEvent event) {
+        searchOpenBtn.setVisible(true);
+        searchOpenBtn.setManaged(true);
+        replaceOpenBtn.setVisible(true);
+        replaceOpenBtn.setManaged(true);
+
+        searchInput.setVisible(false);
+        searchInput.setManaged(false);
+        replaceInput.setVisible(false);
+        replaceInput.setManaged(false);
+
+        searchDownBtn.setVisible(false);
+        searchDownBtn.setManaged(false);
+        replaceBtn.setVisible(false);
+        replaceBtn.setManaged(false);
+
+        closeSearchBtn.setVisible(false);
+        closeSearchBtn.setManaged(false);
+
+    }
+
+    @FXML
+    void searchUp(ActionEvent event) {
+
+    }
+
+    @FXML
+    void searchDown(ActionEvent event) {
+
+        String string = searchInput.getText();
+        if (string.length() == 0) {
+            return;
+        }
+
+        int caretPost = textArea.getCaretPosition();
+        int indexStart = textArea.getText().toLowerCase().indexOf(string.toLowerCase(), caretPost);
+
+        if (textArea.getText().indexOf(string) == -1) {
+            Alert a = new Alert(Alert.AlertType.INFORMATION, string + " was not found.", ButtonType.OK);
+            a.showAndWait();
+        } else {
+            if (indexStart > 0) {
+                textArea.selectRange(indexStart, indexStart + string.length());
+            } else {
+                indexStart = textArea.getText().indexOf(string, 0);
+                textArea.selectRange(indexStart, indexStart + string.length());
+            }
+        }
+    }
+
+    @FXML
+    void replaceText(ActionEvent event) {
+        String taText = textArea.getText();
+        String from = searchInput.getText();
+        String to = replaceInput.getText();
+
+        int caretPost = textArea.getCaretPosition();
+        int indexStart = taText.indexOf(from, caretPost);
+        if (indexStart > 0) {
+
+            String part1 = taText.substring(0, indexStart);
+            String part2 = taText.substring(indexStart + from.length());
+
+            String result = part1 + to + part2;
+            textArea.setText(result);
+            textArea.positionCaret(indexStart);
+
+        }
+    }
+
+    @FXML
+    void onReplaceInNote(ActionEvent event) {
+        showReplaceForm();
     }
 
 }

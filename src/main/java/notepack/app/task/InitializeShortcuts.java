@@ -45,10 +45,17 @@ public class InitializeShortcuts extends BaseTask implements Task, TypeGui {
         notes.getScene().getAccelerators().put(kcSearchReplaceString, () -> {
             Tab t = taskUtil.getNotesContainer().getSelectionModel().getSelectedItem();
             if (t.getUserData() instanceof TextAreaController) {
-                ((TextAreaController) t.getUserData()).showSearchReplaceForm();
+                ((TextAreaController) t.getUserData()).showSearchForm();
             }
             if (t.getUserData() instanceof TodoPaneBackgroundController) {
                 ((TodoPaneBackgroundController) t.getUserData()).toggleSearchInput();
+            }
+        });
+        KeyCombination kcSearchString = new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN);
+        notes.getScene().getAccelerators().put(kcSearchString, () -> {
+            Tab t = taskUtil.getNotesContainer().getSelectionModel().getSelectedItem();
+            if (t.getUserData() instanceof TextAreaController) {
+                ((TextAreaController) t.getUserData()).showReplaceForm();
             }
         });
 
