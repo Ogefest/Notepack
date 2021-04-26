@@ -9,10 +9,10 @@
 <AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.noterender.MarkdownController">
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
-        <URL value="@notepack/scrollbar.css" />  
-        <URL value="@notepack/icons.css" />  
-        <URL value="@notepack/default.css" />  
-        <URL value="@notepack/notepadsettings.css" />
+        <URL value="@../scrollbar.css"/>
+        <URL value="@../icons.css"/>
+        <URL value="@../default.css"/>
+        <URL value="@../notepadsettings.css"/>
     </stylesheets>        
     <children>
         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
