@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
@@ -62,7 +62,23 @@
                                         <Label styleClass="icon-base,mi-magnify"/>
                                     </graphic>
                                 </Button>
-                                <TextField fx:id="searchInput" prefHeight="35.0" prefWidth="302.0" visible="false"/>
+                                <Button fx:id="replaceOpenBtn" mnemonicParsing="false" onAction="#onReplaceInNote"
+                                        styleClass="icon-button">
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-find-replace"/>
+                                    </graphic>
+                                    <tooltip>
+                                        <Tooltip text="Replace (Ctrl + r)"/>
+                                    </tooltip>
+                                </Button>
+                                <TextField fx:id="searchInput" prefHeight="35.0" prefWidth="230.0"
+                                           promptText="Search for" visible="false"/>
+                                <TextField fx:id="replaceInput" prefHeight="35.0" prefWidth="230.0"
+                                           promptText="Replace with" visible="false">
+                                    <HBox.margin>
+                                        <Insets left="10.0"/>
+                                    </HBox.margin>
+                                </TextField>
                                 <!--                                <Button fx:id="searchUpBtn" mnemonicParsing="false" onAction="#searchUp"-->
                                 <!--                                        styleClass="icon-button">-->
                                 <!--                                    <graphic>-->
@@ -76,6 +92,15 @@
                                         styleClass="icon-button" visible="false">
                                     <graphic>
                                         <Label styleClass="icon-base,mi-magnify"/>
+                                    </graphic>
+                                    <tooltip>
+                                        <Tooltip text="Search down"/>
+                                    </tooltip>
+                                </Button>
+                                <Button fx:id="replaceBtn" mnemonicParsing="false" onAction="#replaceText"
+                                        styleClass="icon-button" visible="false">
+                                    <graphic>
+                                        <Label styleClass="icon-base,mi-find-replace"/>
                                     </graphic>
                                     <tooltip>
                                         <Tooltip text="Search down"/>
