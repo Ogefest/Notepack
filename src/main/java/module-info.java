@@ -10,7 +10,9 @@ module notepack {
     opens notepack to javafx.fxml;
     opens notepack.engine to javafx.fxml;
     opens notepack.noterender to javafx.fxml;
+    opens notepack.gui to javafx.fxml;
     exports notepack;
+    exports notepack.gui;
     exports notepack.engine;
     exports notepack.noterender;
 
