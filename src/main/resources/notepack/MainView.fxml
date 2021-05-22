@@ -5,14 +5,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import notepack.gui.*?>
 <?import java.net.URL?>
 <AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="843.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.MainViewController">
     <stylesheets>
         <!--<URL value="@color-definition.css" />-->
-        <URL value="@scrollbar.css" />  
+        <URL value="@scrollbar.css"/>
         <URL value="@icons.css" />
         <URL value="@material.icons"/>
-        <URL value="@default.css" />  
+        <URL value="@default.css"/>
     </stylesheets>        
     <children>
       <AnchorPane id="top-bar" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -25,7 +26,8 @@
                 <children>
                     <Button mnemonicParsing="false" onAction="#onClipboard" styleClass="icon-button" textFill="WHITE">
                         <graphic>
-                            <Label styleClass="icon-base,mi-clipboard-outline"/>
+                            <MaterialIcon name="clipboard-outline"/>
+                            <!--<Label styleClass="icon-base,mi-clipboard-outline"/>-->
                         </graphic>
                         <tooltip>
                             <Tooltip text="New workspace"/>
@@ -55,7 +57,8 @@
                             <Tooltip text="New workspace"/>
                         </tooltip>
                         <graphic>
-                            <Label styleClass="icon-base,mi-folder-plus-outline"/>
+                            <MaterialIcon name="folder-plus-outline"/>
+                            <!--                            <Label styleClass="icon-base,mi-folder-plus-outline"/>-->
                         </graphic>
                     </Button>
 
@@ -64,7 +67,8 @@
                            <Tooltip text="Search for note (Ctrl + Shift + F)"/>
                        </tooltip>
                        <graphic>
-                           <Label styleClass="icon-base,mi-magnify"/>
+                           <MaterialIcon name="magnify"/>
+                           <!--<Label styleClass="icon-base,mi-magnify"/>-->
                        </graphic>
                    </Button>
                    <Button mnemonicParsing="false" onAction="#onSwitchTheme" styleClass="icon-button" textFill="WHITE">
@@ -72,7 +76,8 @@
                            <Tooltip text="Toggle theme" />
                        </tooltip>
                        <graphic>
-                           <Label styleClass="icon-base,mi-brightness-6" />
+                           <MaterialIcon styleClass="material-icon" name="brightness-6"/>
+                           <!--<Label styleClass="icon-base,mi-brightness-6" />-->
                        </graphic>
                    </Button>
                   <Button mnemonicParsing="false" onAction="#onApplicationInfo" styleClass="icon-button" textFill="WHITE">
@@ -80,7 +85,8 @@
                         <Tooltip text="Info" />
                      </tooltip>
                       <graphic>
-                          <Label styleClass="icon-base,mi-information-outline" />
+                          <MaterialIcon name="information-outline"/>
+                          <!--<Label styleClass="icon-base,mi-information-outline" />-->
                       </graphic>
                   </Button>
                </children>
