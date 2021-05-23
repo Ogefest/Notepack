@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
+<?import notepack.gui.*?>
 <?import java.net.URL?>
 <AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.noterender.MarkdownController">
     <stylesheets>
@@ -27,7 +28,7 @@
                                         <Tooltip text="Search (Ctrl + f)"/>
                                     </tooltip>
                                     <graphic>
-                                        <Label styleClass="icon-base,mi-magnify"/>
+                                        <MaterialIcon name="magnify"/>
                                     </graphic>
                                 </Button>
                                 <MenuButton fx:id="btnActions" mnemonicParsing="false" styleClass="icon-button">
@@ -45,7 +46,7 @@
                                         <Tooltip text="Edit" />
                                     </tooltip>
                                     <graphic>
-                                        <Label styleClass="icon-base,mi-pencil" />
+                                        <MaterialIcon name="pencil"/>
                                     </graphic>
                                 </MenuButton>
                         <Button mnemonicParsing="false" onAction="#onChangeViewMode" styleClass="icon-button">
@@ -53,7 +54,7 @@
                               <Tooltip text="Toggle editor view" />
                            </tooltip>
                             <graphic>
-                                <Label styleClass="icon-base,mi-dip-switch" />
+                                <MaterialIcon name="dip-switch"/>
                             </graphic>
                         </Button>                        
 
@@ -67,13 +68,13 @@
                                         <Tooltip text="Tag"/>
                                     </tooltip>
                                     <graphic>
-                                        <Label styleClass="icon-base,mi-tag-outline"/>
+                                        <MaterialIcon name="tag-outline"/>
                                     </graphic>
                                 </Button>
 
                                 <Button mnemonicParsing="false" onAction="#onCloseNote" styleClass="icon-button">
                                     <graphic>
-                                        <Label styleClass="icon-base,mi-close"/>
+                                        <MaterialIcon name="close"/>
                                     </graphic>
                                     <tooltip>
                                         <Tooltip text="Close note (Ctrl + w)"/>
@@ -97,7 +98,6 @@
                                 <opaqueInsets>
                                     <Insets />
                                 </opaqueInsets>
-                  
                             </TextArea>
                      </children>
                   </AnchorPane>

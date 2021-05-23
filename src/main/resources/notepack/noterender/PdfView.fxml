@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.WebView?>
+<?import notepack.gui.MaterialIcon?>
 <?import java.net.URL?>
 <AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.noterender.PdfViewController">
     <stylesheets>
@@ -11,7 +12,7 @@
         <URL value="@../scrollbar.css"/>
         <URL value="@../icons.css"/>
         <URL value="@../default.css"/>
-        <URL value="@../notepadsettings.css"/>
+        <!--<URL value="@../notepadsettings.css"/>-->
     </stylesheets>        
     <children>
         <VBox prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -25,7 +26,7 @@
                               <Tooltip text="Prev page" />
                            </tooltip>
                             <graphic>
-                                <Label styleClass="icon-base,mi-arrow-left" />
+                                <MaterialIcon name="arrow-left"/>
                             </graphic>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#onNextPage" styleClass="icon-button">
@@ -33,7 +34,7 @@
                               <Tooltip text="Next page" />
                            </tooltip>
                             <graphic>
-                                <Label styleClass="icon-base,mi-arrow-right" />
+                                <MaterialIcon name="arrow-right"/>
                             </graphic>
                            <HBox.margin>
                               <Insets right="5.0" />
@@ -61,7 +62,7 @@
                                         <Tooltip text="Tag"/>
                                     </tooltip>
                                     <graphic>
-                                        <Label styleClass="icon-base,mi-tag-outline"/>
+                                        <MaterialIcon name="tag-outline"/>
                                     </graphic>
                                 </Button>
 
@@ -70,7 +71,7 @@
                                         <Tooltip text="Close note (Ctrl + w)"/>
                                     </tooltip>
                                     <graphic>
-                                        <Label styleClass="icon-base,mi-close"/>
+                                        <MaterialIcon name="close"/>
                                     </graphic>
                                 </Button>
                             </children>

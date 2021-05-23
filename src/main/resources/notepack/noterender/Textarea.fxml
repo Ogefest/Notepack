@@ -51,7 +51,6 @@
                                         <Tooltip text="Edit"/>
                                     </tooltip>
                                     <graphic>
-                                        <!--<Label styleClass="icon-base,mi-pencil"/>-->
                                         <MaterialIcon name="pencil"/>
                                     </graphic>
                                 </MenuButton>
@@ -61,14 +60,12 @@
                                         <Tooltip text="Search (Ctrl + f)"/>
                                     </tooltip>
                                     <graphic>
-                                        <!--<Label styleClass="icon-base,mi-magnify"/>-->
                                         <MaterialIcon name="magnify"/>
                                     </graphic>
                                 </Button>
                                 <Button fx:id="replaceOpenBtn" mnemonicParsing="false" onAction="#onReplaceInNote"
                                         styleClass="icon-button">
                                     <graphic>
-                                        <!--<Label styleClass="icon-base,mi-find-replace"/>-->
                                         <MaterialIcon name="find-replace"/>
                                     </graphic>
                                     <tooltip>
@@ -83,19 +80,9 @@
                                         <Insets left="10.0"/>
                                     </HBox.margin>
                                 </TextField>
-                                <!--                                <Button fx:id="searchUpBtn" mnemonicParsing="false" onAction="#searchUp"-->
-                                <!--                                        styleClass="icon-button">-->
-                                <!--                                    <graphic>-->
-                                <!--                                        <Label styleClass="icon-base,mi-arrow-up"/>-->
-                                <!--                                    </graphic>-->
-                                <!--                                    <tooltip>-->
-                                <!--                                        <Tooltip text="Search up"/>-->
-                                <!--                                    </tooltip>-->
-                                <!--                                </Button>-->
                                 <Button fx:id="searchDownBtn" mnemonicParsing="false" onAction="#searchDown"
                                         styleClass="icon-button" visible="false">
                                     <graphic>
-                                        <!--<Label styleClass="icon-base,mi-magnify"/>-->
                                         <MaterialIcon name="magnify"/>
                                     </graphic>
                                     <tooltip>
@@ -105,7 +92,6 @@
                                 <Button fx:id="replaceBtn" mnemonicParsing="false" onAction="#replaceText"
                                         styleClass="icon-button" visible="false">
                                     <graphic>
-                                        <!--<Label styleClass="icon-base,mi-find-replace"/>-->
                                         <MaterialIcon name="find-replace"/>
                                     </graphic>
                                     <tooltip>
@@ -115,7 +101,6 @@
                                 <Button fx:id="closeSearchBtn" mnemonicParsing="false" onAction="#searchClose"
                                         styleClass="icon-button" visible="false">
                                     <graphic>
-                                        <!--<Label styleClass="icon-base,mi-close"/>-->
                                         <MaterialIcon name="close"/>
                                     </graphic>
                                     <tooltip>
@@ -139,7 +124,6 @@
                                         <Tooltip text="Tag"/>
                                     </tooltip>
                                     <graphic>
-                                        <!--<Label styleClass="icon-base,mi-tag-outline"/>-->
                                         <MaterialIcon name="tag-outline"/>
                                     </graphic>
                                 </Button>
@@ -149,7 +133,6 @@
                                         <Tooltip text="Close note (Ctrl + w)"/>
                                     </tooltip>
                                     <graphic>
-                                        <!--<Label styleClass="icon-base,mi-close"/>-->
                                         <MaterialIcon name="close"/>
                                     </graphic>
                                 </Button>
