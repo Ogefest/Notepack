@@ -6,11 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import notepack.gui.Icon;
+import notepack.gui.MaterialIcon;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
@@ -20,7 +21,7 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
     @FXML
     private AnchorPane nodeRow;
     @FXML
-    private Label nodeIcon;
+    private MaterialIcon nodeIcon;
     @FXML
     private Label nodeName;
     @FXML
@@ -34,7 +35,7 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
     @FXML
     private AnchorPane directoryRow;
     @FXML
-    private Label directoryIcon;
+    private MaterialIcon directoryIcon;
     @FXML
     private VBox centerPart1;
     @FXML
@@ -69,21 +70,35 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
         if (item == null) {
             setGraphic(null);
         } else {
-            
+
             if (item.isRoot()) {
                 workspaceName.setText(item.getLabel());
                 setGraphic(parentRow);
                 return;
             }
-            
+
             if (!item.getNoteStorageItem().isLeaf()) {
-
                 directoryName.setText(item.getLabel());
-                directoryIcon = Icon.get("mi-folder-outline");
-
                 setGraphic(directoryRow);
-
             } else {
+                Optional<String> tmpExt = getExtensionByStringHandling(item.getLabel());
+                if (tmpExt.isPresent()) {
+                    if (tmpExt.get().equals("pdf")) {
+                        nodeIcon.setName("file-pdf-outline");
+                    } else if (tmpExt.get().equals("jpg")) {
+                        nodeIcon.setName("file-image-outline");
+                    } else if (tmpExt.get().equals("csv")) {
+                        nodeIcon.setName("file-table-outline");
+                    } else if (tmpExt.get().equals("png")) {
+                        nodeIcon.setName("file-image-outline");
+                    } else if (tmpExt.get().equals("jpeg")) {
+                        nodeIcon.setName("file-image-outline");
+                    } else if (tmpExt.get().equals("ics")) {
+                        nodeIcon.setName("file-check-outline");
+                    } else {
+                        nodeIcon.setName("file-outline");
+                    }
+                }
 
                 nodeName.setText(item.getLabel());
 
@@ -94,7 +109,6 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
 
                 setGraphic(nodeRow);
             }
-
         }
     }
 
@@ -107,6 +121,12 @@ public class NoteTreeCell extends TreeCell<NoteTreeViewItem> {
             u++;
         }
         return String.format("%.1f %cB", bytes / 1024f, " kMGTPE".charAt(u));
+    }
+
+    private Optional<String> getExtensionByStringHandling(String filename) {
+        return Optional.ofNullable(filename)
+                .filter(f -> f.contains("."))
+                .map(f -> f.substring(filename.lastIndexOf(".") + 1));
     }
 
 }

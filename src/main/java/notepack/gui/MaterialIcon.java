@@ -35,6 +35,7 @@ public class MaterialIcon extends Label {
 
     public void setScale(double scale) {
         this.scale = scale;
+        refreshIcon();
     }
 
     public double getScale() {
