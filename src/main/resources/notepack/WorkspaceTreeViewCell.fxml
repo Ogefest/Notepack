@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import notepack.gui.MaterialIcon?>
 <?import java.net.URL?>
 <Pane id="noteListBody" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="209.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
@@ -18,14 +19,21 @@
             <AnchorPane fx:id="nodeRow" prefHeight="40.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="40.0">
-                     <children>
-                          <Label fx:id="nodeIcon" styleClass="icon-base,mi-file-outline">
-                           <HBox.margin>
-                              <Insets right="2.0" />
-                           </HBox.margin></Label>
+                      <children>
+                          <MaterialIcon fx:id="nodeIcon" name="file-outline" scale="0.8">
+                              <HBox.margin>
+                                  <Insets right="2.0"/>
+                              </HBox.margin>
+                          </MaterialIcon>
+                          <!--                          <Label fx:id="nodeIcon" styleClass="icon-base,mi-file-outline">
+
+                                                     <HBox.margin>
+                                                        <Insets right="2.0" />
+                                                     </HBox.margin>
+                                                    </Label>-->
                           <VBox fx:id="centerPart" alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
                               <children>
-                                  <Label fx:id="nodeName" prefHeight="16.0" text="Label" />
+                                  <Label fx:id="nodeName" prefHeight="16.0" text="Label"/>
                                   <Label fx:id="lastModified" styleClass="sub-text" text="Label" textFill="#656565">
                                       <font>
                                           <Font size="10.0" />
@@ -45,17 +53,23 @@
             <AnchorPane fx:id="directoryRow" prefHeight="40.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="40.0">
-                     <children>
-                        <Label fx:id="directoryIcon" styleClass="icon-base,mi-folder-outline">
-                           <HBox.margin>
-                              <Insets right="2.0" />
-                           </HBox.margin></Label>
-                        <VBox fx:id="centerPart1" alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
-                           <children>
-                              <Label fx:id="directoryName" prefHeight="16.0" prefWidth="164.0" text="Label">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
+                      <children>
+                          <MaterialIcon fx:id="directoryIcon" name="folder-outline" scale="0.8">
+                              <HBox.margin>
+                                  <Insets right="2.0"/>
+                              </HBox.margin>
+                          </MaterialIcon>
+                          <!--                        <Label fx:id="directoryIcon" styleClass="icon-base,mi-folder-outline">
+                                                     <HBox.margin>
+                                                        <Insets right="2.0" />
+                                                     </HBox.margin>
+                                                  </Label>-->
+                          <VBox fx:id="centerPart1" alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
+                              <children>
+                                  <Label fx:id="directoryName" prefHeight="16.0" prefWidth="164.0" text="Label">
+                                      <font>
+                                          <Font size="15.0"/>
+                                      </font>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -69,18 +83,23 @@
             <AnchorPane fx:id="parentRow" prefHeight="40.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="40.0">
-                     <children>
-                        <Label fx:id="workspaceIcon" styleClass="icon-base,mi-folder-outline">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <VBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
-                           <children>
-                              <Label fx:id="workspaceName" prefHeight="16.0" prefWidth="164.0" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
+                      <children>
+                          <MaterialIcon fx:id="workspaceIcon" name="folder-outline" scale="0.8">
+                              <HBox.margin>
+                                  <Insets right="2.0"/>
+                              </HBox.margin>
+                          </MaterialIcon>
+                          <!--                        <Label fx:id="workspaceIcon" styleClass="icon-base,mi-folder-outline">
+                                                     <font>
+                                                        <Font size="20.0" />
+                                                     </font>
+                                                  </Label>-->
+                          <VBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="177.0">
+                              <children>
+                                  <Label fx:id="workspaceName" prefHeight="16.0" prefWidth="164.0" text="Label">
+                                      <font>
+                                          <Font name="System Bold" size="18.0"/>
+                                      </font>
                               </Label>
                            </children>
                         </VBox>
