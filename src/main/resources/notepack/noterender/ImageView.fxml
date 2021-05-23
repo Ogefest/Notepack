@@ -4,15 +4,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
+<?import notepack.gui.MaterialIcon?>
 <?import java.net.URL?>
 <AnchorPane fx:id="tabBackground" minHeight="0.0" minWidth="0.0" prefHeight="664.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notepack.noterender.ImageViewController">
     <stylesheets>
-        <!--<URL value="@color-definition.css" />-->
         <URL value="@../scrollbar.css"/>
         <URL value="@../icons.css"/>
         <URL value="@../default.css"/>
-        <URL value="@../notepadsettings.css"/>
-    </stylesheets>        
+    </stylesheets>
     <children>
         <VBox prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -25,7 +24,7 @@
                               <Tooltip text="Original size" />
                            </tooltip>
                             <graphic>
-                                <Label styleClass="icon-base,mi-arrow-expand-all" />
+                                <MaterialIcon name="arrow-expand-all"/>
                             </graphic>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#onImageFitVertical" styleClass="icon-button">
@@ -33,7 +32,7 @@
                               <Tooltip text="Vertical scale" />
                            </tooltip>
                             <graphic>
-                                <Label styleClass="icon-base,mi-arrow-up-down" />
+                                <MaterialIcon name="arrow-up-down"/>
                             </graphic>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#onImageFitHorizontal" styleClass="icon-button">
@@ -41,7 +40,7 @@
                               <Tooltip text="Horizontal scale" />
                            </tooltip>
                             <graphic>
-                                <Label styleClass="icon-base,mi-arrow-left-right" />
+                                <MaterialIcon name="arrow-left-right"/>
                             </graphic>
                         </Button>
                      </children></HBox>
