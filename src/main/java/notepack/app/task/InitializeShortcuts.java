@@ -24,6 +24,9 @@ public class InitializeShortcuts extends BaseTask implements Task, TypeGui {
         KeyCombination kcCloseNote = new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN);
         notes.getScene().getAccelerators().put(kcCloseNote, () -> app.addTask(new NoteClose(taskUtil.getCurrentNote())));
 
+        KeyCombination kcReopenNote = new KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
+        notes.getScene().getAccelerators().put(kcReopenNote, () -> app.reopenLastClosedNote());
+
         KeyCombination kcTodoNote = new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN);
         notes.getScene().getAccelerators().put(kcTodoNote, () -> {
             Tab t = taskUtil.getNotesContainer().getSelectionModel().getSelectedItem();
