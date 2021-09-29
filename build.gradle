@@ -1,6 +1,6 @@
 plugins {
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
     id 'org.beryx.jlink' version '2.22.1'
     //    id 'org.beryx.runtime' version '1.11.3'
 }
@@ -30,17 +30,17 @@ javafx {
 }
 
 dependencies {
-    compile group: 'org.openjfx', name: 'javafx-base', version:'14'
-    compile group: 'org.openjfx', name: 'javafx-controls', version:'14'
-    compile group: 'org.openjfx', name: 'javafx-fxml', version:'14'
-    compile group: 'org.openjfx', name: 'javafx-web', version:'14'
-    compile group: 'org.json', name: 'json', version:'20190722'
-    compile 'com.vladsch.flexmark:flexmark-all:0.62.2'
-    compile group: 'net.lingala.zip4j', name: 'zip4j', version: '2.6.4'
-    compile group: 'org.mnode.ical4j', name: 'ical4j', version: '3.0.21'
+    implementation group: 'org.openjfx', name: 'javafx-base', version:'14'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version:'14'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version:'14'
+    implementation group: 'org.openjfx', name: 'javafx-web', version:'14'
+    implementation group: 'org.json', name: 'json', version:'20190722'
+    implementation 'com.vladsch.flexmark:flexmark-all:0.62.2'
+    implementation group: 'net.lingala.zip4j', name: 'zip4j', version: '2.6.4'
+    implementation group: 'org.mnode.ical4j', name: 'ical4j', version: '3.0.21'
 
-    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
-    compile group: 'org.apache.jackrabbit', name: 'jackrabbit-webdav', version: '2.21.5'
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+    implementation group: 'org.apache.jackrabbit', name: 'jackrabbit-webdav', version: '2.21.5'
 
 }
 
