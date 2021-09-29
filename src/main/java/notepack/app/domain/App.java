@@ -21,6 +21,7 @@ public class App {
     private Theme theme;
     private ClipboardManager clipboardManager;
     private ArrayList<Note> activeNotes = new ArrayList<>();
+    private ArrayList<Note> archiveNotes = new ArrayList<>();
     private ArrayList<Workspace> activeWorkspace = new ArrayList<>();
     private ArrayList<Todo> activeTodo = new ArrayList<>();
 
@@ -40,11 +41,16 @@ public class App {
             @Override
             public void onOpen(Note n) {
                 activeNotes.add(n);
+                int index = archiveNotes.indexOf(n);
+                if (index >= 0) {
+                    archiveNotes.remove(index);
+                }
             }
 
             @Override
             public void onClose(Note n) {
                 activeNotes.remove(n);
+                archiveNotes.add(n);
             }
 
             @Override
@@ -98,6 +104,12 @@ public class App {
 
     public void addTask(Task task) {
         messageBus.addTask(task);
+    }
+
+    public void reopenLastClosedNote() {
+        if (archiveNotes.size() > 0) {
+            messageBus.addTask(new NoteOpen(archiveNotes.get(archiveNotes.size() - 1)));
+        }
     }
 
     public void openNote(String path, Workspace workspace, String name) {
